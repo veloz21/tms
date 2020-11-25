@@ -18,7 +18,10 @@ import { routes } from './routes';
     TravelsModule,
     WorkshopModule,
     RouterModule.forRoutes(routes),
-    MongooseModule.forRoot('mongodb://localhost/tms-nx'),
+    MongooseModule.forRoot(
+      'mongodb://localhost/tms-nx',
+      { useFindAndModify: false }
+    ),
     // MongooseModule.forFeatureAsync([
     //   {
     //     imports: [],

@@ -25,7 +25,7 @@ export class TiresService {
   }
 
   update(_id: string, updateTireDto: UpdateTireDto): Promise<TireDocument> {
-    return this.tireModel.findOneAndUpdate({ _id }, updateTireDto).exec();
+    return this.tireModel.findOneAndUpdate({ _id }, { $set: updateTireDto }, { new: true }).exec();
   }
 
   remove(_id: string): Promise<TireDocument> {

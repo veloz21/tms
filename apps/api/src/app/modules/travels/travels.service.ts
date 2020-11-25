@@ -25,7 +25,7 @@ export class TravelsService {
   }
 
   update(_id: string, updateTravelDto: UpdateTravelDto): Promise<TravelDocument> {
-    return this.travelModel.findOneAndUpdate({ _id }, updateTravelDto).exec();
+    return this.travelModel.findOneAndUpdate({ _id }, { $set: updateTravelDto }, { new: true }).exec();
   }
 
   remove(_id: string): Promise<TravelDocument> {

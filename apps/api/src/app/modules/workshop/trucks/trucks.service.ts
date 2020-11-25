@@ -20,15 +20,15 @@ export class TrucksService {
     return this.truckModel.find().exec();
   }
 
-  findOne(id: string): Promise<Truck> {
-    return this.truckModel.findOne({ id }).exec();
+  findOne(_id: string): Promise<Truck> {
+    return this.truckModel.findOne({ _id }).exec();
   }
 
-  update(id: string, updateTruckDto: UpdateTruckDto): Promise<Truck> {
-    return this.truckModel.findOneAndUpdate({ id }, updateTruckDto).exec();
+  update(_id: string, updateTruckDto: UpdateTruckDto): Promise<Truck> {
+    return this.truckModel.findOneAndUpdate({ _id }, { $set: updateTruckDto }, { new: true }).exec();
   }
 
-  remove(id: string): Promise<Truck> {
-    return this.truckModel.findOneAndRemove({ id }).exec();
+  remove(_id: string): Promise<Truck> {
+    return this.truckModel.findOneAndRemove({ _id }).exec();
   }
 }

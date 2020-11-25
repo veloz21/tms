@@ -25,6 +25,16 @@ export class CompanyController {
     }
   }
 
+  @Get('validate/:company')
+  async validate(@Param('company') company) {
+    try {
+      await this.companyService.findOneByName(company);
+      return;
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {

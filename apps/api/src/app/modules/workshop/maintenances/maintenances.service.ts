@@ -25,7 +25,7 @@ export class MaintenancesService {
   }
 
   update(_id: string, updateMaintenanceDto: UpdateMaintenanceDto): Promise<MaintenanceDocument> {
-    return this.maintenanceModel.findOneAndUpdate({ _id }, updateMaintenanceDto).exec();
+    return this.maintenanceModel.findOneAndUpdate({ _id }, { $set: updateMaintenanceDto }, { new: true }).exec();
   }
 
   remove(_id: string): Promise<MaintenanceDocument> {

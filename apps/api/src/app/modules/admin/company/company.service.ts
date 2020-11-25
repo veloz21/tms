@@ -24,8 +24,12 @@ export class CompanyService {
     return this.companyModel.findOne({ _id }).exec();
   }
 
+  findOneByName(companyName: string): Promise<CompanyDocument> {
+    return this.companyModel.findOne({ name: companyName }).exec();
+  }
+
   update(_id: string, updateCompanyDto: UpdateCompanyDto): Promise<CompanyDocument> {
-    return this.companyModel.findOneAndUpdate({ _id }, updateCompanyDto).exec();
+    return this.companyModel.findOneAndUpdate({ _id }, { $set: updateCompanyDto }, { new: true }).exec();
   }
 
   partialUpdate(_id: string, partialUser: Partial<CompanyDocument>): Promise<CompanyDocument> {

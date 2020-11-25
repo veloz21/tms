@@ -29,7 +29,7 @@ export class UsersService {
   }
 
   update(_id: string, updateUserDto: UpdateUserDto): Promise<UserDocument> {
-    return this.userModel.findOneAndUpdate({ _id }, updateUserDto).exec();
+    return this.userModel.findOneAndUpdate({ _id }, { $set: updateUserDto }, { new: true }).exec();
   }
 
   partialUpdate(_id: string, partialUser: Partial<UserDocument>): Promise<UserDocument> {

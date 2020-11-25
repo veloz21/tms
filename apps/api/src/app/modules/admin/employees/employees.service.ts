@@ -26,7 +26,7 @@ export class EmployeesService {
   }
 
   update(_id: string, updateEmployeeDto: UpdateEmployeeDto): Promise<EmployeeDocument> {
-    return this.employeeModel.findOneAndUpdate({ _id }, updateEmployeeDto).exec();
+    return this.employeeModel.findOneAndUpdate({ _id }, { $set: updateEmployeeDto }, { new: true }).exec();
   }
 
   remove(_id: string): Promise<EmployeeDocument> {
