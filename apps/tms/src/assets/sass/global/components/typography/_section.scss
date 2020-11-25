@@ -1,0 +1,108 @@
+//
+// Section
+//
+
+
+
+.b404-section {
+    padding: 0;
+    margin: 0 0 2rem 0;
+
+    &.b404-section--space-sm {
+        margin-bottom: 1rem;
+    }
+
+    &.b404-section--space-md {
+        margin-bottom: 2rem;
+    }
+
+    &.b404-section--space-lg {
+        margin-bottom: 2.5rem;
+    }
+
+    &.b404-section--space-xl {
+        margin-bottom: 3rem;
+    }
+
+    .b404-section__heading,
+    .b404-section__title {
+        display: block;
+        font-size: 1.3rem;
+        font-weight: 500;
+        padding: 0;
+        margin: 0 0 1.75rem 0;
+        color: b404-base-color(label, 4);
+
+        &.b404-section__title-sm {
+            font-size: 1.1rem;
+        }
+
+        &.b404-section__title-md {
+            font-size: 1.4rem;
+        }
+
+        &.b404-section__title-lg {
+            font-size: 1.5rem;
+        }
+    }
+
+    .b404-section__desc {
+        display: block;
+        font-size: 1rem;
+        font-weight: 400;
+        padding: 0;
+        margin: 0 0 1rem 0;
+        color: b404-base-color(label, 3);
+    }
+
+    .b404-section__info {
+        display: block;
+        font-size: 1rem;
+        padding: 0;
+        margin: 0 0 1rem 0;
+        color: b404-base-color(label, 3);
+    }
+
+    .b404-section__content {
+        display: block;
+        padding: 0;
+        margin: 0;
+
+        &.b404-section__content--border {
+            padding: 1.5rem;
+            border: 3px solid b404-base-color(grey, 2);
+
+            @include b404-rounded {
+                border-radius: $b404-border-radius;
+            }
+        }
+        
+        &.b404-section__content--solid {
+            padding: 1.5rem;
+            border-left: 4px solid b404-base-color(grey, 3);
+            background-color: b404-base-color(grey, 1);
+
+            @include b404-rounded {
+                border-radius-top-left: $b404-border-radius;
+                border-radius-top-right: $b404-border-radius;
+            }
+        }
+
+        &.b404-section__content--x-fit {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        &.b404-section__content--fit {
+            padding: 0;
+        }
+    }
+
+    &.b404-section--last {
+        margin-bottom: 0;
+    }
+
+    &.b404-section--first {
+        margin-top: 0;
+    }
+}

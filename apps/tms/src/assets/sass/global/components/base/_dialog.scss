@@ -1,0 +1,59 @@
+//
+// Loading
+//
+
+
+
+
+// Base
+.b404-dialog {
+    $width: 130px;
+    width: $width;
+    margin: 0 auto;
+    position: fixed;
+    z-index: 1100;   
+    justify-content: center;
+    padding:  1rem;    
+    box-shadow: 0px 3px 12px 0px rgba(0,0,0,0.1);
+    background-color: #fff;
+
+    @include b404-rounded {
+        border-radius: $b404-border-radius;
+    }
+
+    // Placement 
+    &.b404-dialog--top-center {
+        display: flex;
+        top: -100px;
+        left: 50%;
+        margin-left: -($width / 2);
+        transition: top 0.6s ease;
+
+        @include b404-rounded {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        &.b404-dialog--shown {
+            top: 0px;
+            transition: top 0.6s ease;
+        }
+    }
+
+    // Types
+    &.b404-dialog--loader {
+        font-size: 1rem;
+        padding: 0.75rem;
+        font-weight: 400;
+        color: b404-base-color(label, 3);
+
+        // States
+	    @each $name, $color in $b404-state-colors {
+            &.b404-dialog--#{$name} {
+                background-color: rgba(b404-get($color, base), 0.1);
+                color: b404-get($color, base);    
+                box-shadow: 0px 0px 20px 0px rgba(b404-get($color, base), 0.3);
+            }
+        }
+    }
+}

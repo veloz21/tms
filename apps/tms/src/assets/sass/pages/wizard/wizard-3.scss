@@ -1,0 +1,326 @@
+//
+// Wizard v3
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+// Variables
+$b404-wizard-v3-step-label: #959cb6;
+$b404-wizard-v3-step-icon: #dee1eb;
+$b404-wizard-v3-step-highlight: b404-brand-color();
+$b404-wizard-v3-step-border: #eeeef4;
+$b404-wizard-v3-form-bg: #f9fafc;
+$b404-wizard-v3-form-inner-bg: #ffffff;
+
+// General mode
+.b404-wizard-v3 {
+	flex-direction: column;
+	// Nav
+	.b404-wizard-v3__nav {
+		border-bottom: 1px solid $b404-wizard-v3-step-border;
+
+		.b404-wizard-v3__nav-items{
+			display: flex;
+			align-items: flex-end;
+			padding: 0 4rem;
+
+			.b404-wizard-v3__nav-item{
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				flex: 0 0 20%;
+
+				.b404-wizard-v3__nav-body{
+					flex: 1;
+					display: flex;
+					flex-direction: column;
+					color: $b404-wizard-v3-step-label;
+					padding: 2rem 0.5rem;
+
+					.b404-wizard-v3__nav-label{
+						font-size: 1.1rem;
+						font-weight: 600;
+						margin-bottom: 0.5rem;
+
+						span{
+							font-size: 2rem;
+							margin-right: 0.5rem;
+						}
+					}
+
+					.b404-wizard-v3__nav-bar{
+						height: 4px;
+						width: 100%;
+						background-color: $b404-wizard-v3-step-icon;
+						position: relative;
+
+						&:after{
+							content: ' ';
+							position: absolute;
+							top:0;
+							left:0;
+							height: 4px;
+							width: 0;
+							background-color: transparent;
+							transition: $b404-transition;
+						}
+					}
+				}
+
+				&[data-ktwizard-state="current"] {
+
+					&:after{
+						color: $b404-wizard-v3-step-highlight;
+					}
+
+					.b404-wizard-v3__nav-body{
+						color: $b404-wizard-v3-step-highlight;
+
+						.b404-wizard-v3__nav-bar{
+
+							&:after{
+								width: 100%;
+								background-color: $b404-wizard-v3-step-highlight;
+							}
+						}
+					}
+				}
+			}
+
+			cursor: pointer;
+
+			@include b404-mobile{
+				flex-direction: column;
+				align-items: flex-start;
+				padding: 2rem 0;
+
+				.b404-wizard-v3__nav-item{
+					flex: 0 0 100%;
+					position: relative;
+					width: 100%;
+
+					&:after{
+						position: absolute;
+						right: 2rem;
+					}
+
+					&:last-child{
+
+						&:after{
+							content: "\f105";
+							font-family: "Font Awesome 5 Free";
+						    font-weight: 900;
+						    font-size: 2rem;
+						    color: $b404-wizard-v3-step-icon;
+						}
+					}
+
+					.b404-wizard-v3__nav-body{
+						justify-content: flex-start;
+						flex: 0 0 100%;
+						padding: 0.5rem 2rem;
+					}
+				}
+			}
+		}
+
+		&.b404-wizard-v3__nav-items--clickable {
+			.b404-wizard-v3__nav-item {
+				cursor: pointer;
+			}
+		}
+	}
+
+	.b404-wizard-v3__wrapper{
+		display: flex;
+		justify-content: center;
+		background-color: $b404-wizard-v3-form-bg;
+
+		.b404-form {
+			width: 60%;
+			padding: 4rem 0 5rem;
+
+			.b404-wizard-v3__content{
+				padding-bottom: 2rem;
+				margin-bottom: 2rem;
+				border-bottom: 1px solid $b404-wizard-v3-step-border;
+
+				.b404-wizard-v3__form{
+					margin-top: 3rem;
+				}
+
+				.b404-wizard-v3__review{
+
+					.b404-wizard-v3__review-item{
+						padding-bottom: 1rem;
+						margin-bottom: 1rem;
+						border-bottom: 1px solid $b404-wizard-v3-step-border;
+
+						.b404-wizard-v3__review-title{
+							font-weight: 600;
+							font-size: 1.1rem;
+							margin-bottom: 0.7rem;
+						}
+
+						.b404-wizard-v3__review-content{
+							line-height: 1.8rem;
+						}
+
+						&:last-child{
+							border-bottom: none;
+							margin-bottom: 0;
+							padding-bottom: 0;
+						}
+					}
+				}
+			}
+
+			.b404-form__actions{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+
+				@include b404-mobile-sm{
+					flex-wrap: wrap;
+					justify-content: center;
+				}
+
+				.btn{
+					@include b404-mobile-sm{
+						margin: 0 0.5rem 1rem;
+					}
+				}
+
+				[data-ktwizard-type="action-prev"]{
+					margin-right:auto;
+
+					@include b404-mobile-sm{
+						margin-right:0.5rem;
+					}
+				}
+
+				[data-ktwizard-type="action-next"]{
+					margin: auto 0 auto auto;
+
+					@include b404-mobile-sm{
+						margin: 0 0 1rem;
+					}
+				}
+			}
+		}
+
+		@include b404-mobile{
+			padding: 2rem;
+
+			.b404-form{
+				width: 100%;
+				padding: 2rem 1rem 4rem;
+			}
+		}
+	}
+
+	&.b404-wizard-v3--white{
+		.b404-wizard-v3__wrapper{
+			background-color: $b404-wizard-v3-form-inner-bg;
+		}
+	}
+
+	// Step
+	[data-ktwizard-type="step"] {
+		&[data-ktwizard-state="current"] {
+
+		}
+
+		&[data-ktwizard-state="done"] {
+
+		}
+
+		&[data-ktwizard-state="pending"] {
+
+		}
+	}
+
+	// Step info
+	[data-ktwizard-type="step-info"] {
+		display: none;
+
+		&[data-ktwizard-state="current"] {
+			display: block;
+		}
+	}
+
+	// Content states
+	[data-ktwizard-type="step-content"] {
+		display: none;
+
+		&[data-ktwizard-state="current"] {
+			display: block;
+		}
+	}
+
+
+ 	// Action buttons states
+	& {
+		[data-ktwizard-type="action-prev"]{
+			display: none;
+		}
+
+		[data-ktwizard-type="action-next"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-submit"]{
+			display: none;
+		}
+	}
+
+	&[data-ktwizard-state="first"] {
+		[data-ktwizard-type="action-prev"]{
+			display: none;
+		}
+
+		[data-ktwizard-type="action-next"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-submit"]{
+			display: none;
+		}
+	}
+
+	&[data-ktwizard-state="between"] {
+		[data-ktwizard-type="action-prev"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-next"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-submit"]{
+			display: none;
+		}
+	}
+
+	&[data-ktwizard-state="last"] {
+		[data-ktwizard-type="action-prev"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-next"]{
+			display: none;
+		}
+
+		[data-ktwizard-type="action-submit"]{
+			display: inline-block;
+		}
+	}
+}

@@ -1,0 +1,126 @@
+//
+// App(general layout for apps)
+//
+
+
+
+// Config
+$b404-app-config: (
+	aside: (
+		offcanvas: (
+			layout: (
+				self: (
+					zindex: 1001,
+					width: 300px
+				),
+				close: (
+					size: 25px,
+					font-size: 1.4rem
+				)
+			),
+			skin: (
+				overlay: (
+					bg-color: rgba(#000000, 0.05)
+                ),
+                close: (
+                    bg-color: (
+                        default: b404-base-color(grey, 1),
+                        hover: transparent
+                    ),
+                    icon-color: (
+                        default: b404-base-color(label, 2),
+                        hover: b404-brand-color()
+                    )
+                )
+			)
+		)
+    )
+);
+
+// General Mode
+.b404-app {
+    // Aside
+    .b404-app__aside {
+        // Default size
+        @include b404-app-aside-width(350px);
+
+        // Small size
+        &.b404-app__aside--sm {
+            @include b404-app-aside-width(250px);
+        }
+
+        // Large size
+        &.b404-app__aside--lg {
+            @include b404-app-aside-width(450px);
+        }
+
+        // Extra large size
+        &.b404-app__aside--xl {
+            @include b404-app-aside-width(600px);
+        }
+    }
+
+    // Content
+    .b404-app__content {
+        margin-left: $grid-gutter-width;
+    }
+
+    // Detail
+    .b404-app__detail {
+        margin-left: $grid-gutter-width;
+
+		// Default size
+        @include b404-app-detail-width(550px);
+
+        // Small size
+        &.b404-app__detail--sm {
+            @include b404-app-detail-width(400px);
+        }
+
+        // Large size
+        &.b404-app__detail--lg {
+            @include b404-app-detail-width(700px);
+        }
+
+        // Extra large size
+        &.b404-app__detail--xl {
+            @include b404-app-detail-width(850px);
+        }
+    }
+}
+
+// Tablet & Mobile Mode.
+.b404-app {
+     // Media range 1024px and below(see: $b404-media-breakpoints in sass/theme/_config.scss and sass/themes/core/_mixins.scss)
+     @include b404-tablet-and-mobile {
+        .b404-app__aside {
+            padding: 35px 15px 15px 15px;
+            background-color: #ffffff;
+
+            .b404-portlet {
+                box-shadow: 0px 0px 30px 0px rgba(82,63,105, 0.1);
+            }
+
+            &.b404-app__aside--fit {
+                padding: 20px 0 0 0;
+
+                .b404-portlet {
+                    box-shadow:none;
+                }
+            }
+        }
+
+        // Content
+        .b404-app__content {
+            margin-left: 0;
+        }
+
+        // Detail
+        .b404-app__detail {
+            margin-left:0;
+        }
+    }
+}
+
+// App aside  offcanvas
+@include b404-offcanvas-build(b404-app__aside, tablet-and-mobile, b404-get($b404-app-config, aside, offcanvas) );

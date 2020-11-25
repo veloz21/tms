@@ -1,0 +1,105 @@
+//
+// Header Menu
+//
+
+
+
+
+// Desktop Mode
+@include b404-menu-hor-build-layout(b404-get($b404-header-config, menu, desktop));
+
+// Tablet & Mobile Mode
+@include b404-menu-ver-build-layout(b404-get($b404-header-config, menu, tablet-and-mobile));
+//@include b404-menu-ver-build-skin(b404-get($b404-header-config, menu, tablet-and-mobile), default);
+
+// Header Menu Mobile Offcanvas
+@include b404-offcanvas-build(b404-header-menu-wrapper, tablet-and-mobile, b404-get($b404-header-config, menu, offcanvas-mobile));
+
+@include b404-desktop {
+	.b404-header-menu-wrapper {
+		body:not(.b404-aside--enabled) & {
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+
+			.b404-header-logo {
+				padding: 0 b404-get($b404-page-padding, desktop);
+				display: flex;
+				align-items: center;
+				margin-right: 25px;
+			}
+		}
+	}
+
+	.b404-header-menu {
+		.b404-menu__nav {
+			> .b404-menu__item {
+				&:first-child {
+					padding-left: 0;
+				}
+
+				> .b404-menu__submenu {
+					border-top-left-radius: 0;
+					border-top-right-radius: 0;
+				}
+			}
+		}
+
+		// Layouts
+		&.b404-header-menu--layout-default {
+			.b404-menu__nav {
+				> .b404-menu__item {
+					> .b404-menu__link {
+						padding: 0.65rem 1.1rem;
+
+						@include b404-not-rounded {
+							border-radius: 0 !important;
+						}
+					}
+				}
+			}
+		}
+
+		&.b404-header-menu--layout-tab {
+			.b404-menu__nav {
+				> .b404-menu__item {
+					margin: 0 1rem;
+					align-items: stretch;
+
+					> .b404-menu__link {
+						align-items: stretch;
+						background-color: transparent !important;
+						padding: 0 !important;
+						border-bottom: 1px solid transparent;
+						margin-bottom: -1px;
+
+						@include b404-rounded {
+							border-radius: 0 !important;
+						}
+					}
+
+					&:first-child {
+						margin-left: 0 !important;
+					}
+
+					&.b404-menu__item--here,
+					&.b404-menu__item--active {
+						> .b404-menu__link {
+							background-color: transparent !important;
+							border-bottom: 1px solid b404-brand-color() !important;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@include b404-tablet-and-mobile {
+	.b404-header-menu-wrapper {
+
+		.b404-header-logo {
+			display: none;
+		}
+	}
+}

@@ -1,0 +1,98 @@
+//
+// Widget2
+//
+
+
+
+
+.b404-widget2 {
+    .b404-widget2__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;        
+        margin-bottom: 1.4rem;
+        position: relative;               
+
+        // state bar
+        &:before {
+            position: absolute;
+            display: block;
+            width: 0.3rem;
+            border-radius: 4px;                
+            width: 4px;
+            border-radius: 4px;
+            height: 100%;
+            left: 0.8rem;
+            content: "";                                                   
+        }  
+            
+        // checkbox
+        .b404-widget2__checkbox {
+            padding: 1rem 0 0 2.2rem;                              
+        }
+
+        // description text
+        .b404-widget2__info {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0.23rem 0 0 0.3rem;                 
+
+            .b404-widget2__title {
+                font-weight: 500;
+                margin: 0;
+                color: b404-base-color(label, 3);
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: b404-brand-color();
+                    transition: color 0.3s ease;
+                }
+            }
+
+            .b404-widget2__username {
+                text-decoration: none;                    
+                font-size: 0.9rem;
+                color: b404-base-color(label, 2);
+                transition: color 0.3s ease;
+
+                &:hover {
+                    text-decoration: none;
+                    color: b404-brand-color();
+                    transition: color 0.3s ease;
+                }                    
+            }
+        }
+
+        // actions
+        .b404-widget2__actions {
+            flex-grow: 1; 
+            text-align: right;
+            padding: 0 0.5rem 0 0.8rem;      
+
+            a {
+                text-decoration: none;
+            }
+
+            i {
+                font-size: 2.1rem;
+            }
+        }
+
+        // b404-widget2__action hover
+        &:hover {
+            .b404-widget2__actions {
+                //opacity: 1; 
+            }
+        }
+
+        @each $name, $color in $b404-state-colors {
+            &.b404-widget2__item--#{$name} {
+                &:before {
+                    background: b404-get($color, base);
+                }
+            }
+        }   
+    }                            
+} 
+
+

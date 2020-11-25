@@ -1,0 +1,29 @@
+//
+// Header Menu Dark Skin
+//
+
+
+
+// Include global config
+@import "../../../../../config";
+
+// Include layout config
+@import "../../../config";
+
+// Include header config
+@import "../../config";
+
+// Build Desktop Header Menu Skin
+@include b404-menu-hor-build-skin(b404-get($b404-header-config, menu, desktop), dark);
+
+// Build Mobile Header Menu Skin
+@include b404-menu-ver-build-skin(b404-get($b404-header-config, menu, tablet-and-mobile), dark);
+
+@include b404-tablet-and-mobile {
+	.b404-header-menu-wrapper {
+        background-color: b404-get($b404-layout-skins, dark);
+
+    	// Scrollbar
+    	@include b404-perfect-scrollbar-skin(#637099);
+	}
+}

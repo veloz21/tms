@@ -1,0 +1,204 @@
+//
+// Notes
+//
+
+
+
+.b404-notes {
+    .b404-notes__items {
+        margin: 0;
+        padding: 0;
+
+        .b404-notes__item {
+            left: 8px;
+            border-left: 2px solid b404-base-color(grey, 2);
+            padding:0 0 50px 45px;
+            position:relative; 
+            margin: 0 5px 0 17px;
+
+            .b404-notes__media {
+                position: absolute;
+                top: 0;
+                left: -25.5px;
+
+                img {
+                    max-width: 50px;
+                    max-height: 50px;
+
+                    @include b404-rounded {
+                        border-radius: 50%;
+                    }
+                }
+
+                .b404-notes__icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 50px;
+                    height: 50px;
+                    background-color: #fff;
+                    border: 2px solid b404-base-color(grey, 2);
+
+                    @include b404-rounded {
+                        border-radius: 50%;
+                    }
+
+                    i {
+                        color:  b404-base-color(label, 2);
+                        font-size: 1.8rem;
+                    }
+
+                }
+
+                .b404-notes__user {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 50px;
+                    height: 50px;
+                    font-size: 1.2rem;
+                    background-color: #fff;
+                    border: 2px solid b404-base-color(grey, 2);
+                    color:  b404-base-color(label, 2);
+
+                    @include b404-rounded {
+                        border-radius: 50%;
+                    }
+                }
+
+                .b404-notes__circle {
+                    width: 25px;
+                    height: 25px;
+                    display: block;
+                    border: 2px solid b404-base-color(grey, 2);
+                    margin-left: 12px;
+                    background-color: #fff;
+
+                    @include b404-rounded {
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+            .b404-notes__content {
+                background-color: #F7F8FC;
+                padding: 0.5rem 1rem 1rem 1.5rem;
+
+                .b404-notes__section {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .b404-notes__info {
+                        display: flex;
+                        flex-flow: wrap;
+                        align-items: baseline;
+
+                        .b404-notes__title {
+                            font-size: 1.1rem;
+                            color: b404-base-color(label, 3);
+                            font-weight: 500;
+                            padding-right: 0.5rem;
+
+                            &:hover {
+                                color: b404-brand-color();
+                                transition: color 0.3s ease;
+                            }
+                        }
+
+                        .b404-notes__desc {
+                            color: b404-base-color(label, 2);
+                            font-weight: 400;
+                            padding-right: 1rem;
+                        }
+                    }
+
+                    .b404-notes__dropdown {
+                        .btn-icon {
+                            width: 26px;
+                            height: 26px;
+                        }
+                    }
+                }
+
+                .b404-notes__body {
+                    color: b404-base-color(label, 2);
+                    font-weight: 400;
+                    padding-right: 3rem;
+                    padding-top: 0.5rem;
+                    display: block;
+                }
+
+                @include b404-rounded {
+					border-radius: $b404-border-radius;
+				}
+
+                &:after {
+					position: absolute;
+					content: '';
+					width: 0;
+					height: 0;
+					top: 10px;
+					right: 100%;
+					margin-right: -3.5rem;
+					border-right: solid 10px #F7F8FC;
+					border-bottom: solid 17px transparent;
+					border-left: solid 17px transparent;
+					border-top: solid 17px transparent;
+				}
+            }
+
+            &:last-child{
+                border-left:0;
+            }
+
+            &.b404-notes__item--clean {
+                .b404-notes__content {
+                    background-color: #fff;
+                    padding: 0;
+
+                    .b404-notes__info {
+                        //margin-top: -0.5rem;
+                    }
+
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .b404-notes__item:last-child {
+            .b404-notes__media {
+                .b404-notes__circle {
+                    margin-left: 14px;
+                }
+            }
+        }
+    }
+}
+
+
+@include b404-tablet-and-mobile {
+    .b404-notes {
+        .b404-notes__items {
+            .b404-notes__item {
+                margin: 0 7px 0 17px;
+
+                .b404-notes__content {
+                    padding: 0.5rem 1rem 0.7rem 1rem;
+
+                    .b404-notes__desc {
+                        padding-top: 0.5rem;
+                        display: block;
+                    }
+
+
+                    &:after {
+                        margin-right: -3.8rem;
+                    }
+                }
+            }
+        }
+    }
+}

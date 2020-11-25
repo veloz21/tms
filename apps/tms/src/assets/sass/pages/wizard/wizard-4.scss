@@ -1,0 +1,309 @@
+//
+// Wizard v3
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+// Variables
+$b404-wizard-v4-step-label: #959cb6;
+$b404-wizard-v4-step-icon: #dee1eb;
+$b404-wizard-v4-step-highlight: b404-brand-color();
+$b404-wizard-v4-step-bg: #f7f8fb;
+$b404-wizard-v4-step-bg-highlight: #ffffff;
+$b404-wizard-v4-step-border: #eeeef4;
+$b404-wizard-v4-form-bg: #f9fafc;
+
+// General mode
+.b404-wizard-v4 {
+	flex-direction: column;
+	// Nav
+	.b404-wizard-v4__nav {
+
+		.b404-wizard-v4__nav-items{
+			display: flex;
+			align-items: flex-end;
+			justify-content: space-between;
+			flex-wrap: wrap;
+
+			.b404-wizard-v4__nav-item{
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				flex: 0 0 calc(25% - 0.25rem);
+				width: calc(25% - 0.25rem);
+				background-color: $b404-wizard-v4-step-bg;
+				border-top-left-radius: 0.5rem;
+				border-top-right-radius: 0.5rem;
+
+				@include b404-minimal-desktop-and-below{
+					flex: 0 0 calc(50% - 0.25rem);
+					width: calc(50% - 0.25rem);
+					border-bottom-left-radius: 0.5rem;
+					border-bottom-right-radius: 0.5rem;
+					margin-bottom: 0.5rem;
+				}
+
+				.b404-wizard-v4__nav-body{
+					flex: 1;
+					display: flex;
+					align-items: center;
+					flex-wrap: wrap;
+					color: $b404-wizard-v4-step-label;
+					padding: 2rem 2.5rem;
+
+					.b404-wizard-v4__nav-number{
+						font-size: 1.3rem;
+						font-weight: 600;
+						flex: 0 0 2.75rem;
+						height: 2.75rem;
+						width: 2.75rem;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						background-color: rgba($b404-wizard-v4-step-highlight, 0.08);
+						color: $b404-wizard-v4-step-highlight;
+						margin-right: 1rem;
+						border-radius: 0.5rem;
+					}
+
+					.b404-wizard-v4__nav-label{
+						display: flex;
+						flex-direction: column;
+
+						.b404-wizard-v4__nav-label-title{
+							font-size: 1.1rem;
+							font-weight: 600;
+						}
+					}
+				}
+
+				&[data-ktwizard-state="current"] {
+					background-color: $b404-wizard-v4-step-bg-highlight;
+
+					.b404-wizard-v4__nav-body{
+
+						.b404-wizard-v4__nav-number{
+							color: $b404-wizard-v4-step-bg-highlight;
+							background-color: $b404-wizard-v4-step-highlight;
+						}
+
+						.b404-wizard-v4__nav-label{
+
+							.b404-wizard-v4__nav-label-title{
+								color: $b404-wizard-v4-step-highlight;
+							}
+						}
+					}
+				}
+			}
+
+			&.b404-wizard-v4__nav-items--clickable {
+				.b404-wizard-v4__nav-item {
+					cursor: pointer;
+				}
+			}
+
+			@include b404-mobile{
+				flex-direction: column;
+				align-items: flex-start;
+
+				.b404-wizard-v4__nav-item{
+					flex: 0 0 100%;
+					position: relative;
+					width: 100%;
+
+					.b404-wizard-v4__nav-body{
+						justify-content: flex-start;
+						flex: 0 0 100%;
+						padding: 0.5rem 2rem;
+					}
+				}
+			}
+		}
+	}
+
+	.b404-wizard-v4__wrapper{
+		display: flex;
+		justify-content: center;
+
+		.b404-form {
+			width: 60%;
+			padding: 4rem 0 5rem;
+
+			.b404-wizard-v4__content{
+				padding-bottom: 2rem;
+				margin-bottom: 2rem;
+				border-bottom: 1px solid $b404-wizard-v4-step-border;
+
+				.b404-wizard-v4__form{
+					margin-top: 3rem;
+				}
+
+				.b404-wizard-v4__review{
+
+					.b404-wizard-v4__review-item{
+						padding-bottom: 1rem;
+						margin-bottom: 1rem;
+						border-bottom: 1px solid $b404-wizard-v4-step-border;
+
+						.b404-wizard-v4__review-title{
+							font-weight: 600;
+							font-size: 1.1rem;
+							margin-bottom: 0.7rem;
+						}
+
+						.b404-wizard-v4__review-content{
+							line-height: 1.8rem;
+						}
+
+						&:last-child{
+							border-bottom: none;
+							margin-bottom: 0;
+							padding-bottom: 0;
+						}
+					}
+				}
+			}
+
+			.b404-form__actions{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+
+				@include b404-mobile-sm{
+					flex-wrap: wrap;
+					justify-content: center;
+				}
+
+				.btn{
+					@include b404-mobile-sm{
+						margin: 0 0.5rem 1rem;
+					}
+				}
+
+				[data-ktwizard-type="action-prev"]{
+					margin-right:auto;
+
+					@include b404-mobile-sm{
+						margin-right:0.5rem;
+					}
+				}
+
+				[data-ktwizard-type="action-next"]{
+					margin: auto 0 auto auto;
+
+					@include b404-mobile-sm{
+						margin: 0 0 1rem;
+					}
+				}
+			}
+		}
+
+		@include b404-mobile{
+			padding: 2rem;
+
+			.b404-form{
+				width: 100%;
+				padding: 2rem 1rem 4rem;
+			}
+		}
+	}
+
+	// Step
+	[data-ktwizard-type="step"] {
+		&[data-ktwizard-state="current"] {
+
+		}
+
+		&[data-ktwizard-state="done"] {
+
+		}
+
+		&[data-ktwizard-state="pending"] {
+
+		}
+	}
+
+	// Step info
+	[data-ktwizard-type="step-info"] {
+		display: none;
+
+		&[data-ktwizard-state="current"] {
+			display: block;
+		}
+	}
+
+	// Content states
+	[data-ktwizard-type="step-content"] {
+		display: none;
+
+		&[data-ktwizard-state="current"] {
+			display: block;
+		}
+	}
+
+ 	// Action buttons states
+	& {
+		[data-ktwizard-type="action-prev"]{
+			display: none;
+		}
+
+		[data-ktwizard-type="action-next"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-submit"]{
+			display: none;
+		}
+	}
+
+	&[data-ktwizard-state="first"] {
+		[data-ktwizard-type="action-prev"]{
+			display: none;
+		}
+
+		[data-ktwizard-type="action-next"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-submit"]{
+			display: none;
+		}
+	}
+
+	&[data-ktwizard-state="between"] {
+		[data-ktwizard-type="action-prev"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-next"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-submit"]{
+			display: none;
+		}
+	}
+
+	&[data-ktwizard-state="last"] {
+		[data-ktwizard-type="action-prev"]{
+			display: inline-block;
+		}
+
+		[data-ktwizard-type="action-next"]{
+			display: none;
+		}
+
+		[data-ktwizard-type="action-submit"]{
+			display: inline-block;
+		}
+	}
+}

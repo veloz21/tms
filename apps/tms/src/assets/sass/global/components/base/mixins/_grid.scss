@@ -1,0 +1,117 @@
+//
+// Grid Mixins
+//
+
+
+
+
+@mixin b404-grid-generate($mode) {
+	$mode-class: '';
+	$mode-dir: '';
+
+	// Grid mode
+	@if ($mode == general) {
+		$mode-class: ":not(.b404-grid--desktop):not(.b404-grid--desktop-and-tablet):not(.b404-grid--tablet):not(.b404-grid--tablet-and-mobile):not(.b404-grid--mobile)";
+	} @else {
+		$mode-class: ".b404-grid--" + $mode;
+		$mode-dir: "-" + $mode;
+	}
+
+	// Horizontal grid
+	.b404-grid.b404-grid--hor#{$mode-dir}#{$mode-class} {
+		display: flex;
+		flex-direction: column;
+
+		&.b404-grid--root {
+			flex: 1;
+			-ms-flex: 1 0 0px; // IE10-11 fix
+		}
+		
+		> .b404-grid__item {
+			flex: none;
+
+			&.b404-grid__item--fluid,
+			&.b404-grid__item--fluid#{$mode-dir} {
+				flex: 1 0 auto;
+				//-ms-flex: 1 0 0px;  // IE10-11 fix
+			}	
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .b404-grid__item.b404-grid__item--order-#{$i}#{$mode-dir} {
+				order: $i;
+			}
+		}
+	}
+
+	// Vertical grid
+	.b404-grid.b404-grid--ver#{$mode-dir}#{$mode-class} {
+		display: flex;
+		flex-direction: row;
+
+		&.b404-grid--root {
+			flex: 1;
+			-ms-flex: 1 0 0px;  // IE10-11 fix
+		}
+		 
+		> .b404-grid__item {
+			flex: 0 0 auto;
+
+			&.b404-grid__item--fluid,
+			&.b404-grid__item--fluid#{$mode-dir} {
+				flex: 1 auto; 
+				-ms-flex: 1 0 0px;  // IE10-11 fix
+				min-width: 0;
+
+				@include b404-hack-ie {
+					min-width: none;  // IE10-11 fix
+				}				
+			}			 
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .b404-grid__item.b404-grid__item--order-#{$i}#{$mode-dir} {
+				order: $i;
+			}
+		}
+	}	 
+
+	// Grid item order
+	.b404-grid {
+		// horizontal items aligment
+		&.b404-grid--center {
+			align-content: center;
+		}	
+
+		&.b404-grid--stretch {
+			align-items: stretch;
+		}	
+
+		// vertical item alignment
+		> .b404-grid__item {
+			max-width:100%;
+			
+			&.b404-grid__item--top {
+				align-self: flex-start;
+			}
+
+			&.b404-grid__item--middle {
+				align-self: center;
+			}
+		 
+
+			&.b404-grid__item--bottom {
+				align-self: flex-end;
+			}
+		}
+
+		// flex ordering
+		@for $i from 1 through 12 {
+			> .b404-grid__item.b404-grid__item--order-#{$i} {
+				order: $i;
+			}
+		}
+	}
+}

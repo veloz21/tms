@@ -1,0 +1,204 @@
+//
+// Burger Icon Mixins
+//
+
+
+
+
+@mixin b404-burger-icon-build($class, $config) {
+	$space: b404-get($config, thickness) + b404-get($config, space);
+
+	.#{$class} {
+		display: inline-block;
+	  	position: relative;
+	  	overflow: hidden;
+	  	margin: 0;
+	  	padding: 0;
+	  	font-size: 0;
+	  	text-indent: -9999px;
+	    appearance: none;
+	    box-shadow: none;
+	    border-radius: none; 
+	    border: none;
+	    cursor: pointer;
+	    background: none;
+	    outline: none !important;	    
+	  	width: b404-get($config, width);
+	  	height: b404-get($config, height);
+	    transition: all b404-get($config, transition-duration) ease;
+		
+		span {
+	  		display: block;
+	  		position: absolute;
+	  		top: (b404-get($config, height) / 2) - (b404-get($config, thickness)) + 1px;
+	  		height: b404-get($config, thickness);
+	  		min-height: b404-get($config, thickness);
+	  		width: 100%;
+	  		
+	  		@include b404-rounded {
+	  			border-radius: b404-get($config, radius);
+	  		}
+
+	  		transition: all b404-get($config, transition-duration) ease;
+
+	  		&::before,
+	  		&::after {
+	  			position: absolute;
+			  	display: block;
+			  	left: 0;
+			  	width: 100%;
+			  	height: b404-get($config, thickness);
+			  	min-height: b404-get($config, thickness);
+			  	content: "";
+
+			  	@include b404-rounded {
+			  		border-radius: b404-get($config, radius);
+			  	}
+
+			  	transition: all b404-get($config, transition-duration) ease;
+	  		}
+
+	  		&::before {
+	  			top: -($space);
+	  		}
+
+	  		&::after {
+	  			bottom: -($space);
+	  		}
+		}
+
+	    // left direction style
+	    &.#{$class}--left {
+	    	span {
+	    		&:before {
+	    			transition: all b404-get($config, transition-duration) ease;
+	    			left: auto;
+	    			right: 0px;
+	    			width: 50%;
+	    		}
+
+	    		&:after {
+	    			transition: all b404-get($config, transition-duration) ease;
+	    			left: auto;
+	    			right: 0px;
+	    			width: 75%;
+	    		}
+	    	}
+
+	    	// hover states
+	    	&:hover {
+	    		span {
+		    		&:after, 
+		    		&:before {
+		    			width: 100%;
+		    			transition: all b404-get($config, transition-duration) ease;
+		    		}
+		    	}
+	    	}
+
+	    	// active state
+		    &.#{$class}--active {
+		    	span {
+		    		&:before {
+		    			transition: all b404-get($config, transition-duration) ease;
+		    			left: 0px;
+		    			right: auto;
+		    			width: 50%;
+		    		}
+
+		    		&:after {
+		    			transition: all b404-get($config, transition-duration) ease;
+		    			left: 0px;
+		    			right: auto;
+		    			width: 75%;
+		    		}
+		    	}
+		    }
+	    }
+
+	    // right direction style
+	    &.#{$class}--right {
+	    	span {
+		    	&:before {
+		    		left: 0px;
+		    		right: auto;
+		    		width: 50%;
+		    		transition: width b404-get($config, transition-duration) ease;
+		    	}
+
+		    	&:after {
+		    		left: 0px;
+		    		right: auto;
+		    		width: 75%;
+		    		transition: width b404-get($config, transition-duration) ease;
+		    	}
+		    }
+
+	    	// hover states
+	    	&:hover {
+	    		span {
+		    		&:after, 
+		    		&:before {
+		    			width: 100%;
+		    			transition: width b404-get($config, transition-duration) ease;
+		    		}
+		    	}
+	    	}
+
+	    	// active state
+		    &.#{$class}--active {
+		    	span {
+		    		&:before {
+		    			left: auto;
+	    				right: 0px;
+		    			width: 50%;
+		    			transition: width b404-get($config, transition-duration) ease;
+		    		}
+
+		    		&:after {
+		    			left: auto;
+	    				right: 0px;
+		    			width: 75%;
+		    			transition: width b404-get($config, transition-duration) ease;
+		    		}
+		    	}
+		    }
+	    }
+	}
+}
+
+@mixin b404-burger-icon-skin($class, $config) {
+	.#{$class} {
+		span {
+	 		background: b404-get($config, default);
+
+	  		&::before,
+	  		&::after {
+			  	background: b404-get($config, default);
+	  		}
+		}
+
+	    //active & hover state 
+	    &:hover {	   
+	    	span { 	
+		    	background: b404-get($config, hover);
+
+		    	&::before,
+		  		&::after {
+		  			background: b404-get($config, hover);
+		  		}
+		  	}
+	    }
+
+	    &.#{$class}--active {
+	    	span { 	
+		    	background: b404-get($config, active);
+
+		    	&::before,
+		  		&::after {
+		  			background: b404-get($config, active);
+		  		}
+		  	}
+	    }
+	}
+}

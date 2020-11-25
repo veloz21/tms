@@ -1,0 +1,338 @@
+//
+// User Profile 3
+//
+
+
+
+.b404-widget {
+    &.b404-widget--user-profile-3 {
+        .b404-widget__top {
+            display: flex;
+            align-items: flex-start;
+
+            .b404-widget__media {
+                margin-top: 0.2rem;
+
+                img {
+                    width: 110px;
+
+                    @include b404-rounded {
+                        border-radius: 8px;
+                    }
+                }
+            }
+
+            .b404-widget__pic {
+                margin-top: 0.2rem;
+                width: 100%;
+                max-width: 110px;
+                height: 110px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+
+                @include b404-rounded {
+                    border-radius: 8px;
+                }
+
+                @each $name, $color in $b404-state-colors {
+                    &.b404-widget__pic--#{$name} {
+                        background: rgba(b404-get($color, base), 0.1);
+                    }
+                }
+            }
+
+            .b404-widget__content {
+                width: 100%;
+                padding-left: 1.7rem;
+
+                .b404-widget__head {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-wrap: wrap;
+
+                    .b404-widget__user {
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .b404-widget__username {
+                        font-size: 1.3rem;
+                        color: b404-base-color(label, 4);
+                        font-weight: 500;
+                        align-items: center;
+                        margin-right: 0.5rem;
+
+                        &:hover {
+                            color: b404-brand-color();
+                            transition: color 0.3s ease;
+                        }
+
+                        i {
+                            font-size: 1.2rem;
+                            color: #57c974;
+                            padding-left: 0.5rem;
+                        }
+                    }
+
+                    .b404-widget__title {
+                        font-size: 1.3rem;
+                        color: b404-base-color(label, 4);
+                        font-weight: 600;
+                        margin: 0.8rem 0 0.7rem 0;
+
+                        &:hover {
+                            color: b404-brand-color();
+                            transition: color 0.3s ease;
+                        }
+                    }
+
+                    .b404-widget__action {
+                        .btn {
+                            font-weight: 600;
+                            margin-left: 0.5rem;
+                        }
+                    }
+                }
+
+                .b404-widget__subhead {
+                    padding: 0.6rem 0 0.8rem 0;
+
+                    a {
+                        padding-right: 2rem;
+                        color: b404-base-color(label, 2);
+                        font-weight: 500;
+
+                        &:hover {
+                            color: b404-brand-color();
+                            transition: color 0.3s ease;
+                        }
+
+                        i {
+                            padding-right: 0.5rem;
+                        }
+                    }
+                }
+
+                .b404-widget__info {
+                    display: flex;
+                    flex-flow: row wrap;
+
+                    .b404-widget__desc {
+                        color: b404-base-color(label, 3);
+                        font-weight: 400;
+                        padding-right: 2rem;
+                        flex-grow: 1;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .b404-widget__progress {
+                        display: flex;
+                        align-items: center;
+                        max-width: 500px;
+                        width: 100%;
+                        margin: 0.1rem 0;
+
+
+                        .b404-widget__text {
+                            padding-right: 1rem;
+                            color: b404-base-color(label, 3);
+                            font-weight: 500;
+                        }
+
+                        .b404-widget__stats {
+                            padding-left: 1rem;
+                            color: b404-base-color(label, 4);
+                            font-weight: 600;
+                            font-size: 1.1rem;
+                        }
+                    }
+
+                    .b404-widget__stats {
+                        margin-bottom: 0.7rem;
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        .b404-widget__item {
+                            padding-top: 1rem;
+
+                            .b404-widget__date {
+                                color: b404-base-color(label, 3);
+                                font-weight: 500;
+                                padding-bottom: 1rem;
+                                display: block;
+                            }
+
+                            .b404-widget__subtitel {
+                                color: b404-base-color(label, 3);
+                                font-weight: 500;
+                                display: block;
+                            }
+
+                            .b404-widget__progress {
+                                width: 100%;
+                                margin: 1.4rem 0 0.5rem 0;
+
+                                .b404-widget__stat {
+                                    padding-left: 0.7rem;
+                                    color: b404-base-color(label, 4);
+                                    font-weight: 600;
+                                }
+                            }
+
+                            &:not(:first-child):not(:last-child) {
+                                margin: 0 2.2rem
+                            }
+
+                            &:last-child {
+                                padding-left: 1rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .b404-widget__bottom {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+            border-top: 1px solid b404-base-color(grey, 2);
+            margin-top: 2rem;
+
+            .b404-widget__item {
+                display: flex;
+                align-items: center;
+                flex-grow: 1;
+                padding: 2rem 1.5rem 0 0;
+
+                .b404-widget__icon {
+                    i {
+                        font-size: 2.7rem;
+                        color: b404-base-color(label, 1);
+                        font-weight: 400;
+                    }
+                }
+
+                .b404-widget__details {
+                    padding-left: 1rem;
+
+                    .b404-widget__title {
+                        display: block;
+                        color: b404-base-color(label, 3);
+                        font-weight: 600;
+                        font-size: 0.95rem;
+                    }
+
+                    .b404-widget__value {
+                        display: block;
+                        color: b404-base-color(label, 4);
+                        font-weight: 600;
+                        font-size: 1.2rem;
+
+                        span {
+                            color: b404-base-color(label, 3);
+                            font-weight: 400;
+                        }
+                    }
+
+                    a.b404-widget__value {
+                        font-size: 0.95rem;
+
+                        &:hover {
+                            color: b404-brand-color();
+                        }
+                    }
+
+                    .b404-section__content {
+                        padding-left: 0.7rem;
+                    }
+                }
+            }
+        }
+
+        .b404-widget__form {
+            margin-top: 1.5rem;
+        }
+    }
+}
+
+
+@include b404-mobile {
+    .b404-widget {
+        &.b404-widget--user-profile-3 {
+            padding-top: 0.5rem;
+
+            .b404-widget__top {
+                display: flex;
+                align-items: flex-start;
+                .b404-widget__media {
+                    margin-top: 0.5rem;
+
+                    img {
+                        max-width: 60px;
+                    }
+                }
+
+                .b404-widget__pic {
+                    width: 60px;
+                    height: 60px;
+                    margin-top: 0.5rem;
+                    font-size: 1.3rem;
+                }
+
+                .b404-widget__content {
+                    padding-left: 1rem;
+                    margin-top: 0;
+
+                    .b404-widget__head {
+
+                        .b404-widget__username {
+                            padding-bottom: 0.6rem;
+                        }
+                    }
+
+                    .b404-widget__subhead {
+                        padding: 1.2rem 0;
+
+                        a {
+                            &:not(:first-child):not(:last-child) {
+                                padding: 0.5rem 1rem 0.5rem 0;
+                            }
+                        }
+                    }
+
+                    .b404-widget__info {
+                        display: flex;
+                        flex-direction: column;
+
+                        .b404-widget__desc {
+                            padding-bottom: 1rem;
+                        }
+
+                        .b404-widget__progress {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .b404-widget__bottom {
+                padding-top: 1rem;
+
+                .b404-widget__item {
+                    padding: 1rem 1rem 0 0;
+
+                    .b404-widget__icon {
+                        i {
+                            font-size: 2.5rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,373 @@
+//
+// Uppy
+//
+
+
+
+
+// Base
+.b404-uppy {
+	.uppy-Root {
+		font-family: b404-get($b404-font-families, regular);
+
+		&.uppy-DragDrop--is-dragdrop-supported {
+			border: 2px dashed b404-base-color(grey, 2);
+		}
+	}
+
+	.uppy-Dashboard-inner {
+		background-color: b404-base-color(grey, 1);
+		border: 1px solid b404-base-color(grey, 2);
+
+		.uppy-DashboardContent-bar,
+		.uppy-Dashboard-AddFilesPanel,
+		.uppy-DashboardContent-panel,
+		.uppy-DashboardItem-progress,
+		.uppy-DashboardItem-action,
+		.uppy-DashboardItem-previewLink{
+			z-index: 1;
+		}
+
+		.uppy-DashboardContent-title {
+			color: b404-base-color(label, 2);
+			font-size: 1rem;
+			font-weight: 500;
+		}
+
+		.uppy-DashboardTabs {
+			.uppy-Dashboard-dropFilesTitle {
+				color: b404-base-color(label, 2);
+				font-size: 1.3rem;
+				font-weight: 500;
+			}
+
+			.uppy-DashboardTab-name{
+				color: b404-base-color(label, 2);
+			}
+		}
+
+		.uppy-DashboardItem.is-complete .progress{
+			stroke: b404-state-color(success, base);
+			fill: b404-state-color(success, base);
+		}
+
+		.uppy-StatusBar-statusSecondary {
+			overflow: visible;
+		}
+	}
+
+	.uppy-DashboardAddFiles-info {
+		bottom: 20px !important;
+	}
+
+	.uppy-Dashboard-note {
+		color: b404-base-color(label, 2);
+		font-size: 0.9rem;
+		font-weight: 400;
+	}
+
+	.uppy-c-btn-primary {
+		font-size: 1rem;
+		font-weight: 400;
+		background: b404-brand-color();
+		color: b404-brand-color(inverse);
+		outline: none !important;
+
+		&:focus,
+		&:hover {
+			background-color: darken(b404-brand-color(), 6%);
+		}
+	}
+
+	.uppy-DashboardContent-back {
+		font-size: 1rem;
+		font-weight: 500;
+		color: b404-brand-color();
+		outline: none !important;
+		&:focus,
+		&:hover {
+			color: darken(b404-brand-color(), 6%);
+		}
+	}
+
+	.uppy-Dashboard-browse {
+		color: b404-state-color(brand, base);
+
+		&:focus,
+		&:hover {
+			color: darken(b404-brand-color(), 6%);
+		}
+	}
+
+	.uppy-DashboardContent-addMore {
+		svg {
+			stroke: b404-state-color(brand, base);
+			fill: b404-state-color(brand, base);
+		}
+	}
+
+	.uppy-ProgressBar{
+		z-index: 1;
+		.uppy-ProgressBar-inner {
+			background-color: b404-brand-color();
+			box-shadow: none;
+		}
+
+		.uppy-ProgressBar-percentage {
+			color: b404-base-color(label, 2);
+			font-size: 0.9rem;
+			font-weight: 400;
+		}
+	}
+
+	.uppy-DragDrop-label {
+		font-size: 1rem;
+		font-weight: 500;
+		color: b404-base-color(label, 2);
+
+		.uppy-DragDrop-dragText {
+			color: b404-state-color(brand, base);
+			&:focus,
+			&:hover {
+				color: darken(b404-brand-color(), 6%);
+			}
+		}
+	}
+
+	.uppy-StatusBar{
+		z-index: 1;
+
+		.uppy-StatusBar-status{
+			overflow-x: visible;
+			display: none;
+		}
+
+		.uppy-StatusBar-progress{
+			background-color: b404-state-color(brand, base);
+		}
+
+		.uppy-StatusBar-content {
+			.uppy-StatusBar-statusPrimary {
+				font-size: 0.9rem;
+				font-weight: 400;
+				color: b404-base-color(label, 2);
+			}
+
+			.uppy-StatusBar-spinner {
+				svg {
+					fill: b404-state-color(brand, base);
+				}
+			}
+		}
+
+		.uppy-StatusBar-actions {
+			.uppy-StatusBar-actionCircleBtn {
+				.UppyIcon {
+					circle {
+						transition: all 0.3s ease;
+						fill: b404-base-color(grey, 2);
+					}
+
+					path {
+						transition: all 0.3s ease;
+						fill: b404-base-color(label, 2);
+					}
+
+					&:hover {
+						circle {
+							transition: all 0.3s ease;
+							fill: b404-brand-color();
+						}
+
+						path {
+							transition: all 0.3s ease;
+							fill: b404-brand-color(inverse);
+						}
+					}
+				}
+			}
+		}
+
+		&.is-complete{
+			.uppy-StatusBar-progress{
+				background-color: b404-state-color(success, base);
+			}
+		}
+
+		&.uppy-Root {
+			.uppy-StatusBar-content {
+				padding-left: 0 !important;
+			}
+
+			.uppy-StatusBar-actions {
+				right: 0 !important;
+			}
+		}
+	}
+
+	.uppy.uppy-Informer {
+		p {
+			background-color: rgba(b404-state-color(danger, base), 0.1);
+			color: b404-state-color(danger, base);
+			border-radius: 0;
+
+			@include b404-rounded {
+				border-radius: $b404-border-radius;
+			}
+		}
+	}
+
+	.b404-uppy__progress{
+		position: relative;
+		display:flex;
+		align-items: center;
+	}
+
+	.b404-uppy__status{
+		@include transition;
+
+		&.b404-uppy__status--ongoing{
+			height: 40px;
+			opacity: 1;
+		}
+
+		&.b404-uppy__status--hidden{
+			display: none;
+		}
+	}
+
+	.b404-uppy__btn{
+		margin-top: 10px;
+	}
+
+	.b404-uppy__thumbnails{
+		display: flex;
+		position: relative;
+		width: 100%;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		.b404-uppy__thumbnail-container{
+			width: calc(50% - 5px);
+			margin: 10px 5px 0;
+			position: relative;
+			display: flex;
+			align-items: center;
+			height: 50px;
+			background-color: b404-base-color(grey, 1);
+			border-radius: $b404-border-radius;
+			overflow: hidden;
+
+			.b404-uppy__thumbnail{
+				width: 60px;
+				height: 50px;
+				overflow: hidden;
+				display: flex;
+				justify-content: center;
+
+				img{
+					height: 100%;
+					width: auto;
+				}
+			}
+
+			.b404-uppy__thumbnail-label{
+				font-weight: 400;
+				color: b404-base-color(label, 2);
+				margin-left: 10px;
+				padding-right: 10px;
+			}
+
+			.b404-uppy__remove-thumbnail{
+				margin: auto 10px auto auto;
+				cursor: pointer;
+			}
+
+			&:nth-child(odd){
+				margin-left: 0;
+			}
+
+			&:nth-child(even){
+				margin-right: 0;
+			}
+
+			@include b404-minimal-desktop-and-below{
+				width: 100%;
+				margin: 10px 0 0;
+			}
+		}
+	}
+
+	.b404-uppy__list{
+		.b404-uppy__list-item{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0.5rem 1rem;
+			background-color: b404-base-color(grey, 1);
+			margin-top: 0.75rem;
+			border-radius: $b404-border-radius;
+
+			&:last-child {
+				margin-bottom: 0.75rem;
+			}
+
+			.b404-uppy__list-label{
+				font-weight: 500;
+				color: b404-base-color(label, 2);
+			}
+
+			.b404-uppy__list-remove{
+				cursor: pointer;
+				margin-left: 1rem;
+
+				i {
+					transition: color 0.3s ease;
+					font-size: 0.7rem;
+					color: b404-base-color(label, 1);
+				}
+
+				&:hover {
+					i {
+						transition: color 0.3s ease;
+						color: b404-brand-color();
+					}
+				}
+			}
+		}
+	}
+
+	.b404-uppy__wrapper {
+		.uppy-FileInput-container {
+			margin-bottom: 0rem;
+		}
+	}
+
+	.b404-uppy__input-control {
+		position: relative;
+		z-index: 1;
+		height: 0;
+		width: 0;
+		opacity: 0;
+	}
+
+	.b404-uppy__informer--min {
+		.uppy-Informer {
+			position: static !important;
+			top: auto;
+			bottom: auto;
+
+			&[aria-hidden="true"] {
+				display: none;
+			}
+
+			transform: none;
+			z-index: 0;
+
+			p {
+				display: block;
+				max-width: none;
+			}
+		}
+	}
+}

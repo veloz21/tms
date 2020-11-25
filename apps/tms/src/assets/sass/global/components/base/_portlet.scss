@@ -1,0 +1,984 @@
+//
+// Portlet
+//
+
+
+
+
+.b404-portlet {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	box-shadow: $b404-elevate-shadow;
+	background-color: b404-get($b404-portlet, bg-color);
+	margin-bottom: b404-get($b404-portlet, bottom-space, desktop);
+
+	// Global white content mode
+	.b404-page-content-white & {
+		box-shadow: $b404-elevate-shadow-2;
+	}
+
+	@include b404-rounded {
+		border-radius: $b404-border-radius;
+	}
+
+	// Base
+	.b404-portlet__head {
+		display: flex;
+		align-items: stretch;
+		justify-content: space-between;
+		position:relative;
+		padding: 0 b404-get($b404-portlet, space, desktop);
+		border-bottom: 1px solid b404-get($b404-portlet, border-color);
+		min-height: b404-get($b404-portlet, min-height, default, desktop);
+
+		&.b404-portlet__head--right {
+			justify-content: flex-end;
+		}
+
+		&.b404-portlet__head--noborder {
+			border-bottom: 0;
+		}
+
+		@include b404-rounded {
+			border-top-left-radius: $b404-border-radius;
+			border-top-right-radius: $b404-border-radius;
+		}
+
+		.b404-portlet__head-label {
+			display: flex;
+			align-items: center;
+			align-content: flex-first;
+
+			.b404-portlet__head-title {
+				margin: 0;
+				padding: 0;
+				font-size: 1.2rem;
+				font-weight: 500;
+				color: b404-base-color(label, 4);
+
+				small {
+					font-weight: 300;
+					padding-left: 0.5rem;
+					font-size: 1rem;
+					color: b404-base-color(label, 2);
+				}
+			}
+
+			.b404-portlet__head-icon {
+				padding-right: 0.75rem;
+				font-size: 1.3rem;
+				color:b404-base-color(label, 2);
+			}
+		}
+
+		.b404-portlet__head-toolbar {
+			display: flex;
+			align-items: center;
+			align-content: flex-end;
+
+			.nav-pills,
+			.nav-tabs {
+				margin: 0;
+			}
+
+			.b404-portlet__head-wrapper {
+				display: flex;
+				align-items: center;
+			}
+		}
+
+		.b404-portlet__head-progress {
+			position: absolute;
+			left: 0;
+			right: 0;
+		}
+	}
+
+	// Head sizing
+	&.b404-portlet--head-sm {
+		.b404-portlet__head {
+			min-height: b404-get($b404-portlet, min-height, sm, desktop);
+		}
+	}
+
+	&.b404-portlet--head-lg {
+		.b404-portlet__head {
+			min-height: b404-get($b404-portlet, min-height, lg, desktop);
+		}
+	}
+
+	&.b404-portlet--head-xl {
+		.b404-portlet__head {
+			min-height: b404-get($b404-portlet, min-height, xl, desktop);
+		}
+	}
+
+	// Sticky portlet
+	&.b404-portlet--sticky {
+		> .b404-portlet__head {
+			height: b404-get($b404-portlet, min-height, default, desktop) - 10px;
+			min-height: b404-get($b404-portlet, min-height, default, desktop) - 10px;
+
+			&.b404-portlet__head--sm {
+				height: b404-get($b404-portlet, min-height, sm, desktop) - 10px;
+				min-height: b404-get($b404-portlet, min-height, sm, desktop) - 10px;
+			}
+
+			&.b404-portlet__head--lg {
+				height: b404-get($b404-portlet, min-height, lg, desktop) - 10px;
+				min-height: b404-get($b404-portlet, min-height, lg, desktop) - 10px;
+			}
+
+			&.b404-portlet__head--xl {
+				height: b404-get($b404-portlet, min-height, xl, desktop) - 10px;
+				min-height: b404-get($b404-portlet, min-height, xl, desktop) - 10px;
+			}
+		}
+	}
+
+	// Head overlay
+	&.b404-portlet--head-overlay {
+		.b404-portlet__head {
+			position: relative;
+			z-index: 1;
+			border: 0;
+			height: b404-get($b404-portlet, min-height, default, desktop);
+		}
+
+		.b404-portlet__body {
+			margin-top: -(b404-get($b404-portlet, min-height, default, desktop));
+		}
+
+		// Head sizing
+		&.b404-portlet--head-sm {
+			.b404-portlet__head {
+				height: b404-get($b404-portlet, min-height, sm, desktop);
+			}
+
+			.b404-portlet__body {
+				margin-top: -(b404-get($b404-portlet, min-height, sm, desktop));
+			}
+		}
+
+		&.b404-portlet--head-lg {
+			.b404-portlet__head {
+				height: b404-get($b404-portlet, min-height, lg, desktop);
+			}
+
+			.b404-portlet__body {
+				margin-top: -(b404-get($b404-portlet, min-height, lg, desktop));
+			}
+		}
+
+		&.b404-portlet--head-xl {
+			.b404-portlet__head {
+				height: b404-get($b404-portlet, min-height, xl, desktop);
+			}
+
+			.b404-portlet__body {
+				margin-top: -(b404-get($b404-portlet, min-height,xl, desktop));
+			}
+		}
+	}
+
+	.b404-portlet__body {
+		display: flex;
+		flex-direction: column;
+		padding: b404-get($b404-portlet, space, desktop);
+
+		@include b404-rounded {
+			border-radius: $b404-border-radius;
+		}
+
+		.b404-portlet__content {
+			padding: 0;
+			margin: 0;
+		}
+
+		// KTDatatable integration
+		> .b404-datatable {
+			> .b404-datatable__table {
+				@include b404-rounded {
+					border-radius: $b404-border-radius;
+				}
+			}
+		}
+	}
+
+	.b404-portlet__foot {
+		padding: b404-get($b404-portlet, space, desktop);
+		border-top: 1px solid b404-get($b404-portlet, border-color);
+
+		.b404-portlet__foot-wrapper {
+			display:flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		@include b404-rounded {
+			border-bottom-left-radius: $b404-border-radius;
+			border-bottom-right-radius: $b404-border-radius;
+		}
+
+		&.b404-portlet__foot--sm {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
+		&.b404-portlet__foot--md {
+			padding-top: 1rem;
+			padding-bottom: 1rem;
+		}
+
+		&.b404-portlet__foot--no-border {
+			border-top: 0;
+		}
+
+		&.b404-portlet__foot--top {
+			border-top: 0;
+			border-bottom: 1px solid b404-get($b404-portlet, border-color);
+		}
+
+		&.b404-portlet__foot--solid {
+			background-color: b404-base-color(grey, 1);
+			border-top: 0;
+
+			&.b404-portlet__foot--top {
+				 border-bottom: 0;
+			}
+		}
+	}
+
+	.b404-portlet__separator {
+		height: 0;
+		border-top: 1px solid b404-get($b404-portlet, border-color);
+	}
+
+	// Unelivate
+	&.b404-portlet--bordered {
+		box-shadow: none;
+		border: 1px solid b404-get($b404-portlet, border-color);
+	}
+
+	// Unelivate
+	&.b404-portlet--unelevate {
+		box-shadow: none
+	}
+
+	// Unround
+	&.b404-portlet--unround {
+		.b404-portlet__head {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+
+		.b404-portlet__body {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		.b404-portlet__foot {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+
+	// Marginless
+	&.b404-portlet--last {
+		margin-bottom: 0;
+	}
+
+	// Portlet body alignment
+	.b404-portlet__body {
+		&.b404-portlet__body--center {
+			justify-content: center;
+			align-items: center;
+		}
+
+		&.b404-portlet__body--center-x {
+			justify-content: center;
+		}
+
+		&.b404-portlet__body--center-y {
+			align-items: center;
+		}
+
+		.b404-portlet__body--hor-fit {
+			margin-left: -(b404-get($b404-portlet, space, desktop));
+			margin-right: -(b404-get($b404-portlet, space, desktop));
+		}
+
+		&.b404-portlet__body--stick-bottom {
+			position: relative;
+			bottom: 0;
+		}
+
+		&.b404-portlet__body--fluid {
+			height: 100%;
+			flex-direction: row;
+			flex-grow: 1;
+			width: 100%;
+		}
+
+		// Full height
+		&.b404-portlet__body--fill {
+			flex-grow: 1 !important;
+		}
+
+		// Non full height
+		&.b404-portlet__body--unfill {
+			flex-grow: 0 !important;
+		}
+
+		&.b404-portlet__body--fullheight {
+			flex-grow: auto;
+		}
+	}
+
+	// Padding options
+	&.b404-portlet--fit {
+		.b404-portlet__head {
+			padding: 0;
+		}
+
+		.b404-portlet__body {
+			padding: 0;
+		}
+
+		.b404-portlet__foot {
+			padding: 0;
+		}
+
+		&.b404-portlet--height-fluid-half {
+		   align-items: stretch;
+
+		   .b404-portlet__body {
+				height: 100%;
+				flex-direction: column;
+				align-items: stretch;
+			}
+		}
+	}
+
+	// Contain inner elements
+	&.b404-portlet--contain {
+		overflow: hidden;
+	}
+
+	&.b404-portlet--space {
+		padding-left: b404-get($b404-portlet, space, desktop);
+		padding-right: b404-get($b404-portlet, space, desktop);
+
+		.b404-portlet__head,
+		.b404-portlet__body,
+		.b404-portlet__foot {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+	// Options
+	// No border
+	&.b404-portlet--head-noborder {
+		.b404-portlet__head {
+			border-bottom: 0;
+		}
+
+		.b404-portlet__body {
+			padding-top: b404-get($b404-portlet, space, desktop) / 2;
+		}
+	}
+
+	// Tab style
+	&.b404-portlet--tabs {
+		.b404-portlet__head {
+			.b404-portlet__head-toolbar {
+				display: flex;
+				align-items: stretch;
+			}
+		}
+	}
+
+	// Tab 3x border style
+	&.b404-portlet--tabs-border-3x {
+		.b404-portlet__head {
+			border-bottom: 3px solid b404-base-color(grey, 1);
+
+			.nav.nav-tabs {
+				margin-bottom: -3px;
+			}
+		}
+	}
+
+	@each $name, $color in $b404-state-colors {
+		// Solid style
+		&.b404-portlet--solid-#{$name} {
+			background: b404-get($color, base);
+
+			.b404-portlet__head {
+				color: b404-get($color, inverse);
+				border-bottom: 1px solid transparent;
+
+				.b404-portlet__head-title {
+					color: b404-get($color, inverse);
+
+					small {
+						color: darken(b404-get($color, inverse), 6%);
+					}
+				}
+
+				.b404-portlet__head-icon {
+					i {
+						color: darken(b404-get($color, inverse), 6%);
+					}
+				}
+			}
+
+			.b404-portlet__body {
+				padding-top: 5px;
+			}
+
+			.b404-portlet__wrapper,
+			.b404-portlet__body {
+				color: b404-get($color, inverse);
+			}
+
+			.b404-portlet__foot {
+				color: b404-get($color, inverse);
+				border-top: 1px solid transparent;
+				background: darken(b404-get($color, base), 6%);
+			}
+		}
+
+		// Tab 3x border states
+		&.b404-portlet--tabs-border-3x-#{$name} {
+			.b404-portlet__head {
+				border-bottom: 3px solid rgba(b404-get($color, base), 0.1);
+			}
+		}
+
+		// Bottom Border
+		&.b404-portlet--border-bottom-#{$name} {
+			border-bottom: 3px solid rgba(b404-get($color, base), 0.2);
+		}
+	}
+
+	// Sortable mode
+	// jQuery UI Draggable Portlets
+	&.b404-portlet--sortable {
+		.b404-portlet__head {
+			cursor: move;
+		}
+	}
+
+	&.b404-portlet--sortable-empty {
+		visibility: hidden;
+		height: 45px;
+		min-height: 125px;
+	}
+
+	&.ui-sortable-helper {
+		border: 1px dashed b404-base-color(grey, 2);
+	}
+
+	// Sticky portlet head
+	.b404-portlet__head  {
+		transition: left 0.3s, right 0.3s, height 0.3s
+	}
+
+	&.b404-portlet--sticky {
+		> .b404-portlet__head  {
+			transition: left 0.3s, right 0.3s, height 0.3s;
+			position: fixed;
+			box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.1);
+			z-index: 101;
+			background: #fff;
+		}
+	}
+
+	// Dark skin
+	&.b404-portlet--skin-solid {
+		// Head
+		.b404-portlet__head {
+			.b404-portlet__head-label {
+				.b404-portlet__head-title {
+					color: #fff;
+
+					small {
+						color: rgba(#fff, 0.8);
+					}
+				}
+
+				.b404-portlet__head-icon {
+					color: rgba(#fff, 0.8);
+				}
+			}
+
+			&:not(.b404-portlet__head--noborder) {
+				border-bottom: 1px solid rgba(#fff, 0.2);
+			}
+		}
+
+		// Body
+		.b404-portlet__body {
+			color: #fff;
+		}
+	}
+
+	// Spacing
+	.b404-portlet__space-x {
+		padding-left: b404-get($b404-portlet, space, desktop) !important;
+		padding-right: b404-get($b404-portlet, space, desktop) !important;
+	}
+
+	.b404-portlet__space-y {
+		padding-top: b404-get($b404-portlet, space, desktop) !important;
+		padding-bottom: b404-get($b404-portlet, space, desktop) !important;
+	}
+
+	// Collapsed Mode
+	&.b404-portlet--collapsed {
+		> .b404-form,
+		> .b404-portlet__body {
+			display: none;
+		}
+	}
+
+	&.b404-portlet--collapsed,
+	&.b404-portlet--collapse {
+		.b404-portlet__head  {
+			.b404-portlet__head-toolbar {
+				.la-angle-down {
+					&:before {
+						content: "\f113";
+					}
+				}
+
+				.la-plus {
+					&:before {
+						content: "\f28e";
+					}
+				}
+			}
+		}
+	}
+
+    .b404-portlet__head.b404-portlet__head--fit {
+    	padding: 0;
+    }
+
+    .b404-portlet__body.b404-portlet__body--fit {
+    	padding: 0;
+    }
+
+    .b404-portlet__body.b404-portlet__body--fit-top {
+    	padding-top: 0 !important;
+    }
+
+    .b404-portlet__body.b404-portlet__body--fit-bottom {
+    	padding-bottom: 0 !important;
+    }
+
+    .b404-portlet__body.b404-portlet__body--fit-x,
+    .b404-portlet__body.b404-portlet__body--hor-fit {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .b404-portlet__body.b404-portlet__body--fit-y {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .b404-portlet__foot.b404-portlet__foot--fit {
+    	padding: 0;
+    }
+
+    &.b404-portlet--space {
+        padding-left: b404-get($b404-portlet, space, desktop);
+        padding-right: b404-get($b404-portlet, space, desktop);
+
+        .b404-portlet__head,
+        .b404-portlet__body,
+        .b404-portlet__foot {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    // Options
+    // No border
+    &.b404-portlet--head-noborder {
+        .b404-portlet__head {
+            border-bottom: 0;
+        }
+
+        .b404-portlet__body {
+            padding-top: b404-get($b404-portlet, space, desktop) / 2;
+        }
+    }
+
+    // Tab style
+    &.b404-portlet--tabs {
+        .b404-portlet__head {
+            .b404-portlet__head-toolbar {
+                display: flex;
+                align-items: stretch;
+            }
+        }
+    }
+
+    // Tab 3x border style
+    &.b404-portlet--tabs-border-3x {
+        .b404-portlet__head {
+            border-bottom: 3px solid b404-base-color(grey, 1);
+
+            .nav.nav-tabs {
+                margin-bottom: -3px;
+            }
+        }
+    }
+
+    @each $name, $color in $b404-state-colors {
+        // Solid style
+        &.b404-portlet--solid-#{$name} {
+            background: b404-get($color, base);
+
+            .b404-portlet__head {
+                color: b404-get($color, inverse);
+                border-bottom: 1px solid transparent;
+
+                .b404-portlet__head-title {
+                    color: b404-get($color, inverse);
+
+                    small {
+                        color: darken(b404-get($color, inverse), 6%);
+                    }
+                }
+
+                .b404-portlet__head-icon {
+                    i {
+                        color: darken(b404-get($color, inverse), 6%);
+                    }
+                }
+            }
+
+            .b404-portlet__body {
+                padding-top: 5px;
+            }
+
+            .b404-portlet__wrapper,
+            .b404-portlet__body {
+                color: b404-get($color, inverse);
+            }
+
+            .b404-portlet__foot {
+                color: b404-get($color, inverse);
+                border-top: 1px solid transparent;
+                background: darken(b404-get($color, base), 6%);
+            }
+        }
+
+        // Tab 3x border states
+        &.b404-portlet--tabs-border-3x-#{$name} {
+            .b404-portlet__head {
+                border-bottom: 3px solid rgba(b404-get($color, base), 0.1);
+            }
+        }
+
+        // Bottom Border
+        &.b404-portlet--border-bottom-#{$name} {
+            border-bottom: 3px solid rgba(b404-get($color, base), 0.2);
+        }
+    }
+
+    // Sortable mode
+    // jQuery UI Draggable Portlets
+    &.b404-portlet--sortable {
+        .b404-portlet__head {
+            cursor: move;
+        }
+    }
+
+    &.b404-portlet--sortable-empty {
+        visibility: hidden;
+        height: 45px;
+        min-height: 125px;
+    }
+
+    &.ui-sortable-helper {
+        border: 1px dashed b404-base-color(grey, 2);
+    }
+
+    // Sticky portlet head
+    .b404-portlet__head  {
+        transition: height 0.3s;
+        //transition: left 0.3s, right 0.3s, height 0.3s;
+    }
+
+    &.b404-portlet--sticky {
+        > .b404-portlet__head  {
+            transition: height 0.3s;
+            //transition: left 0.3s, right 0.3s, height 0.3s;
+            position: fixed;
+            box-shadow: 0px 1px 15px 1px rgba(69, 65, 78, 0.1);
+            z-index: 101;
+            background: #fff;
+        }
+    }
+
+    // Dark skin
+    &.b404-portlet--skin-solid {
+        // Head
+        .b404-portlet__head {
+            .b404-portlet__head-label {
+                .b404-portlet__head-title {
+                    color: #fff;
+
+                    small {
+                        color: rgba(#fff, 0.8);
+                    }
+                }
+
+                .b404-portlet__head-icon {
+                    color: rgba(#fff, 0.8);
+                }
+            }
+
+            &:not(.b404-portlet__head--noborder) {
+                border-bottom: 1px solid rgba(#fff, 0.2);
+            }
+        }
+
+        // Body
+        .b404-portlet__body {
+            color: #fff;
+        }
+    }
+
+    // Spacing
+    .b404-portlet__space-x {
+        padding-left: b404-get($b404-portlet, space, desktop) !important;
+        padding-right: b404-get($b404-portlet, space, desktop) !important;
+    }
+
+    .b404-portlet__space-y {
+        padding-top: b404-get($b404-portlet, space, desktop) !important;
+        padding-bottom: b404-get($b404-portlet, space, desktop) !important;
+    }
+
+    // Collapsed Mode
+    &.b404-portlet--collapsed {
+        > .b404-form,
+        > .b404-portlet__body {
+            display: none;
+        }
+    }
+
+    &.b404-portlet--collapsed,
+    &.b404-portlet--collapse {
+        .b404-portlet__head  {
+            .b404-portlet__head-toolbar {
+                .la-angle-down {
+                    &:before {
+                        content: "\f113";
+                    }
+                }
+
+                .la-plus {
+                    &:before {
+                        content: "\f28e";
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Portlet tools tooltip
+.tooltip-portlet {
+	opacity: 1;
+}
+
+@include b404-desktop {
+	.b404-portlet {
+		// Fluid Height
+		&.b404-portlet--height-fluid {
+		   	height: calc(100% - #{b404-get($b404-portlet, bottom-space, desktop)});
+
+			.b404-portlet__body {
+				flex-grow: 1;
+			}
+		}
+
+		// Full height portlet mode
+	   	&.b404-portlet--height-fluid-half {
+	   		height: calc(50% - #{b404-get($b404-portlet, bottom-space, desktop)});
+
+			.b404-portlet__body {
+				flex-grow: 1;
+			}
+		}
+	}
+}
+
+@include b404-tablet-and-mobile {
+	.b404-portlet {
+		margin-bottom: b404-get($b404-portlet, bottom-space, mobile);
+
+		// Head sizing
+		.b404-portlet__head {
+			padding: 0 b404-get($b404-portlet, space, mobile);
+			min-height: b404-get($b404-portlet, min-height, default, mobile);
+
+			&.b404-portlet__head--sm {
+				min-height: b404-get($b404-portlet, min-height, sm, mobile);
+			}
+
+			&.b404-portlet__head--lg {
+				min-height: b404-get($b404-portlet, min-height, lg, mobile);
+			}
+
+			&.b404-portlet__head--xl {
+				min-height: b404-get($b404-portlet, min-height, xl, mobile);
+			}
+		}
+
+		&.b404-portlet--head-sm {
+			.b404-portlet__head {
+				min-height: b404-get($b404-portlet, min-height, sm, mobile);
+			}
+		}
+
+		&.b404-portlet--head-lg {
+			.b404-portlet__head {
+				min-height: b404-get($b404-portlet, min-height, lg, mobile);
+			}
+		}
+
+		&.b404-portlet--head-xl {
+			.b404-portlet__head {
+				min-height: b404-get($b404-portlet, min-height,  xl, mobile);
+			}
+		}
+
+		// Portlet body alignment
+		.b404-portlet__body {
+			padding: b404-get($b404-portlet, space, mobile);
+
+			.b404-portlet__body--hor-fit {
+				margin-left: -(b404-get($b404-portlet, space, mobile));
+				margin-right: -(b404-get($b404-portlet, space, mobile));
+			}
+		}
+
+		.b404-portlet__foot {
+			padding: b404-get($b404-portlet, space, mobile);
+		}
+
+		// Marginless
+		&.b404-portlet--marginless {
+			margin-bottom: 0;
+		}
+
+		// Sticky portlet
+		&.b404-portlet--sticky {
+			> .b404-portlet__head {
+				height: b404-get($b404-portlet, min-height, default, mobile) - 10px;
+
+				&.b404-portlet__head--sm {
+					height: b404-get($b404-portlet, min-height, sm, mobile) - 10px;
+				}
+
+				&.b404-portlet__head--lg {
+					height: b404-get($b404-portlet, min-height, lg, mobile) - 10px;
+				}
+
+				&.b404-portlet__head--xl {
+					height: b404-get($b404-portlet, min-height, xl, mobile) - 10px;
+				}
+			}
+		}
+
+		// Head overlay
+		&.b404-portlet--head-overlay {
+			.b404-portlet__head {
+				height: b404-get($b404-portlet, min-height, default, mobile);
+			}
+
+			.b404-portlet__body {
+				margin-top: -(b404-get($b404-portlet, min-height, default, mobile));
+			}
+
+			// Head sizing
+			&.b404-portlet--head-sm {
+				.b404-portlet__head {
+					height: b404-get($b404-portlet, min-height, sm, mobile);
+				}
+
+				.b404-portlet__body {
+					margin-top: -(b404-get($b404-portlet, min-height, sm, mobile));
+				}
+			}
+
+			&.b404-portlet--head-lg {
+				.b404-portlet__head {
+					height: b404-get($b404-portlet, min-height, lg, mobile);
+				}
+
+				.b404-portlet__body {
+					margin-top: -(b404-get($b404-portlet, min-height, lg, mobile));
+				}
+			}
+
+			&.b404-portlet--head-xl {
+				.b404-portlet__head {
+					height: b404-get($b404-portlet, min-height, xl, mobile);
+				}
+
+				.b404-portlet__body {
+					margin-top: -(b404-get($b404-portlet, min-height,xl, mobile));
+				}
+			}
+		}
+
+		// No border
+		&.b404-portlet--head--noborder {
+			.b404-portlet__body {
+				padding-top: b404-get($b404-portlet, space, mobile) / 2;
+			}
+		}
+
+		// Spacing
+		.b404-portlet__space-x {
+			padding-left: b404-get($b404-portlet, space, mobile) !important;
+			padding-right: b404-get($b404-portlet, space, mobile) !important;
+		}
+
+		.b404-portlet__space-y {
+			padding-top: b404-get($b404-portlet, space, mobile) !important;
+			padding-bottom: b404-get($b404-portlet, space, mobile) !important;
+		}
+	}
+}
+
+@include b404-mobile {
+	.b404-portlet {
+		&.b404-portlet--head-break-sm {
+			.b404-portlet__head {
+				padding-top: b404-get($b404-portlet, space, mobile);
+				padding-bottom: b404-get($b404-portlet, space, mobile);
+				min-height: initial !important;
+				height: auto;
+				flex-wrap: wrap;
+
+				.b404-portlet__head-label {
+					margin-bottom: 1rem;
+				}
+			}
+		}
+	}
+}

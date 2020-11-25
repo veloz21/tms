@@ -1,0 +1,29 @@
+<div class="b404-portlet">
+	<div class="b404-portlet__head b404-portlet__head__custom">
+		<div class="b404-portlet__head-progress">
+			<!-- here can place a progress bar-->
+			<mat-progress-bar mode="indeterminate" *ngIf="viewLoading"></mat-progress-bar>
+		</div>
+		<div class="b404-portlet__head-label">
+			<h3 class="b404-portlet__head-title">{{data.title}}</h3>
+			<span class="b404-portlet__head-icon b404-hide">
+				<i class="la la-gear"></i>
+			</span>
+		</div>
+	</div>
+	<div class="b404-form">
+		<div class="b404-portlet__body">
+			<div class="form-group b404-form__group row">
+				<div class="col-lg-12">
+					{{viewLoading ? data.waitDesciption : data.description}}
+				</div>
+			</div>
+		</div>
+		<div class="b404-portlet__foot b404-portlet__no-border b404-portlet__foot--fit text-right">
+			<div class="b404-form__actions b404-form__actions--sm">
+				<button mat-button (click)="onNoClick()">Cancel</button>&nbsp;
+				<button mat-button (click)="onYesClick()" color="primary" cdkFocusInitial [disabled]="viewLoading">Delete</button>
+			</div>
+		</div>
+	</div>
+</div>

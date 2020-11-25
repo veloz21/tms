@@ -1,0 +1,47 @@
+//
+// Content
+//
+
+
+
+@include b404-desktop {
+	// Content
+	.b404-content {
+		padding: b404-get($b404-page-padding, desktop) 0;
+
+		// Content fit
+		&.b404-content--fit-top {
+			padding-top: 0;
+		}
+
+		&.b404-content--fit-bottom {
+			padding-bottom: 0;
+		}
+
+		// Footer fixed
+		.b404-footer--fixed & {
+			padding-bottom: b404-get($b404-footer-config, self, fixed, height);
+		}
+	}
+}
+
+@include b404-tablet-and-mobile {
+	// Content
+	.b404-content {
+		padding: b404-get($b404-page-padding, mobile) 0;
+
+		// Content fit
+		&.b404-content--fit-top {
+			padding-top: 0;
+		}
+
+		&.b404-content--fit-bottom {
+			padding-bottom: 0;
+		}
+
+		// Subheader enabled
+		.b404-subheader--enabled.b404-subheader--transparent & {
+			padding-top: 0;
+		}
+	}
+}

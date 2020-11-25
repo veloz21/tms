@@ -1,0 +1,134 @@
+//
+// Widget30
+//
+
+
+
+
+.b404-widget30 {
+    margin: 1.5rem 0;
+
+    .b404-widget30__head {
+        padding: 0;
+        max-width: 100%;
+        margin: 0 auto 2rem auto;  
+
+        .owl-carousel {                
+            .carousel {
+                cursor: pointer;                       
+                text-align: center; 
+                padding: 1rem 0;
+                margin: 1rem 1rem;
+                box-shadow: 0px 2px 14px 2px rgba(#000, 0.04); 
+                
+                @include b404-rounded {
+                    border-radius: $b404-border-radius;
+                }                     
+
+                > span {
+                    display: block;
+
+                    &:first-child {
+                        font-size: 1.1rem;
+                        font-weight: 500; 
+                        color: b404-base-color(label, 3);
+                    } 
+
+                    &:last-child {       
+                        font-size: 0.9rem;                                                
+                        font-weight: 400;
+                        color: b404-base-color(label, 2);
+                    } 
+                }                                      
+            }
+
+            .center > div {
+                cursor: auto;  
+                background-color: b404-brand-color();
+                box-shadow: 0px 2px 14px 2px rgba(b404-brand-color(), 0.2);
+
+                > span {
+                    &:first-child {
+                        color: b404-brand-color(inverse);
+                    } 
+
+                    &:last-child {
+                        color: rgba(b404-brand-color(inverse), 0.7);
+                    }   
+                }                            
+            }  
+        }
+    }
+
+    .b404-widget30__body {
+        .owl-carousel {
+            .b404-widget30__items {
+                padding: 0 2.2rem;
+                border-bottom: 1px dashed b404-base-color(grey, 2);
+
+                .b404-widget30__item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;    
+                    margin-bottom: 1.5rem;
+                    padding-bottom: 1.5rem;  
+
+                    .b404-widget30__pic {
+                        > img {
+                            width: 3rem;
+                            height: 3rem;
+                            border-radius: 100%;                                   
+                        }
+                    }                              
+
+                    .b404-widget30__info {
+                        width: 100%;                                
+                        text-align: left; 
+                        padding: 0 1rem; 
+                        font-weight: 500; 
+                        color: b404-base-color(label, 2);
+                        
+                        > a {
+                            display: block;
+                            font-size: 1rem;
+                            font-weight: 500;
+                            color: b404-base-color(label, 3);
+                            transition: color 0.3s ease;
+
+                            &:hover {
+                                color: b404-brand-color();
+                                transition: color 0.3s ease;
+                            }
+                        } 
+
+                        > span {
+                            display: block;
+                            font-size: 1rem;
+                            font-weight: 400;
+                            color: b404-base-color(label, 2);
+                        }                                                                                              
+                    }  
+
+                    .b404-widget30__stats {
+                        
+                    }                          
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+    }                	 	 
+}	 
+ 
+@include b404-tablet-and-mobile {
+    .b404-widget30 {
+        margin: 1rem 0;
+    }
+}
+ 

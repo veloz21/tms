@@ -1,0 +1,30 @@
+<div class="b404-portlet">
+	<div class="b404-portlet__head b404-portlet__head__custom">
+		<div class="b404-portlet__head-label">
+			<h3 class="b404-portlet__head-title">Fetch selected elements</h3>
+			<span class="b404-portlet__head-icon b404-hide">
+				<i class="la la-gear"></i>
+			</span>
+		</div>
+	</div>
+	<div class="b404-form b404-form--label-align-right b404-form--group-seperator-dashed">
+		<div class="b404-portlet__body b404-padding-0">
+			<div class="b404-list-timeline b404-list-timeline--skin-light b404-padding-30">
+				<div class="b404-list-timeline__items">
+					<div class="b404-list-timeline__item" *ngFor="let message of data">
+						<span class="b404-list-timeline__badge b404-list-timeline__badge--{{getItemCssClassByStatus(message.status)}}"></span>
+						<span class="b404-list-timeline__text">{{message.text}}
+							<span class="b404-badge b404-badge--{{getItemCssClassByStatus(message.status)}} b404-badge--wide">ID: {{message.id}}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="b404-portlet__foot b404-portlet__no-border b404-portlet__foot--fit text-right">
+			<div class="b404-form__actions b404-form__actions--solid">
+				<button mat-button mat-raised-button (click)="onNoClick()">Cancel</button>&nbsp;
+				<button mat-button mat-raised-button color="primary" [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>&nbsp;
+			</div>
+		</div>
+	</div>
+</div>

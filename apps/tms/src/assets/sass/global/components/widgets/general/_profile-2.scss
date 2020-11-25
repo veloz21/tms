@@ -1,0 +1,199 @@
+//
+// User Profile 2
+//
+
+
+
+.b404-widget {
+    &.b404-widget--user-profile-2 {  
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        height: 100%;      
+
+        .b404-widget__head {
+            display: flex;
+            align-items: center; 
+            margin-top: -45px;           
+
+            .b404-widget__media {
+                .b404-widget__img {
+                    max-width: 90px;                     
+
+                    @include b404-rounded {
+                        border-radius: 50%;
+                    }                    
+                }                 
+                
+                .b404-widget__pic {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 90px;                    
+                    height: 90px;                                
+                    font-size: 1.5rem;                
+                    
+                    @include b404-rounded {
+                        border-radius: 50%;
+                    }
+
+                    @each $name, $color in $b404-state-colors {
+                        &.b404-widget__pic--#{$name} {                        
+                            background: rgba(b404-get($color, base), 0.1);                      
+                        }
+                    } 
+                }
+            }
+
+            .b404-widget__info {
+                padding-left: 1rem;
+
+                .b404-widget__username {
+                    font-size: 1.4rem;
+                    color: b404-base-color(label, 4);
+                    font-weight: 500;
+
+                    &:hover {
+                        color: b404-brand-color();
+                        transition: color 0.3s ease;
+                    }
+                }
+
+                .b404-widget__titel {
+                    font-size: 1.4rem;
+                    color: b404-base-color(label, 4);
+                    font-weight: 500;
+
+                    &:hover {
+                        color: b404-brand-color();
+                        transition: color 0.3s ease;
+                    }
+                }
+
+                .b404-widget__desc {
+                    display: block;
+                    font-weight: 500;
+                    font-size: 1.1rem;
+                    padding-top: 0.4rem;       
+                    color: b404-base-color(label, 2);                
+                }
+            }     
+        }
+
+        .b404-widget__body {              
+            flex: 1;
+
+            .b404-widget__section {            
+                padding: 1rem 0 1rem 0;             
+                color: b404-base-color(label, 3);
+                font-weight: 400;                     
+                    
+                a {               
+                    padding-right: 0.3rem;
+                }           
+            }
+
+            .b404-widget__content {
+                display: flex;
+
+                .b404-widget__stats {
+                    display: flex;
+                    align-items: center;
+                    flex-grow: 1;
+                    padding-bottom: 1.7rem;
+
+                    .b404-widget__icon {                   
+
+                        i {
+                            font-size: 2.7rem;
+                            color: b404-base-color(label, 1);
+                            font-weight: 400;
+                        }
+                    }
+
+                    .b404-widget__details {
+                        padding-left: 1rem;
+
+                        .b404-widget__title {
+                            display: block;
+                            color: b404-base-color(label, 3);
+                            font-weight: 500;  
+                            font-size: 0.95rem;   
+                        }
+
+                        .b404-widget__value {
+                            display: block;
+                            color: b404-base-color(label, 4);
+                            font-weight: 600;
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+            }
+
+            .b404-widget__item {                
+                padding: 0.7rem 0;
+
+                .b404-widget__contact {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding-bottom: 0.5rem;
+
+                    .b404-widget__label {
+                        color: b404-base-color(label, 4);
+                        font-weight: 600;
+                    }
+
+                    .b404-widget__data {
+                        color: b404-base-color(label, 2);
+                        font-weight: 400;                       
+                    }
+
+                    a.b404-widget__data:hover {                        
+                        color: b404-brand-color();
+                        transition: color 0.3s ease;                         
+                    }
+
+                    &:last-child {
+                        padding-bottom: 0;
+                    }
+                }                          
+            }
+        }
+
+        .b404-widget__footer {
+            margin-top: 2rem;                        
+
+            .btn {
+                font-size: 1rem; 
+                font-weight: 600;
+                padding: 1.1rem 0;
+                width: 100%;                            
+            }
+        }
+    }
+}
+
+
+@include b404-mobile {
+    .b404-widget {
+        &.b404-widget--user-profile-2 {
+            .b404-widget__head{
+                margin-top: -30px;  
+
+                .b404-widget__media {
+                    .b404-widget__img {
+                        max-width: 60px;  
+                    } 
+                   
+                   .b404-widget__pic {
+                        max-width: 60px;
+                        max-height: 60px;                     
+                        font-size: 1.2rem;
+                    }                    
+                }                
+            } 
+        } 
+    }
+}

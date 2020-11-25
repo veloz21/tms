@@ -1,0 +1,212 @@
+//
+// Override Bootstrap Variables
+//
+
+
+
+
+$enable-rounded: $b404-rounded; // pass rounded corners setting to bootstrap SASS
+
+// Fonts
+$font-family-base:									b404-get($b404-font-families, regular);
+
+
+
+// Color System
+$primary:       									b404-get($b404-state-colors, primary, base) !default;
+$secondary:     									#e1e1ef !default;
+$success:       									b404-get($b404-state-colors, success, base) !default;
+$info:          									b404-get($b404-state-colors, info, base) !default;
+$warning:       									b404-get($b404-state-colors, warning, base) !default;
+$danger:        									b404-get($b404-state-colors, danger, base) !default;
+$light:         									#f8f9fa !default;
+$dark:          									#343a40 !default;
+
+$theme-colors: (
+												  	"primary":    $primary,
+												   	"secondary":  $secondary,
+												    "success":    $success,
+												    "info":       $info,
+												    "warning":    $warning,
+												    "danger":     $danger,
+												    "light":      $light,
+												    "dark":       $dark
+);
+
+
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: 									$b404-media-breakpoints !default;
+
+// Border Radiues
+$border-radius:               						.25rem !default;
+$border-radius-lg:            						.3rem !default;
+$border-radius-sm:            						.2rem !default;
+
+
+// Form & Button Controls
+$btn-font-weight:             						normal !default;
+$input-plaintext-color:                 			b404-base-color(label, 3) !default;
+$input-placeholder-color:               			b404-base-color(label, 2) !default;
+
+$btn-secondary-color:								b404-base-color(label, 3) !default;
+$btn-secondary-hover-bg-color:						#f4f5f8 !default;
+$input-border-radius:                   			$b404-border-radius !default;
+$input-btn-padding-y:       						.65rem;
+$input-btn-padding-x:       						1rem;
+$input-btn-line-height:     						1.5;
+
+$input-btn-padding-y-sm:    						.5rem;
+$input-btn-padding-x-sm:    						1rem;
+$input-btn-line-height-sm:  						1.5;
+
+$input-btn-padding-y-lg:    						1.15rem;
+$input-btn-padding-x-lg:    						1.65rem;
+$input-btn-line-height-lg:  						1.5;
+
+$input-border-color:								b404-base-color(grey, 3) !default;
+$input-focus-border-color:							lighten(b404-state-color(brand, base), 12%);
+$input-disabled-bg:                     			b404-base-color(grey, 1) !default;
+$input-readonly-bg:                     			#ffffff !default;
+$input-group-icon-color:                     		b404-base-color(label, 2) !default;
+
+$input-group-addon-color:               			b404-base-color(label, 2) !default;
+$input-group-addon-bg:                  			b404-base-color(grey, 1) !default;
+
+// Button elevate shadows
+$btn-elevate-shadow-1:								0px 0px 11px 0px rgba(56,36,99,0.08);
+$btn-elevate-shadow-1-hover:						0px 0px 22px 0px rgba(56,36,99,0.11);
+$btn-elevate-shadow-2:								0px 0px 11px 0px rgba(56,36,99,0.10);
+$btn-elevate-shadow-2-hover:						0px 0px 22px 0px rgba(56,36,99,0.13);
+$btn-elevate-shadow-3:								0px 0px 11px 0px rgba(56,36,99,0.12);
+$btn-elevate-shadow-3-hover:						0px 0px 22px 0px rgba(56,36,99,0.15);
+
+
+// Table
+$table-bg:                      					transparent !default;
+$table-accent-bg:               					lighten(#f4f5f8, 1%);
+$table-hover-bg:                					lighten(#f4f5f8, 2%);
+$table-active-bg:               					b404-state-color(primary, base);
+
+$table-border-color:            					b404-base-color(grey, 2);
+
+$table-head-bg:                 					b404-base-color(grey, 2);
+$table-head-color:              					b404-base-color(label, 3);
+
+
+// Card
+$card-border-color:                 				b404-base-color(grey, 2) !default;
+$card-cap-bg:                       				b404-base-color(grey, 1) !default;
+
+
+// List group
+$list-group-border-color:           				b404-base-color(grey, 2) !default;
+$list-group-hover-bg:               				b404-base-color(grey, 2) !default;
+
+
+// Modal
+$modal-inner-padding:								1.25rem !default;
+$modal-header-padding:								1.25rem !default;
+
+$modal-content-border-color:        				b404-base-color(grey, 2) !default;
+$modal-content-box-shadow-xs:       				0 .25rem .5rem rgba(b404-base-color(grey, 2), .5) !default;
+$modal-content-box-shadow-sm-up:   	 				0 .5rem 1rem rgba(b404-base-color(grey, 2), .5) !default;
+
+$modal-header-border-color:         				b404-base-color(grey, 2) !default;
+$modal-footer-border-color:         				b404-base-color(grey, 2) !default;
+
+
+// Pagination
+$pagination-color:                  				b404-state-color(brand, base) !default;
+$pagination-border-color:           				b404-base-color(grey, 2) !default;
+
+$pagination-hover-bg:              	 				b404-base-color(grey, 2) !default;
+$pagination-hover-border-color:     				b404-base-color(grey, 2) !default;
+
+$pagination-disabled-border-color:  				b404-base-color(grey, 2) !default;
+
+
+
+// Popovers
+$popover-font-size:                 				0.9rem !default;
+$popover-max-width:                 				276px !default;
+$popover-border-width:              				1px !default;
+$popover-border-color:              				#ffffff !default;
+$popover-border-radius:             				3px !default;
+$popover-box-shadow:                				0px 0px 20px 0px rgba(0,0,0,0.15) !default;
+
+$popover-header-bg:                 				#ffffff !default;
+$popover-header-color:              				b404-base-color(label, 3) !default;
+$popover-header-padding-y:          				1rem !default;
+$popover-header-padding-x:          				1.25rem !default;
+
+$popover-body-color:                				b404-base-color(label, 2) !default;
+
+
+
+// Tooltips
+$tooltip-font-size:                 				0.9rem !default;
+$tooltip-max-width:                 				200px !default;
+$tooltip-color:                     				b404-base-color(label, 3) !default;
+$tooltip-bg:                        				#ffffff !default;
+$tooltip-border-radius:             				3px !default;
+$tooltip-opacity:                   				1 !default;
+$tooltip-padding-y:                 				.75rem !default;
+$tooltip-padding-x:                 				1rem !default;
+$tooltip-margin:                    				0 !default;
+
+// Custom Toasts
+$toast-zindex:										$b404-dropdown-zindex + 100 !default;
+$toast-spacing:										2rem  !default;
+$toast-width: 										350px !default;
+$toast-box-shadow:									$b404-dropdown-shadow !default;
+
+$toast-header-color: 								b404-base-color(label, 3) !default;
+$toast-header-background-color: 					#fff !default;
+$toast-header-border-color:							b404-base-color(grey, 2) !default;
+
+
+
+// Progress bars
+$progress-bg:                       				b404-get-color() !default;
+
+
+
+// Dropdown
+$dropdown-box-shadow:								$b404-dropdown-shadow !default;
+$zindex-dropdown:                   				$b404-dropdown-zindex !default;
+
+
+
+// Text muted
+$text-muted:                  						b404-base-color(label, 2) !default;
+
+
+
+// Badges
+$badge-padding-y:                   				.5em !default;
+$badge-padding-x:                   				.75em !default;
+$badge-font-size:                   				85% !default;
+
+
+// Grid columns
+$grid-gutter-width:           						20px !default;
+
+
+// Dropdowns
+//
+// Dropdown menu container and contents.
+$dropdown-link-color:               				b404-base-color(label, 2) !default;
+$dropdown-link-hover-color:         				b404-base-color(label, 3) !default;
+$dropdown-link-hover-bg:            				b404-base-color(grey, 1) !default;
+
+$dropdown-link-active-color:        				b404-brand-color(inverse) !default;
+$dropdown-link-active-bg:           				b404-brand-color() !default;
+
+$dropdown-link-disabled-color:      				b404-base-color(label, 1) !default;
+
+$dropdown-header-color:             				b404-base-color(label, 2) !default;

@@ -1,0 +1,24 @@
+.autocomplete {
+  width: 100%;
+
+  .mat-chip-list-wrapper {
+    width: 100%;
+  }
+}
+
+.autocomplete:not(.autocomplete--multiple) {
+  display: inline-flex;
+}
+
+span {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+:host.floating span {
+  opacity: 1;
+}
+
+.products-autocomplete__textarea {
+  min-height: 30px;
+  overflow-y: hidden;
+}

@@ -1,0 +1,183 @@
+//
+// Pricing Tables 3
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+// Base
+.b404-pricing-3 {
+	padding: 5.71rem 0 5.71rem 0;
+
+	&.b404-pricing-3--fixed {
+        width: 75%;
+        margin: 0 auto;
+	}
+
+    .b404-pricing-3__items {
+		width: 100%;
+		text-align: center;
+		box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.08);
+
+		.b404-pricing-3__item {
+            @include b404-rounded {
+                border-radius: $b404-border-radius;
+            }
+
+			.b404-pricing-3__wrapper {
+				padding: 4.2rem 1rem;
+				text-align: center;
+
+			    .b404-pricing-3__title {
+			      	font-size: 1.3rem;
+                    color: b404-base-color(label, 2);
+			    }
+
+				.b404-pricing-3__price {
+                    @include b404-rounded {
+                        border-radius: 16px;
+                    }
+
+				    margin-top: 2.83rem;
+				    display: inline-block;
+				    font-size: 1.8rem;
+				    font-weight: 500;
+				    padding: 0.83rem 1.43rem 0.83rem 1.43rem;
+                    background-color: rgba(b404-state-color(brand, base), 0.05);
+                    color: b404-base-color(label, 2);
+
+				    &.b404-pricing-3__price--padding {
+				    	padding: 1.4rem 1.43rem 1.4rem 1.43rem;
+				    }
+
+					.b404-pricing-3__label {
+					    font-size: 1.5rem;
+					    vertical-align: 33%;
+                        color: b404-base-color(label, 2);
+					}
+
+					.b404-pricing-3__number {
+					    font-size: 2.64rem;
+                        color: b404-base-color(label, 3);
+					}
+
+					.b404-pricing-3__text {
+					    font-size: 1.07rem;
+					    vertical-align: 40%;
+                        color: b404-base-color(label, 2);
+					}
+				}
+
+				.b404-pricing-3__description {
+				    text-align: center;
+				    font-size: 0.96rem;
+				    display: inline-block;
+				    margin-top: 2.85rem;
+                    color: b404-base-color(label, 2);
+
+				    > span {
+				    	display: block;
+					    &:nth-child(1) {
+					        letter-spacing: 0.01rem;
+					    }
+					}
+				}
+
+				.b404-pricing-3__btn {
+				    margin: 2.83rem auto 0 auto;
+
+				    > .btn {
+                        padding: 0.8rem 3.6rem 0.8rem 3.6rem;
+					}
+		        }
+			}
+
+			&.b404-pricing-3__item--focus {
+                background-color: b404-state-color(brand, base);
+				margin-top: -3rem;
+				margin-bottom: -3rem;
+                color: rgba(#fff, 0.1);
+
+				.b404-pricing-3__wrapper {
+					padding: 7rem 1rem;
+
+                    .b404-pricing-3__btn {
+				    	> .btn {
+                            color: b404-base-color(label, 3);
+                            
+						 	&:hover {
+						 		color: b404-base-color(label, 3);
+						 		background-color: #fff;
+						 		border: 1px solid #fff;
+						 	}
+						}
+			    	}
+
+					.b404-pricing-3__price {
+						background-color: rgba(#fff, 1);
+
+                        .b404-pricing-3__label {
+						    color: rgba(#fff, 0.6);
+						}
+
+                        .b404-pricing-3__number {
+    					    font-size: 2.64rem;
+                            color: rgba(#fff, 0.8);
+    					}
+
+						.b404-pricing-3__text {
+						    color: rgba(#fff, 0.6);
+						}
+					}
+
+                    .b404-pricing-3__description {
+					     color: rgba(#fff, 0.9);
+					}
+				}
+			}
+		}
+	}
+ }
+
+ @include b404-minimal-desktop() {
+ 	.b404-pricing-3 {
+ 		&.b404-pricing-3--fixed {
+			width: 90%;
+			margin: 0 auto;
+		}
+ 	}
+}
+
+@include b404-tablet-and-mobile() {
+	.b404-pricing-3 {
+		padding: 2.14rem 0 2.14rem 0;
+
+		&.b404-pricing-3--fixed {
+			width: 100%;
+			margin: 0 auto;
+
+		 	.b404-pricing-3__items {
+				.b404-pricing-3__item {
+					.b404-pricing-3__wrapper {
+				     	padding: 3rem 1rem;
+					}
+
+					&.b404-pricing-3__item--focus {
+						margin-top: 0;
+						margin-bottom: 0;
+
+						.b404-pricing-3__wrapper {
+							padding: 3rem 1rem;
+						}
+					}
+			  	}
+			}
+		}
+	}
+}

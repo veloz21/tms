@@ -1,0 +1,133 @@
+//
+// Markdown
+//
+
+
+
+
+// Base
+@mixin b404-bootstrap-markdown-base() {
+    .md-editor {
+        @include b404-rounded {
+            border-radius: $b404-border-radius;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        @include b404-not-rounded {
+            border-radius: 0 !important;
+        }
+
+        outline: none !important;
+
+        .md-footer, 
+        .md-header {
+            padding: 10px 10px;
+        }
+
+        .md-header {
+            @include b404-rounded {
+                border-top-left-radius: $b404-border-radius;
+                border-top-right-radius: $b404-border-radius;
+            }
+
+            @include b404-not-rounded {
+                border-radius: 0 !important;
+            }
+
+            .btn-group {
+                margin-right: 10px;
+
+                .btn {
+                    background: white;
+                    border: 1px solid b404-base-color(grey, 2);
+                    color: b404-base-color(label, 2);
+                    @include b404-transition();
+
+                    &:hover,
+                    &:focus,
+                    &:active,
+                    &.active {
+                        @include b404-transition();
+                        color: b404-base-color(label, 3);
+                        background: transparent;
+                    }
+                }
+            }
+        }
+
+        .md-footer {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+            @include b404-not-rounded {
+                border-radius: 0 !important;
+            }
+        }
+
+        > textarea {
+            padding: 10px 10px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+            @include b404-not-rounded {
+                border-radius: 0 !important;
+            }
+        }
+    }
+}
+
+// Skin
+@mixin b404-bootstrap-markdown-skin() {
+    .md-editor {
+        border: 1px solid $input-border-color; 
+
+        &.active {
+            border: 1px solid  $input-border-color; 
+            box-shadow: none;
+        }
+
+        .md-footer, 
+        .md-header {
+            background: b404-base-color(grey, 1);
+        }
+
+        > textarea {
+            background: b404-base-color(grey, 1);
+        }
+
+        &.active {
+            > textarea {
+                background: b404-base-color(grey, 1);
+            }
+        }
+    }
+
+    // Validation
+    .is-valid {
+        .md-editor {
+            border-color: b404-state-color(success, base);
+        }
+    }
+
+    .is-invalid {
+        .md-editor {
+            border-color: b404-state-color(danger, base);
+        }
+    }
+}
+
+@mixin b404-bootstrap-markdown-validation-state($state, $color) {
+    .b404-form.b404-form--state .has-#{$state} {
+        .md-editor {
+            border: 1px solid $color; 
+        }
+    }
+}
+
+
+// Base
+@include b404-bootstrap-markdown-base();
+
+// Skin
+@include b404-bootstrap-markdown-skin();

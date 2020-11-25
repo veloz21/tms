@@ -1,0 +1,986 @@
+//
+// Horizontal Menu Mixins
+//
+
+
+
+
+// Helpers
+@mixin b404-menu-hor-item-base($item) {
+	// item
+	@include b404-attr(margin, b404-get($item, self, margin));
+	@include b404-attr(padding, b404-get($item, self, padding));
+
+	// link
+	> .b404-menu__link {
+		transition: all 0.3s ease;
+		cursor: pointer;
+		@include b404-attr(padding, b404-get($item, link, self, padding));
+		@include b404-attr(margin, b404-get($item, link, self, margin));
+
+		&:hover {
+			transition: all 0.3s ease;
+		}
+
+		// link icon
+		.b404-menu__link-icon {
+			font-size: b404-get($item, link, icon, font-size);
+			width: b404-get($item, link, icon, width);
+			padding: b404-get($item, link, icon, padding);
+			line-height: 0;
+
+			// duo-tone svg icon
+			svg {
+				@include b404-attr(height, b404-get($item, link, icon, svg-width));
+				@include b404-attr(width, b404-get($item, link, icon, svg-width));
+				margin-left: -2px;
+			}
+		}	
+
+		// link bullet
+		.b404-menu__link-bullet {
+			width: b404-get($item, link, bullet, self, width);
+
+			@if b404-has($item, link, bullet, padding) {
+				padding: b404-get($item, link, bullet, padding);
+			}
+
+			> span {
+				vertical-align: middle;
+				display: inline-block;
+			}
+
+			&.b404-menu__link-bullet--dot {
+				> span {
+					width: b404-get($item, link, bullet, dot, size);
+					height: b404-get($item, link, bullet, dot, size);
+					border-radius: 100%;
+				}
+			}
+
+			&.b404-menu__link-bullet--line {
+				> span {
+					width: b404-get($item, link, bullet, line, width);
+					height: b404-get($item, link, bullet, line, height);
+				}
+			}
+		}
+
+		// link text
+		.b404-menu__link-text {
+			font-weight: b404-get($item, link, text, font-weight);
+			font-size: b404-get($item, link, text, font-size);
+			text-transform: b404-get($item, link, text, font-transform);
+
+			@if b404-has($item, link, text, padding) {
+				padding: b404-get($item, link, text, padding);
+			}
+		}
+
+		// link badge
+		.b404-menu__link-badge {
+			padding: b404-get($item, link, badge, padding);
+			justify-content: b404-get($item, link, badge, align);
+		}
+
+		// link arrow icon
+		.b404-menu__hor-arrow {
+			font-size: b404-get($item, link, arrow, font-size);
+			width: b404-get($item, link, arrow, width);
+			justify-content: flex-end;
+
+			@if b404-has($item, link, arrow, padding) {
+				padding: b404-get($item, link, arrow, padding);
+			}
+		}
+
+		// link border radius
+		@include b404-rounded {
+			@include b404-attr(border-radius, b404-get($item, link, self, border-radius));
+		}
+
+		// menu root level "here" arrow
+		.b404-menu__item-here {
+			display: none;
+		}
+	}
+}
+
+@mixin b404-menu-hor-item-skin($item) {
+	// link
+	> .b404-menu__link {
+		background-color: b404-get($item, link, self, bg-color, default);
+
+		// link icon
+		.b404-menu__link-icon {
+			color: b404-get($item, link, icon, font-color, default);
+
+			// Due-tone icon
+			svg {
+				@include b404-svg-icon-color(b404-get($item, link, icon, font-color, default));
+			}
+		}	
+
+		// link bullet
+		.b404-menu__link-bullet {
+			&.b404-menu__link-bullet--dot {
+				> span {
+					background-color: b404-get($item, link, bullet, dot, bg-color, default);
+				}
+			}
+
+			&.b404-menu__link-bullet--line {
+				> span {
+					background-color: b404-get($item, link, bullet, line, bg-color, default);
+				}
+			}
+		}
+
+		// link text
+		.b404-menu__link-text {
+			color: b404-get($item, link, text, font-color, default);
+
+			@if b404-has($item, link, text, font-weight) {
+				font-weight: b404-get($item, link, text, font-weight);
+			}
+		}
+
+		// link arrow icon
+		.b404-menu__hor-arrow {
+			color: b404-get($item, link, arrow, font-color, default);
+		}
+	}
+
+	// active state
+	&.b404-menu__item--active {
+		> .b404-menu__link {
+			// link bg color
+			background-color: b404-get($item, link, self, bg-color, active);
+
+			// link icon
+			.b404-menu__link-icon {
+				color: b404-get($item, link, icon, font-color, active);
+
+				// Due-tone icon
+				svg {
+					@include b404-svg-icon-color(b404-get($item, link, icon, font-color, active));
+				}
+			}	
+
+			// link bullet
+			.b404-menu__link-bullet {
+				&.b404-menu__link-bullet--dot {
+					> span {
+						background-color: b404-get($item, link, bullet, dot, bg-color, active);
+					}
+				}
+
+				&.b404-menu__link-bullet--line {
+					> span {
+						background-color: b404-get($item, link, bullet, line, bg-color, active);
+					}
+				}
+			}
+
+			.b404-menu__link-text {
+				color: b404-get($item, link, text, font-color, active);
+			}
+
+			// link arrow icon
+			> .b404-menu__hor-arrow {
+				color: b404-get($item, link, arrow, font-color, active);
+			}
+		}
+	}
+
+	// here state
+	&.b404-menu__item--here {
+		> .b404-menu__link {
+			// link bg color
+			background-color: b404-get($item, link, self, bg-color, here);
+
+			// link icon
+			.b404-menu__link-icon {
+				color: b404-get($item, link, icon, font-color, here);
+
+				// Due-tone icon
+				svg {
+					@include b404-svg-icon-color(b404-get($item, link, icon, font-color, here));
+				}
+			}	
+
+			// link bullet
+			.b404-menu__link-bullet {
+				&.b404-menu__link-bullet--dot {
+					> span {
+						background-color: b404-get($item, link, bullet, dot, bg-color, here);
+					}
+				}
+
+				&.b404-menu__link-bullet--line {
+					> span {
+						background-color: b404-get($item, link, bullet, line, bg-color, here);
+					}
+				}
+			}
+
+			.b404-menu__link-text {
+				color: b404-get($item, link, text, font-color, here);
+			}
+
+			// link arrow icon
+			> .b404-menu__hor-arrow {
+				color: b404-get($item, link, arrow, font-color, here);
+			}
+		}
+	}
+
+	// hover state
+	&:hover:not(.b404-menu__item--here):not(.b404-menu__item--active),
+	&.b404-menu__item--hover:not(.b404-menu__item--here):not(.b404-menu__item--active) {
+		> .b404-menu__link {
+			// link bg color
+			background-color: b404-get($item, link, self, bg-color, hover);
+			
+			// link icon
+			.b404-menu__link-icon {
+				color: b404-get($item, link, icon, font-color, hover);
+
+				// Due-tone icon
+				svg {
+					@include b404-svg-icon-color(b404-get($item, link, icon, font-color, hover));
+				}
+			}	
+
+			// link bullet
+			.b404-menu__link-bullet {
+				&.b404-menu__link-bullet--dot {
+					> span {
+						background-color: b404-get($item, link, bullet, dot, bg-color, hover);
+					}
+				}
+
+				&.b404-menu__link-bullet--line {
+					> span {
+						background-color: b404-get($item, link, bullet, line, bg-color, hover);
+					}
+				}
+			}
+
+			// link text
+			.b404-menu__link-text {
+				color: b404-get($item, link, text, font-color, hover);
+			}
+
+			// link arrow icon
+			> .b404-menu__hor-arrow {
+				color: b404-get($item, link, arrow, font-color, hover);
+			}
+		}
+	}	
+}
+
+@mixin b404-menu-hor-item-heading-base($item) {
+	// heading
+	padding: b404-get($item, self, padding);
+
+	// text
+	> .b404-menu__link-text {
+		font-weight: b404-get($item, caption, text, font-weight);
+		font-size: b404-get($item, caption, text, font-size);
+		text-transform: b404-get($item, caption, text, font-transform);
+	}
+
+	// icon
+	> .b404-menu__link-icon {
+		font-size: b404-get($item, caption, icon, font-size);
+		flex: 0 0 b404-get($item, caption, icon, width);
+		justify-content: b404-get($item, caption, icon, align);
+		padding: b404-get($item, caption, icon, padding);
+	}	
+
+	// badge
+	.b404-menu__link-badge {
+		padding: b404-get($item, caption, badge, padding);
+		text-align: b404-get($item, caption, badge, align);
+	}
+}
+
+@mixin b404-menu-hor-item-heading-skin($item) {
+	// text
+	> .b404-menu__link-text {
+		color: b404-get($item, caption, text, font-color);
+	}
+
+	// icon
+	> .b404-menu__link-icon {
+		color: b404-get($item, caption, icon, font-color);
+	}
+}
+
+@mixin b404-menu-hor-submenu-width($config) {
+	@include b404-media-range(lg, xl) {
+		.#{b404-get($config, base, class)} {
+			.b404-menu__nav {
+				// menu root item
+				> .b404-menu__item {
+					// general submenu
+					.b404-menu__submenu {
+						&.b404-menu__submenu--full,
+						&.b404-menu__submenu--fixed,
+						&.b404-menu__submenu--auto,
+						&.b404-menu__submenu--auto.b404-menu__submenu--mimimal-desktop-wide,
+						&.b404-menu__submenu--fixed-xl,
+						&.b404-menu__submenu--fixed-xxl {
+							margin: 0 auto;
+							width: auto;
+							left: 20px;
+							right: 20px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Responsive container widths
+	@each $breakpoint, $breakpoint-width in $b404-media-breakpoints {
+	    @media (min-width: $breakpoint-width) {
+	    	.#{b404-get($config, base, class)} {
+				.b404-menu__nav {
+					// menu root item
+					> .b404-menu__item {
+						// general submenu
+						.b404-menu__submenu.b404-menu__submenu--fixed-#{$breakpoint} {
+					        width: map-get($b404-media-breakpoints, $breakpoint) - 60px;
+					    }
+					}
+				}
+			}
+	    }
+	}
+}
+
+@mixin b404-menu-hor-base($config) {
+	.#{b404-get($config, base, class)} {
+		display: flex;
+		align-items: stretch;
+		height: 100%;
+	    margin: b404-get($config, build, layout, self, margin);
+    
+    	// general menu
+		.b404-menu__nav {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			align-items: stretch;
+
+			// menu root item
+			> .b404-menu__item {
+				// general link
+				.b404-menu__link {
+					display: flex;
+					text-decoration: none;
+					position: relative;
+					vertical-align: middle;
+					align-items: stretch;
+					outline: none !important;
+					text-decoration: none;
+					cursor: pointer;  				
+					
+					.b404-menu__link-text {
+						display: flex;
+						align-items: center;
+						flex-grow: 1;
+						padding: 0;
+					}
+
+					.b404-menu__link-badge {
+						display: flex;
+						align-items: center;
+						line-height: 0;	
+						white-space: nowrap;				
+					}
+
+					// link icon
+					.b404-menu__link-icon {
+						display: flex;
+						align-items: center;
+					}	
+
+					// sub menu link arrow icon
+					.b404-menu__hor-arrow {
+						display: flex;
+						align-items: center;
+					}
+
+					// hide sidebar sub menu link arrow icon
+					.b404-menu__ver-arrow {
+						display: none;
+					}
+
+					&:hover,
+					&:active,
+					&:focus {
+						text-decoration: none;
+					}
+				}
+
+				// primary link
+				> .b404-menu__link {
+					> .b404-menu__link-text {
+						width: auto;
+					}
+				}
+
+				// icon only menu item
+				&.b404-menu__item--icon-only {
+					> .b404-menu__link {
+						justify-content: center;
+
+						> .b404-menu__link-icon {
+							justify-content: center;
+						}
+					}
+				}
+
+				// general submenu
+				.b404-menu__submenu {
+					@include b404-fix-animation-lags();
+					display: none;
+					z-index: b404-get($config, build, layout, item, submenu, self, zindex);
+					position: absolute;
+					top: 100%;
+
+					@include b404-rounded {
+						border-radius: b404-get($config, build, layout, item, submenu, self, border-radius);
+					}
+					
+					@include b404-attr(margin, b404-get($config, build, layout, item, submenu, self, margin));
+					@include b404-attr(padding, b404-get($config, build, layout, item, submenu, self, padding, classic));
+
+					.b404-menu__scroll {
+						position: relative;
+						overflow: hidden;
+						display: flex;
+						flex-direction: column; 
+						flex-grow: 1;
+					}
+
+					.b404-menu__subnav {	
+						list-style: none !important;
+						padding: 0;
+						margin: 0;
+					}
+
+					// classic submenu
+					& {
+						width: b404-get($config, build, layout, item, submenu, self, width, classic);
+						margin: 0 auto;
+						left: auto;
+		    			right: auto;
+					}
+
+					// full width
+					&.b404-menu__submenu--full {
+						margin: 0 auto;
+						width: auto;
+						left: b404-get($config, build, layout, item, submenu, self, width, full, offset);
+						right: b404-get($config, build, layout, item, submenu, self, width, full, offset);
+					}
+
+					// fixed width options
+					&.b404-menu__submenu--fixed {
+						left: auto;
+						right: auto;
+						width: auto;
+					}		
+
+					// alignment right
+					&.b404-menu__submenu--right {
+						right: 0;
+						left: auto;
+
+						&.b404-menu__submenu--pull {
+							margin-right: -40px;
+						}
+					}
+
+					// alignment left
+					&.b404-menu__submenu--left {
+						right: auto;
+						left: 0;
+
+						&.b404-menu__submenu--pull {
+							margin-left: -40px;
+						}
+					}
+
+					// alignment center
+					&.b404-menu__submenu--center {
+						margin: 0 auto;
+						left: 0;
+		    			right: 0;
+					}
+
+					// sub menu dropdown
+					> .b404-menu__subnav {
+						> .b404-menu__item.b404-menu__item--submenu {
+							position: relative;
+							padding: 0;
+							margin: 0;
+
+							> .b404-menu__submenu {
+								top:0;
+								display: none;
+								margin-top: 0;
+
+								&.b404-menu__submenu--left {
+									right: 100%;
+									left: auto;
+								}
+
+								&.b404-menu__submenu--right {
+									left: 100%;		
+									right: auto;			
+								}
+							}
+						}
+					}
+
+					// mega menu content
+					.b404-menu__content {
+						display: flex;
+						list-style: none;
+						padding: 0;
+						margin: 0;
+
+						> .b404-menu__item {
+							padding: 0;
+							margin: 0;
+							display: flex;
+							flex-direction: column;
+					    	flex-grow: 1;
+
+					    	&:last-child {
+					    		border-right: 0;
+					    	}
+						}
+					}			
+
+					// mega heading
+					.b404-menu__heading {
+						display: flex;
+						align-items: center;
+						padding: 0;
+						margin: 0;
+						text-decoration: none;
+						position: relative;
+								
+						.b404-menu__link-text {
+							display: flex;
+							align-items: center;
+							flex-grow: 1
+						}
+
+						.b404-menu__link-badge {
+							display: flex;
+							align-items: center;
+							white-space: nowrap;				
+						}
+
+						// link icon
+						.b404-menu__link-icon {
+							display: flex;
+							align-items: center;
+							font-size: 18px;
+							padding: 0 10px 0 0;
+						}	
+
+						// sub menu link arrow icon
+						.b404-menu__hor-arrow {
+							display: flex;
+							align-items: center;
+							padding: 0 0 0 10px;
+						}
+
+						// hide sidebar sub menu link arrow icon
+						.b404-menu__ver-arrow {
+							display: none;
+						}
+					}
+				}
+				
+				.b404-menu__inner,
+				.b404-menu__subnav {
+					list-style: none;
+					margin: 0;
+					padding: 0;
+			 
+					> .b404-menu__item {
+						display: flex;
+						flex-grow: 1;
+						margin: 0; 
+						padding: 10px 20px;
+
+						.b404-menu__link {
+							display: flex;
+							align-items: center;
+							flex-grow: 1;
+							text-decoration: none;
+							position: relative;
+
+							&:hover,
+							&:active,
+							&:focus {
+								outline: none;
+								text-decoration: none;
+							}							
+								
+							.b404-menu__link-text {
+								display: flex;
+								align-items: center;
+								font-weight: b404-get($config, build, layout, item, submenu, item, link, text, font-weight);
+								color: b404-get($config, build, layout, item, submenu, item, link, text, font-color, default);
+								font-size: b404-get($config, build, layout, item, submenu, item, link, text, font-size);
+								text-transform: b404-get($config, build, layout, item, submenu, item, link, text, font-transform);
+							}
+
+							.b404-menu__link-badge {
+								display: flex;
+								align-items: center;	
+								white-space: nowrap;				
+								padding: b404-get($config, build, layout, item, submenu, item, link, badge, padding);
+								text-align: b404-get($config, build, layout, item, submenu, item, link, badge, align);
+							}
+
+							// link icon
+							.b404-menu__link-icon {
+								display: flex;
+								align-items: center;
+								flex: 0 0 b404-get($config, build, layout, item, submenu, item, link, icon, width);
+								padding: b404-get($config, build, layout, item, submenu, item, link, icon, padding);
+								color: b404-get($config, build, layout, item, submenu, item, link, icon, font-color, default);
+								font-size: b404-get($config, build, layout, item, submenu, item, link, icon, font-size);
+								text-align: b404-get($config, build, layout, item, submenu, item, link, icon, align);
+							}	
+
+							// menu item link's icon part
+							.b404-menu__link-bullet {
+								display: flex;
+								align-items: center;
+								line-height: 0;
+							}
+
+							// sub menu link arrow icon
+							.b404-menu__hor-arrow {
+								display: flex;
+								align-items: center;
+								padding: b404-get($config, build, layout, item, submenu, item, link, arrow, padding);
+							}
+
+							// hide sidebar sub menu link arrow icon
+							.b404-menu__ver-arrow {
+								display: none;
+							}
+						}
+					}
+				}
+
+				.b404-menu__inner {
+					padding: 0;
+				}	
+
+				// sub dropdown menu space
+				@if b404-has($config, build, layout, item, submenu, self, space) {
+					.b404-menu__submenu {
+						.b404-menu__submenu {
+							margin-left: b404-get($config, build, layout, item, submenu, self, space);
+
+							&.b404-menu__submenu--left {
+								margin-right: b404-get($config, build, layout, item, submenu, self, space);
+							}
+						}
+					}	
+				}							
+
+				// tabs integration
+				&.b404-menu__item--submenu.b404-menu__item--tabs > .b404-menu__submenu > .b404-menu__subnav > .b404-menu__item.b404-menu__item--submenu {
+					> .b404-menu__submenu {
+						top:100%;
+
+						&.b404-menu__submenu--left {
+							right: 100%;
+							left: 0;
+						}
+
+						&.b404-menu__submenu--right {
+							left: 100%;		
+							right: 0;			
+						}
+					}
+				}
+			}	
+		}
+
+		// root menu
+		.b404-menu__nav {
+			> .b404-menu__item {
+				display: flex;
+				align-items: center;
+				padding: b404-get($config, build, layout, item, self, padding);
+				
+				// used for classic submenus
+				&.b404-menu__item--rel {
+					position: relative;			
+				}
+
+				@include b404-menu-hor-item-base( b404-get($config, build, layout, item) );
+
+				// submenu
+				.b404-menu__submenu {
+					padding: b404-get($config, build, layout, item, submenu, self, padding, megamenu);
+					@include b404-rounded {
+						border-radius: b404-get($config, build, layout, item, submenu, self, border-radius);
+					}
+
+					> .b404-menu__subnav {
+						> .b404-menu__item {
+							@include b404-menu-hor-item-base(b404-get($config, build, layout, item, submenu, item));
+						}
+
+						// mega submenu
+						.b404-menu__content {
+							align-items: stretch;
+							// separator
+							> .b404-menu__item {
+								flex-grow: 1;
+								flex-basis: 0;
+
+								&:last-child {
+									border-right:0 !important;  
+								}
+							}	
+
+							// heading
+							.b404-menu__heading {
+								@include b404-menu-hor-item-heading-base(b404-get($config, build, layout, item, submenu, item, column, heading));
+							}
+
+							// mega menu 
+							.b404-menu__inner {
+								padding: b404-get($config, build, layout, item, submenu, item, column, self, padding);
+
+								> .b404-menu__item {
+									@include b404-menu-hor-item-base(b404-get($config, build, layout, item, submenu, item));
+								}
+							}
+						}
+					}
+					
+					&.b404-menu__submenu--classic {
+						padding: b404-get($config, build, layout, item, submenu, self, padding, classic);
+						> .b404-menu__subnav {
+							
+						}
+					}
+
+					// inline submenu
+					&.b404-menu__submenu--inline {
+						display: flex;
+						flex: 0 0 auto;
+
+						> .b404-menu__subnav {
+							> .b404-menu__item {
+								display: flex;
+								padding: 5px 0;
+							}
+						}						
+					}					
+				}		
+			}
+
+			// general submenu hover effect
+			.b404-menu__item {
+				// menu resize item
+				&.b404-menu__item--resize {
+					display: none;
+				}
+
+				// menu item hover
+				&.b404-menu__item--active-tab,
+				&.b404-menu__item--hover {
+					.b404-menu__submenu {
+						display: block;
+						animation: #{b404-get($config, base, class)}-submenu-fade-in .3s ease 1, #{b404-get($config, base, class)}-submenu-move-down .3s ease-out 1;
+						
+						// ie8-11 versions hack
+                    	@include b404-hack-ie {
+                        	animation: none;
+                    	}
+
+						> .b404-menu__subnav > .b404-menu__item.b404-menu__item--hover {
+							> .b404-menu__submenu {
+								display: block;
+								animation: #{b404-get($config, base, class)}-submenu-fade-in .3s ease 1, #{b404-get($config, base, class)}-submenu-move-up .3s ease-out 1;
+							
+								// ie8-11 versions hack
+                    			@include b404-hack-ie {
+                        			animation: none;
+                    			}
+							}
+						}
+					}
+				}			
+			}
+		}
+
+		.b404-menu__subnav .b404-menu__hor-arrow:before {
+			[direction="rtl"] & {
+				content: "#{b404-get($b404-action-icons, left)}" !important;
+			}
+		}
+	}
+}
+
+@mixin b404-menu-hor-skin($base-class, $config) {
+	.#{$base-class} {
+		// root level items
+		@if b404-has($config, item, link) {
+			.b404-menu__nav {
+				> .b404-menu__item {
+					@if b404-get($config, item, self) {
+						&.b404-menu__item--hover,
+						&:hover {
+							background-color: b404-get($config, item, self, bg-color, hover);
+						}
+
+						&.b404-menu__item--here {
+							background-color: b404-get($config, item, self, bg-color, here);
+						}
+
+						&.b404-menu__item--open,
+						&.b404-menu__item--active {
+							background-color: b404-get($config, item, self, bg-color, active);
+						}
+					}
+
+					@include b404-menu-hor-item-skin(b404-get($config, item));
+				}
+			}
+		}
+	
+		// submenu level items
+		.b404-menu__nav {
+			> .b404-menu__item {
+				// classic submenu
+				.b404-menu__submenu {
+					background-color: b404-get($config, item, submenu, self, bg-color);
+					box-shadow: b404-get($config, item, submenu, self, box-shadow);
+
+					> .b404-menu__subnav {
+						// submenu item
+						> .b404-menu__item {
+							@include b404-menu-hor-item-skin(b404-get($config, item, submenu, item));
+						}
+
+						// mega submenu
+						.b404-menu__content {
+							// separator
+							> .b404-menu__item {
+								border-right: b404-get($config, item, submenu, item, column, separator, border);
+							}		
+
+							// heading
+							.b404-menu__heading {
+								@include b404-menu-hor-item-heading-skin(b404-get($config, item, submenu, item, column, heading));
+							}
+
+							// mega menu 
+							.b404-menu__inner {
+								> .b404-menu__item {
+									@include b404-menu-hor-item-skin(b404-get($config, item, submenu, item));
+								}
+							}
+						}
+					}
+				}				
+			}
+		}
+	}
+}
+
+// Build
+// Build Skin
+@mixin b404-menu-hor-build-skin($config, $skin) {
+	$skin-config: ();
+
+	@if ($skin == default) {
+		$skin-config: b404-get($config, build, skin);
+	} @else {
+		$skin-config: b404-get($config, build, skins, $skin);
+	}
+	
+	// Base vertical menu
+	@if (b404-get($config, base, mode) == general) {
+		
+		@include b404-menu-hor-skin(b404-get($config, base, class), $skin-config);
+
+	} @else if (b404-get($config, base, mode) == desktop) {
+
+		@include b404-desktop {
+			@include b404-menu-hor-skin(b404-get($config, base, class), $skin-config);
+		}
+
+	} @else if (b404-get($config, base, mode) == desktop-and-tablet) {
+
+		@include b404-desktop-and-tablet {
+			@include b404-menu-hor-skin(b404-get($config, base, class), $skin-config);
+		}			
+	}	
+}
+
+// Build Layout
+@mixin b404-menu-hor-build-layout($config) {
+	// Base vertical menu
+	@if (b404-get($config, base, mode) == general) {
+		
+		@include b404-menu-hor-base($config);
+
+	} @else if (b404-get($config, base, mode) == desktop) {
+
+		@include b404-desktop {
+			@include b404-menu-hor-base($config);
+		}
+
+		@include b404-menu-hor-submenu-width($config);
+
+	} @else if (b404-get($config, base, mode) == desktop-and-tablet) {
+
+		@include b404-desktop-and-tablet {
+			@include b404-menu-hor-base($config);
+		}			
+	}	
+	
+	// Horizontal Menu Hoverable Submenu Animations
+	@keyframes #{b404-get($config, base, class)}-submenu-fade-out {
+	    from   { opacity: 1; }
+	    to { opacity: 0; }
+	}
+
+	@keyframes #{b404-get($config, base, class)}-submenu-fade-in {
+	    from   { opacity: 0; }
+	    to { opacity: 1; }
+	}
+
+	@keyframes #{b404-get($config, base, class)}-submenu-move-up {
+	    from   { margin-top: b404-get($config, build, layout, item, submenu, self, animation, offset); }
+	    to { margin-top: 0; }
+	}
+
+	@keyframes #{b404-get($config, base, class)}-submenu-move-down {
+	    from   { margin-top: -(b404-get($config, build, layout, item, submenu, self, animation, offset)); }
+	    to { margin-top: 0; }
+	}
+}

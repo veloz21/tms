@@ -1,0 +1,189 @@
+//
+// Bootstrap Daterangepicker
+//
+
+
+
+// Base
+.daterangepicker {
+    padding: 0;
+    margin: 0;
+    width: auto;
+    box-shadow: $b404-dropdown-shadow;
+    border-radius: $b404-border-radius;
+    border: 0;
+    font-family: #{b404-get($b404-font-families, regular)};
+    z-index: $b404-dropdown-zindex;
+
+    .modal-open & {
+        z-index: $b404-modal-zindex + 1;
+    }
+
+    &:after,
+    &:before {
+        display: none;
+    }
+
+    @include b404-not-rounded {
+        border-radius: 0 !important;
+    }
+
+    .ranges {
+        ul {
+            padding: 1rem 0;
+            width: 170px;
+        }
+
+        li {
+            padding: 0.7rem 1.75rem;
+            font-weight: 400;
+            font-size: 1rem;
+            color: b404-base-color(label, 3);
+            transition: color 0.3s ease;
+
+            &:hover,
+            &.active {
+                background-color: b404-base-color(grey, 1);
+                color: b404-brand-color();
+                transition: color 0.3s ease;
+            }
+        }
+    }
+
+    &.show-calendar {
+        .ranges {
+            border-right: 1px solid b404-base-color(grey, 2);
+        }
+    }
+
+    &.show-ranges {
+        .drp-calendar.left {
+            border-left: 0;
+        }
+    }
+
+    &.show-calendar {
+        .ranges {
+            margin-top: 0;
+        }
+    }
+
+    .drp-buttons {
+        padding: 1rem 1.75rem;
+        border-top: 1px solid b404-base-color(grey, 2);
+
+       .btn {
+            font-size: 0.9rem;
+            font-weight: 400;
+            padding: 0.5rem 1rem;
+            border-radius: 0;
+
+            @include b404-rounded {
+                border-radius: $b404-border-radius;
+            }
+        }
+    }
+
+    .drp-calendar {
+        &.left,
+        &.right {
+            padding: 1rem 1.5rem 1rem 1.5rem;
+        }
+
+        &.left {
+            border-left: 0 !important;
+        }
+
+        th {
+            font-weight: 500;
+            font-size: 1rem;
+            color: b404-base-color(label, 3);
+
+            &.month {
+                font-weight: 400;
+                color: b404-base-color(label, 2);
+            }
+
+            &.next,
+            &.prev {
+                span {
+                    border-width: 0 1px 1px 0;
+                    border-color: b404-base-color(label, 2);
+                }
+            }
+
+            &.next {
+                span {
+                    margin-right: 1px;
+                }
+            }
+
+            &.prev {
+                span {
+                    margin-left: 1px;
+                }
+            }
+        }
+
+        td {
+            font-size: 1rem;
+            color: b404-base-color(label, 3);
+
+            &.available.off {
+                color: b404-base-color(label, 1);
+            }
+
+            &.active {
+                background-color: b404-brand-color();
+                color: b404-brand-color(inverse);
+                border-radius: 0;
+
+                @include b404-rounded {
+                    border-radius: $b404-border-radius;
+                }
+
+                &.start-date {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                &.end-date {
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+
+                &.start-date.end-date {
+                    @include b404-rounded {
+                        border-radius: $b404-border-radius;
+                    }
+                }
+            }
+
+            &.today,
+            &.today.active {
+                border-radius: 0;
+
+                @include b404-rounded {
+                    border-radius: $b404-border-radius;
+                }
+
+                background: rgba(b404-state-color(brand, base), 0.7) !important;
+                color: b404-state-color(brand, inverse) !important;
+            }
+
+            &.in-range.available:not(.active):not(.off):not(.today) {
+                background-color: b404-base-color(grey, 1);
+                color: b404-base-color(label, 3);
+            }
+        }
+    }
+
+    select {
+        @include b404-rounded {
+            border-radius: $b404-border-radius;
+        }
+        background: transparent !important;
+        border-color: b404-base-color(grey, 2);
+        color: b404-base-color(label, 3);
+    }
+}

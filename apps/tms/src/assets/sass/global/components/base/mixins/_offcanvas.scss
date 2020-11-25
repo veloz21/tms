@@ -1,0 +1,206 @@
+//
+// Offcanvas Mixins
+//
+
+
+
+
+@mixin b404-offcanvas-base($class, $layout) {
+	$width: b404-get($layout, self, width);
+	$transition: left 0.3s ease, right 0.3s ease;
+
+	// Base
+	.#{$class} {
+		//display: block !important;
+		z-index: b404-get($layout, self, zindex);
+		position: fixed;
+		-webkit-overflow-scrolling: touch;
+		top: 0;
+		bottom: 0;
+		overflow-y: auto;
+		-webkit-transform: translate3d(0, 0, 0);
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		width: $width !important;
+		transition: $transition;
+		left: -($width + 20px);
+
+		&.#{$class}--on {
+			transition: $transition;
+			left: 0;
+		}
+
+		@include b404-hack-ie {
+			transition: none !important;
+		}
+	}
+
+	// Pull from right
+	.#{$class}--right {
+		.#{$class} {
+			right: -($width + 20px);
+			left: auto;
+
+			&.#{$class}--on {
+				transition: $transition;
+				right: 0;
+				left: auto;
+			}
+		}
+	}
+
+	// Close icon
+	@if b404-get($layout, close) != null {
+		// Mobile close button
+		.#{$class}-close {
+			width:  b404-get($layout, close, size);
+			height: b404-get($layout, close, size);
+			top: 1px;
+			z-index: b404-get($layout, self, zindex) + 1;
+			transition: $transition;
+			position: fixed;
+			border: 0;
+			box-shadow: none;
+			@include b404-rounded {
+				border-radius: 3px;
+			}
+			cursor: pointer;
+			outline: none !important;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			@include b404-hack-ie {
+				transition: none !important;
+			}
+
+			> i {
+				line-height: 0;
+				font-size: b404-get($layout, close, font-size);
+			}
+
+			&:hover {
+				text-decoration: none;
+			}
+
+			left: - (b404-get($layout, close, size));
+
+			// Pull from right
+			.#{$class}--right & {
+				left: auto;
+				right: - (b404-get($layout, close, size));
+			}
+
+			.#{$class}--on & {
+				transition: $transition;
+				left: $width - b404-get($layout, close, size) - 1px;
+			}
+
+			// Pull from right
+			.#{$class}--on.#{$class}--right & {
+				left: auto;
+				right: $width - b404-get($layout, close, size) - 1px;
+			}
+		}
+	}
+
+	// Overlay
+	.#{$class}-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		overflow: hidden;
+		z-index: b404-get($layout, self, zindex) - 1;
+		background: rgba(#000000, 0.1);
+		animation: b404-animate-fade-in .3s linear 1;
+	}
+}
+
+@mixin b404-offcanvas-skin($class, $skin) {
+	.#{$class} {
+		@if (b404-has($skin, self, bg-color)) {
+			background: b404-get($skin, self, bg-color);
+		}
+
+		@if (b404-has($skin, self, shadow)) {
+			box-shadow: b404-get($skin, self, shadow);
+		}
+	}
+
+	.#{$class}-overlay {
+		background: b404-get($skin, overlay, bg-color);
+	}
+
+	@if (b404-has($skin, close)) {
+		.#{$class}-close {
+			background-color: b404-get($skin, close, bg-color, default);
+
+			> i {
+				color: b404-get($skin, close, icon-color, default);
+			}
+
+			&:hover {
+				background-color: b404-get($skin, close, bg-color, hover);
+
+				> i {
+					color: b404-get($skin, close, icon-color, hover);
+				}
+			}
+		}
+	}
+}
+
+@mixin b404-offcanvas-build($class, $mode, $config) {
+	// close icon
+	.#{$class}-close {
+		display: none;
+	}
+
+	@if $mode == default {
+		@include b404-offcanvas-base($class, b404-get($config, layout));
+		@include b404-offcanvas-skin($class, b404-get($config, skin));
+	}
+
+	@if $mode == desktop {
+		@include b404-desktop {
+			@include b404-offcanvas-base($class, b404-get($config, layout));
+			@include b404-offcanvas-skin($class, b404-get($config, skin));
+		}
+	}
+
+	@if $mode == desktop-and-tablet {
+		@include b404-desktop-and-tablet {
+			@include b404-offcanvas-base($class, b404-get($config, layout));
+			@include b404-offcanvas-skin($class, b404-get($config, skin));
+		}
+	}
+
+	@if $mode == tablet {
+		@include b404-tablet {
+			@include b404-offcanvas-base($class, b404-get($config, layout));
+			@include b404-offcanvas-skin($class, b404-get($config, skin));
+		}
+	}
+
+	@if $mode == tablet-and-mobile {
+		@include b404-tablet-and-mobile {
+			@include b404-offcanvas-base($class, b404-get($config, layout));
+			@include b404-offcanvas-skin($class, b404-get($config, skin));
+		}
+	}
+
+	@if $mode == mobile {
+		@include b404-mobile {
+			@include b404-offcanvas-base($class, b404-get($config, layout));
+			@include b404-offcanvas-skin($class, b404-get($config, skin));
+		}
+	}
+
+	@include b404-responsive-below(b404-get($config, layout, self, width) + 50px) {
+		.#{$class} {
+			width: 90% !important;
+		}
+	}
+}

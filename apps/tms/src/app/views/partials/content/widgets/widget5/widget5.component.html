@@ -1,0 +1,22 @@
+<div class="b404-widget5">
+	<ng-container *ngFor="let item of data">
+		<ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+	</ng-container>
+</div>
+
+<ng-template #itemTemplate let-item="item">
+	<div class="b404-widget5__item">
+		<div class="b404-widget5__content">
+			<div class="b404-widget5__pic">
+				<img class="b404-widget7__img" [attr.src]="item.pic" alt="">
+			</div>
+			<div class="b404-widget5__section">
+				<a href="javascript:;" [attr.href]="item.url" class="b404-widget5__title">{{item.title}}</a>
+				<p class="b404-widget5__desc">{{item.desc}}</p>
+				<div class="b404-widget5__info" [innerHTML]="item.info"></div>
+			</div>
+		</div>
+
+		<div class="b404-widget5__content" [innerHTML]="item.largeInfo"></div>
+	</div>
+</ng-template>

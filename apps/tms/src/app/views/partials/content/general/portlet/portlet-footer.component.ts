@@ -1,0 +1,26 @@
+// Angular
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
+
+@Component({
+	selector: 'b404-portlet-footer',
+	template: `
+		<ng-content></ng-content>`
+})
+export class PortletFooterComponent implements OnInit {
+	// Public properties
+	@HostBinding('class') classList = 'b404-portlet__foot';
+	@Input() class: string;
+
+	/**
+	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
+	 */
+
+	/**
+	 * On init
+	 */
+	ngOnInit() {
+		if (this.class) {
+			this.classList += ' ' + this.class;
+		}
+	}
+}

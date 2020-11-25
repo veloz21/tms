@@ -1,0 +1,164 @@
+//
+// Grid Nav
+//
+
+
+
+
+// Component Base
+@mixin b404-grid-nav-base() {
+    .b404-grid-nav {
+        padding:0;
+        margin: 0; 
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        // nav row
+        > .b404-grid-nav__row {
+            display: table-row;       
+
+            // nav item 
+            > .b404-grid-nav__item {
+                display: table-cell; 
+                vertical-align: middle;   
+                text-align: center;
+                padding: 3.3rem 0.75rem;
+                @include b404-transition();
+
+                &:hover {
+                    text-decoration: none;
+                    @include b404-transition();
+                }
+
+                // nav icon
+                .b404-grid-nav__icon {
+                    text-align: center;
+                    font-size: 2.5rem;
+                }
+
+                // nav text
+                .b404-grid-nav__title {
+                    display: block;
+                    line-height: 1;
+                    text-align: center;
+                    margin: 10px 0 0 0;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                }
+
+                // nav text
+                .b404-grid-nav__desc {
+                    display: block;
+                    line-height: 1;
+                    text-align: center;
+                    margin: 10px 0 0 0;
+                    font-size: 1rem;
+                    font-weight:400;
+                }
+            }
+        }
+
+        .dropdown-menu & {
+            @include b404-rounded {
+                border-bottom-left-radius: $b404-border-radius;
+                border-bottom-right-radius: $b404-border-radius;
+            }
+        }
+    }
+
+    @include b404-tablet-and-mobile {
+        .b404-grid-nav {
+            // nav row
+            > .b404-grid-nav__row {
+                // nav item 
+                > .b404-grid-nav__item {
+                    padding: 1rem 0.5rem;
+                }
+            }  
+        }
+    }
+}
+
+// Component Skin
+@mixin b404-grid-nav-skin() {
+    .b404-grid-nav {
+        .b404-grid-nav__row {
+            .b404-grid-nav__item {
+                border-right: 1px solid b404-base-color(grey, 2);
+                border-bottom: 1px solid b404-base-color(grey, 2);
+
+                &:last-child {
+                    border-right: 0;
+                }
+
+                .b404-grid-nav__icon {
+                    color: b404-state-color(brand);
+                }
+
+                .b404-grid-nav__title {
+                    color: b404-brand-color();
+                }                
+
+                .b404-grid-nav__desc {
+                    color: b404-base-color(label, 2);
+                } 
+
+                &:hover {
+                    background: b404-base-color(grey, 1);
+
+                    .b404-grid-nav__icon {
+                        color: b404-base-color(label, 3);
+                    }
+                }   
+            }
+
+            &:last-child {
+                .b404-grid-nav__item {
+                    border-bottom: 0 !important;
+                }
+            }
+        }
+
+        // Dark skin
+        &.b404-grid-nav--skin-dark {
+            .b404-grid-nav__item {
+                border-right: 1px solid rgba(#fff, 0.1);
+                border-bottom: 1px solid rgba(#fff, 0.1);
+
+                &:last-child {
+                    border-right: 0;
+                }
+
+                .b404-grid-nav__icon {
+                    color: b404-brand-color();
+                }
+
+                .b404-grid-nav__title {
+                    color: #fff;
+                }
+
+                .b404-grid-nav__desc {
+                    color: rgba(#fff, 0.5);
+                }                
+
+                &:hover {
+                    background: transparent;
+
+                    .b404-grid-nav__icon {
+                        color: b404-brand-color();
+                    }
+                }   
+            }
+        }
+    }
+}
+
+// Build
+// Component Base
+@include b404-grid-nav-base();
+
+// Component Skin
+@include b404-grid-nav-skin();

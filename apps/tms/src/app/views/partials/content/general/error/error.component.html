@@ -1,0 +1,71 @@
+<div [ngClass]="'b404-' + this.type" [ngStyle]="{'background-image': 'url('+image+')'}"
+	class="b404-grid__item b404-grid__item--fluid b404-grid">
+
+	<ng-container *ngIf="type === 'error-v1'">
+		<div class="b404-error-v1__container">
+			<h1 class="b404-error-v1__number">{{code}}</h1>
+			<p class="b404-error-v1__desc" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v2'">
+		<div class="b404-error_container">
+			<div class="b404-error_title2 b404-font-light">
+				<h1>{{title}}</h1>
+			</div>
+			<span class="b404-error_desc b404-font-light" [innerHTML]="desc"></span>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v3'">
+		<div class="b404-error_container">
+			<div class="b404-error_number">
+				<h1>{{code}}</h1>
+			</div>
+			<p class="b404-error_title b404-font-light">
+				{{title}}
+			</p>
+			<p class="b404-error_subtitle">
+				{{subtitle}}
+			</p>
+			<p class="b404-error_description" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v4'">
+		<div class="b404-error_container">
+			<h1 class="b404-error_number">
+				{{code}}
+			</h1>
+			<p class="b404-error_title">
+				{{title}}
+			</p>
+			<p class="b404-error_subtitle">
+				{{subtitle}}
+			</p>
+			<p class="b404-error_description" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v5'">
+		<div class="b404-error_container">
+			<div class="b404-error_title">
+				<h1>{{title}}</h1>
+			</div>
+			<p class="b404-error_subtitle">
+				{{subtitle}}
+			</p>
+			<p class="b404-error_description" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v6'">
+		<div class="b404-error_container">
+			<div class="b404-error_subtitle b404-font-light">
+				<h1>{{title}}</h1>
+			</div>
+			<p class="b404-error_description b404-font-light" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+</div>

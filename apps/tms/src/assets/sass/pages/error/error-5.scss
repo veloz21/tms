@@ -1,0 +1,137 @@
+//
+// Page - Error 5
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+.b404-error-v5 {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    .b404-error_container {
+        .b404-error_title {
+            > h1 {
+                font-size: 14rem;
+                margin-left: 25rem;
+                margin-top: 18rem;
+                font-weight: 700;
+                color: #314DA7;
+                -webkit-text-stroke-color: white;
+            }
+        }
+
+        .b404-error_subtitle {
+            margin-left: 26rem;
+            margin-top: 3.57rem;
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: b404-base-color(label, 3);
+        }
+
+        .b404-error_description {
+            margin-left: 26rem;
+            font-size: 1.8rem;
+            font-weight: 500;
+            line-height: 130%;
+            color: b404-base-color(label, 2);
+        }
+    }
+}
+
+@include b404-minimal-desktop() {
+    .b404-error-v5 {
+        background-position: bottom -80px left 1300px;
+
+        .b404-error_container {
+            .b404-error_title {
+
+                > h1 {
+                    font-weight: 700;
+                    font-size: 12rem;
+                    margin-left: 7rem;
+                }
+            }
+
+            .b404-error_subtitle {
+                margin-left: 7rem;
+                font-size: 2.3rem;
+                font-weight: 700;
+            }
+
+            .b404-error_description {
+                margin-left: 7rem;
+                font-size: 1.8rem;
+                font-weight: 500;
+                line-height: 130%;
+            }
+        }
+    }
+}
+
+@include b404-tablet {
+    .b404-error-v5 {
+        .b404-error_container {
+            .b404-error_title {
+
+                > h1 {
+                    font-weight: 700;
+                    font-size: 12rem;
+                    margin-left: 7rem;
+                }
+            }
+
+            .b404-error_subtitle {
+                margin-left: 7rem;
+                font-size: 2.3rem;
+                font-weight: 700;
+            }
+
+            .b404-error_description {
+                margin-left: 7rem;
+                font-size: 1.8rem;
+                font-weight: 500;
+                line-height: 130%;
+            }
+        }
+    }
+}
+
+@include b404-mobile() {
+    .b404-error-v5 {
+        .b404-error_container {
+
+            .b404-error_title {
+
+
+                > h1 {
+                    font-size: 6rem;
+                    margin-top: 5rem;
+                    margin-left: 4rem;
+                }
+            }
+
+            .b404-error_subtitle {
+                margin-top: 2rem;
+                margin-left: 4rem;
+                font-size: 2rem;
+                line-height: 2rem;
+
+            }
+
+            .b404-error_description {
+                font-size: 1.4rem;
+                margin-left: 4rem;
+
+            }
+        }
+    }
+}

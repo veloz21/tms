@@ -1,0 +1,389 @@
+//
+// Global Mixins
+//
+
+
+
+
+@mixin b404-clearfix() {
+	&:before,
+	&:after {
+		content: " "; // 1
+		display: table; // 2
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+@mixin b404-button-reset() {
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    border: none;
+    cursor: pointer;
+    background: none;
+    outline: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+@mixin b404-input-reset() {
+	border: 0;
+	background: none;
+	outline: none !important;
+	box-shadow: none;
+}
+
+@mixin b404-btn-reset() {
+    border: 0;
+    background: none;
+    outline: none !important;
+    box-shadow: none;
+    outline: none !important;
+}
+
+@mixin b404-fix-fixed-position-lags() {
+	// webkit hack for smooth font view on fixed positioned elements
+	-webkit-backface-visibility:hidden;
+	backface-visibility:hidden;
+}
+
+@mixin b404-fix-animation-lags() {
+    transform: translateZ(0);
+    -webkit-transform-style: preserve-3d;
+}
+
+@mixin b404-attr($attr, $value, $important: '') {
+    @if  $value != null  {
+        #{$attr}: #{$value} #{$important};
+    }
+}
+
+@mixin b404-hack-ie {
+	//IE10 and IE11
+	@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+		@content;
+	}
+}
+
+@mixin b404-hack-edge-all {
+	@supports (-ms-ime-align:auto) {
+		@content;
+	}
+}
+
+@mixin b404-rounded {
+    @if $b404-rounded == true {
+       @content;
+    }
+}
+
+@mixin b404-not-rounded {
+    @if $b404-rounded == false {
+        @content;
+    }
+}
+
+// Input placeholder color
+@mixin b404-input-placeholder($color) {
+    &::-moz-placeholder {
+        color: $color;
+        opacity: 1;
+    }
+    // See https://github.com/twbs/bootstrap/pull/11526
+    &:-ms-input-placeholder {
+        color: $color;
+    }
+    // Internet Explorer 10+
+    &::-webkit-input-placeholder {
+        color: $color;
+    }
+    // Safari and Chrome
+}
+
+@mixin b404-hover-transition {
+    transition: $b404-transition;
+
+    &:hover {
+        transition: $b404-transition;
+    }
+}
+
+@mixin b404-transition {
+    transition: $b404-transition;
+}
+
+// Icon Sizing
+// SASS Map:  (lineawesome: 1.1rem, fontawesome: 1.2rem, flaticon: 1.1rem)
+@mixin b404-icons-size($config) {
+    // Lineawesome
+    [class^="la-"],
+    [class*=" la-"] {
+        font-size: b404-get($config, lineawesome);
+    }
+
+    // Fontawesome
+    [class^="fa-"],
+    [class*=" fa-"] {
+        font-size: b404-get($config, fontawesome);
+    }
+
+    // Flaticon
+    [class^="flaticon-"],
+    [class*=" flaticon-"],
+    [class^="flaticon2-"],
+    [class*=" flaticon2-"] {
+        font-size: b404-get($config, flaticon);
+        // fix icon position for RTL
+        float: left;
+    }
+}
+
+// Icon attr
+// SASS Map:  (lineawesome: 1.1rem, fontawesome: 1.2rem, flaticon: 1.1rem)
+@mixin b404-icons-style($attr, $config) {
+    // lineawesome
+    [class^="la-"],
+    [class*=" la-"] {
+        #{$attr}: b404-get($config, lineawesome);
+    }
+
+    // Fontawesome
+    [class^="fa-"],
+    [class*=" fa-"] {
+        #{$attr}: b404-get($config, fontawesome);
+    }
+
+    // Flaticon
+    [class^="flaticon-"],
+    [class*=" flaticon-"],
+    [class^="flaticon2-"],
+    [class*=" flaticon2-"] {
+        #{$attr}: b404-get($config, flaticon);
+    }
+}
+
+// SASS Map:  (lineawesome: 1.1rem, fontawesome: 1.2rem, flaticon: 1.1rem)
+@mixin b404-icons {
+    [class^="la-"],
+    [class*=" la-"],
+    [class^="fa-"],
+    [class*=" fa-"],
+    [class^="flaticon-"],
+    [class*=" flaticon-"],
+    [class^="flaticon2-"],
+    [class*=" flaticon2-"] {
+        @content;
+    }
+}
+
+// Lineawesome icon
+@mixin b404-la-icon($icon) {
+    font-family: "LineAwesome";
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+
+    &:before {
+        content: "#{$icon}";
+    }
+}
+
+@mixin b404-la-icon-change($icon) {
+    &:before {
+        content: "#{$icon}";
+    }
+}
+
+@mixin b404-flaticon2-icon($icon) {
+    font-family: Flaticon2;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    content: "#{$icon}";
+}
+
+// Lineawesome icon
+@mixin b404-la-icon-self($icon) {
+    font-family: "LineAwesome";
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    content: "#{$icon}";
+}
+
+// Close icon
+@mixin b404-close-icon($self:null) {
+    @if $self == true {
+        @include b404-la-icon-self( b404-get($b404-action-icons, close) );
+    } @else {
+        @include b404-la-icon( b404-get($b404-action-icons, close) );
+    }
+}
+
+// Arrow icon
+@mixin b404-arrow-icon($dir, $self:null) {
+    @if $dir == down {
+        @if $self == true {
+            @include b404-la-icon-self( b404-get($b404-action-icons, down) );
+        } @else {
+            @include b404-la-icon( b404-get($b404-action-icons, down) );
+        }
+    }
+
+    @if $dir == up {
+        @if $self == true {
+            @include b404-la-icon-self( b404-get($b404-action-icons, up) );
+        } @else {
+            @include b404-la-icon( b404-get($b404-action-icons, up) );
+        }
+    }
+
+    @if $dir == left {
+        @if $self == true {
+            @include b404-la-icon-self( b404-get($b404-action-icons, left) );
+        } @else {
+            @include b404-la-icon( b404-get($b404-action-icons, left) );
+        }
+    }
+
+    @if $dir == right {
+        @if $self == true {
+            @include b404-la-icon-self( b404-get($b404-action-icons, right) );
+        } @else {
+            @include b404-la-icon( b404-get($b404-action-icons, right) );
+        }
+    }
+}
+
+// Svg icon color
+@mixin b404-svg-icon-color($color) {
+    g {
+        [fill] {
+            transition: fill 0.3s ease;
+            fill: $color;
+        }
+    }
+
+    &:hover {
+        g {
+            [fill] {
+                transition: fill 0.3s ease;
+            }
+        }
+    }
+}
+
+// Breakpoint mixins
+// Layout Breakpoints
+// Define the minimum and maximum dimensions at which your layout will change, adapting to different screen sizes, for use in media queries.
+
+@mixin b404-media-below($width) {
+    @media (max-width: #{b404-media-breakpoint($width)}) {
+        @content;
+    }
+}
+
+@mixin b404-media-above($width) {
+    @media (min-width: #{b404-media-breakpoint($width) + 1px}) {
+        @content;
+    }
+}
+
+@mixin b404-media-range($from, $to) {
+    @media (min-width: #{b404-media-breakpoint($from) + 1px}) and (max-width: #{b404-media-breakpoint($to)}) {
+        @content;
+    }
+}
+
+@mixin b404-minimal-desktop {
+    @media (min-width: #{b404-media-breakpoint(lg) + 1px}) and (max-width: #{b404-media-breakpoint(xl)}) {
+        @content;
+    }
+}
+
+@mixin b404-minimal-desktop-and-below {
+    @media (max-width: #{b404-media-breakpoint(xl)}) {
+        @content;
+    }
+}
+
+@mixin b404-desktop {
+    @media (min-width: #{b404-media-breakpoint(lg) + 1px}) {
+        @content;
+    }
+}
+
+@mixin b404-desktop-xl {
+    @media (min-width: #{b404-media-breakpoint(xl) + 1px}) {
+        @content;
+    }
+}
+
+@mixin b404-desktop-xxl {
+    @media (min-width: #{b404-media-breakpoint(xxl) + 1px}) {
+        @content;
+    }
+}
+
+@mixin b404-desktop-and-tablet {
+    @media (min-width: #{b404-media-breakpoint(md) + 1px}) {
+        @content;
+    }
+}
+
+@mixin b404-tablet {
+    @media (min-width: #{b404-media-breakpoint(md) + 1px}) and (max-width: #{b404-media-breakpoint(lg)}) {
+        @content;
+    }
+}
+
+@mixin b404-tablet-and-mobile {
+    @media (max-width: #{b404-media-breakpoint(lg)}) {
+        @content;
+    }
+}
+
+@mixin b404-mobile {
+    @media (max-width: #{b404-media-breakpoint(md)}) {
+        @content;
+    }
+}
+
+@mixin b404-mobile-sm {
+    @media (max-width: #{b404-media-breakpoint(sm)}) {
+        @content;
+    }
+}
+
+@mixin b404-responsive-below($width) {
+    @media (max-width: #{$width}) {
+      @content;
+    }
+}
+
+@mixin b404-responsive-above($width) {
+    @media (min-width: #{$width}) {
+      @content;
+    }
+}
+
+@mixin b404-responsive-range($from, $to) {
+    @media (min-width: #{$from}) and (max-width: #{$to}) {
+      @content;
+    }
+}

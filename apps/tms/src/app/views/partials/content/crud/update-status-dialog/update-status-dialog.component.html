@@ -1,0 +1,46 @@
+<div class="b404-portlet" [ngClass]="{'b404-portlet--body-progress' : viewLoading, 'b404-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="b404-portlet__head b404-portlet__head__custom">
+		<div class="b404-portlet__head-label">
+			<h3 class="b404-portlet__head-title">{{data.title}}</h3>
+			<span class="b404-portlet__head-icon b404-hide">
+				<i class="la la-gear"></i>
+			</span>
+		</div>
+	</div>
+	<div class="b404-form b404-form--label-align-right b404-form--group-seperator-dashed">
+		<div class="b404-portlet__body">
+			<div class="b404-portlet__body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+			<div class="b404-list-timeline b404-list-timeline--skin-light b404-padding-30">
+				<div class="b404-list-timeline__items">
+					<div class="b404-list-timeline__item" *ngFor="let message of data.messages">
+						<span class="b404-list-timeline__badge b404-list-timeline__badge--{{message.statusCssClass}}"></span>
+						<span class="b404-list-timeline__text">{{message.text}}
+							<span class="b404-badge b404-badge--{{message.statusCssClass}} b404-badge--wide">{{message.statusTitle}}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="b404-portlet__foot b404-portlet__no-border b404-portlet__foot--fit text-right">
+			<div class="b404-form__actions b404-form__actions--solid">
+				<div class="row">
+					<div class="col-lg-12">
+						<mat-form-field>
+							<mat-select placeholder="Status" [formControl]="selectedStatusForUpdate">
+								<mat-option *ngFor="let status of data.statuses" value="{{ status.value }}">{{status.text}}</mat-option>
+							</mat-select>
+							<mat-hint align="start">Select
+								<strong>Status</strong> for rows updating</mat-hint>
+						</mat-form-field>
+						&nbsp;
+						<button type="button" mat-raised-button color="primary" (click)="updateStatus()" [disabled]="selectedStatusForUpdate.value.length == 0">Update status</button>&nbsp;
+						<button type="button" mat-raised-button (click)="onNoClick()">Cancel</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

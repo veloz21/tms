@@ -1,0 +1,103 @@
+//
+// NoUiSlider
+//
+
+
+
+
+// Base
+@mixin b404-nouislider-base() {
+    .noUi-target {
+        @include b404-not-rounded {
+           border-radius: 0 !important;
+        }
+        
+        &.noUi-horizontal {
+            height: 15px;
+
+            .noUi-handle {
+                width: 24px;
+                height: 24px;
+                left: -17px;
+                top: -6px;
+                border-radius: 50%;
+                outline: none;
+
+                &::before {
+                    display: none;
+                }
+
+                &::after {
+                    display: none;
+                }                
+            }
+        }
+
+        &.noUi-vertical {
+            height: 150px;
+            width: 15px;
+
+            .noUi-handle {
+                width: 24px;
+                height: 24px;
+                left: -5.5px;
+                top: -6px;
+                border-radius: 50%;
+                outline: none;
+
+                &::before {
+                    display: none;
+                }
+
+                &::after {
+                    display: none;
+                }                
+            }
+        }
+
+
+        // State colors
+        &.nouislider {
+            @each $name, $color in $b404-state-colors {
+                &.nouislider-connect-#{$name} {
+                    .noUi-connect {
+                        background: b404-get($color, base);
+                    }
+                }
+
+                &.nouislider-handle-#{$name} {
+                    .noUi-handle {
+                        border: 0;
+                        background: b404-get($color, base);
+                        box-shadow: 0 3px 6px -3px b404-get($color, base);
+                    }
+                }
+            }   
+        }
+    }
+}
+
+// Skin
+@mixin b404-nouislider-skin() {
+    .noUi-target {
+        border: 1px solid $input-border-color;  
+        background: b404-base-color(grey, 1);
+        box-shadow:none; 
+
+        .noUi-connect {
+            background: b404-state-color(brand, base);
+        }  
+
+        .noUi-handle {
+            border: 1px solid b404-base-color(grey, 1);
+            box-shadow: 0 3px 6px -3px rgba(#000, 0.7);
+        }
+    }    
+}
+
+
+// Base
+@include b404-nouislider-base();
+
+// Skin
+@include b404-nouislider-skin();

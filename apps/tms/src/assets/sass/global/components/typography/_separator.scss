@@ -1,0 +1,64 @@
+//
+// Separator
+//
+
+
+
+
+.b404-separator {
+    height: 0;
+    margin: 20px 0;
+    border-bottom: 1px solid b404-base-color(grey, 2);
+
+    // Dashed style
+    &.b404-separator--border-dashed,
+    &.b404-separator--dashed {
+        border-bottom: 1px dashed b404-base-color(grey, 2);
+    }
+
+    &.b404-separator--border-2x {
+        border-bottom-width: 2px;
+    }
+
+    // No border
+    &.b404-separator--space {
+        border-bottom: 0;
+    }
+
+    // Sizing
+    &.b404-separator--space-sm,
+    &.b404-separator--sm {
+        margin: 0.5rem 0;
+    }
+
+    &.b404-separator--space-md,
+    &.b404-separator--md {
+        margin: 2rem 0;
+    }
+
+    &.b404-separator--space-lg,
+    &.b404-separator--lg {
+        margin: 2.5rem 0;
+    }
+
+    &.b404-separator--space-xl,
+    &.b404-separator--xl {
+        margin: 3rem 0;
+    }
+
+    &.b404-separator--fit {
+        margin-left: -(b404-get($b404-portlet, space, desktop));
+        margin-right: -(b404-get($b404-portlet, space, desktop));
+    }
+
+    // States
+    @each $name, $color in $b404-state-colors {
+        &.b404-separator--#{$name} {
+            border-bottom: 1px solid b404-get($color, base);
+
+            &.b404-separator--dashed {
+                border-bottom: 1px dashed b404-get($color, base);
+            }
+        }
+    }
+}

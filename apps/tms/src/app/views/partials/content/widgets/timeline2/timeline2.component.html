@@ -1,0 +1,19 @@
+<div perfectScrollbar [ngStyle]="{'max-height': '50vh'}" class="b404-timeline-v2">
+	<div class="b404-timeline-v2__items b404-padding-top-25 b404-padding-bottom-30">
+		<ng-container *ngFor="let item of data">
+			<ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+		</ng-container>
+	</div>
+</div>
+
+<ng-template #itemTemplate let-item="item">
+	<div class="b404-timeline-v2__item">
+		<span class="b404-timeline-v2__item-time">{{item.time}}</span>
+		<div class="b404-timeline-v2__item-cricle">
+			<i [ngClass]="item.icon ? item.icon :'fa fa-genderless'"></i>
+		</div>
+		<div class="b404-timeline-v2__item-text b404-padding-top-5" [innerHTML]="item.text"></div>
+
+		<div class="b404-list-pics b404-list-pics--sm b404-padding-l-20" [innerHTML]="item.attachment"></div>
+	</div>
+</ng-template>

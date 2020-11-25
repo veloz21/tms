@@ -1,0 +1,45 @@
+//
+// Header
+//
+
+
+
+// Desktop mode
+@include b404-desktop {
+	.b404-header {
+		display: flex;
+		justify-content: space-between;
+		height: b404-get($b404-header-config, base, desktop, default, height);
+		transition: b404-get($b404-aside-config, base, minimize, transition);
+		position: relative;
+		z-index: 2;
+
+		// Fixed
+		&.b404-header--fixed {
+			position: fixed;
+			top: 0;
+			right: 0;
+			left: 0;
+			z-index: b404-get($b404-header-config, base, desktop, fixed, zindex);
+		}
+
+		// Aside enabled
+		.b404-aside--enabled & {
+			&.b404-header--fixed {
+				left: b404-get($b404-aside-config, base, default, width);
+			}
+		}
+
+		// Fixed and minimized header
+		.b404-header--fixed.b404-header--minimize & {
+			height: b404-get($b404-header-config, base, desktop, fixed, minimizeHeight);
+			transition: height 0.3s ease;
+		}
+
+		// Minimize Aside
+		.b404-header--fixed.b404-aside--minimize & {
+			left: b404-get($b404-aside-config, base, minimize, width);
+			transition: b404-get($b404-aside-config, base, minimize, transition);
+		}
+	}
+}

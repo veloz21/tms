@@ -1,0 +1,194 @@
+<!--<div class="row">
+	<div class="col-xl-6">
+		<div class="row row-full-height">
+			<div class="col-sm-12 col-md-12 col-lg-6">
+				<b404-portlet [class]="'b404-portlet--height-fluid-half b404-portlet--border-bottom-brand'">
+					<b404-portlet-body [class]="'b404-portlet__body--fluid'">
+						<b404-widget26 [value]="570" [desc]="'Total Sales'" [options]="chartOptions1"></b404-widget26>
+					</b404-portlet-body>
+				</b404-portlet>
+
+				<div class="b404-space-20"></div>
+
+				<b404-portlet [class]="'b404-portlet--height-fluid-half b404-portlet--border-bottom-brand'">
+					<b404-portlet-body [class]="'b404-portlet__body--fluid'">
+						<b404-widget26 [value]="640" [desc]="'Completed Transactions'" [options]="chartOptions2"></b404-widget26>
+					</b404-portlet-body>
+				</b404-portlet>
+			</div>
+
+			<div class="col-sm-12 col-md-12 col-lg-6">
+				<b404-portlet [class]="'b404-portlet--height-fluid-half b404-portlet--border-bottom-brand'">
+					<b404-portlet-body [class]="'b404-portlet__body--fluid'">
+						<b404-widget26 [value]="'234+'" [desc]="'Transactions'" [options]="chartOptions3"></b404-widget26>
+					</b404-portlet-body>
+				</b404-portlet>
+
+				<div class="b404-space-20"></div>
+
+				<b404-portlet [class]="'b404-portlet--height-fluid-half b404-portlet--border-bottom-brand'">
+					<b404-portlet-body [class]="'b404-portlet__body--fluid'">
+						<b404-widget26 [value]="'4.4M$'" [desc]="'Paid Comissions'" [options]="chartOptions4"></b404-widget26>
+					</b404-portlet-body>
+				</b404-portlet>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-6">
+		<b404-portlet [class]="'b404-portlet--height-fluid'">
+			<b404-portlet-header [title]="'Order Statistics'">
+				<ng-container ktPortletTools>
+					<b404-context-menu2></b404-context-menu2>
+				</ng-container>
+			</b404-portlet-header>
+			<b404-portlet-body>
+				<b404-widget12></b404-widget12>
+			</b404-portlet-body>
+		</b404-portlet>
+	</div>
+</div>
+
+
+<b404-portlet>
+	<b404-portlet-body [class]="'b404-portlet__body--fit'">
+		<div class="row row-no-padding row-col-separator-xl">
+			<div class="col-xl-4">
+				<b404-widget1></b404-widget1>
+			</div>
+			<div class="col-xl-4">
+				<b404-widget14 [title]="'Daily Sales'" [desc]="'Check out each collumn for more details'"></b404-widget14>
+			</div>
+			<div class="col-xl-4">
+				<b404-widget14 [title]="'Revenue Change'" [desc]="'Revenue change breakdown by cities'"></b404-widget14>
+			</div>
+		</div>
+	</b404-portlet-body>
+</b404-portlet>
+
+
+<div class="row">
+	<div class="col-xl-4">
+		<b404-portlet [class]="'b404-portlet--height-fluid'">
+			<b404-portlet-header [title]="'Download Files'">
+				<ng-container ktPortletTools>
+					<b404-context-menu2></b404-context-menu2>
+				</ng-container>
+			</b404-portlet-header>
+			<b404-portlet-body>
+				<b404-widget4 [data]="widget4_1">
+					<ng-template #actionTemplate let-item="item">
+						<div class="b404-widget4__tools">
+							<a href="javascript:;" class="btn btn-clean btn-icon btn-sm">
+								<i class="flaticon2-download-symbol-of-down-arrow-in-a-rectangle"></i>
+							</a>
+						</div>
+					</ng-template>
+				</b404-widget4>
+			</b404-portlet-body>
+		</b404-portlet>
+	</div>
+	<div class="col-xl-4">
+		<b404-portlet [class]="'b404-portlet--height-fluid'">
+			<b404-portlet-header [title]="'New Users'">
+				<ng-container ktPortletTools>
+					<b404-context-menu2></b404-context-menu2>
+				</ng-container>
+			</b404-portlet-header>
+			<b404-portlet-body>
+				<b404-widget4 [data]="widget4_2">
+					<ng-template #actionTemplate let-item="item">
+						<a href="javascript:;" class="btn btn-sm" [ngClass]="item.buttonClass">Follow</a>
+					</ng-template>
+				</b404-widget4>
+			</b404-portlet-body>
+		</b404-portlet>
+	</div>
+	<div class="col-xl-4">
+		<b404-portlet [class]="'b404-portlet--height-fluid'">
+			<b404-portlet-header [title]="'Latest Updates'">
+				<ng-container ktPortletTools>
+					<b404-context-menu2></b404-context-menu2>
+				</ng-container>
+			</b404-portlet-header>
+			<b404-portlet-body>
+				<b404-widget4 [data]="widget4_3">
+					<ng-template #actionTemplate let-item="item">
+						<span class="b404-widget4__number" [ngClass]="item.valueColor">{{item.value}}</span>
+					</ng-template>
+				</b404-widget4>
+			</b404-portlet-body>
+		</b404-portlet>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-xl-8">
+		<b404-portlet [class]="'b404-portlet--height-fluid'">
+			<b404-portlet-header [title]="'Exclusive Datatable'" [class]="'b404-portlet__head--lg b404-portlet__head--noborder b404-portlet__head--break-sm'">
+				<ng-container ktPortletTools>
+					<b404-context-menu></b404-context-menu>
+				</ng-container>
+			</b404-portlet-header>
+			<b404-portlet-body [class]="'b404-portlet__body--fit'">
+				<b404-data-table></b404-data-table>
+			</b404-portlet-body>
+		</b404-portlet>
+	</div>
+	<div class="col-xl-4">
+		<b404-portlet [class]="'b404-portlet--height-fluid'">
+			<b404-portlet-header [title]="'Authors Profit'">
+				<ng-container ktPortletTools>
+					<b404-context-menu2></b404-context-menu2>
+				</ng-container>
+			</b404-portlet-header>
+			<b404-portlet-body>
+				<b404-widget4 [data]="widget4_4">
+					<ng-template #actionTemplate let-item="item">
+						<span class="b404-widget4__number" [ngClass]="item.valueColor">{{item.value}}</span>
+					</ng-template>
+				</b404-widget4>
+			</b404-portlet-body>
+		</b404-portlet>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-xl-8">
+		<b404-portlet [class]="'b404-portlet--height-fluid'">
+			<b404-portlet-header [title]="'Best Sellers'">
+				<ng-container ktPortletTools>
+					<b404-context-menu2></b404-context-menu2>
+				</ng-container>
+			</b404-portlet-header>
+			<b404-portlet-body>
+				<b404-widget5></b404-widget5>
+			</b404-portlet-body>
+		</b404-portlet>
+	</div>
+	<div class="col-xl-4">
+		<b404-portlet [class]="'b404-portlet--height-fluid'">
+			<b404-portlet-header [title]="'Recent Activities'">
+				<ng-container ktPortletTools>
+					<b404-context-menu2></b404-context-menu2>
+				</ng-container>
+			</b404-portlet-header>
+			<b404-portlet-body>
+				<b404-timeline2></b404-timeline2>
+			</b404-portlet-body>
+		</b404-portlet>
+	</div>
+</div>
+
+<b404-portlet>
+	<b404-portlet-header>
+		<ng-container ktPortletTitle>
+		</ng-container>
+		<ng-container ktPortletTools>
+		</ng-container>
+	</b404-portlet-header>
+	<b404-portlet-body></b404-portlet-body>
+	<b404-portlet-footer></b404-portlet-footer>
+</b404-portlet>
+-->

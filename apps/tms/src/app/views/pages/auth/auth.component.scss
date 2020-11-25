@@ -1,0 +1,16 @@
+// import login css
+@import "sass/pages/login/login-1";
+
+b404-auth,
+.b404-login {
+  height: 100%;
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  // add extra right padding when displaying spinner in button
+  .b404-spinner {
+    padding-right: 3rem !important;
+  }
+}

@@ -1,0 +1,93 @@
+//
+// User Card
+//
+
+
+
+.b404-user-card {
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 2rem 1rem;
+    background-color: #f9fafe;
+
+    // Elements
+    .b404-user-card__avatar {
+        .b404-badge,
+        img {
+            width: 60px;
+            height: 60px;
+
+            @include b404-rounded {
+                border-radius: 4px;
+            }
+        }
+
+        .b404-badge {
+            font-size: 2.2rem;
+        }
+    }
+
+    .b404-user-card__name {
+        flex-grow: 1;
+        color: b404-base-color(label, 3);
+        font-size: 1.3rem;
+        font-weight: 500;
+        padding-left: 1rem;
+    }
+
+    .b404-user-card__badge {
+        padding-left: 0.5rem;
+    }
+
+    // Skins
+    &.b404-user-card--skin-light {
+        .b404-user-card__name {
+            color: b404-base-color(label, 3);
+        }
+
+        .b404-user-card__avatar {
+            .b404-badge {
+                //background-color: rgba(#fff, 0.1);
+            }
+        }
+    }
+
+    &.b404-user-card--skin-dark {
+        .b404-user-card__name {
+            color: #fff;
+        }
+
+        .b404-user-card__avatar {
+            .b404-badge {
+                background-color: rgba(#fff, 0.1);
+            }
+        }
+    }
+}
+
+
+@include b404-tablet-and-mobile {
+    .b404-user-card {
+        padding: 1rem 1rem;
+
+        // Elements
+        .b404-user-card__avatar {
+            .b404-badge,
+            img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .b404-user-card__name {
+            font-size: 1.1rem;
+            padding-left: 0.5rem;
+        }
+
+        .b404-user-card__badge {
+            padding-left: 0.5rem;
+        }
+    }
+}

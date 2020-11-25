@@ -1,0 +1,229 @@
+//
+// User Login v3
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+// Login Base
+.b404-login.b404-login--v4 {
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    // Login Area
+    .b404-login__wrapper {
+        padding: 6% 2rem 1rem 2rem;
+        margin: 0 auto 2rem auto;
+        overflow: hidden;
+
+        .b404-login__container {
+            width: 430px;
+            margin: 0 auto;
+
+            .b404-login__logo {
+                text-align: center;
+                margin: 0 auto 4rem auto;
+            }
+
+            .b404-login__head {
+                margin-top: 1rem;
+                margin-bottom: 3rem;
+
+                .b404-login__title {
+                    text-align: center;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                    color: b404-base-color(label, 3);
+                }
+
+                .b404-login__desc {
+                    margin-top: 1.5rem;
+                    text-align: center;
+                    font-size: 1.1rem;
+                    font-weight: 400;
+                    color: b404-base-color(label, 2);
+                }
+            }
+
+            .b404-form {
+                margin: 0 auto;
+
+                .input-group {
+                    padding: 0;
+                    margin: 0 auto;
+                }
+
+                .form-control {
+                    height: 46px;
+                    border: none;
+                    padding-left: 1.5rem;
+                    padding-right: 1.5rem;
+                    border-radius: 46px;
+                    margin-top: 1.5rem;
+                    background: rgba(#fff, 0.015);
+                    color: b404-base-color(label, 2);
+                    @include b404-input-placeholder(b404-base-color(label, 3));
+                }
+
+                .form-control.is-valid + .valid-feedback,
+                .form-control.is-invalid + .invalid-feedback {
+                    font-weight: 500;
+                    font-size: 0.9rem;
+                    padding-left: 1.6rem;
+                }
+
+                .b404-login__extra {
+                    margin-top: 30px;
+                    margin-bottom: 15px;
+                    color: b404-base-color(label, 2);
+                    font-size: 1rem;
+                    padding: 0 1.5rem;
+
+                    .b404-checkbox {
+                        font-size: 1rem;
+                    }
+
+                    .b404-login__link {
+                        font-size: 1rem;
+                        color: b404-base-color(label, 2);
+                        transition: color 0.3s ease;
+
+                        &:hover {
+                            color: b404-brand-color();
+                            transition: color 0.3s ease;
+                        }
+                    }
+                }
+
+                .b404-login__actions {
+                    text-align: center;
+                    margin-top: 7%;
+
+                    .b404-login__btn-secondary,
+                    .b404-login__btn-primary {
+                        height: 50px;
+                        padding-left: 2.5rem;
+                        padding-right: 2.5rem;
+                    }
+                }
+            }
+
+            .b404-login__account {
+                text-align: center;
+                margin-top: 2rem;
+
+                .b404-login__account-msg {
+                    font-size: 1rem;
+                    font-weight: 400;
+                    color:b404-base-color(label, 2);
+                }
+
+                .b404-login__account-link {
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: b404-base-color(label, 3);
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: b404-brand-color();
+                        transition: color 0.3s ease;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Login Modes
+.b404-login.b404-login--v4 {
+    &.b404-login--signin {
+        .b404-login__signup {
+            display: none;
+        }
+
+        .b404-login__signin {
+            display: block;
+        }
+
+        .b404-login__forgot {
+            display: none;
+        }
+    }
+
+    &.b404-login--signup {
+        .b404-login__signup {
+            display: block;
+        }
+
+        .b404-login__signin {
+            display: none;
+        }
+
+        .b404-login__forgot {
+            display: none;
+        }
+
+        .b404-login__account {
+            display: none;
+        }
+    }
+
+    &.b404-login--forgot {
+        .b404-login__signup {
+            display: none;
+        }
+
+        .b404-login__signin {
+            display: none;
+        }
+
+        .b404-login__forgot {
+            display: block;
+        }
+    }
+}
+
+@include b404-tablet-and-mobile {
+    .b404-login.b404-login--v4 {
+        .b404-login__wrapper {
+            padding-top: 5rem;
+            width: 100%;
+
+             .b404-login__container {
+                margin: 0 auto;
+
+                .b404-login__account {
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
+}
+
+@include b404-mobile() {
+    .b404-login.b404-login--v4 {
+        .b404-login__wrapper {
+            width: 100%;
+
+            .b404-login__container {
+                width: 100%;
+                margin: 0 auto;
+
+                .b404-form {
+                    width: 100%;
+                    margin: 0 auto;
+                }
+
+                .b404-login__account {
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,120 @@
+<div ngbDropdown placement="bottom-right" *ngIf="user$ | async as _user" class="b404-header__topbar-item b404-header__topbar-item--user">
+	<div ngbDropdownToggle class="b404-header__topbar-wrapper">
+		<span class="b404-header__topbar-welcome">Hi,</span>
+		<span class="b404-header__topbar-username">{{_user.username}}</span>
+		<span class="b404-header__topbar-icon"><b>{{_user.username|firstLetter}}</b></span>
+	</div>
+	<div ngbDropdownMenu class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+		<!--begin: Head -->
+		<div class="b404-user-card b404-user-card--skin-dark b404-notification-item-padding-x" style="background-image: url(./assets/media/misc/bg-1.jpg)">
+			<div class="b404-user-card__avatar">
+				<img alt="Pic" [attr.src]="_user.pic"/>
+				<span [hidden]="true" class="b404-badge b404-badge--lg b404-badge--rounded b404-badge--bold b404-font-success">
+					{{_user.username|firstLetter}}
+				</span>
+			</div>
+			<div class="b404-user-card__name">
+				{{_user.username}}
+			</div>
+			<div class="b404-user-card__badge">
+				<span class="btn btn-success btn-sm btn-bold btn-font-md">23 messages</span>
+			</div>
+		</div>
+		<!--end: Head -->
+
+		<!--begin: Navigation -->
+		<div class="b404-notification">
+			<a ngbDropdownItem routerLink="profile" href="javascript:;" class="b404-notification__item">
+				<div class="b404-notification__item-icon">
+					<i class="flaticon2-calendar-3 b404-font-success"></i>
+				</div>
+				<div class="b404-notification__item-details">
+					<div class="b404-notification__item-title b404-font-bold">
+						My Profile
+					</div>
+					<div class="b404-notification__item-time">
+						Account settings and more
+					</div>
+				</div>
+			</a>
+			<a ngbDropdownItem routerLink="profile" href="javascript:;" class="b404-notification__item">
+				<div class="b404-notification__item-icon">
+					<i class="flaticon2-mail b404-font-warning"></i>
+				</div>
+				<div class="b404-notification__item-details">
+					<div class="b404-notification__item-title b404-font-bold">
+						My Messages
+					</div>
+					<div class="b404-notification__item-time">
+						Inbox and tasks
+					</div>
+				</div>
+			</a>
+			<a ngbDropdownItem routerLink="profile" href="javascript:;" class="b404-notification__item">
+				<div class="b404-notification__item-icon">
+					<i class="flaticon2-rocket-1 b404-font-danger"></i>
+				</div>
+				<div class="b404-notification__item-details">
+					<div class="b404-notification__item-title b404-font-bold">
+						My Activities
+					</div>
+					<div class="b404-notification__item-time">
+						Logs and notifications
+					</div>
+				</div>
+			</a>
+			<a ngbDropdownItem routerLink="profile" href="javascript:;" class="b404-notification__item">
+				<div class="b404-notification__item-icon">
+					<i class="flaticon2-hourglass b404-font-brand"></i>
+				</div>
+				<div class="b404-notification__item-details">
+					<div class="b404-notification__item-title b404-font-bold">
+						My Tasks
+					</div>
+					<div class="b404-notification__item-time">
+						latest tasks and projects
+					</div>
+				</div>
+			</a>
+			<div class="b404-notification__custom">
+				<a href="javascript:;" (click)="logout()" class="btn btn-label-brand btn-sm btn-bold">Sign Out</a>
+			</div>
+		</div>
+		<!--end: Navigation -->
+
+		<!--begin: Navigation(alternative) -->
+		<ul class="b404-nav b404-margin-b-10 b404-hidden">
+			<li class="b404-nav__item">
+				<a ngbDropdownItem routerLink="profile" class="b404-nav__link">
+					<span class="b404-nav__link-icon"><i class="flaticon2-calendar-3"></i></span>
+					<span class="b404-nav__link-text">My Profile</span>
+				</a>
+			</li>
+			<li class="b404-nav__item">
+				<a ngbDropdownItem routerLink="profile" class="b404-nav__link">
+					<span class="b404-nav__link-icon"><i class="flaticon2-browser-2"></i></span>
+					<span class="b404-nav__link-text">My Tasks</span>
+				</a>
+			</li>
+			<li class="b404-nav__item">
+				<a ngbDropdownItem routerLink="profile" class="b404-nav__link">
+					<span class="b404-nav__link-icon"><i class="flaticon2-mail"></i></span>
+					<span class="b404-nav__link-text">Messages</span>
+				</a>
+			</li>
+			<li class="b404-nav__item">
+				<a ngbDropdownItem routerLink="profile" class="b404-nav__link">
+					<span class="b404-nav__link-icon"><i class="flaticon2-gear"></i></span>
+					<span class="b404-nav__link-text">Settings</span>
+				</a>
+			</li>
+			<li class="b404-nav__item b404-nav__item--custom b404-margin-t-15">
+				<a (click)="logout()" class="btn btn-label-brand btn-sm btn-bold">Sign Out</a>
+			</li>
+		</ul>
+		<!--end: Navigation(alternative) -->
+	</div>
+</div>
+
+
+<!-- <a (click)="logout()" class="btn btn-label-brand btn-sm btn-bold">Sign Out</a> -->

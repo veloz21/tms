@@ -1,0 +1,98 @@
+//
+// Aside Brand
+//
+
+
+
+.b404-aside__brand {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	padding: 0 b404-get($b404-page-padding, desktop);
+	height: b404-get($b404-header-config, base, desktop, default, height);
+
+	.b404-aside__brand-logo {
+		display: flex;
+		justify-content: flex-begin;
+
+		img {
+			.b404-aside--minimize & {
+				display: none;
+			}
+		}
+	}
+
+	.b404-aside__brand-tools {
+		display: flex;
+		justify-content: flex-end;
+
+		.b404-aside__brand-aside-toggler {
+			display: inline-block;
+			padding: 0;
+			@include b404-input-reset();
+
+			> span {
+				display: inline-block;
+
+				&:nth-child(2) {
+					display: none;
+				}
+			}
+
+			svg {
+				height: 26px;
+				width: 26px;
+				margin-right: -2px;
+			}
+		}
+	}
+}
+
+@include b404-desktop {
+	.b404-aside__brand {
+		transition: b404-get($b404-aside-config, base, minimize, transition);
+
+		// Header fixed & aside static mode
+		.b404-header--fixed.b404-aside--static & {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: b404-get($b404-aside-config, base, default, width);
+			z-index: b404-get($b404-header-config, base, desktop, fixed, zindex);
+		}
+
+		// Aside minimize mode
+		.b404-header--fixed.b404-aside--minimize & {
+			justify-content: center;
+
+			.b404-aside__brand-tools {
+				justify-content: center;
+
+				.b404-aside__brand-aside-toggler {
+					> span {
+						&:nth-child(1) {
+							display: none;
+						}
+
+						&:nth-child(2) {
+							display: inline-block;
+						}
+					}
+				}
+			}
+		}
+
+		// Aside minimize, header fixed & aside static mode
+		.b404-header--fixed.b404-aside--static.b404-aside--minimize & {
+			transition: b404-get($b404-aside-config, base, minimize, transition);
+			width: b404-get($b404-aside-config, base, minimize, width);
+		}
+	}
+}
+
+@include b404-tablet-and-mobile {
+	.b404-aside__brand {
+		display: none;
+	}
+}

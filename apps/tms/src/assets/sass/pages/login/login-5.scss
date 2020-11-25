@@ -1,0 +1,305 @@
+//
+// User Login v5
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+// Login Base
+.b404-login.b404-login--v5 {
+    height: auto;
+    display: flex;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: stretch;
+
+    // Buttons
+
+    .btn {
+        height: 46px;
+        text-align: center;
+        padding-left: 3rem;
+        padding-right: 3rem;
+        margin-right: 2rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    // Left Panel
+    .b404-login__left {
+        display: flex;
+        flex: 1;
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+
+        .b404-login__wrapper {
+            display: flex;
+            width: 500px;
+
+            .b404-login__content {
+                text-align: center;
+                padding: 1rem 1.5rem;
+
+                .b404-login__title {
+                    margin: 5rem 0 2rem 0;
+                    color: b404-base-color(label, 3);
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                }
+
+                .b404-login__desc {
+                    color: b404-base-color(label, 2);
+                    font-size: 1rem;
+                }
+
+                .b404-login__actions {
+                    margin: 3.4rem 0 3rem 0;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    .b404-login__divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > div {
+            height: 400px;
+            background: #ffffff;
+            width: 30px;
+            box-shadow: -19px 0 35px -7px #F5F5F5;
+        }
+    }
+
+    // Right Panel
+    .b404-login__right {
+        display: flex;
+        flex: 1;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+
+        .b404-login__wrapper {
+            width: 400px;
+            padding: 1rem 1.5rem;
+
+            .b404-login__head {
+                text-align: center;
+            }
+
+            .b404-login__logo {
+                text-align: center;
+                margin: 0 auto 4rem auto;
+            }
+
+            .b404-login__title {
+                text-align: center;
+                font-size: 1.5rem;
+                font-weight: 500;
+                color: b404-base-color(label, 3);
+            }
+
+            .b404-login__desc {
+                margin-top: 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                color: b404-base-color(label, 2);
+            }
+
+            .b404-login__form {
+                margin-top: 4rem;
+
+                .form-group {
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .form-control {
+                    height: 46px;
+                    border-radius: 0;
+                    border: none;
+                    border-bottom: 0.07rem solid #ebecf1 !important;
+                    padding: 1rem 0;
+                    margin-top: 0.1rem;
+                    @include b404-input-placeholder(#93959e);
+                    &:focus {
+                        @include b404-input-placeholder(b404-brand-color());
+                    }
+                    &.form-control-last {
+                        border-bottom: 0 !important;
+                    }
+                }
+
+                .form-control.is-valid + .valid-feedback,
+                .form-control.is-invalid + .invalid-feedback {
+                    font-weight: 500;
+                    font-size: 0.9rem;
+                    padding-left: 1.6rem;
+                }
+            }
+
+            .b404-login__extra {
+                margin-top: 2rem;
+                color: #585a62;
+                .b404-checkbox {
+                    font-size: 1rem;
+                }
+                .b404-link {
+                    font-size: 1rem;
+                }
+            }
+
+            .b404-login__actions {
+                margin: 3rem 0 3rem 0;
+                text-align: center;
+            }
+
+            .b404-login__account {
+                text-align: center;
+                .b404-login__account-msg {
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                }
+                .b404-login__account-link {
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+
+    // Login Modes
+    &.b404-login--signin {
+        .b404-login__signup {
+            display: none;
+        }
+
+        .b404-login__signin {
+            display: block;
+        }
+
+        .b404-login__forgot {
+            display: none;
+        }
+    }
+
+    &.b404-login--signup {
+        .b404-login__signup {
+            display: block;
+        }
+
+        .b404-login__signin {
+            display: none;
+        }
+
+        .b404-login__forgot {
+            display: none;
+        }
+
+        .b404-login__account {
+            display: none;
+        }
+    }
+
+    &.b404-login--forgot {
+        .b404-login__signup {
+            display: none;
+        }
+
+        .b404-login__signin {
+            display: none;
+        }
+
+        .b404-login__forgot {
+            display: block;
+        }
+    }
+}
+
+@include b404-tablet-and-mobile() {
+    .b404-login.b404-login--v5 {
+        flex-direction: column;
+
+        .b404-login__left {
+            flex-grow: 1;
+            width: 100%;
+            margin: 0 auto;
+            padding-top: 2.5rem;
+
+            .b404-login__wrapper {
+                padding-bottom: 0;
+                margin: 0 auto;
+                flex-direction: column;
+
+                .b404-login__contanier {
+                    padding: 1rem;
+                    width: 100%;
+                    margin-top: 3rem;
+                    .b404-login__content {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .b404-login__actions {
+                margin: 1rem 0;
+            }
+        }
+
+        .b404-login__right {
+            flex-grow: 1;
+            width: 100%;
+            padding-top: 1.5rem;
+            padding-bottom: 2.5rem;
+
+            .b404-login__title {
+
+            }
+
+            .b404-login__contanier {
+                width: 100%;
+                margin: 0 auto;
+                padding: 1rem;
+
+                .b404-login__actions {
+                    .btn {
+                        padding: 1rem 1.95rem;
+                        margin-right: 0.5rem;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        .b404-login__divider {
+            display: flex;
+            padding-top: 0;
+            width: 60%;
+            margin: 5px auto;
+            align-items: center;
+            justify-content: center;
+
+            > div {
+                height: 30px;
+                background: #ffffff;
+                width: 100%;
+                box-shadow: 0 -15px 30px -10px #F5F5F5;
+            }
+        }
+    }
+}

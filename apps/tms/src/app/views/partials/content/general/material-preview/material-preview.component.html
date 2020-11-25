@@ -1,0 +1,94 @@
+<b404-portlet [ngClass]="'b404-portlet--ngviewer'" *ngIf="viewItem">
+	<b404-portlet-header [title]="viewItem.beforeCodeTitle">
+		<ng-container ktPortletTools>
+			<!-- <ul class="b404-portlet__nav">
+				<li class="b404-portlet__nav-item">
+					<a href="javascript:;" *ngIf="hasExampleSource()" (click)="changeCodeVisibility()" class="b404-portlet__nav-link b404-portlet__nav-link--icon"
+						title="View Source">
+						<i class="la la-code"></i>
+					</a>
+				</li>
+			</ul> -->
+			<div class="b404-portlet__head-group">
+				<button type="button"
+					*ngIf="hasExampleSource()"
+					(click)="changeCodeVisibility()"
+					title="View Source"
+					class="btn btn-clean btn-sm btn-icon btn-icon-md">
+					<i class="la la-code"></i>
+				</button>
+			</div>
+		</ng-container>
+	</b404-portlet-header>
+
+	<b404-portlet-body>
+		<div class="b404-portlet__preview" *ngIf="viewItem.beforeCodeDescription">
+			<div class="b404-alert b404-alert--icon b404-alert--air b404-alert--square alert alert-dismissible b404-margin-bottom-30"
+				[ngClass]="" role="alert">
+				<div class="b404-alert__text" [innerHTML]="viewItem.beforeCodeDescription | safe: 'html'"></div>
+			</div>
+		</div>
+		<div *ngIf="hasExampleSource()" class="b404-portlet__preview b404-portlet__code" [ngClass]="{'b404-portlet__code--show' : viewItem.isCodeVisible}">
+			<mat-tab-group *ngIf="viewItem.isCodeVisible">
+				<mat-tab label="HTML" *ngIf="viewItem.htmlCode">
+					<a href="javascript:;"
+						class="b404-portlet__code-copy"
+						title="Copy example source"
+						ngxClipboard
+						[cbContent]="viewItem.htmlCode">
+						<i class="la la-copy"></i>
+					</a>
+					<pre><code [highlight]="viewItem.htmlCode"></code></pre>
+				</mat-tab>
+				<mat-tab label="TS" *ngIf="viewItem.tsCode">
+					<a href="javascript:;"
+						class="b404-portlet__code-copy"
+						title="Copy example source"
+						ngxClipboard
+						[cbContent]="viewItem.tsCode">
+						<i class="la la-copy"></i>
+					</a>
+					<pre><code [highlight]="viewItem.tsCode"></code></pre>
+				</mat-tab>
+				<mat-tab label="CSS" *ngIf="viewItem.cssCode">
+					<a href="javascript:;"
+						class="b404-portlet__code-copy"
+						title="Copy example source"
+						ngxClipboard
+						[cbContent]="viewItem.cssCode">
+						<i class="la la-copy"></i>
+					</a>
+					<pre><code [highlight]="viewItem.cssCode"></code></pre>
+				</mat-tab>
+				<mat-tab label="SCSS" *ngIf="viewItem.scssCode">
+					<a href="javascript:;"
+						class="b404-portlet__code-copy"
+						title="Copy example source"
+						ngxClipboard
+						[cbContent]="viewItem.scssCode">
+						<i class="la la-copy"></i>
+					</a>
+					<pre><code [highlight]="viewItem.scssCode"></code></pre>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+
+		<!-- view -->
+		<div class="b404-portlet__preview">
+			<ng-content></ng-content>
+		</div>
+		<!-- / view -->
+
+		<!-- after Code Title -->
+		<div *ngIf="viewItem.afterCodeTitle" class="b404-portlet__preview" [innerHTML]="viewItem.afterCodeTitle | safe: 'html'">
+		</div>
+		<!-- / after Code Title -->
+
+		<!-- after Code Description -->
+		<div *ngIf="viewItem.afterCodeDescription" class="b404-portlet__preview" [innerHTML]="viewItem.afterCodeDescription | safe: 'html'">
+		</div>
+		<!-- / after Code Description -->
+	</b404-portlet-body>
+
+	<b404-portlet-footer></b404-portlet-footer>
+</b404-portlet>

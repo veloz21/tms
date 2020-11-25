@@ -1,0 +1,70 @@
+//
+// Widget7
+//
+
+
+
+
+.b404-widget7 {
+    .b404-widget7__desc {
+        text-align: center;
+        margin-top: 7rem;
+        font-size: 1.3rem;
+        color: b404-base-color(label, 3);
+    }
+
+    .b404-widget7__content {
+        display: flex;
+        justify-content: center;                            
+        align-items: center;
+        margin-top: 2rem;
+             
+        .b404-widget7__userpic {
+            img {                     
+                width: 3.6rem;                    
+                border-radius: 50%;                                                    
+            }                
+        }
+
+        .b404-widget7__info {
+            padding-left: 1rem;
+
+            .b404-widget7__username {
+                color: b404-base-color(label, 3);
+                font-weight: 500;  
+                font-size: 1.4rem; 
+                margin-bottom: 0;            
+            }
+                    
+            .b404-widget7__time {
+                color: b404-base-color(label, 2);
+                font-size: 0.9rem;          
+            } 
+        }               
+    }             
+
+    .b404-widget7__button {
+        text-align: center;
+        margin-top: 2rem;
+    } 
+
+    // Light skin
+    &.b404-widget7--skin-light {
+        .b404-widget7__desc {
+            color: #fff;   
+        }
+                
+        .b404-widget7__info {
+            .b404-widget7__username {
+                color: #fff;                   
+            }
+                        
+            .b404-widget7__time {
+                color: #fff;
+                opacity: 0.8;                     
+            }          
+        }  
+    }          
+} 
+
+

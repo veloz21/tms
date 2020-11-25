@@ -1,0 +1,72 @@
+//
+// Brand Light Skin
+//
+
+
+
+// Include global config
+@import "../../../../config";
+
+// Include layout config
+@import "../../config";
+
+// Include header config
+@import "../../header/config";
+
+// Include aside config
+@import "../../aside/config";
+
+// Desktop mode
+@include b404-desktop {
+	.b404-aside__brand {
+	    background-color: b404-get($b404-layout-skins, light);
+    	box-shadow: none;
+
+    	.b404-aside__brand-tools {
+			svg {
+				g {
+					[fill] {
+						fill: b404-brand-color();
+					}
+				}
+			}
+			//@include b404-burger-icon-skin(b404-aside__brand-aside-toggler, (default: lighten(#b4b8ce, 10%), hover: b404-brand-color(), active: b404-brand-color()) );
+		}
+	}
+}
+
+// Tablet and mobile mode
+@include b404-tablet-and-mobile {
+	.b404-header-mobile {
+		background-color: b404-get($b404-layout-skins, light);
+		border-bottom: 1px solid #eff0f6;
+
+		// Minimize
+		.b404-header-mobile--fixed.b404-header--minimize & {
+			border-bottom: 0;
+			box-shadow: 0px 1px 9px -3px rgba(0,0,0,0.1);
+		}
+
+		.b404-header__topbar--mobile-on & {
+			box-shadow: none;
+		}
+
+		// Toolbar
+		.b404-header-mobile__toolbar {
+			@include b404-burger-icon-skin(b404-header-mobile__toggler, (default: #b4b8ce, hover: b404-brand-color(), active: b404-brand-color()) );
+
+			.b404-header-mobile__topbar-toggler {
+				i {
+					color: #b4b8ce;
+				}
+
+				&.b404-header-mobile__topbar-toggler--active,
+				&:hover {
+					i {
+						color: b404-brand-color();
+					}
+				}
+			}
+		}
+	}
+}

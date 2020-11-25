@@ -1,0 +1,70 @@
+//
+// Aside Light Skin
+//
+
+
+
+// Include global config
+@import "../../../../config";
+
+// Include layout config
+@import "../../config";
+
+// Include header config
+@import "../../header/config";
+
+// Include aside config
+@import "../../aside/config";
+
+// Aside
+.b404-aside {
+	background-color: b404-get($b404-layout-skins, light);
+	box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.08);
+
+	// Scrollbar
+	@include b404-perfect-scrollbar-skin(#e0e2f0);
+
+	// Footer
+	.b404-aside__footer {
+		background-color: #f6f7fd;
+
+		.btn {
+			@include b404-transition();
+			background-color: transparent;
+
+			i {
+				@include b404-transition();
+				color: #99a7df;
+			}
+		}
+
+		.show .btn,
+		.btn:hover {
+			@include b404-transition();
+			background-color: darken(#f6f7fd, 6%);
+
+			i {
+				@include b404-transition();
+				color: b404-brand-color();
+			}
+		}
+	}
+}
+
+// Build Aside Menu Skin
+@include b404-menu-ver-build-skin(b404-get($b404-aside-config, menu), light);
+
+// Modify icon color for flaticon2 icons
+.b404-aside {
+	.b404-aside-menu {
+		> .b404-menu__navm {
+			.b404-menu__item {
+				> .b404-menu__link {
+					.b404-menu__link-text {
+						font-weight: 500;
+					}
+				}
+			}
+		}
+	}
+}

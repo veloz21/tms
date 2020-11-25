@@ -1,0 +1,32 @@
+//
+// Layout Config
+//
+
+
+
+// Layout
+$b404-aside-default-width: 265px;
+$b404-aside-minimize-width: 70px;
+$b404-aside-offcanvas-width: 255px;
+
+
+// Layout Skins
+$b404-layout-skins: (
+	dark: #1e1e2d,
+	light: #ffffff
+);
+
+// content bg color
+$b404-content-bg-color: #f2f3f8;
+
+// Border Radius
+$b404-border-radius: 4px;
+
+// Page padding
+$b404-page-padding: (
+	desktop: 25px,
+	mobile: 15px
+);
+
+// Page container width
+$b404-page-container-width: 1380px;

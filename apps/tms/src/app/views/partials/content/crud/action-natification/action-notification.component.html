@@ -1,0 +1,10 @@
+<div class="b404-mat-snackbar">
+    <div class="b404-mat-snackbar__message">{{data.message}}</div>
+    <div class="b404-mat-snackbar__btn">
+    </div>
+    <div class="b404-mat-snackbar__close">
+        <button *ngIf="data.showCloseButton" mat-icon-button (click)="onDismiss()" color="warn">
+			<mat-icon>clear</mat-icon>
+		</button>
+    </div>
+</div>

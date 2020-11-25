@@ -1,0 +1,28 @@
+//
+// Gmaps Plugin
+//
+
+
+
+
+// Mixins
+@mixin b404-gmaps-base() {
+    // Spinner markup
+    .b404-gmaps {
+        /* important!  bootstrap sets max-width on img to 100% which conflicts with google map canvas*/
+        img {
+            max-width: none; 
+        }
+
+        &.b404-gmaps--static{
+            > div {
+                background-repeat: no-repeat ;
+                background-position: 50% 50% ;
+                display:block;
+            }
+        }
+    }
+}
+
+// Build
+@include b404-gmaps-base();

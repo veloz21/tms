@@ -1,0 +1,32 @@
+<div class="b404-quick-search__result">
+	<ng-container *ngFor="let item of data">
+	<!---	<ng-container *ngIf="item===  0" [ngTemplateOutlet]="separatorTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+		<ng-container *ngIf="item ===  1" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>-->
+	</ng-container>
+
+</div>
+
+<ng-template #itemTemplate let-item="item">
+	<div class="b404-quick-search__item">
+		<div class="" [innerHTML]="item.icon ? item.icon : item.img" [ngClass]="{'b404-quick-search__item-img': item.img, 'b404-quick-search__item-icon': item.icon}">
+		</div>
+		<div class="b404-quick-search__item-wrapper">
+			<a href="#" class="b404-quick-search__item-title">
+				{{item.text}}
+			</a>
+			<div class="b404-quick-search__item-desc">
+				{{item.text}}
+			</div>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #separatorTemplate let-item="item">
+	<div class="b404-quick-search__category">{{item.text}}</div>
+</ng-template>
+
+<ng-template #emptyResultTemplate>
+	<div class="b404-quick-search__message b404-hidden">
+		{{noRecordText||'No record found'}}
+	</div>
+</ng-template>

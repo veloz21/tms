@@ -1,0 +1,117 @@
+<b404-portlet>
+	<b404-portlet-header [sticky]="true" [title]="getComponentTitle()" [class]="'b404-portlet__head--lg'" [viewLoading$]="loading$">
+		<ng-container ktPortletTools>
+			<a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button matTooltip="{{'WORKSHOP.TRUCK.BUTTONS.GO_BACK' | translate}}">
+				<i class="la la-arrow-left"></i>
+				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.BACK">Back</span>
+			</a>
+			<a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | translate}}">
+				<i class="la la-cog"></i>
+				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.RESET">Reset</span>
+			</a>
+			<a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
+				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.SAVE">Save</span>
+			</a>
+		</ng-container>
+	</b404-portlet-header>
+	<b404-portlet-body>
+		<mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="truck">
+			<mat-tab label="Basic info">
+				<ng-template matTabContent>
+					<div *ngIf="truck">
+						<form [formGroup]="truckForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+							<b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
+								<span translate="GENERAL.TEXT.OH_SNAP_CREATE">Oh snap! Change a few things up and try submitting
+									again.</span>
+							</b404-alert>
+							<div class="b404-form__section b404-form__section--first">
+								<div class="b404-form__group">
+									<div class="row">
+										<div class="col-md-4 b404-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MODEL' | translate }}" formControlName="truckModel" required />
+												<mat-error>
+													{{'WORKSHOP.TRUCK.MODEL.MODEL' | translate }}
+													<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+												</mat-error>
+											</mat-form-field>
+										</div>
+										<div class="col-md-4 b404-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.BRAND' | translate }}" formControlName="brand" required />
+												<mat-error>
+													{{'WORKSHOP.TRUCK.MODEL.BRAND' | translate }}
+													<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+												</mat-error>
+											</mat-form-field>
+										</div>
+										<div class="col-md-4 b404-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | translate }}" formControlName="serialNumber" required />
+												<mat-error>
+													{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | translate }}
+													<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+												</mat-error>
+											</mat-form-field>
+										</div>
+									</div>
+								</div>
+								<div class="b404-form__group">
+									<div class="row">
+										<div class="col-md-4 b404-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | translate }}" formControlName="motorNumber" required />
+												<mat-error>
+													{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | translate }}
+													<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+												</mat-error>
+											</mat-form-field>
+										</div>
+										<!--New fields-->
+										<div class="col-md-4 b404-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | translate }}" formControlName="maintenancePeriod" required />
+												<mat-error>
+													{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | translate }}
+													<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+												</mat-error>
+											</mat-form-field>
+										</div>
+										<div class="col-md-4 b404-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | translate }}" formControlName="initialRange" required type="number" />
+												<mat-error>
+													{{'WORKSHOP.TRUCK.MODEL.INICIAL_MILAGE' | translate }}
+													<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+												</mat-error>
+											</mat-form-field>
+										</div>
+									</div>
+								</div>
+								<div class="b404-form__group">
+									<div class="row">
+										<div class="col-md-4 b404-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | translate }}" type="number" formControlName="rangeTraveled" required />
+												<mat-error>
+													{{'WORKSHOP.TRUCK.MODEL.MILAGE' | translate }}
+													<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+												</mat-error>
+											</mat-form-field>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Add tire">
+				<ng-template matTabContent>
+					<div>
+					</div>
+				</ng-template>
+			</mat-tab>
+		</mat-tab-group>
+	</b404-portlet-body>
+</b404-portlet>

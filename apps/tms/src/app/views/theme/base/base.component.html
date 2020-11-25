@@ -1,0 +1,50 @@
+<!-- begin:: Page -->
+<ng-container *ngIf="selfLayout !== 'blank'; else blankLayout">
+	<!-- begin:: Header Mobile -->
+	<b404-header-mobile></b404-header-mobile>
+	<!-- end:: Header Mobile -->
+
+	<div class="b404-grid b404-grid--hor b404-grid--root">
+		<!-- begin::Body -->
+		<div class="b404-grid__item b404-grid__item--fluid b404-grid b404-grid--ver b404-page">
+			<!-- begin:: Aside Left -->
+			<ng-container *ngIf="asideDisplay">
+				<button class="b404-aside-close" id="kt_aside_close_btn"><i class="la la-close"></i></button>
+				<b404-aside-left></b404-aside-left>
+			</ng-container>
+			<!-- end:: Aside Left -->
+
+			<div class="b404-grid__item b404-grid__item--fluid b404-grid b404-grid--hor b404-wrapper" id="kt_wrapper">
+				<!-- begin:: Header -->
+				<b404-header *ngIf="desktopHeaderDisplay"></b404-header>
+				<!-- end:: Header -->
+
+				<!-- begin:: Content -->
+				<div class="b404-content b404-grid__item b404-grid__item--fluid b404-grid b404-grid--hor" id="kt_content" [ngClass]="{'b404-content--fit-top': fitTop}">
+					<!-- begin:: Content Head -->
+					<b404-subheader *ngIf="subheaderDisplay"></b404-subheader>
+					<!-- end:: Content Head -->
+
+					<!-- begin:: Content Body -->
+					<div ktContentAnimate class="b404-container b404-grid__item b404-grid__item--fluid" [ngClass]="{'b404-container--fluid': fluid}">
+						<router-outlet></router-outlet>
+					</div>
+					<!-- end:: Content Body -->
+				</div>
+				<!-- end:: Content -->
+
+				<b404-footer></b404-footer>
+			</div>
+		</div>
+		<!-- end:: Body -->
+
+		<b404-quick-panel></b404-quick-panel>
+		<b404-scroll-top></b404-scroll-top>
+	<!--	<b404-sticky-toolbar></b404-sticky-toolbar>-->
+	</div>
+</ng-container>
+<!-- end:: Page -->
+
+<ng-template #blankLayout>
+	<router-outlet></router-outlet>
+</ng-template>

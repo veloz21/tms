@@ -1,0 +1,162 @@
+//
+// Media
+//
+
+
+
+.b404-media {
+    display: inline-flex;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    @include b404-media-size(50px, 1.3rem);
+
+    @include b404-rounded {
+        border-radius: $b404-border-radius;
+    }
+
+    img {
+        display: flex;
+        @include b404-rounded {
+            border-radius: $b404-border-radius;
+        }
+    }
+
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        color: b404-base-color(label, 2);
+
+        @include b404-rounded {
+            border-radius: $b404-border-radius;
+        }
+    }
+
+    // State colors
+    &.b404-media--default {
+        background-color: b404-base-color(grey, 2);
+    }
+
+    @each $name, $color in $b404-state-colors {
+        &.b404-media--#{$name} {
+            span {
+                background: rgba(b404-get($color, base), 0.1);
+                color: b404-get($color, base);
+            }
+        }
+    }
+
+    // sizing
+    &.b404-media--xs {
+        @include b404-media-size(24px, 0.8rem);
+    }
+
+    &.b404-media--sm {
+        @include b404-media-size(30px, 0.9rem);
+    }
+
+    &.b404-media--md {
+        @include b404-media-size(47px, 1rem);
+    }
+
+    &.b404-media--lg {
+        @include b404-media-size(65px, 1.3rem);
+    }
+
+    &.b404-media--xl {
+        @include b404-media-size(80px, 1.7rem);
+    }
+
+    // circle style
+    &.b404-media--circle {
+        @include b404-rounded {
+            border-radius: 50%;
+        }
+
+        img {
+            @include b404-rounded {
+                border-radius: 50%;
+            }
+        }
+
+        span {
+            @include b404-rounded {
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+.b404-media-card {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+
+    .b404-media {
+        margin-right: 0.75rem;
+    }
+
+    .b404-media-card__info {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .b404-media-card__title {
+            color: b404-base-color(label, 3);
+            font-weight: 500;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        a.b404-media-card__title {
+            transition: color 0.3s ease;
+            &:hover {
+                transition: color 0.3s ease;
+                color: b404-brand-color();
+            }
+        }
+
+        .b404-media-card__desc {
+            color: b404-base-color(label, 2);
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        a.b404-media-card__desc {
+            transition: color 0.3s ease;
+            &:hover {
+                transition: color 0.3s ease;
+                color: b404-brand-color();
+            }
+        }
+    }
+}
+
+.b404-media-group {
+    display: flex;
+    align-items: center;
+
+    .b404-media {
+        position: relative;
+        z-index: 0;
+        margin-left: -10px;
+        border: 2px solid #fff;
+        transition: all 0.3s ease;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:hover {
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+    }
+}

@@ -1,0 +1,245 @@
+//
+// Page - User Login 1
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+// Login Base
+.b404-login.b404-login--v1 {
+    // Aside
+    .b404-login__aside {
+        width: 605px;
+        padding: 3rem 3.5rem;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .b404-login__logo {
+            display: flex;
+        }
+
+        .b404-login__title {
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        .b404-login__subtitle {
+            font-size: 1.2rem;
+            font-weight: 200;
+            margin: 2.5rem 0 3.5rem 0;
+            color: rgba(#fff, 0.7);
+        }
+
+        .b404-login__info {
+            display: flex;
+            justify-content: space-between;
+
+            .b404-login__menu {
+                > a {
+                    text-decoration: none;
+                    color: #fff;
+                    margin-right: 2rem;
+                    display: inline-block;
+
+                    @include b404-link-color(rgba(#fff, 0.7), #fff);
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+
+            .b404-login__copyright {
+                color: rgba(#fff, 0.4);
+            }
+        }
+    }
+
+    // Wrapper
+    .b404-login__wrapper {
+        padding: 3rem 3rem;
+        background: #fff;
+
+        // Head
+        .b404-login__head {
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: right;
+
+            .b404-login__signup-label {
+                color: b404-base-color(label, 2);
+            }
+
+            .b404-login__signup-link {
+                color: b404-brand-color();
+            }
+        }
+
+        // Body
+        .b404-login__body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+
+            // Form Wrapper
+            .b404-login__form {
+                width: 100%;
+                max-width: 450px;
+
+                .b404-login__title {
+                    display: block;
+                    text-align: center;
+                    margin-bottom: 5rem;
+                    text-decoration: none;
+
+                    > h3 {
+                        font-size: 2rem;
+                        color: #67666e;
+                    }
+                }
+
+                // Form
+                .b404-form {
+                    margin: 4rem auto;
+
+                    .form-group {
+                        margin: 0;
+                        padding: 0;
+                        margin: 0 auto;
+
+                        .form-control {
+                            border: none;
+                            height: 50px;
+                            margin-top: 1.25rem;
+                            background-color: rgba(#f7f7f9, 0.7);
+                            padding-left: 1.25rem;
+                            padding-right: 1.25rem;
+                            transition: background-color 0.3s ease;
+
+                            &:focus {
+                                transition: background-color 0.3s ease;
+                                background-color: #f7f7f9;
+                            }
+                        }
+                    }
+                }
+
+                // Action
+                .b404-login__actions {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 3rem 0;
+
+                    .b404-login__link-forgot {
+                        font-weight: 400;
+                        @include b404-link-color(b404-base-color(label, 2), b404-brand-color());
+                    }
+
+                    .b404-login__btn-secondary,
+                    .b404-login__btn-primary {
+                        font-weight: 500;
+                        font-size: 1rem;
+                        height: 50px;
+                        padding-left: 2.75rem;
+                        padding-right: 2.75rem;
+                    }
+                }
+
+                // Divider
+                .b404-login__divider {
+                    margin: 1rem 0 2rem 0;
+
+                    &:not(:first-child):not(:last-child) {
+                        font-weight: 400;
+                        color: #b5b2c3;
+                        font-size: 1rem;
+                    }
+                }
+
+                // Options
+                .b404-login__options {
+                    display: flex;
+                    justify-content: center;
+                    justify-content: space-between;
+                    max-width: 100%;
+
+                    > a {
+                        text-decoration: none;
+                        flex: 1;
+                        justify-content: center;
+                        align-items: center;
+                        display: flex;
+
+                        &:not(:last-child) {
+                            margin: 0 1.5rem 0 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include b404-desktop {
+        // Aside
+        .b404-login__aside {
+            flex: 1;
+        }
+    }
+
+    @include b404-tablet-and-mobile() {
+        // Aside
+        .b404-login__aside {
+            width: 100%;
+            height: auto;
+            padding: 2rem 1.5rem;
+
+            .b404-login__logo {
+                margin-bottom: 2.5rem;
+            }
+
+            .b404-login__info {
+                margin-top: 2rem;
+            }
+
+            .b404-login__subtitle {
+                margin: 2rem 0;
+            }
+        }
+
+        // Wrapper
+        .b404-login__wrapper {
+            padding: 3rem 1.5rem;
+
+            .b404-login__head {
+                padding-left: 2rem;
+                right: 2rem;
+            }
+
+            .b404-login__body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 5rem;
+
+                .b404-login__form {
+                    .b404-login__options {
+                        > a {
+                            &:not(:first-child):not(:last-child) {
+                                margin: 0 0.8rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

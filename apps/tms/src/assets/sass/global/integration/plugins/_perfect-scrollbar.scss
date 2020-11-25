@@ -1,0 +1,25 @@
+//
+// Scroll
+//
+
+
+// Base
+.b404-scroll {
+    position: relative;
+	overflow: hidden;
+
+    &.b404-scroll--pull {
+        padding-right: 12px;
+        margin-right: -12px;
+
+        .ps__rail-y {
+            right: -2px;
+        }
+    }
+}
+
+// Skin
+@include b404-perfect-scrollbar-ver-size($b404-custom-scroll-size);
+@include b404-perfect-scrollbar-hor-size($b404-custom-scroll-size);
+
+@include b404-perfect-scrollbar-skin($b404-scroll-color);

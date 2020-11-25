@@ -1,0 +1,67 @@
+//
+// Scrolltop
+//
+
+
+
+// Base
+.b404-scrolltop {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 40px;  
+    right: 20px;
+    cursor: pointer;     
+    z-index: 100;
+    background: b404-brand-color();
+    box-shadow: 0 0 15px 1px rgba(69,65,78, 0.2);
+    opacity: 0;
+    @include b404-transition();
+
+    @include b404-rounded {
+        border-radius: $b404-border-radius;
+    }
+
+    svg {
+        height: 20px;
+        width: 20px;
+    }
+
+    > i {
+        font-size: 1.3rem;
+        color: b404-brand-color(inverse);
+    }          
+
+    @include b404-svg-icon-color(b404-brand-color(inverse));
+
+    &:hover {
+        > i {
+            color: b404-brand-color(inverse);
+        }
+    }
+
+    .b404-scrolltop--on & {
+        opacity: 0.3;     
+        animation: b404-scrolltop-show-animation .4s ease-out 1;
+        display: flex; 
+
+        &:hover {
+            @include b404-transition();
+            opacity: 1;
+        }
+    }
+
+    @include b404-tablet-and-mobile {
+        bottom: 30px;  
+        right: 15px;
+    }
+}
+
+// Animations
+@keyframes b404-scrolltop-show-animation {
+    from   { margin-bottom: -15px }
+    to { margin-bottom: 0; }
+}

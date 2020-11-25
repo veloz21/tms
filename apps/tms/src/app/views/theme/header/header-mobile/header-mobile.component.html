@@ -1,0 +1,14 @@
+<!-- begin:: Header Mobile -->
+<div id="kt_header_mobile" class="b404-header-mobile b404-header-mobile--fixed">
+	<div class="b404-header-mobile__logo">
+		<a routerLink="/">
+			<img alt="logo" [attr.src]="headerLogo"/>
+		</a>
+	</div>
+	<div class="b404-header-mobile__toolbar">
+		<button [hidden]="!asideDisplay" class="b404-header-mobile__toggler b404-header-mobile__toggler--left" id="kt_aside_mobile_toggler"><span></span></button>
+		<button class="b404-header-mobile__toggler" id="kt_header_mobile_toggler"><span></span></button>
+		<button ktToggle [options]="toggleOptions" class="b404-header-mobile__topbar-toggler" id="kt_header_mobile_topbar_toggler"><i class="flaticon-more"></i></button>
+	</div>
+</div>
+<!-- end:: Header Mobile -->

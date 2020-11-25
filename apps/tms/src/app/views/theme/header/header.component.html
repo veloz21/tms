@@ -1,0 +1,15 @@
+<!-- begin: Header -->
+<div ktHeader #ktHeader class="b404-header b404-grid__item" [ngClass]="htmlClassService.getClasses('header', true)" id="kt_header">
+	<ngb-progressbar class="b404-loading-bar" *ngIf="(loader.progress$|async) > 0" [value]="loader.progress$|async" height="3px"></ngb-progressbar>
+
+	<!-- begin: Header Menu -->
+	<b404-menu-horizontal *ngIf="menuHeaderDisplay"></b404-menu-horizontal>
+	<!-- end: Header Menu -->
+
+	<!-- begin:: Header Topbar -->
+	<!-- empty div to fix topbar to stay on the right when menu-horizontal is hidden -->
+	<div *ngIf="!menuHeaderDisplay"></div>
+	<b404-topbar></b404-topbar>
+	<!-- end:: Header Topbar -->
+</div>
+<!-- end: Header -->

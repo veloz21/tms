@@ -1,0 +1,61 @@
+<ng-container *ngIf="multiple ; else elseTemplate">
+  <mat-chip-list class="autocomplete autocomplete--multiple" #chipListModel>
+    
+    <mat-chip *ngFor="let model of selectedModels" (removed)="removeModelChip(model)"
+      matTooltip="{{ model.id }} | {{ model.serialNumber}}">
+      {{ model.serialNumber }}
+      <mat-icon *ngIf="!disabled" matChipRemove>cancel</mat-icon>
+    </mat-chip>
+
+    <input matInput #inputElement [formControl]="formControl" [placeholder]="placeholder"
+      [matAutocomplete]="modelsSelect" [matChipInputFor]="chipListModel" (focus)="onFocus()" [required]="required"
+      [attr.disabled]="disabled" (keyup.enter)="keyUpEnter()" (input)="onInput($event.target.value)"
+      (click)="openAutocompletePanel()" (blur)="onTouch()">
+  </mat-chip-list>
+
+  <mat-autocomplete #modelsSelect="matAutocomplete">
+    <mat-option *ngIf="loading$ | async" class="is-loading">
+      <mat-spinner diameter="30"></mat-spinner>
+    </mat-option>
+    <mat-option *ngIf="!(loading$ | async) && !haveModels && !firstLoad" matTooltip="No se encontraron llantas"
+      [attr.disabled]="true">
+      No se encontraron llantas
+    </mat-option>
+    <ng-container *ngFor="let model of models$ | async">
+      <mat-option *ngIf="!(loading$ | async)" [value]="model"
+        matTooltip="{{ model.serialNumber }} | {{ model.id }}" (onSelectionChange)="selectedModel(model)">
+        {{ model.serialNumber }}
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+</ng-container>
+
+<ng-template #elseTemplate>
+  <div class="autocomplete">
+    <input matInput #inputElement [formControl]="formControl" [placeholder]="placeholder"
+      [matAutocomplete]="modelSelect" (click)="onFocus()" [required]="required" [attr.disabled]="disabled"
+      (keyup.enter)="keyUpEnter()" (input)="onInput($event.target.value)" (blur)="onBlur()">
+    <mat-autocomplete #modelSelect="matAutocomplete" [displayWith]="displayFn">
+      <mat-option *ngIf="loading$ | async" class="is-loading">
+        <mat-spinner diameter="30"></mat-spinner>
+      </mat-option>
+      <mat-option *ngIf="!(loading$ | async) && !haveModels" matTooltip="No se encontraron llantas"
+        [attr.disabled]="true">
+        No se encontraron llantas
+      </mat-option>
+      <ng-container *ngFor="let model of models$ | async">
+        <mat-option *ngIf="!(loading$ | async)" matTooltip="{{ model.serialNumber }} | {{ model.id }}"
+          [value]="model" (onSelectionChange)="selectedModel(model)">
+          {{ model.id }} | {{ model.serialNumber || '' }}
+        </mat-option>
+      </ng-container>
+    </mat-autocomplete>
+
+    <div class="mat-form-field-suffix">
+      <button *ngIf="!multiple && formControl.value?.id > 0 && !disabled" type="button" mat-button mat-icon-button
+        aria-label="Clear" (click)="clear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>

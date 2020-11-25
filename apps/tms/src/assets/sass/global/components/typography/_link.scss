@@ -1,0 +1,39 @@
+//
+// Link
+//
+
+
+
+
+.b404-link {
+    text-decoration: none;
+  	position: relative;
+  	display: inline-block;
+
+    &:after {
+    	display: block;
+    	content: '';
+		position: absolute;
+		bottom: 0;
+        top: 1rem;  
+		left: 0;
+		width: 0%;
+		transition: width 0.3s ease;
+    }
+
+    &:hover {
+    	text-decoration: none !important;
+
+    	&:after {				
+    		width: 100%;
+    	}
+    }
+
+    @include b404-link-color(b404-get($b404-font-color, link, default), b404-get($b404-font-color, link, hover));
+
+    @each $name, $color in $b404-state-colors {
+        &.b404-link--#{$name} {
+            @include b404-link-color(b404-get($color, base), darken(b404-get($color, base), 10%));
+        }
+    }
+}

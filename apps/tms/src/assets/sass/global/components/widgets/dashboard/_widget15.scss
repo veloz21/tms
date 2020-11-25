@@ -1,0 +1,64 @@
+//
+// Widget15
+//
+
+
+
+
+.b404-widget15 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    // Items
+    .b404-widget15__items {
+        flex-grow: 1;   
+
+        &.b404-widget15__items--bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        // Item
+        .b404-widget15__item {
+            // Stats
+            .b404-widget15__stats {
+                font-size: 1.1rem;
+                font-weight: 500; 
+                color: b404-base-color(label, 2);
+            }
+                
+            // Text
+            .b404-widget15__text {
+                font-size: 1rem;
+                float: right;
+                margin-top: 0.3rem;
+                font-weight: 400;
+                color: b404-base-color(label, 2);
+            }
+
+            // Progress
+            .progress {
+                margin-bottom: 1.6rem;
+                height: 0.45rem
+            }    
+        }          
+        
+        // Description
+        .b404-widget15__desc {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 400; 
+            color: b404-base-color(label, 2);
+        } 
+    }          
+
+    .b404-widget4__chart {
+    }
+
+    .b404-widget15__map {
+
+    }
+}     	

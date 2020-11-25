@@ -1,0 +1,81 @@
+//
+// Heading
+//
+
+
+
+.b404-heading {
+	font-size: 1.3rem;
+	font-weight: 500;
+	padding: 0;
+	margin: 1.75rem 0;
+	color: b404-base-color(label, 4);
+
+	&.b404-heading--center {
+		text-align: center;
+	}
+
+	&.b404-heading--right {
+		text-align: right;
+	}
+
+	&.b404-heading--space-sm {
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	&.b404-heading--space-md {
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	&.b404-heading--space-lg {
+		margin-top: 2.5rem;
+		margin-bottom: 2.5rem;
+	}
+
+	&.b404-heading--space-xl {
+		margin-top: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	&.b404-heading--sm {
+		font-size: 1.2rem;
+	}
+
+	&.b404-heading--md {
+		font-size: 1.4rem;
+	}
+
+	&.b404-heading--lg {
+		font-size: 1.6rem;
+	}
+
+	&.b404-heading--xl {
+		font-size: 2rem;
+	}
+
+	&.b404-heading--xxl {
+		font-size: 3rem;
+	}
+
+	&.b404-heading--medium{
+		font-weight: 600;
+	}
+	&.b404-heading--bold{
+		font-weight: 700;
+	}
+	&.b404-heading--bolder{
+		font-weight: 900;
+	}
+	&.b404-heading--thin{
+		font-weight: 300;
+	}
+
+	&.b404-heading--no-top-margin{
+		margin-top: 0;
+	}
+	&.b404-heading--no-bottok-margin{
+		margin-bottom: 0;
+	}
+}

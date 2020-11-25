@@ -1,0 +1,41 @@
+<!-- begin:: Content Head -->
+<div class="b404-subheader b404-grid__item" [ngClass]="{'b404-container--clear': clear}" [hidden]="subheaderService.disabled$ | async" id="kt_subheader">
+	<div class="b404-container" [ngClass]="{'b404-container--fluid': fluid}">
+		<div class="b404-subheader__main">
+			<h3 *ngIf="title" class="b404-subheader__title">{{title}}</h3>
+			<h4 *ngIf="desc" class="b404-subheader__desc">{{desc}}</h4>
+			<div class="b404-subheader__breadcrumbs" *ngIf="breadcrumbs.length > 0">
+				<span class="b404-subheader__separator" [hidden]="true"></span>
+				<a class="b404-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+				<ng-container *ngFor="let item of breadcrumbs">
+					<span class="b404-subheader__breadcrumbs-separator"></span>
+					<a [routerLink]="item.page" [queryParams]="item.queryParams" class="b404-subheader__breadcrumbs-link">
+						{{item.title}}
+					</a>
+				</ng-container>
+				<!-- <span class="b404-subheader__breadcrumbs-link b404-subheader__breadcrumbs-link--active">Active link</span> -->
+			</div>
+		</div>
+		<div class="b404-subheader__toolbar">
+			<div class="b404-subheader__wrapper">
+				<a href="javascript:;" class="btn b404-subheader__btn-secondary">
+					Reports
+				</a>
+
+				<div ngbDropdown [placement]="'bottom-right'" class="dropdown dropdown-inline">
+					<a ngbDropdownToggle href="javascript:;" class="btn btn-danger b404-subheader__btn-options">
+						Products
+					</a>
+					<div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="javascript:;"><i class="la la-plus"></i> New Product</a>
+						<a class="dropdown-item" href="javascript:;"><i class="la la-user"></i> New Order</a>
+						<a class="dropdown-item" href="javascript:;"><i class="la la-cloud-download"></i> New Download</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="javascript:;"><i class="la la-cog"></i> Settings</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:: Content Head -->

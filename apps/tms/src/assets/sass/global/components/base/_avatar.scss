@@ -1,0 +1,136 @@
+//
+// Avatar
+//
+
+
+
+// Base
+.b404-avatar {
+	position: relative;
+	display: inline-block;
+
+	.b404-avatar__holder {
+		width: 120px;
+		height: 120px;
+		border-radius: 3px;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.b404-avatar__upload {
+		cursor: pointer;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		right: -10px;
+		top: -10px;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background-color: #ffffff;
+		box-shadow: 0px 0px 13px 0px rgba(#000000, 0.1);
+
+		input {
+			width: 0 !important;
+			height: 0 !important;
+			overflow: hidden;
+			opacity: 0;
+		}
+
+		i {
+			color: b404-brand-color();
+			font-size: 0.9rem;
+		}
+
+
+		@include b404-transition();
+		&:hover{
+			@include b404-transition();
+			background-color: b404-brand-color();
+
+			i {
+				color: b404-brand-color(inverse);
+			}
+		}
+	}
+
+	.b404-avatar__cancel {
+		cursor: pointer;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		top: auto;
+		right: -10px;
+		bottom: -5px;
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background-color: #ffffff;
+		box-shadow: 0px 0px 13px 0px rgba(#000000, 0.1);
+		display: none;
+
+		i {
+			@include b404-transition();
+			color: b404-base-color(label, 2);
+			font-size: 0.9rem;
+		}
+		
+		&:hover{
+			i {
+				@include b404-transition();
+				color: b404-brand-color();
+			}
+		}
+	}
+
+	&.b404-avatar--changed {
+		.b404-avatar__cancel {
+			display: flex;
+		}
+	}
+
+	// States
+	@each $name, $color in $b404-state-colors {
+		&.b404-avatar--#{$name} {
+			.b404-avatar__upload {
+				i {
+					color: b404-get($color, base);
+				}
+
+				&:hover{
+					background-color: b404-get($color, base);
+
+					i {
+						color: b404-get($color, inverse);
+					}
+				}
+			}	
+		}
+	}
+
+	// Circle style
+	&.b404-avatar--circle {
+		.b404-avatar__holder {
+			border-radius: 50%;
+		}
+
+		.b404-avatar__upload {
+			right: 0px;
+			top: 5px;
+		}
+
+		.b404-avatar__cancel {
+			right: 3px;
+			bottom: 10px;
+		}
+	}
+
+	// Bordered style
+	&.b404-avatar--outline {
+		.b404-avatar__holder {
+			border: 3px solid #ffffff;
+			box-shadow: 0px 0px 13px 0px rgba(#000000, 0.1);
+		}
+	}
+}

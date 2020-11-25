@@ -1,0 +1,192 @@
+//
+// Bootstrap Datetimepicker
+//
+
+
+
+
+// Base
+.datetimepicker {
+    width: 265px;
+    padding: 10px;
+    left: auto;
+
+    @include b404-not-rounded {
+        border-radius: 0 !important;
+    }
+    
+    &.datetimepicker-orient-top {
+        margin-top: 8px;
+    }
+    
+    table {
+        width: 100%;
+    }
+    td,
+    th {
+        width: 35px;
+        height: 35px;
+        border-radius: 3px;
+        font-weight: normal;
+    
+        @include b404-not-rounded {
+            border-radius: 0 !important;
+        }
+    }
+    
+    thead {
+        th {
+            i {
+                font-size: 1.2rem;
+            }
+
+            &.prev,
+            &.switch,
+            &.next {
+                color: b404-base-color(label, 2);
+                font-weight: 500;
+
+                .glyphicon {
+                    color: b404-base-color(label, 2);
+                }
+                
+                &:hover {
+                    background: b404-base-color(grey, 1) !important;
+                }
+            }
+
+            &.dow {
+                font-weight: 500;
+                color: b404-base-color(label, 3);
+            }
+            
+            &.next,
+            &.prev {
+                >span {
+                    display: inline-block;
+                    font: normal normal normal 16px/1 "LineAwesome";
+                    font-size: inherit;
+                    text-decoration: inherit;
+                    text-rendering: optimizeLegibility;
+                    text-transform: none;
+                    -moz-osx-font-smoothing: grayscale;
+                    -webkit-font-smoothing: antialiased;
+                    font-smoothing: antialiased;
+                    font-size: 1.2rem;
+                }
+            }
+
+            &.next {
+                >span {
+                    &:before {
+                        content: "\f112";
+                    }
+                }
+            }
+            
+            &.prev {
+                >span {
+                    &:before {
+                        content: "\f111";
+                    }
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr>td {
+            span {
+                color: b404-base-color(label, 3);
+            }
+            &.day {
+                color: b404-base-color(label, 3);
+
+                &:hover {
+                    background: b404-base-color(grey, 1);
+                }
+
+                &.old {
+                    color: b404-base-color(label, 2);
+                }
+
+                &.new {
+                    color: b404-base-color(label, 3);
+                }
+
+                &.selected,
+                &.active {
+                    background: b404-state-color(primary, base);
+                    color: b404-state-color(primary, inverse);
+                }
+
+                &.today {
+                    position: relative;
+                    background: rgba(b404-state-color(brand, base), 0.7) !important;
+                    color: b404-state-color(brand, inverse) !important;
+                
+                    &:before {
+                        content: '';
+                        display: inline-block;
+                        border: solid transparent;
+                        border-width: 0 0 7px 7px;
+                        border-bottom-color: #ffffff;
+                        border-top-color: b404-base-color(grey, 2);
+                        position: absolute;
+                        bottom: 4px;
+                        right: 4px;
+                    }
+                }
+
+                &.range {
+                    background: b404-base-color(grey, 1);
+                }
+            }
+
+            span.year,
+            span.hour,
+            span.minute,
+            span.month {
+                color: b404-base-color(label, 3);
+
+                &.focused,
+                &:hover {
+                    background: b404-base-color(grey, 1);
+                }
+
+                &.active:hover,
+                &.active {
+                    background: b404-state-color(primary, base);
+                    color: b404-state-color(primary, inverse);
+                }
+            }
+        }
+    }
+
+    tfoot {
+        tr>th {
+            &.today,
+            &.clear {
+                @include b404-rounded {
+                    border-radius: 3px;
+                }
+
+                font-weight: 500;
+
+                &:hover {
+                    background-color: b404-base-color(grey, 1);
+                }
+            }
+        }
+    }
+
+    &.datetimepicker-inline {
+        border: 1px solid b404-base-color(grey, 1);
+    }
+}
+
+.input-daterange {
+    .input-group-addon {
+        min-width: 44px;
+    }
+}

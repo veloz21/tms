@@ -1,0 +1,63 @@
+// Alert
+.b404-mat-alert {
+    display: flex;
+    //flex-wrap: wrap;
+    align-items: center;
+    padding: 10px 10px 10px 20px;
+    border-radius: 3px;
+    margin: 0 0 20px 0;
+
+    .b404-mat-alert__icon {
+        display: flex;
+        align-items: center;
+        padding: 0 15px 0 0;
+
+        i {
+            font-size: 2.4rem;
+            color: #fff;
+        }
+    }
+
+    .b404-mat-alert__text {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        color: #fff;
+    }
+
+    .b404-mat-alert__close {
+        padding: 0 0 0 10px;
+        display: flex;
+        align-items: center;
+        ustify-content: flex-end;
+
+        .material-icons {
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            color: #fff;
+
+            &:hover {
+                transition: all 0.3s ease;
+                opacity: 1;
+            }
+        }
+    }
+
+    // States
+    &.b404-mat-alert--warn {
+        background: b404-get($mat-warn, 500);
+    }
+
+    &.b404-mat-alert--primary {
+        background: b404-get($mat-primary, 500);
+    }
+
+    &.b404-mat-alert--accent {
+        background: b404-get($mat-accent, 500);
+    }
+
+    // Marginless
+    &.b404-mat-alert--marginless {
+        margin: 0;
+    }
+}

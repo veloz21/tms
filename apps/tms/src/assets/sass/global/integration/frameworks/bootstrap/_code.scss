@@ -1,0 +1,14 @@
+//
+// Code Customization
+// 
+
+
+
+code {
+    background-color: b404-base-color(grey, 1);
+    padding: 0.15rem 0.25rem;
+
+    @include b404-rounded {
+        border-radius: $b404-border-radius;
+    }
+}

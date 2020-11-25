@@ -1,0 +1,41 @@
+//
+// Mixins
+//
+
+
+
+@mixin b404-spinner-size($size) {
+	&:before {
+		width: b404-get($b404-spinner-config, size, $size);
+  		height: b404-get($b404-spinner-config, size, $size);
+  		margin-top: -(b404-get($b404-spinner-config, size, $size)/2);
+  	}
+
+	&.b404-spinner--center {
+		&:before {
+			left: 50%;
+  			margin-left: -(b404-get($b404-spinner-config, size, $size)/2);
+		}
+	}
+
+	&.b404-spinner--left {
+		&:before {
+			left: 0;
+			right: auto;
+		}
+	}
+
+	&.b404-spinner--right {
+		&:before {
+			left: auto;
+			right: 0;
+		}
+	}
+}
+
+@mixin b404-spinner-skin($color) {
+	&:before {
+    	border: 2px solid $color;
+		border-right: 2px solid transparent;
+    }
+}

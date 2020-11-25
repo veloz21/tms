@@ -1,0 +1,526 @@
+//
+// Helpers
+//
+
+
+
+
+// Margin & Padding Helpers
+@mixin b404-margin-and-padding($mode) {
+	@if $mode == general {
+		$mode: '';
+	} @else {
+		$mode: "-" + $mode;
+	}
+
+	@for $i from 0 through 20 {
+		$num: $i * 5;
+
+		.b404-margin-#{$num}#{$mode} {
+			margin: #{$num}px !important;
+		}
+
+		.b404-margin-t-#{$num}#{$mode} {
+			margin-top: #{$num}px !important;
+		}
+
+		.b404-margin-b-#{$num}#{$mode} {
+			margin-bottom: #{$num}px !important;
+		}
+
+		.b404-margin-l-#{$num}#{$mode} {
+			margin-left: #{$num}px !important;
+		}
+
+		.b404-margin-r-#{$num}#{$mode} {
+			margin-right: #{$num}px !important;
+		}
+
+		.b404-padding-#{$num}#{$mode} {
+			padding: #{$num}px !important;
+		}
+
+		.b404-padding-t-#{$num}#{$mode} {
+			padding-top: #{$num}px !important;
+		}
+
+		.b404-padding-b-#{$num}#{$mode} {
+			padding-bottom: #{$num}px !important;
+		}
+
+		.b404-padding-l-#{$num}#{$mode} {
+			padding-left: #{$num}px !important;
+		}
+
+		.b404-padding-r-#{$num}#{$mode} {
+			padding-right: #{$num}px !important;
+		}
+
+		// short format
+		.b404-m#{$num}#{$mode} {
+			margin: #{$num}px !important;
+		}
+
+		.b404-mt-#{$num}#{$mode} {
+			margin-top: #{$num}px !important;
+		}
+
+		.b404-mb-#{$num}#{$mode} {
+			margin-bottom: #{$num}px !important;
+		}
+
+		.b404-ml-#{$num}#{$mode} {
+			margin-left: #{$num}px !important;
+		}
+
+		.b404-mr-#{$num}#{$mode} {
+			margin-right: #{$num}px !important;
+		}
+
+		.b404-p#{$num}#{$mode} {
+			padding: #{$num}px !important;
+		}
+
+		.b404-pt#{$num}#{$mode} {
+			padding-top: #{$num}px !important;
+		}
+
+		.b404-pb-#{$num}#{$mode} {
+			padding-bottom: #{$num}px !important;
+		}
+
+		.b404-pl#{$num}#{$mode} {
+			padding-left: #{$num}px !important;
+		}
+
+		.b404-pr#{$num}#{$mode} {
+			padding-right: #{$num}px !important;
+		}
+	}
+}
+
+@include b404-margin-and-padding(general);
+
+@include b404-desktop {
+	@include b404-margin-and-padding(desktop);
+}
+
+@include b404-tablet {
+	@include b404-margin-and-padding(tablet);
+}
+
+@include b404-tablet-and-mobile {
+	@include b404-margin-and-padding(tablet-and-mobile);
+}
+
+@include b404-mobile {
+	@include b404-margin-and-padding(mobile);
+}
+
+// Opacity
+@mixin b404-opacity {
+	@for $i from 1 through 9 {
+		.b404-opacity-#{$i} {
+			opacity: #{$i * 0.1};
+		} 
+	}
+}
+
+@include b404-opacity();
+
+// Border radius
+.b404-radius-100 {
+	border-radius: 100%;
+} 
+
+// General helpers
+.b404-valign-top {
+	vertical-align: top;
+} 
+
+.b404-space-5 {
+	display: block;
+	height: 0;
+	margin-bottom: 5px;
+}
+
+.b404-space-10 {
+	display: block;
+	height: 0;
+	margin-bottom: 10px;
+}
+
+.b404-space-15 {
+	display: block;
+	height: 0;
+	margin-bottom: 15px;
+}
+
+.b404-space-20 {
+	display: block;
+	height: 0;
+	margin-bottom: 20px;
+}
+
+.b404-space-30 {
+	display: block;
+	height: 0;
+	margin-bottom: 30px;
+}
+
+.b404-space-40 {
+	display: block;
+	height: 0;
+	margin-bottom: 40px;
+}
+
+.b404-valign-middle {
+	vertical-align: middle;
+}
+
+.b404-valign-bottom {
+	vertical-align: bottom;
+}
+
+.b404-block-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.b404-align-right {
+	text-align: right;
+}
+
+.b404-align-left {
+	text-align: left;
+}
+
+.b404-align-center {
+	text-align: center;
+}
+
+.b404-pull-right {
+	float: right;
+}
+
+.b404-pull-left {
+	float: left;
+}
+
+.b404-img-rounded {
+	border-radius: 50% !important;
+}
+
+.b404-block-inline {
+	display: inline-block;
+}
+
+.b404-icon-middle {
+	&:before {
+		vertical-align: middle;
+	}
+}
+
+// Element visibility
+.b404-hidden,
+.b404-hide {
+	display: none !important;
+}
+
+// Font sizing
+.b404-font-sm {
+	font-size: 0.8rem !important;
+}
+
+.b404-font-md {
+	font-size: 0.9rem !important;
+}
+
+.b404-font-lg {
+	font-size: 1.2rem !important;
+}
+
+.b404-font-xl {
+	font-size: 1.5rem !important;
+}
+
+.b404-clearfix {
+	@include b404-clearfix();
+}
+
+// Icon font sizing
+.b404-icon-sm {
+	font-size: 0.75rem !important;
+}
+
+.b404-icon-md {
+	font-size: 0.9rem !important;
+}
+
+.b404-icon-lg {
+	font-size: 1.2rem !important;
+}
+
+.b404-icon-xl {
+	font-size: 1.4rem !important;
+}
+
+
+.b404-marginless {
+	margin: 0 !important;
+}
+
+.b404-img-centered {
+	text-align: center;
+}
+
+// Text Transform
+.b404-font-transform-u {
+	text-transform: uppercase;
+}
+
+.b404-font-transform-l {
+	text-transform: lowercase;
+}
+
+.b404-font-transform-c {
+	text-transform: capitalize;
+}
+
+.b404-font-transform-i {
+	text-transform: initial;
+}
+
+// Font Weights
+.b404-font-regular {
+	font-weight: 400 !important;
+}
+.b404-font-bold {
+	font-weight: 500 !important;
+}
+
+.b404-font-bolder {
+	font-weight: 600 !important;
+}
+
+.b404-font-boldest {
+	font-weight: 700 !important;
+}
+
+b, strong {
+    font-weight: bold;
+}
+
+// State colors
+@each $name, $color in $b404-state-colors {
+	.b404-font-#{$name} {
+		color: b404-get($color, base) !important;
+	}
+
+	.b404-font-hover-#{$name}{
+		&:hover{
+			color: darken(b404-get($color, base),20%);
+		}
+	}
+
+	.b404-font-inverse-#{$name} {
+		color: b404-get($color, inverse) !important;
+	}
+
+	.b404-bg-#{$name} {
+		background-color: b404-get($color, base) !important;
+	}
+
+	.b404-bg-fill-#{$name} {
+		background-color: b404-get($color, base) !important;
+		color: b404-get($color, inverse) !important;
+
+		> i {
+			color: b404-get($color, inverse) !important;
+		}
+	}
+
+	.b404-bg-light-#{$name} {
+		background-color: rgba(b404-get($color, base), 0.1) !important;
+	}
+}
+
+// Social colors
+@each $name, $color in $b404-social-colors {
+	.b404-font-#{$name} {
+		color: b404-get($color, base) !important;
+	}
+}
+
+// Base colors
+@each $name, $color in b404-get($b404-base-colors, label) {
+	.b404-label-font-color-#{$name} {
+		color: $color !important; 
+	}
+
+	.b404-label-bg-color-#{$name} {
+		background-color: $color !important; 
+	}
+}
+
+@each $name, $color in b404-get($b404-base-colors, shape) {
+	.b404-shape-font-color-#{$name} {
+		color: $color !important; 
+	}
+
+	.b404-shape-bg-color-#{$name} {
+		background-color: $color !important; 
+	}
+}
+
+// Responsive Helpers
+.b404-visible-desktop,
+.b404-visible-desktop-inline-block,
+.b404-visible-desktop-inline,
+.b404-visible-desktop-table,
+.b404-visible-desktop-table-cell,
+
+.b404-visible-tablet,
+.b404-visible-tablet-inline-block,
+.b404-visible-tablet-inline,
+.b404-visible-tablet-table,
+.b404-visible-tablet-table-cell,
+
+.b404-visible-tablet-and-mobile,
+.b404-visible-tablet-and-mobile-inline-block,
+.b404-visible-tablet-and-mobile-inline,
+.b404-visible-tablet-and-mobile-table,
+.b404-visible-tablet-and-mobile-table-cell,
+
+.b404-visible-mobile,
+.b404-visible-mobile-inline-block,
+.b404-visible-mobile-inline,
+.b404-visible-mobile-table,
+.b404-visible-mobile-table-cell {
+	display: none !important;
+}
+
+@include b404-desktop {
+	.b404-visible-desktop {
+		display: block !important;
+	}
+
+	.b404-visible-desktop-inline-block {
+		display: inline-block !important;
+	}
+
+	.b404-visible-desktop-inline {
+		display: inline !important;
+	}
+
+	.b404-visible-desktop-table {
+		display: table !important;
+	}	
+
+	.b404-visible-desktop-table-cell {
+		display: table-cell !important;
+	}	
+
+	.b404-hidden-desktop {
+		display: none !important;
+	}
+}
+
+@include b404-tablet {
+	.b404-visible-tablet {
+		display: block !important;
+	}
+
+	.b404-visible-tablet-inline-block {
+		display: inline-block !important;
+	}
+
+	.b404-visible-tablet-inline {
+		display: inline !important;
+	}
+
+	.b404-visible-tablet-table {
+		display: table !important;
+	}	
+
+	.b404-visible-tablet-table-cell {
+		display: table-cell !important;
+	}	
+
+	.b404-hidden-tablet {
+		display: none !important;
+	}
+}
+
+@include b404-tablet-and-mobile {
+	.b404-visible-tablet-and-mobile {
+		display: block !important;
+	}
+
+	.b404-visible-tablet-and-mobile-inline-block {
+		display: inline-block !important;
+	}
+
+	.b404-visible-tablet-and-mobile-inline {
+		display: inline !important;
+	}
+
+	.b404-visible-tablet-and-mobile-table {
+		display: table !important;
+	}	
+
+	.b404-visible-tablet-and-mobile-table-cell {
+		display: table-cell !important;
+	}	
+
+	.b404-hidden-tablet-and-mobile {
+		display: none !important;
+	}
+}
+
+@include b404-mobile {
+	.b404-visible-mobile {
+		display: block !important;
+	}
+
+	.b404-visible-mobile-inline-block {
+		display: inline-block !important;
+	}
+
+	.b404-visible-mobile-inline {
+		display: inline !important;
+	}
+
+	.b404-visible-mobile-table {
+		display: table !important;
+	}	
+
+	.b404-visible-mobile-table-cell {
+		display: table-cell !important;
+	}	
+
+	.b404-hidden-mobile {
+		display: none !important;
+	}
+}
+
+// Flexbox helpers
+
+.b404-space-between {
+	display: flex;
+	justify-content: space-between;
+}
+
+// Rounded
+.b404-rounded {
+	border-radius: $b404-border-radius !important;
+}
+
+// Negative Spacing
+.b404-negative-spacing {
+	@for $i from 1 through 10 {		
+		&--#{$i}{
+			margin-top: -#{$i}0px;
+		}
+	} 
+}

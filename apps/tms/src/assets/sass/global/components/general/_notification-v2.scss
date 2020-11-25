@@ -1,0 +1,62 @@
+//
+// Notification-v2
+//
+
+
+
+
+.b404-notification-v2 {
+	margin: 0;
+
+	.b404-notification-v2__item {
+		display: flex;
+		align-items: center;
+		padding: 1rem;	
+		text-decoration: none;	
+
+		.b404-notification-v2__item-icon {
+			display:flex;
+			justify-content: center;		 
+			align-items: center;
+			background-color: b404-base-color(grey, 1);		 
+			height: 50px;
+	    	width: 50px;
+	    	min-width: 50px;
+	    	border-radius: 50%;
+
+			i {
+				font-size: 1.5rem;
+			}
+		}
+
+		.b404-notification-v2__itek-wrapper {
+			padding-left: 1.5rem;
+			flex: 1 1 auto;
+
+			.b404-notification-v2__item-title {
+				font-size: 1.1rem;
+    			font-weight: 500;
+    			color: #5d5b6f;    			     			 
+			}
+
+			.b404-notification-v2__item-desc {
+				font-size: 1rem;
+			    font-weight: 300;
+			    color: #b3b1c2;
+			}
+		}
+
+		@include b404-transition();
+
+		&:hover {
+			background-color: b404-base-color(grey, 1);	
+			border-radius: 5px;			
+			@include b404-transition();
+
+			.b404-notification-v2__item-icon  {
+				background-color: b404-base-color(grey, 2);
+				@include b404-transition();
+			}
+		}
+	}
+}

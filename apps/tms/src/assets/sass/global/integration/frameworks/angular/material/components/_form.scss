@@ -1,0 +1,54 @@
+
+.ml-auto {
+	margin-left: auto;
+}
+
+.example-full-width {
+	width: 100%;
+}
+
+.form-group .b404-timeline-3 {
+	&::before {
+		background-color: transparent;
+	}
+}
+
+
+// b404-form
+.b404-form {
+	.b404-form__filtration,
+	.b404-form__group-action {
+		margin: 0 0 30px;
+	}
+	.b404-form__actions.b404-form__actions--sm {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+	.b404-form__actions {
+		padding: 30px;
+		&.b404-form__actions--solid {
+			padding: 30px;
+			background-color: #f7f8fa;
+			border-color: #f7f8fa;
+		}
+	}
+}
+
+.b404-margin {
+	&-top-20 {
+		margin-top: 20px;
+	}
+	&-bottom-20 {
+		margin-bottom: 20px;
+	}
+}
+
+.b404-padding-0 {
+	padding: 0;
+}
+
+.b404-form.b404-form--group-seperator .b404-form__group,
+.b404-form.b404-form--group-seperator-dashed .b404-form__group {
+	padding-top: 25px;
+	padding-bottom: 25px;
+}

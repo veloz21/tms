@@ -1,0 +1,41 @@
+//
+// Support Center/Faq 1
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+// Base
+.b404-sc-faq {
+	background-position: center top;
+	background-size: cover;
+	background-repeat: no-repeat;
+
+	.b404-sc__top{
+		display: flex;
+		padding: 6rem 0 10rem;
+		align-items: center;
+
+		.b404-sc__title {
+			margin-bottom: 0;
+			font-size: 1.85rem;
+			font-weight: 600;
+			color: b404-base-color(label, 4);
+		}
+
+		.b404-sc__nav{
+			margin: auto 0 auto auto;
+
+			.b404-link{
+				font-size: 1.3rem;
+				font-weight: 400;
+			}
+		}
+	}
+}

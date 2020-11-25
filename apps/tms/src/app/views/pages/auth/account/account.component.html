@@ -1,0 +1,38 @@
+<!--begin::Head-->
+<div class="b404-login__head">
+	<span class="b404-login__signup-label">{{'AUTH.LOGIN.DONT_ACCOUNT'| translate}}</span>&nbsp;&nbsp;
+	<a href="javascript:;" routerLink="/auth/register" class="b404-link b404-login__signup-link">{{ 'AUTH.GENERAL.SIGNUP_BUTTON' | translate }}</a>
+</div>
+<!--end::Head-->
+
+<!--begin::Body-->
+<div class="b404-login__body">
+	<!--begin::Signin-->
+	<div class="b404-login__form">
+		<div class="b404-login__title">
+			<h3>{{'AUTH.ACCOUNT.ENTER_COMPANY'| translate}}</h3>
+		</div>
+
+		<b404-auth-notice></b404-auth-notice>
+
+		<!--begin::Form-->
+		<form class="b404-form" [formGroup]="loginForm" autocomplete="off">
+			<div class="b404-form__group">
+        <div class="row">
+          <div class="col-md-12 b404-margin-bottom-10-mobile ">
+            <mat-form-field class="mat-form-field-fluid">
+              <input id="model" matInput placeholder="Company*" formControlName="company">
+              <mat-error>
+                Company
+                <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="b404-login__actions">
+        <div class="col-md-6"></div>
+				<button (click)="submit()" [ngClass]="{'b404-spinner b404-spinner--right b404-spinner--md b404-spinner--light': loading}" id="kt_login_signin_submit" class="btn btn-primary btn-elevate b404-login__btn-primary">{{ 'AUTH.LOGIN.BUTTON' | translate }}</button>
+			</div>
+		</form>
+</div>

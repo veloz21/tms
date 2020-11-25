@@ -1,0 +1,43 @@
+//
+// Widget 20
+//
+
+
+
+ 
+.b404-widget20 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    .b404-widget20__content {
+        display: flex;                    
+        padding-top: 1.15rem; 
+        padding-bottom: 1.25rem;      
+        flex-grow: 1;     
+        display: flex;
+        flex-direction: column;
+
+        .b404-widget20__desc {
+            color: b404-base-color(label, 2);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 0.25rem;
+        }     
+
+        .b404-widget20__number {
+            flex-grow: 1; 
+            font-weight: 600;
+            font-size: 1.8rem;
+        }                
+    }   
+
+    .b404-widget20__chart {
+        position: relative;
+        canvas {
+            border-bottom-left-radius: $b404-border-radius;
+            border-bottom-right-radius: $b404-border-radius;
+        }
+    }
+}  

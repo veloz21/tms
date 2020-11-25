@@ -1,0 +1,89 @@
+//
+// Widget 17
+//
+
+
+
+
+.b404-widget17 {
+    .b404-widget17__visual {
+        @include b404-rounded {
+            border-top-left-radius: $b404-border-radius;
+            border-top-right-radius: $b404-border-radius; 
+        }
+
+        .b404-widget17__chart {
+            position: relative;
+            padding-top: 8rem;
+        }
+    }
+         
+    .b404-widget17__stats {
+        display: column;
+        margin: -4.3rem auto 0 auto;       
+        position: relative;
+        width: 90%; 
+        
+
+        // Items
+        .b404-widget17__items {
+            display: flex;              
+
+            .b404-widget17__item {
+                padding: 2rem; 
+                flex: 1;
+                overflow: hidden;                
+                background-color: white;
+                margin: 0.3rem;                 
+                box-shadow: 0px 1px 15px 1px rgba(69,65,78,0.06);
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                .b404-widget17__icon {
+                    display: block;         
+                        
+                    > i {
+                        font-size: 2.6rem;    
+                    }
+
+                    svg {
+                        margin-left: -4px;
+                        width: 38px;
+                        height: 38px;
+                    }
+                }
+
+                .b404-widget17__subtitle {
+                    display: block;                    
+                    margin-top: 0.75rem;                  
+                    font-size: 1.2rem;
+                    font-weight: 500; 
+                    color: b404-base-color(label, 3);
+                } 
+
+                .b404-widget17__desc {
+                    display: block;               
+                    font-size: 1rem;
+                    color: b404-base-color(label, 2);
+                }   
+                
+                &:hover {
+                    transition: all 0.3s ease;
+                    box-shadow: 0px 1px 21px 1px rgba(69,65,78,0.12);
+                }
+            }
+        }           
+    }
+}        
+ 
+@include b404-mobile {
+    .b404-widget17 {
+        .b404-widget17__stats {
+            .b404-widget17__items {
+                .b404-widget17__item {
+                    padding-left: 0.5rem;
+                }
+            }
+        }
+    }
+}

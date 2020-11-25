@@ -1,0 +1,92 @@
+//
+// Page - Error 3
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+.b404-error-v3 {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    .b404-error_container {
+        .b404-error_number {
+            > h1 {
+                font-size: 15.7rem;
+                margin-left: 7.85rem;
+                margin-top: 11.4rem;
+                font-weight: 500;
+                -webkit-text-stroke-width: 0.35rem;
+                -moz-text-stroke-width: 0.35rem;
+                text-stroke-width: 0.35rem;
+
+                color:#A3DCF0;
+                -webkit-text-stroke-color: white;
+                -moz-text-stroke-color: white;
+                text-stroke-color: white;
+
+                @include b404-hack-ie {
+                    color: white;
+                }
+            }
+        }
+
+        .b404-error_title {
+            margin-left: 7.85rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: b404-base-color(label, 4);
+        }
+
+        .b404-error_subtitle {
+            margin-left: 7.85rem;
+            margin-top: 3.57rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: b404-base-color(label, 3);
+        }
+
+        .b404-error_description {
+            margin-left: 7.85rem;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: b404-base-color(label, 2);
+        }
+    }
+}
+
+@include b404-mobile() {
+    .b404-error-v3 {
+        .b404-error_container {
+            .b404-error_number {
+                > h1 {
+                    font-size: 8rem;
+                    margin-left: 4rem;
+                    margin-top: 3.5rem;
+                }
+            }
+
+            .b404-error_title {
+                margin-left: 4rem;
+            }
+
+            .b404-error_subtitle {
+                margin-left: 4rem;
+                padding-right: 0.5rem;
+            }
+
+            .b404-error_description {
+                margin-left: 4rem;
+                padding-right: 0.5rem;
+            }
+        }
+    }
+}

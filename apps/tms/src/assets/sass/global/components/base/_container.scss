@@ -1,0 +1,37 @@
+//
+// Container
+//
+
+
+
+// Base
+.b404-container {
+    &,
+    &.b404-container--fluid {
+        width: 100%;
+        margin: 0;
+    }
+
+    &.b404-container--fit {
+        padding: 0 !important;
+    }
+
+    &.b404-container--fit-left {
+        padding-left: 0 !important;
+    }
+
+    &.b404-container--fit-right {
+        padding-right: 0 !important;
+    }
+}
+@media (min-width: #{$b404-page-container-width + (2 * b404-get($b404-page-padding, desktop)) - 1px}) {
+    .b404-container {
+        width: $b404-page-container-width;
+        margin: 0 auto;
+
+        &.b404-container--fluid {
+            width: 100%;
+            margin: 0;
+        }
+    }
+}

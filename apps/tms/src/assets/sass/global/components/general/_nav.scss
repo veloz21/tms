@@ -1,0 +1,558 @@
+//
+// Navigation
+//
+
+
+
+// Base
+.b404-nav {
+	$b404-nav-padding-x: 1.75rem;
+	$b404-nav-padding-y: 0.55rem;
+
+	display: block;
+	padding: 1rem 0;
+	margin: 0;
+	list-style: none;
+	border: 0; 
+	
+	// Item
+	.b404-nav__item {
+		display: block;
+
+		> .b404-nav__link {
+			display: flex;
+			flex-grow: 1;
+			align-items: center;
+			padding: $b404-nav-padding-y $b404-nav-padding-x;
+			cursor: pointer;
+			@include b404-transition(); // menu item link's text part
+
+			.b404-nav__link-text {
+				flex-grow: 1;
+				font-size: 1rem;
+				color: b404-base-color(label, 3);
+				font-weight: 400;
+			} 
+			
+			// menu item link's icon
+			.b404-nav__link-icon {
+				flex: 0 0 30px;
+				font-size: 1.25rem;
+				line-height: 0;
+				color: b404-base-color(label, 1);
+
+				&:before {
+					line-height: 0;
+				}
+
+				&.b404-nav__link-icon--center {
+					text-align: center;
+					margin-right: 0.25rem;
+				}
+
+				// Svg icon
+				@include b404-svg-icon-color(b404-base-color(label, 1));
+			} 
+			
+			// menu item link's bullet
+			.b404-nav__link-bullet {
+				text-align: center;
+				flex: 0 0 10px;
+				margin-right: 10px;
+
+				> span {
+					vertical-align: middle;
+					display: inline-block;
+				}
+
+				&.b404-nav__link-bullet--dot {
+					> span {
+						width: 4px;
+						height: 4px;
+						border-radius: 100%;
+					}
+				}
+
+				&.b404-nav__link-bullet--line {
+					> span {
+						width: 8px;
+						height: 2px;
+						border-radius: 2px;
+					}
+				}
+
+				&.b404-nav__link-bullet--line,
+				&.b404-nav__link-bullet--dot {
+					> span {
+						background-color: b404-base-color(label, 1);
+					}
+				}
+			} 
+			
+			// menu item link's icon part
+			.b404-nav__link-badge {
+				padding: 0px 0px 0px 5px;
+			} 
+			
+			// menu item link's arrow part
+			.b404-nav__link-arrow {
+				text-align: right;
+				flex: 0 0 20px;
+				font-size: 0.8rem;
+				color: b404-base-color(label, 1);
+				@include b404-la-icon( b404-get($b404-action-icons, down));
+				&:before {
+					display: inline-block;
+					transition: all 0.3s ease;
+				}
+			}
+
+			&.collapsed {
+				.b404-nav__link-arrow {
+					@include b404-la-icon( b404-get($b404-action-icons, right));
+					&:before {
+						transition: all 0.3s ease;
+					}
+				}
+			}
+		}
+
+		>.b404-nav__sub {
+			padding: 0;
+			margin: 0;
+
+			.b404-nav__item {
+				>.b404-nav__link {
+					padding: 0.5rem 1.5rem 0.5rem 2.5rem;
+				}
+			}
+		}
+
+		&.b404-nav__item--last {
+			padding-bottom: 0;
+		}
+		
+		// Hover & active state
+		&.b404-nav__item--active,
+		&.active,
+		&:hover:not(.b404-nav__item--disabled):not(.b404-nav__item--sub) {
+			>.b404-nav__link {
+				background-color: b404-base-color(grey, 1);
+
+				@include b404-transition();
+				
+				.b404-nav__link-icon,
+				.b404-nav__link-text,
+				.b404-nav__link-arrow {
+					color: b404-state-color(brand, base);
+				}
+
+				.b404-nav__link-icon {
+					@include b404-svg-icon-color(b404-state-color(brand, base));
+				}
+				
+				.b404-nav__link-bullet {
+					&.b404-nav__link-bullet--line,
+					&.b404-nav__link-bullet--dot {
+						>span {
+							background-color: b404-state-color(brand, base);
+						}
+					}
+				}
+			}
+		} 
+		
+		// Hover state
+		&:hover:not(.b404-nav__item--disabled).b404-nav__item--sub {
+			>.b404-nav__link.collapsed {
+				background-color: b404-base-color(grey, 1);
+
+				@include b404-transition();
+				
+				.b404-nav__link-icon,
+				.b404-nav__link-text,
+				.b404-nav__link-arrow {
+					color: b404-state-color(brand, base);
+				}
+
+				
+				
+				.b404-nav__link-bullet {
+					&.b404-nav__link-bullet--line,
+					&.b404-nav__link-bullet--dot {
+						>span {
+							background-color: b404-state-color(brand, base);
+						}
+					}
+				}
+			}
+		} 
+		
+		// Disabled state
+		&.b404-nav__item--disabled {
+			opacity: 0.6;
+		}
+	} 
+
+	// Custom
+	.b404-nav__custom {
+		padding:  $b404-nav-padding-y $b404-nav-padding-x;
+	} 
+	
+	// Section
+	.b404-nav__section {
+		margin-top: 1rem;
+		padding: 0 $b404-nav-padding-x;
+
+		.b404-nav__section-icon {
+			color: b404-base-color(label, 1);
+		}
+		
+		&.b404-nav__section--first {
+			margin-top: 0.5rem;
+		}
+		
+		.b404-nav__section-text {
+			color: b404-state-color(brand, base);
+			font-weight: 600;
+			font-size: 0.9rem;
+			text-transform: uppercase;
+		}
+	} 
+	
+	// Separator
+	.b404-nav__separator {
+		margin: ($b404-nav-padding-y + 0.15rem) 0;
+		height: 0;
+		display: block;
+		border-bottom: 1px solid b404-base-color(grey, 2);
+
+		&.b404-nav__separator--dashed {
+			border-bottom: 1px dashed b404-base-color(grey, 2);
+		}
+	}
+	
+	// Space
+	.b404-nav__space {
+		height: 0;
+		margin: 0.5rem 0;
+
+		&.b404-nav__space--sm {
+			margin: 0.25rem 0;
+		}
+
+		&.b404-nav__space--lg {
+			margin: 0.75rem 0;
+		}
+
+		&.b404-nav__space--xl {
+			margin: 1rem 0;
+		}
+	}
+	
+	// Head & Foot
+	.b404-nav__head,
+	.b404-nav__foot {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 1rem;
+		color: b404-base-color(label, 3);
+		font-weight: 500;
+		padding: $b404-nav-padding-y $b404-nav-padding-x;
+
+		> i {
+			font-size: 1.2rem;
+			color: b404-base-color(label, 2);
+		}
+	}
+
+	.b404-nav__head {
+		font-size: 1.1rem;
+	}
+	
+	// Fit
+	&.b404-nav--fit {
+		padding: 0;
+		.b404-nav__item {
+			>.b404-nav__link {
+				padding-left: 0;
+				padding-right: 0;
+			}
+		}
+	} 
+	
+	// Margins sizing
+	&.b404-nav--lg-space {
+		.b404-nav__item {
+			margin: 0.35rem 0;
+
+			.b404-nav__link {
+				padding-top: 1.5rem;
+				padding-bottom: 1.5rem;
+			}
+			
+			&:first-child {
+				margin-top: 0;
+			}
+			
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	&.b404-nav--md-space {
+		.b404-nav__item {
+			margin: 0.25rem 0;
+			
+			.b404-nav__link {
+				padding-top: 0.75rem;
+				padding-bottom: 0.75rem;
+			}
+			
+			&:first-child {
+				margin-top: 0;
+			}
+			
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	} 
+	
+	// font weight
+	&.b404-nav--bold {
+		.b404-nav__item {
+			.b404-nav__link {
+				.b404-nav__link-text {
+					font-weight: 500;
+				}
+			}
+		}
+	}
+
+	&.b404-nav--thin {
+		.b404-nav__item {
+			.b404-nav__link {
+				.b404-nav__link-text {
+					font-weight: 300;
+				}
+			}
+		}
+	} 
+	
+	// font sizing
+	&.b404-nav--lg-font {
+		.b404-nav__item {
+			.b404-nav__link {
+				.b404-nav__link-text {
+					font-size: 1.15rem;
+				}
+			}
+		}
+	}
+
+	&.b404-nav--xl-font {
+		.b404-nav__item {
+			.b404-nav__link {
+				.b404-nav__link-text {
+					font-size: 1.25rem;
+				}
+			}
+		}
+	}
+} 
+
+// Version 2
+.b404-nav {
+	&.b404-nav--v2 {
+		.b404-nav__item {
+			border-radius: 2rem;
+			overflow: hidden;
+
+			>.b404-nav__link {
+				transition: none;
+			} 
+			
+			// Hover state
+			&:hover:not(.b404-nav__item--disabled):not(.b404-nav__item--sub):not(.b404-nav__item--active) {
+				>.b404-nav__link {
+					background-color: #f4f4f9;
+					transition: none;
+
+					.b404-nav__link-icon,
+					.b404-nav__link-text,
+					.b404-nav__link-arrow {
+						color: b404-state-color(brand, base);
+					}
+					
+					.b404-nav__link-bullet {
+						&.b404-nav__link-bullet--line,
+						&.b404-nav__link-bullet--dot {
+							>span {
+								background-color: #f4f4f9;
+							}
+						}
+					}
+				}
+			} 
+			
+			// Active state
+			&.b404-nav__item--active {
+				>.b404-nav__link {
+					background-color: b404-state-color(brand, base);
+					transition: none;
+
+					.b404-nav__link-icon,
+					.b404-nav__link-text,
+					.b404-nav__link-arrow {
+						color: b404-state-color(brand, inverse);
+					}
+					
+					.b404-nav__link-bullet {
+						&.b404-nav__link-bullet--line,
+						&.b404-nav__link-bullet--dot {
+							>span {
+								background-color: b404-state-color(brand, inverse);
+							}
+						}
+					}
+				}
+				&:hover {
+					>.b404-nav__link {
+						background-color: b404-state-color(brand, base);
+
+						.b404-nav__link-icon,
+						.b404-nav__link-text,
+						.b404-nav__link-arrow {
+							color: b404-state-color(brand, inverse);
+						}
+						
+						.b404-nav__link-bullet {
+							&.b404-nav__link-bullet--line,
+							&.b404-nav__link-bullet--dot {
+								>span {
+									background-color: b404-state-color(brand, inverse);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+} 
+
+// Version 3
+.b404-nav {
+	&.b404-nav--v3 {
+		.b404-nav__item {
+			margin: 0;
+
+			.b404-nav__link {
+				@include b404-transition();
+				padding-top: 1rem;
+				padding-bottom: 1rem;
+				border-left: 2px solid transparent;
+			}
+
+			&.active,
+			&.b404-nav__link--active {
+				.b404-nav__link {
+					@include b404-transition();
+					background-color: b404-base-color(grey, 1);
+					border-left: 2px solid b404-state-color(brand);
+					
+					.b404-nav__link-text {
+						color: b404-state-color(brand);
+					}
+				}
+			}
+				
+			&:hover {
+				@include b404-transition();
+				background-color: b404-base-color(grey, 1);
+
+				.b404-nav__link {
+				   .b404-nav__link-text {
+						color: b404-state-color(brand);
+					}
+				}
+			}
+		}
+	}
+}
+
+// Version 4
+.b404-nav {
+	&.b404-nav--v4 {
+		
+		.b404-nav__item{
+			padding: 0.65rem 0;
+
+			.b404-nav__link{
+				background-color: transparent;
+				margin-left:3px;
+				color: #9492a1;
+				font-size: 1.2rem;
+				padding: 0 1.1rem;
+
+				.b404-nav__link-text{
+					color: #9492a1;
+					font-size: 1.2rem;
+				}
+			}
+
+			&.active{
+
+				.b404-nav__link{
+					border-left: 3px solid b404-state-color(brand);  
+					color: b404-base-color(label, 4); 
+					margin-left:0; 	
+
+					.b404-nav__link-text{
+						color: b404-base-color(label, 4);						  
+					}
+				}				
+			}
+
+			&:first-child{
+				margin-top: -0.65rem;
+			}
+
+			&:hover {
+				@include b404-transition();
+				background-color: b404-base-color(grey, 1);
+
+				.b404-nav__link {
+				   .b404-nav__link-text {
+						color: b404-state-color(brand);
+					}
+				}
+			}
+		}
+
+		@each $name, $color in $b404-state-colors{
+
+			&--#{$name}{
+
+				.b404-nav__item{
+					&.active{
+						.b404-nav__link{
+							border-left: 3px solid b404-state-color(#{$name}, base);  
+						}
+					}
+
+					&:hover:not(.b404-nav__item--disabled):not(.b404-nav__item--sub):not(.b404-nav__item--active) {
+						>.b404-nav__link{
+							.b404-nav__link-text {
+								color: b404-state-color(#{$name}, base);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,5 @@
+export enum AVIABILITY_STATUS {
+  AVAILABLE = 0,
+  NOT_AVAILABLE = 1,
+  IN_MAINTENANCE = 2
+}

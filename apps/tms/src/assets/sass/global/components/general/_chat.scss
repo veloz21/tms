@@ -1,0 +1,223 @@
+//
+// Chat
+//
+
+
+
+.b404-chat {
+    .b404-portlet__head {        
+        align-items: center;
+        flex-grow: 1;
+    }
+    
+    .b404-chat__head {       
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        flex-grow: 1;
+
+        .b404-chat__label {
+            .b404-chat__title {
+                font-size: 1.1rem;
+                color: b404-base-color(label, 4);
+                font-weight: 600;
+                margin: 0;
+                padding: 0;            
+    
+                &:hover {
+                    color: b404-brand-color();
+                    transition: color 0.3s ease;
+                }
+            }
+    
+            .b404-chat__status {
+                color: b404-base-color(label, 2);
+                font-size: 0.9rem;
+                font-weight: 500;
+                display: block;
+            }            
+        }        
+
+        .b404-chat__left {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .b404-chat__right {
+            flex-grow: 1;
+            text-align: right;
+        }
+
+        .b404-chat__center {
+            flex-grow: 1;
+            text-align: center;
+        }
+    }
+
+    .b404-chat__messages {
+        .b404-chat__message {
+            margin-bottom: 1rem;
+
+            .b404-chat__user {
+                .b404-chat__username {
+                    padding: 0 0.4rem;
+                    font-size: 1.1rem;
+                    color: b404-base-color(label, 4);
+                    font-weight: 500;
+
+                    &:hover {
+                        color: b404-brand-color();
+                        transition: color 0.3s ease;
+                    }
+                }
+    
+                .b404-chat__datetime {
+                    color: b404-base-color(label, 2);
+                    font-size: 0.9rem;
+                    font-weight: 400;
+                }
+            }
+    
+            .b404-chat__text {
+                display: inline-block;
+                padding: 1.2rem 1.7rem;
+                padding: 1.1rem 3.5rem 1.1rem 1.6rem;
+                margin-top: 0.8rem;                
+                color: #6c7293;
+                font-weight: 500; 
+                font-size: 1.1rem;                               
+    
+                b {
+                    color: b404-base-color(label, 3);
+                    font-weight: 0; 
+                }
+    
+                @include b404-rounded {
+                    border-radius: $b404-border-radius;
+                }    
+            }
+
+            &.b404-chat__message--right {
+                text-align: right;
+    
+                .b404-chat__text {
+                    text-align: right;
+                    padding: 1.1rem 1.6rem 1.1rem 3.5rem;
+                }
+            }            
+        }
+        
+        &.b404-chat__messages--solid {
+            width: 100%;             
+             
+            .b404-chat__message {
+                padding: 1.3rem 1.7rem;
+                margin: 1.5rem 0;                
+                display: inline-block;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+
+                @include b404-rounded {
+                    border-radius: $b404-border-radius;
+                }   
+
+                .b404-chat__text {
+                    padding: 0;
+                    margin-top: 0.5rem; 
+                    background: none !important;                  
+                }
+
+                &.b404-chat__message--right {
+                    float: right;
+                } 
+                
+                @each $name, $color in $b404-state-colors {
+                    &.b404-chat__message--#{$name} {                        
+                        background: rgba(b404-get($color, base), 0.1);                      
+                    }
+                } 
+            }
+        }
+    }
+
+    .b404-chat__input {  
+        .b404-chat__editor {
+            textarea {
+                width: 100%;
+                border: 0 !important;
+                outline: none !important;
+                background-color: transparent !important;
+
+                @include b404-input-placeholder(b404-base-color(label, 1));
+                color: b404-base-color(label, 1);
+            }
+        }      
+        
+        .b404-chat__toolbar {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .kt_chat__tools {
+                a {
+                    i {
+                        margin-right: 1.1rem;                
+                        color: #cdd1e9;
+                        font-size: 1.4rem; 
+
+                        &:hover {
+                            color: b404-brand-color();
+                            transition: color 0.3s ease;
+                        }
+                    }                    
+                }                
+            }
+        }
+    }
+}
+
+@include b404-tablet-and-mobile {
+    .b404-chat {
+        .b404-chat__messages {
+            .b404-chat__message {
+                margin-bottom: 0.75rem;
+
+                .b404-chat__user {
+                    .b404-chat__username {
+                        padding: 0 0.25rem;
+                        font-size: 1rem;
+                    }
+                }
+        
+                .b404-chat__text {
+                    display: inline-block;
+                    padding: 0.75rem 1rem;
+                    margin-top: 0.5rem;
+                }
+
+                &.b404-chat__message--right {
+                    .b404-chat__text {
+                        padding: 0.75rem 1rem;
+                    }
+                }
+            } 
+        }
+
+        .b404-chat__input {              
+            .b404-chat__toolbar {
+                margin-top: 0.75rem;
+                .kt_chat__tools {
+                    a {
+                        i {
+                            margin-right: 0.75rem;
+                            font-size: 1.3rem; 
+                        }                    
+                    }                
+                }
+            }
+        }
+    }
+}

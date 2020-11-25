@@ -1,0 +1,65 @@
+//
+// Widget16
+//
+
+
+
+
+// widget6 
+.b404-widget6 {
+    .b404-widget6__head {
+        .b404-widget6__item {
+            display: flex; 
+            align-items: center;            
+            margin-bottom: 1.07rem;             
+
+            > span {
+                font-size: 1rem;
+                color: b404-base-color(label, 2);
+                font-weight: 400;
+                flex: 1;                 
+                text-align: left;
+
+                &:last-child {
+                    text-align: right;                    
+                }                  
+            }
+        }
+    } 
+
+    .b404-widget6__body {
+        .b404-widget6__item {
+            display: flex;             
+            align-items: center;
+            padding: 1.07rem 0;                                 
+
+            > span {                     
+                color: b404-base-color(label, 3);
+                font-weight: 400; 
+                flex: 1;                 
+                text-align: left;
+                font-size: 1rem;
+
+                &:last-child {
+                    text-align: right;                    
+                }                 
+            }  
+
+            border-bottom: 1px dashed b404-base-color(grey, 2);
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    } 
+
+    .b404-widget6__foot {
+        .b404-widget6__action {
+            text-align: right;
+            margin-top: 1rem;
+        }
+    }
+}   
+                                     
+       
+ 

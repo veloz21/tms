@@ -1,0 +1,32 @@
+//
+// Grid
+//
+
+
+
+
+@include b404-grid-generate(general);
+
+@include b404-desktop {
+	@include b404-grid-generate(desktop);
+}
+
+@include b404-desktop-xl {
+	@include b404-grid-generate(desktop-xl);
+}
+
+@include b404-desktop-and-tablet {
+	@include b404-grid-generate(desktop-and-tablet);
+}
+
+@include b404-tablet {
+	@include b404-grid-generate(tablet);
+}
+
+@include b404-tablet-and-mobile {
+	@include b404-grid-generate(tablet-and-mobile);
+}
+
+@include b404-mobile {
+	@include b404-grid-generate(mobile);
+}

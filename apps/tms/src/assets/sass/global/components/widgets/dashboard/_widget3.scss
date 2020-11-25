@@ -1,0 +1,77 @@
+//
+// Widget3
+//
+
+
+
+
+.b404-widget3 {
+          
+    // widjet header
+    .b404-widget3__item {
+        margin-bottom: 1rem;
+
+        .b404-widget3__header {
+            margin-top: 1.5rem;
+            padding-bottom: 0.8rem; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+
+            .b404-widget3__user-img {
+                .b404-widget3__img {
+                    width: 3.2rem;                        
+                    border-radius: 50%;
+                }
+            }
+
+            // widget info
+            .b404-widget3__info {
+                padding-left: 1rem;
+
+                .b404-widget3__username {
+                    font-weight: 500;  
+                    color: b404-base-color(label, 3);
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: b404-brand-color();
+                        transition: color 0.3s ease;
+                    }
+                } 
+
+                .b404-widget3__time {
+                    font-size: 0.9rem;
+                     font-weight: 400;  
+                    color: b404-base-color(label, 2);
+                } 
+
+            }
+
+            // widget status
+            .b404-widget3__status{
+                font-weight:  500;  
+                flex-grow: 1; 
+                text-align: right;                          
+            }                       
+        }
+
+        // widget body
+        .b404-widget3__body {
+            .b404-widget3__text {
+                color: b404-base-color(label, 2);
+            }
+        }
+
+        border-bottom: 0.07rem dashed b404-base-color(grey, 2);
+             
+        &:last-child {
+            border-bottom: 0;
+        } 
+
+        &:first-child .b404-widget3__header {
+            margin-top: 0;
+        }  
+    }   
+}
+

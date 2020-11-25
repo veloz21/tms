@@ -1,0 +1,56 @@
+//
+// Widget10
+//
+
+
+
+
+.b404-widget10 {
+    // Chart
+    .b404-widget10__chart {
+        margin-top: 1rem;
+        margin-bottom: 3.5rem;
+        position: relative;
+
+        canvas {
+            @include b404-rounded {
+                border-radius: 8px;
+            }
+        } 
+    }
+
+    // Items
+    .b404-widget10__items {
+        // Item
+        .b404-widget10__item {
+            // Stats
+            .b404-widget10__stats {
+                font-size: 1.1rem;
+                font-weight: 700;  
+                color: b404-base-color(label, 2);
+            }
+                
+            // Text
+            .b404-widget10__text {
+                font-size: 0.9rem;
+                float: right;
+                margin-top: 0.3rem;
+                color: b404-base-color(label, 2);
+            }
+
+            // Progress
+            .progress {
+                margin-bottom: 1.6rem;
+            }    
+        }            
+    }
+    // Description
+    .b404-widget10__desc {
+        margin-top: 1.6rem;
+        font-size: 1rem;
+    }        
+}     	 
+ 
+ 
+
+ 

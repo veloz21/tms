@@ -1,0 +1,97 @@
+//
+// Page - Error 4
+// Pages SASS files are compiled into separate css files
+//
+
+
+
+// Global config
+@import "../../config";
+
+// Layout config
+@import "../../global/layout/config.scss";
+
+.b404-error-v4 {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    .b404-error_container {
+
+        .b404-error_number {
+            font-size: 15.7rem;
+            margin-left: 14.3rem;
+            margin-top: 11.4rem;
+            font-weight: 700;
+            color: #84D49E;
+        }
+
+        .b404-error_title {
+            margin: -70px 0 2% 14.3rem;
+            font-size: 10rem;
+            font-weight: 700;
+            color: #84D49E;
+        }
+
+        .b404-error_description {
+            margin-left: 15rem;
+            font-size: 2.5rem;
+            margin: -70px 0 2% 14.8rem;
+            font-weight: 700;
+            color: #CC6622;
+        }
+    }
+}
+
+@include b404-tablet {
+    .b404-error-v4 {
+        .b404-error_container {
+            .b404-error_number {
+                font-size: 12rem;
+                margin-left: 7rem;
+                margin-top: 8rem;
+                font-weight: 700;
+            }
+
+            .b404-error_title {
+                margin: -40px 0 2% 7rem;
+                font-size: 7rem;
+                font-weight: 700;
+            }
+
+            .b404-error_description {
+                margin-left: 15rem;
+                font-size: 2rem;
+                margin: -40px 0 2% 7.3rem;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+@include b404-mobile() {
+    .b404-error-v4 {
+        .b404-error_container {
+            text-align: center;
+
+            .b404-error_number {
+                font-size: 9rem;
+                margin: 4rem auto 0 auto;
+            }
+
+            .b404-error_title {
+                margin: 0.3rem auto;
+                text-align: center;
+                font-size: 5rem;
+            }
+
+            .b404-error_description {
+                text-align: center;
+                font-size: 2rem;
+                margin: 0.3rem auto;
+                padding: 0  0.5rem 0 0.5rem;
+            }
+        }
+    }
+}

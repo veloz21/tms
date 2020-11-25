@@ -1,0 +1,129 @@
+//
+// Iconbox
+//
+
+
+.b404-iconbox{
+	padding: 1.5rem;
+
+	.b404-iconbox__body{
+		display: flex;
+		flex-wrap: nowrap;
+
+		.b404-iconbox__icon{
+			$svg-size: 50px;
+			flex: 0 0 $svg-size;
+			padding-right: 20px;
+
+			svg{
+				height: $svg-size;
+				width: $svg-size;
+			}
+		}
+
+		.b404-iconbox__desc{
+			display: flex;
+			flex-direction: column;
+
+			.b404-iconbox__title{
+				font-size: 1.55rem;
+				color: b404-base-color(label, 4);
+
+				.b404-link{
+					color: b404-base-color(label, 4);
+				}
+			}
+
+			.b404-iconbox__content{
+				font-size: 1.1rem;
+				font-weight: 400;
+				color: #9392a0;
+			}
+		}
+	}
+
+	a.b404-iconbox__body {
+		cursor: pointer;
+	}
+
+	&--wave{
+		@include wave;
+
+		&:after{
+			transform: rotate(45deg);
+		}
+	}
+
+	&--animate{
+		@include wave;
+
+		&:after{
+			animation: wave 15s infinite linear;
+		}
+
+		&-slower{
+			@include wave;
+
+			&:after{
+				animation: wave 30s infinite linear;
+			}
+		}
+
+		&-slow{
+			@include wave;
+
+			&:after{
+				animation: wave 25s infinite linear;
+			}
+		}
+
+		&-fast{
+			@include wave;
+
+			&:after{
+				animation: wave 10s infinite linear;
+			}
+		}
+
+		&-faster{
+			@include wave;
+
+			&:after{
+				animation: wave 5s infinite linear;
+			}
+		}
+	}
+
+	@each $name, $color in $b404-state-colors{
+
+		&--#{$name}{
+
+			.b404-iconbox__body{
+
+				.b404-iconbox__icon{
+
+					svg{
+						g {
+			                [fill] {
+			                    fill: b404-get($color, base) !important;
+			                }
+			            }
+					}
+				}
+			}
+
+			&.b404-iconbox--animate,
+			&.b404-iconbox--animate-slow,
+			&.b404-iconbox--animate-slower,
+			&.b404-iconbox--animate-fast,
+			&.b404-iconbox--animate-faster{
+				background-color: rgba(b404-state-color(#{$name}), 0.07) !important;
+			}
+		}
+	}
+}
+
+@keyframes wave {
+	from { transform: rotate(0deg);}
+	from { transform: rotate(360deg);}
+}

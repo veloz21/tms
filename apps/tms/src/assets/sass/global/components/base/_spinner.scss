@@ -1,0 +1,97 @@
+//
+// Spinner
+//
+
+
+
+
+// Config
+$b404-spinner-config: (
+	size: (
+		sm: 16px,
+		md: 20px,
+		lg: 24px
+	)
+);
+
+// Spinner Default
+.b404-spinner {
+	position: relative;
+
+	&:before {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 0;  		
+        border-radius: 50%;
+    }
+
+  	// Sizes  	
+  	&.b404-spinner--sm {
+  		@include b404-spinner-size(sm);
+  	}
+  	
+  	@include b404-spinner-size(md);
+  	
+  	&.b404-spinner--lg {
+  		@include b404-spinner-size(lg);
+  	}
+
+  	// Default Style
+  	&:before {
+        animation: b404-spinner .5s linear infinite;
+    }
+
+  	// State Colors 
+    @each $name, $color in $b404-state-colors {
+        &.b404-spinner--#{$name} {
+            &:before {
+                border: 2px solid b404-get($color, base);
+                border-right: 2px solid transparent;
+            }
+        }
+    }
+
+    // Input mode
+    &.b404-spinner--input {
+        &.b404-spinner--right {
+            &:before {
+                left: auto;
+                right: $input-btn-padding-x;
+            }
+        }
+
+        &.b404-spinner--left {
+            &:before {
+                right: auto;
+                left: $input-btn-padding-x;
+            }
+        }
+    }
+
+    // Spinner Default
+    &.b404-spinner--v2 {
+      	// Default Style
+      	&:before {
+           animation: b404-spinner .5s linear infinite;
+       }
+
+      	// State Colors 
+        @each $name, $color in $b404-state-colors {
+            &.b404-spinner--#{$name} {
+                &:before {
+                    border: 2px solid lighten(b404-get($color, base), 30%);
+                    border-top-color: darken(b404-get($color, base), 3%);
+                }
+            }
+        }
+    }
+}
+
+// Animations
+@keyframes b404-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,8 +1,2 @@
-<div style="text-align: center">
-  <h1>Welcome to tms!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-  />
-</div>
-<div>Message: {{ hello$ | async | json }}</div>
+<b404-splash-screen *ngIf="loader"></b404-splash-screen>
+<router-outlet></router-outlet>
