@@ -1,44 +1,63 @@
 import { ITravel } from '@bits404/api-interfaces';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
-import { Employee } from '../../admin/employees/schemas/employee.schema';
-import { Box } from '../../workshop/boxes/schemas/box.schema';
-import { Truck } from '../../workshop/trucks/schemas/truck.schema';
+import { Company } from '../../admin/company';
+import { Employee, EmployeeSchema } from '../../admin/employees';
+import { Box, BoxSchema } from '../../workshop/boxes';
+import { Truck, TruckSchema } from '../../workshop/trucks';
 
 export type TravelDocument = Travel & Document;
 
 @Schema()
 export class Travel implements ITravel {
-  
-  @Prop()
+
+  @Prop({ type: EmployeeSchema, default: {} })
   operator: Partial<Employee>;
-  
-  @Prop()
+
+  @Prop({ type: BoxSchema, default: {} })
   box: Partial<Box>;
-  
-  @Prop()
+
+  @Prop({ type: TruckSchema, default: {} })
   truck: Partial<Truck>;
-  
+
   // GeoJson type
-  @Prop()
+  @Prop(raw({
+    origin: { type: String, coordinates: [Number], index: '2dsphere' },
+    destination: { type: String, coordinates: [Number], index: '2dsphere' },
+  }))
   locations: {
     origin: { type: 'Point', coordinates: number[] },
     destination: { type: 'Point', coordinates: number[] },
   };
-  
-  @Prop()
+
+  @Prop(raw({
+    loading: Date,
+    unloading: Date,
+    originArrive: Date,
+    destinationArrive: Date,
+  }))
   times: {
-    loading: Date;
-    unloading: Date;
-    originArrive: Date;
-    destinationArrive: Date;
+    loading: Date,
+    unloading: Date,
+    originArrive: Date,
+    destinationArrive: Date,
   };
-  
+
   @Prop()
   comments: string;
-  
-  @Prop()
-  tenantId: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
+  company: Company;
 }
 
 export const TravelSchema = SchemaFactory.createForClass(Travel);
+
+BoxSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, el) {
+    el.id = el._id;
+    delete el._id;
+  }
+});

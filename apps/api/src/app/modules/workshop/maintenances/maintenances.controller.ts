@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { CreateMaintenanceDto } from './dto/create-maintenance.dto';
 import { UpdateMaintenanceDto } from './dto/update-maintenance.dto';
 import { MaintenancesService } from './maintenances.service';
@@ -8,27 +8,47 @@ export class MaintenancesController {
   constructor(private readonly maintenancesService: MaintenancesService) { }
 
   @Post()
-  create(@Body() createMaintenanceDto: CreateMaintenanceDto) {
-    return this.maintenancesService.create(createMaintenanceDto);
+  async create(@Body() createMaintenanceDto: CreateMaintenanceDto) {
+    try {
+      return await this.maintenancesService.create(createMaintenanceDto);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get()
-  findAll() {
-    return this.maintenancesService.findAll();
+  async findAll() {
+    try {
+      return await this.maintenancesService.findAll();
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.maintenancesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.maintenancesService.findOne(id);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateMaintenanceDto: UpdateMaintenanceDto) {
-    return this.maintenancesService.update(+id, updateMaintenanceDto);
+  async update(@Param('id') id: string, @Body() updateMaintenanceDto: UpdateMaintenanceDto) {
+    try {
+      return await this.maintenancesService.update(id, updateMaintenanceDto);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.maintenancesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    try {
+      return await this.maintenancesService.remove(id);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

@@ -1,16 +1,16 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { CreateTravelDto } from './dto/create-travel.dto';
-import { UpdateTravelDto } from './dto/update-travel.dto';
-import { TravelsService } from './travels.service';
+import { CompanyService } from './company.service';
+import { CreateCompanyDto } from './dto/create-company.dto';
+import { UpdateCompanyDto } from './dto/update-company.dto';
 
-@Controller('')
-export class TravelsController {
-  constructor(private readonly travelsService: TravelsService) { }
+@Controller('company')
+export class CompanyController {
+  constructor(private readonly companyService: CompanyService) { }
 
   @Post()
-  async create(@Body() createTravelDto: CreateTravelDto) {
+  async create(@Body() createCompanyDto: CreateCompanyDto) {
     try {
-      return await this.travelsService.create(createTravelDto);
+      return await this.companyService.create(createCompanyDto);
     } catch (error) {
       throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
     }
@@ -19,7 +19,7 @@ export class TravelsController {
   @Get()
   async findAll() {
     try {
-      return await this.travelsService.findAll();
+      return await this.companyService.findAll();
     } catch (error) {
       throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
     }
@@ -28,16 +28,16 @@ export class TravelsController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
-      return await this.travelsService.findOne(id);
+      return await this.companyService.findOne(id);
     } catch (error) {
       throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateTravelDto: UpdateTravelDto) {
+  async update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
     try {
-      return await this.travelsService.update(id, updateTravelDto);
+      return await this.companyService.update(id, updateCompanyDto);
     } catch (error) {
       throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
     }
@@ -46,7 +46,7 @@ export class TravelsController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
-      return await this.travelsService.remove(id);
+      return await this.companyService.remove(id);
     } catch (error) {
       throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
     }

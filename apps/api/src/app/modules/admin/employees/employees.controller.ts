@@ -1,34 +1,54 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { EmployeesService } from './employees.service';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { EmployeesService } from './employees.service';
 
 @Controller('employees')
 export class EmployeesController {
-  constructor(private readonly employeesService: EmployeesService) {}
+  constructor(private readonly employeesService: EmployeesService) { }
 
   @Post()
-  create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeesService.create(createEmployeeDto);
+  async create(@Body() createEmployeeDto: CreateEmployeeDto) {
+    try {
+      return await this.employeesService.create(createEmployeeDto);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get()
-  findAll() {
-    return this.employeesService.findAll();
+  async findAll() {
+    try {
+      return await this.employeesService.findAll();
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.employeesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.employeesService.findOne(id);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
-    return this.employeesService.update(+id, updateEmployeeDto);
+  async update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
+    try {
+      return await this.employeesService.update(id, updateEmployeeDto);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.employeesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    try {
+      return await this.employeesService.remove(id);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

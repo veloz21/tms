@@ -19,16 +19,16 @@ export class TrucksController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.trucksService.findOne(+id);
+    return this.trucksService.findOne(id);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateTruckDto: UpdateTruckDto) {
-    return this.trucksService.update(+id, updateTruckDto);
+    return this.trucksService.update(id, updateTruckDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.trucksService.remove(+id);
+    return this.trucksService.remove(id);
   }
 }

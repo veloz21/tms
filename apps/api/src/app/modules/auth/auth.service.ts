@@ -1,75 +1,74 @@
 import { Injectable } from '@nestjs/common';
-// import { environment } from '../../../../environments/environment';
-// import { User, UserDocument } from '../../entities';
-// import { UserService } from '../user/user.service';
+import { JwtService } from '@nestjs/jwt';
+import { environment } from '../../../environments/environment';
+import { UsersService } from '../admin/users';
+import { UserDocument } from '../admin/users/schemas/user.schema';
 
 @Injectable()
 export class AuthService {
-  // constructor(
-  //   private userService: UserService,
-  //   private jwtService: JwtService,
-  // ) { }
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService,
+  ) { }
 
-  // getJwtTokens(id: number, email: string) {
-  //   const payload = { email: email, sub: id };
+  getJwtTokens(id: number, email: string, companyId) {
+    const payload = { sub: id, email, companyId };
 
-  //   const accessToken = this.jwtService.sign(payload);
-  //   const refreshToken = this.jwtService.sign(payload, { expiresIn: '24h', secret: environment.REFRESH_TOKEN_SECRET });
-  //   return { accessToken, refreshToken };
-  // }
+    const accessToken = this.jwtService.sign(payload);
+    const refreshToken = this.jwtService.sign(payload, { expiresIn: '24h', secret: environment.REFRESH_TOKEN_SECRET });
+    return { accessToken, refreshToken };
+  }
 
-  // decodeRefreshToken(token: string) {
-  //   try {
-  //     return this.jwtService.verify(token, { secret: environment.REFRESH_TOKEN_SECRET });
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // }
+  decodeRefreshToken(token: string) {
+    try {
+      return this.jwtService.verify(token, { secret: environment.REFRESH_TOKEN_SECRET });
+    } catch (error) {
+      return null;
+    }
+  }
 
-  // async validateUser(email: string, password: string): Promise<any> {
-  //   const user = await this.userService.findOneByEmail(email);
-  //   if (user && user.comparePassword(password)) {
-  //     delete user.password;
-  //     return user;
-  //   }
-  //   return null;
-  // }
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.usersService.findOneByEmail(email);
+    if (user && user.comparePassword(password)) {
+      delete user.password;
+      return user;
+    }
+    return null;
+  }
 
-  // async login(user: UserDocument) {
+  async login(user: UserDocument) {
 
-  //   const { accessToken, refreshToken } = this.getJwtTokens(user.id, user.email);
+    const { accessToken, refreshToken } = this.getJwtTokens(user.id, user.email, user.company);
 
-  //   const updatedUser = await User.update(user.id, {
-  //     $set: {
-  //       lastLogin: new Date(),
-  //       refreshToken,
-  //     }
-  //   });
+    const updatedUser = await this.usersService.partialUpdate(user.id, {
+      lastLogin: new Date(),
+      refreshToken,
+    });
 
-  //   return { accessToken, refreshToken };
-  // }
+    return { accessToken, refreshToken };
+  }
 
-  // async logout(userId: string) {
+  async logout(userId: string) {
 
-  //   const user = await User.findById(userId);
-  //   if (user) {
-  //     const updatedUser = await User.update(user.id, {
-  //       refreshToken: null,
-  //     });
-  //   }
+    const user = await this.usersService.findOne(userId);
+    if (user) {
+      const updatedUser = await this.usersService.partialUpdate(user.id, {
+        refreshToken: null,
+      });
+    }
 
-  //   return;
-  // }
+    return;
+  }
 
-  // async generateRecoverToken(user: UserDocument) {
-  //   return this.jwtService.sign({ email: user.email, sub: user.id }, { expiresIn: '24h', secret: environment.RECOVER_TOKEN_SECRET });
-  // }
+  async generateRecoverToken(user: UserDocument) {
+    return this.jwtService.sign({ email: user.email, sub: user.id }, { expiresIn: '24h', secret: environment.RECOVER_TOKEN_SECRET });
+  }
 
-  // async validateRecoverToken(token: string) {
-  //   try {
-  //     return this.jwtService.verify(token, { secret: environment.RECOVER_TOKEN_SECRET });
-  //   } catch (error) {
-  //     return null;
-  //   }
-  // }
+  async validateRecoverToken(token: string) {
+    try {
+      return this.jwtService.verify(token, { secret: environment.RECOVER_TOKEN_SECRET });
+    } catch (error) {
+      return null;
+    }
+  }
 }

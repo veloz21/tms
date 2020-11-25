@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { BoxesService } from './boxes.service';
 import { CreateBoxDto } from './dto/create-box.dto';
 import { UpdateBoxDto } from './dto/update-box.dto';
@@ -8,27 +8,47 @@ export class BoxesController {
   constructor(private readonly boxesService: BoxesService) { }
 
   @Post()
-  create(@Body() createBoxDto: CreateBoxDto) {
-    return this.boxesService.create(createBoxDto);
+  async create(@Body() createBoxDto: CreateBoxDto) {
+    try {
+      return await this.boxesService.create(createBoxDto);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get()
-  findAll() {
-    return this.boxesService.findAll();
+  async findAll() {
+    try {
+      return await this.boxesService.findAll();
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.boxesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    try {
+      return await this.boxesService.findOne(id);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateBoxDto: UpdateBoxDto) {
-    return this.boxesService.update(+id, updateBoxDto);
+  async update(@Param('id') id: string, @Body() updateBoxDto: UpdateBoxDto) {
+    try {
+      return await this.boxesService.update(id, updateBoxDto);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.boxesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    try {
+      return await this.boxesService.remove(id);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 }

@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateMaintenanceDto } from './dto/create-maintenance.dto';
 import { UpdateMaintenanceDto } from './dto/update-maintenance.dto';
+import { Maintenance, MaintenanceDocument } from './schemas/maintenance.schema';
 
 @Injectable()
 export class MaintenancesService {
-  create(createMaintenanceDto: CreateMaintenanceDto) {
-    return 'This action adds a new maintenance';
+
+  constructor(
+    @InjectModel(Maintenance.name) private readonly maintenanceModel: Model<MaintenanceDocument>,
+  ) { }
+
+  create(createMaintenanceDto: CreateMaintenanceDto): Promise<MaintenanceDocument> {
+    return new this.maintenanceModel(createMaintenanceDto).save();
   }
 
-  findAll() {
-    return `This action returns all maintenances`;
+  findAll(): Promise<MaintenanceDocument[]> {
+    return this.maintenanceModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} maintenance`;
+  findOne(_id: string): Promise<MaintenanceDocument> {
+    return this.maintenanceModel.findOne({ _id }).exec();
   }
 
-  update(id: number, updateMaintenanceDto: UpdateMaintenanceDto) {
-    return `This action updates a #${id} maintenance`;
+  update(_id: string, updateMaintenanceDto: UpdateMaintenanceDto): Promise<MaintenanceDocument> {
+    return this.maintenanceModel.findOneAndUpdate({ _id }, updateMaintenanceDto).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} maintenance`;
+  remove(_id: string): Promise<MaintenanceDocument> {
+    return this.maintenanceModel.findOneAndRemove({ _id }).exec();
   }
 }

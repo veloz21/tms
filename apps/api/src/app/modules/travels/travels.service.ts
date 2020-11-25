@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateTravelDto } from './dto/create-travel.dto';
 import { UpdateTravelDto } from './dto/update-travel.dto';
+import { Travel, TravelDocument } from './schemas/travel.schema';
 
 @Injectable()
 export class TravelsService {
-  create(createTravelDto: CreateTravelDto) {
-    return 'This action adds a new travel';
+
+  constructor(
+    @InjectModel(Travel.name) private readonly travelModel: Model<TravelDocument>,
+  ) { }
+
+  create(createTravelDto: CreateTravelDto): Promise<TravelDocument> {
+    return new this.travelModel(createTravelDto).save();
   }
 
-  findAll() {
-    return `This action returns all travels`;
+  findAll(): Promise<TravelDocument[]> {
+    return this.travelModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} travel`;
+  findOne(_id: string): Promise<TravelDocument> {
+    return this.travelModel.findOne({ _id }).exec();
   }
 
-  update(id: number, updateTravelDto: UpdateTravelDto) {
-    return `This action updates a #${id} travel`;
+  update(_id: string, updateTravelDto: UpdateTravelDto): Promise<TravelDocument> {
+    return this.travelModel.findOneAndUpdate({ _id }, updateTravelDto).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} travel`;
+  remove(_id: string): Promise<TravelDocument> {
+    return this.travelModel.findOneAndRemove({ _id }).exec();
   }
 }

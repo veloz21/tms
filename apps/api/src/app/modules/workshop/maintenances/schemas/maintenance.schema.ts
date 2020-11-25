@@ -1,6 +1,8 @@
 import { IMaintenance } from '@bits404/api-interfaces';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
+import { Company } from '../../../admin/company';
 import { Employee, EmployeeSchema } from '../../../admin/employees/schemas/employee.schema';
 import { Box, BoxSchema } from '../../boxes/schemas/box.schema';
 import { Truck, TruckSchema } from '../../trucks/schemas/truck.schema';
@@ -31,8 +33,17 @@ export class Maintenance implements IMaintenance {
     end: Date,
   };
 
-  @Prop()
-  tenantId: string;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
+  company: Company;
 }
 
 export const MaintenanceSchema = SchemaFactory.createForClass(Maintenance);
+
+MaintenanceSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, el) {
+    el.id = el._id;
+    delete el._id;
+  }
+});
