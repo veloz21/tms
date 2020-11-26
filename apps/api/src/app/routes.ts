@@ -10,20 +10,15 @@ export const routes: Routes = [
     module: AuthModule,
   },
   {
-    path: ':tenant_id',
-    childrens: [
-      {
-        path: 'admin',
-        module: AdminModule,
-      },
-      {
-        path: 'travels',
-        module: TravelsModule,
-      },
-      {
-        path: 'workshop',
-        module: WorkshopModule,
-      },
-    ]
+    path: 'admin',
+    module: AdminModule,
+  },
+  {
+    path: 'travels',
+    module: TravelsModule,
+  },
+  {
+    path: 'workshop',
+    module: WorkshopModule,
   },
 ];

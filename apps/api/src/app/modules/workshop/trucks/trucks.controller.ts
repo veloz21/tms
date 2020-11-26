@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { GetHttpOptions } from '../../../core/decorators';
+import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
 import type { HttpOptions } from '../../../core/interfaces';
 import { JwtAuthGuard } from '../../auth';
@@ -15,47 +16,26 @@ export class TrucksController {
 
   @Post()
   async create(@Body() createTruckDto: CreateTruckDto, @GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.trucksService.create(createTruckDto, options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.trucksService.create(createTruckDto, options);
   }
 
   @Get()
-  async findAll(@GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.trucksService.findAll(options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async findAll(@Query() queryParams: QueryParamsDto<this>, @GetHttpOptions() options: HttpOptions) {
+    return await this.trucksService.findAll(queryParams, options);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.trucksService.findOne(id, options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.trucksService.findOne(id, options);
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateTruckDto: UpdateTruckDto, @GetHttpOptions() options: HttpOptions) {
-    try {
-      const updatedTruck = await this.trucksService.update(id, updateTruckDto, options);
-      return updatedTruck;
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+    const updatedTruck = await this.trucksService.update(id, updateTruckDto, options);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.trucksService.remove(id, options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.trucksService.remove(id, options);
   }
 }

@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { GetHttpOptions } from '../../../core/decorators';
+import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
 import type { HttpOptions } from '../../../core/interfaces';
 import { JwtAuthGuard } from '../../auth';
@@ -15,46 +16,26 @@ export class MaintenancesController {
 
   @Post()
   async create(@Body() createMaintenanceDto: CreateMaintenanceDto, @GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.maintenancesService.create(createMaintenanceDto, options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.maintenancesService.create(createMaintenanceDto, options);
   }
 
   @Get()
-  async findAll(@GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.maintenancesService.findAll(options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async findAll(@Query() queryParams: QueryParamsDto<this>, @GetHttpOptions() options: HttpOptions) {
+    return await this.maintenancesService.findAll(queryParams, options);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.maintenancesService.findOne(id, options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.maintenancesService.findOne(id, options);
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateMaintenanceDto: UpdateMaintenanceDto, @GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.maintenancesService.update(id, updateMaintenanceDto, options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.maintenancesService.update(id, updateMaintenanceDto, options);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    try {
-      return await this.maintenancesService.remove(id, options);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.maintenancesService.remove(id, options);
   }
 }
