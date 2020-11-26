@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
 import { CompanyModel } from '../_models/company.model';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class TokenStorage {
   constructor() { }
 
   private setItem(name: string, item): void {
-      localStorage.setItem(name, JSON.stringify(item));
+    localStorage.setItem(name, JSON.stringify(item));
   }
 
   private getItem(name: string) {
