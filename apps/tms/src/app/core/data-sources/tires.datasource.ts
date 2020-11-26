@@ -1,8 +1,10 @@
+import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BaseDataSource, QueryResultsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
 import { selectTiresInitWaitingMessage, selectTiresInStore, selectTiresPageLoading } from '@tms/selectors/tire.selectors';
 
+@Component({ template: '' })
 export class TiresDataSource extends BaseDataSource {
   constructor(private store: Store<AppState>) {
     super();

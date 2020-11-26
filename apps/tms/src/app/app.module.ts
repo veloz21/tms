@@ -2,7 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -85,10 +85,10 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: GestureConfig
-    },
+    // {
+    //   provide: HAMMER_GESTURE_CONFIG,
+    //   useClass: GestureConfig
+    // },
     {
       // layout config initializer
       provide: APP_INITIALIZER,

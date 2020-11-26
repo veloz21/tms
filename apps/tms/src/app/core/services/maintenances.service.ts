@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
+import { environment } from '@tms/environments/environment.dev';
 import { MaintenanceModel } from '@tms/models';
-import { environment } from 'environments/environment.dev';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 const API_MAINTENANCE_URL = environment.endpoint + 'api/workshop/maintenances';

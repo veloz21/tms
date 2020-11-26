@@ -1,36 +1,45 @@
 <div ngbDropdown placement="bottom" autoClose="outside" class="b404-header__topbar-item">
-	<div ngbDropdownToggle class="b404-header__topbar-wrapper">
-		<span class="b404-header__topbar-icon" [ngClass]="{'b404-pulse b404-pulse--brand': pulse, 'b404-pulse--light' : pulseLight, 'b404-header__topbar-icon--success' : iconType === 'success'	}">
-			<i *ngIf="!useSVG" [ngClass]="icon"></i>
-			<span *ngIf="useSVG" class="b404-svg-icon" [ngClass]="{'b404-svg-icon--success' : iconType === 'success'}" [inlineSVG]="icon"></span>
-			<span class="b404-pulse__ring" [hidden]="!pulse"></span>
-		</span>
-		<span class="b404-badge b404-badge--dot b404-badge--notify b404-badge--sm b404-badge--brand" [hidden]="!dot"></span>
-	</div>
+  <div ngbDropdownToggle class="b404-header__topbar-wrapper">
+    <span class="b404-header__topbar-icon"
+      [ngClass]="{'b404-pulse b404-pulse--brand': pulse, 'b404-pulse--light' : pulseLight, 'b404-header__topbar-icon--success' : iconType === 'success'	}">
+      <i *ngIf="!useSVG" [ngClass]="icon"></i>
+      <span *ngIf="useSVG" class="b404-svg-icon" [ngClass]="{'b404-svg-icon--success' : iconType === 'success'}"
+        [inlineSVG]="icon"></span>
+      <span class="b404-pulse__ring" [hidden]="!pulse"></span>
+    </span>
+    <span class="b404-badge b404-badge--dot b404-badge--notify b404-badge--sm b404-badge--brand" [hidden]="!dot"></span>
+  </div>
 
-	<div ngbDropdownMenu class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-lg">
-		<form>
-			<!--begin: Head -->
-			<div class="b404-head b404-head--skin-{{skin}} b404-head--fit-x b404-head--fit-b" [ngStyle]="{'background-image': backGroundStyle() }">
-				<h3 class="b404-head__title">
-					User Notifications&nbsp;
-					<span class="btn btn-{{ type }} btn-sm btn-bold btn-font-md">23 new</span>
-				</h3>
-				<ul ktTabClickEvent class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-{{ type }} b404-notification-item-padding-x" role="tablist">
-					<li class="nav-item">
-						<a (click)="tab.select('tab-id-1')" class="nav-link active show" data-toggle="tab" href="javascript:;" role="tab" aria-selected="true">Alerts</a>
-					</li>
-					<li class="nav-item">
-						<a (click)="tab.select('tab-id-2')" class="nav-link" data-toggle="tab" href="javascript:;" role="tab" aria-selected="false">Events</a>
-					</li>
-					<li class="nav-item">
-						<a (click)="tab.select('tab-id-3')" class="nav-link" data-toggle="tab" href="javascript:;" role="tab" aria-selected="false">Logs</a>
-					</li>
-				</ul>
-			</div>
-			<!--end: Head -->
+  <div ngbDropdownMenu
+    class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-lg">
+    <form>
+      <!--begin: Head -->
+      <div class="b404-head b404-head--skin-{{skin}} b404-head--fit-x b404-head--fit-b"
+        [ngStyle]="{'background-image': backGroundStyle() }">
+        <h3 class="b404-head__title">
+          User Notifications&nbsp;
+          <span class="btn btn-{{ type }} btn-sm btn-bold btn-font-md">23 new</span>
+        </h3>
+        <ul ktTabClickEvent
+          class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-{{ type }} b404-notification-item-padding-x"
+          role="tablist">
+          <!-- <li class="nav-item">
+            <a (click)="tab.select('tab-id-1')" class="nav-link active show" data-toggle="tab" href="javascript:;"
+              role="tab" aria-selected="true">Alerts</a>
+          </li>
+          <li class="nav-item">
+            <a (click)="tab.select('tab-id-2')" class="nav-link" data-toggle="tab" href="javascript:;" role="tab"
+              aria-selected="false">Events</a>
+          </li>
+          <li class="nav-item">
+            <a (click)="tab.select('tab-id-3')" class="nav-link" data-toggle="tab" href="javascript:;" role="tab"
+              aria-selected="false">Logs</a>
+          </li> -->
+        </ul>
+      </div>
+      <!--end: Head -->
 
-			<ngb-tabset #tab="ngbTabset">
+      <!-- <ngb-tabset #tab="ngbTabset">
 				<ngb-tab id="tab-id-1">
 					<ng-template ngbTabContent>
 						<div [perfectScrollbar]="{wheelPropagation: false}" [ngStyle]="{'max-height': '40vh', 'position': 'relative'}" class="b404-notification b404-margin-t-10 b404-margin-b-10">
@@ -405,7 +414,7 @@
 						</div>
 					</ng-template>
 				</ngb-tab>
-			</ngb-tabset>
-		</form>
-	</div>
+			</ngb-tabset> -->
+    </form>
+  </div>
 </div>

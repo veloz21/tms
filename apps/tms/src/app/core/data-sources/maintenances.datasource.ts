@@ -1,4 +1,4 @@
-import { OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BaseDataSource, QueryResultsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
@@ -6,6 +6,7 @@ import { selectMaintenancesInitWaitingMessage, selectMaintenancesInStore, select
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+@Component({ template: '' })
 export class MaintenancesDataSource extends BaseDataSource implements OnDestroy {
   private ngUnsuscribe = new Subject();
   constructor(private store: Store<AppState>) {

@@ -28,7 +28,6 @@
             ],
             "styles": [
               "apps/tms/src/styles.scss",
-              "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "node_modules/socicon/css/socicon.css",

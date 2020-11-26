@@ -1,10 +1,14 @@
 <!-- begin::Offcanvas Toolbar Quick Actions -->
-<div ktOffcanvas [options]="offcanvasOptions" id="kt_quick_panel" class="b404-quick-panel" [ngStyle]="{'overflow': 'hidden'}">
-	<a href="javascript:;" class="b404-quick-panel__close" id="kt_quick_panel_close_btn"><i class="flaticon2-delete"></i></a>
+<div ktOffcanvas [options]="offcanvasOptions" id="kt_quick_panel" class="b404-quick-panel"
+  [ngStyle]="{'overflow': 'hidden'}">
+  <a href="javascript:;" class="b404-quick-panel__close" id="kt_quick_panel_close_btn"><i
+      class="flaticon2-delete"></i></a>
 
-	<div class="b404-quick-panel__nav">
-		<ul ktTabClickEvent class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand b404-notification-item-padding-x" role="tablist">
-			<li class="nav-item">
+  <div class="b404-quick-panel__nav">
+    <ul ktTabClickEvent
+      class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand b404-notification-item-padding-x"
+      role="tablist">
+      <!-- <li class="nav-item">
 				<a class="nav-link active" href="javascript:;" (click)="tab.select('tab-id-1');" role="tab">Notifications</a>
 			</li>
 			<li class="nav-item">
@@ -12,12 +16,12 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="javascript:;" (click)="tab.select('tab-id-3');" role="tab">Settings</a>
-			</li>
-		</ul>
-	</div>
+			</li> -->
+    </ul>
+  </div>
 
-	<div class="b404-quick-panel__content">
-		<ngb-tabset #tab="ngbTabset">
+  <div class="b404-quick-panel__content">
+    <!-- <ngb-tabset #tab="ngbTabset">
 			<ngb-tab id="tab-id-1">
 				<ng-template ngbTabContent>
 					<div [perfectScrollbar]="{wheelPropagation: false}" [ngStyle]="{'max-height': '85vh', 'position': 'relative'}" class="b404-notification">
@@ -416,7 +420,7 @@
 					</div>
 				</ng-template>
 			</ngb-tab>
-		</ngb-tabset>
-	</div>
+		</ngb-tabset> -->
+  </div>
 </div>
 <!-- end::Offcanvas Toolbar Quick Actions -->
