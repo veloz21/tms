@@ -26,7 +26,7 @@ export class User implements IUser {
   tenantId: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: mongoose.Types.ObjectId | Company;
+  company: mongoose.Types.ObjectId;
 
   comparePassword: (password: string) => boolean;
   hashPassword: () => void;

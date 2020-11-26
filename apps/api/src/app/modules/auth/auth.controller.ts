@@ -1,6 +1,8 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Body, Controller, HttpCode, HttpException, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpException, HttpStatus, Post, Request, UseGuards, UseInterceptors } from '@nestjs/common';
+import { GetHttpOptions } from '../../core/decorators';
 import { EmailTemplate } from '../../core/enums';
+import { DbTransactionInterceptor } from '../../core/interceptors';
 import { CompanyService, CreateCompanyDto } from '../admin/company';
 import { CreateUserDto, UsersService } from '../admin/users';
 import { AuthService } from './auth.service';
@@ -18,6 +20,7 @@ export class AuthController {
 
   @Post('token')
   @HttpCode(200)
+  @UseInterceptors(DbTransactionInterceptor)
   async token(@Body('refreshToken') refreshToken) {
 
     const payload = this.authService.decodeRefreshToken(refreshToken);
@@ -25,25 +28,26 @@ export class AuthController {
       throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
 
-    const user = await this.userService.findOne(payload.sub);
+    const user = await this.userService.findOne(payload.sub, { company: payload.company });
     if (!user || user.refreshToken !== refreshToken) {
       throw new HttpException('UNAUTHORIZED', HttpStatus.UNAUTHORIZED);
     }
 
-    const { accessToken } = this.authService.getJwtTokens(payload.sub, payload.email, payload.companyId);
+    const { accessToken } = this.authService.getJwtTokens(payload.sub, payload.email, payload.company);
     return { accessToken };
   }
 
   @Post('register')
-  async register(@Body('company') createCompanyDto: CreateCompanyDto, @Body('user') createUserDto: CreateUserDto) {
+  @UseInterceptors(DbTransactionInterceptor)
+  async register(@Body('company') createCompanyDto: CreateCompanyDto, @Body('user') createUserDto: CreateUserDto, @GetHttpOptions('session') session) {
 
-    const company = await this.companyService.create(createCompanyDto);
+    const company = await this.companyService.create(createCompanyDto, { session });
     if (!company.id) {
       throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
     }
 
     createUserDto.company = company.id;
-    const user = await this.userService.create(createUserDto);
+    const user = await this.userService.create(createUserDto, { session });
     if (!user.id) {
       throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
     }
@@ -61,7 +65,7 @@ export class AuthController {
   @Post('logout')
   @HttpCode(200)
   logout(@Request() req) {
-    return this.authService.logout(req.userId || null);
+    return this.authService.logout(req.userId || null, req.company || null);
   }
 
   @Post('recover-password')
@@ -98,7 +102,7 @@ export class AuthController {
       throw new HttpException('El token no es válido', HttpStatus.BAD_REQUEST);
     }
 
-    const user = await this.userService.findOne(validToken.sub);
+    const user = await this.userService.findOne(validToken.sub, { company: validToken.company });
     if (!user) {
       throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
     }
@@ -106,7 +110,7 @@ export class AuthController {
     try {
       const userUpdated = await this.userService.partialUpdate(user.id, {
         password
-      });
+      }, { company: validToken.company });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

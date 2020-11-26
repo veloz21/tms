@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
 import { GetHttpOptions } from '../../../core/decorators';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
-import { HttpOptions } from '../../../core/interfaces';
+import type { HttpOptions } from '../../../core/interfaces';
 import { JwtAuthGuard } from '../../auth';
 import { CreateTireDto } from './dto/create-tire.dto';
 import { UpdateTireDto } from './dto/update-tire.dto';

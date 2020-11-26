@@ -29,7 +29,7 @@ export class Box implements IBox {
   tires: Tire[]
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: mongoose.Types.ObjectId | Company;
+  company: mongoose.Types.ObjectId;
 }
 
 export const BoxSchema = SchemaFactory.createForClass(Box);

@@ -48,7 +48,7 @@ export class Travel implements ITravel {
   comments: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: mongoose.Types.ObjectId | Company;
+  company: mongoose.Types.ObjectId;
 }
 
 export const TravelSchema = SchemaFactory.createForClass(Travel);

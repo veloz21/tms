@@ -43,7 +43,7 @@ export class Truck implements ITruck {
   tires: Tire[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: mongoose.Types.ObjectId | Company;
+  company: mongoose.Types.ObjectId;
 }
 
 
