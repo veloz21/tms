@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@tms/environments/environment.dev';
+import { environment } from '@tms/environments/environment';
 import { AuthService } from 'ngx-auth';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, switchMapTo, tap } from 'rxjs/operators';

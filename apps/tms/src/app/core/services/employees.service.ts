@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
-import { environment } from '@tms/environments/environment.dev';
+import { environment } from '@tms/environments/environment';
 import { EmployeeModel } from '@tms/models';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
