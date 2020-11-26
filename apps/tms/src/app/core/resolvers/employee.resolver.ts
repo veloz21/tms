@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Employee } from '@interfaces';
-import { EmployeeModel } from '@models';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { selectEmployeeById } from '@selectors/employee.selectors';
-import { EmployeesService } from '@services';
+import { Employee } from '@tms/interfaces';
+import { EmployeeModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectEmployeeById } from '@tms/selectors/employee.selectors';
+import { EmployeesService } from '@tms/services';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 

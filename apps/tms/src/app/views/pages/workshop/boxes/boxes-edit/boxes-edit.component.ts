@@ -1,17 +1,17 @@
-import { CreateBox, UpdateBox } from '@actions/box.actions';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AVIABILITY_STATUS } from '@core/enums';
-import { SubheaderService } from '@layout';
-import { BoxModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectLastCreatedBoxId } from '@selectors/boxes.selectors';
-import { BoxesService } from '@services';
+import { CreateBox, UpdateBox } from '@tms/actions/box.actions';
+import { AVIABILITY_STATUS } from '@tms/core/enums';
+import { SubheaderService } from '@tms/layout';
+import { BoxModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectLastCreatedBoxId } from '@tms/selectors/boxes.selectors';
+import { BoxesService } from '@tms/services';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 

@@ -1,7 +1,7 @@
-import { HttpExtenstionsModel, QueryResultsModel } from '@crud';
-import { Maintenance } from '@interfaces';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { MaintenancesState } from '@reducers';
+import { HttpExtenstionsModel, QueryResultsModel } from '@tms/crud';
+import { Maintenance } from '@tms/interfaces';
+import { MaintenancesState } from '@tms/reducers';
 import { each } from 'lodash';
 
 export const selectMaintenanceState = createFeatureSelector<MaintenancesState>('maintenance');

@@ -1,5 +1,5 @@
-import { AVIABILITY_STATUS } from '@core/enums';
-import { BoxModel, EmployeeModel, TruckModel } from '@core/models';
+import { AVIABILITY_STATUS } from '@tms/core/enums';
+import { BoxModel, EmployeeModel, TruckModel } from '@tms/core/models';
 
 export class TravelTable {
   public static travel: any[] = [
@@ -142,7 +142,7 @@ export class TravelTable {
       locations: {
         origin: {
           type: 'Point',
-          coordinates: [123 , 23]
+          coordinates: [123, 23]
         },
         destination: {
           type: 'Point',

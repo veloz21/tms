@@ -1,4 +1,4 @@
-import { AVIABILITY_STATUS } from '@enums';
+import { AVIABILITY_STATUS } from '@tms/enums';
 
 export class EmployeeTable {
   public static employees: any[] = [

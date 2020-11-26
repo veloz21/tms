@@ -10,7 +10,7 @@
       },
       "root": "apps/tms",
       "sourceRoot": "apps/tms/src",
-      "prefix": "bits404",
+      "prefix": "b404",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -21,9 +21,33 @@
             "polyfills": "apps/tms/src/polyfills.ts",
             "tsConfig": "apps/tms/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/tms/src/favicon.ico", "apps/tms/src/assets"],
-            "styles": ["apps/tms/src/styles.scss"],
-            "scripts": []
+            "assets": [
+              "apps/tms/src/favicon.ico",
+              "apps/tms/src/assets",
+              "apps/tms/src/.htaccess"
+            ],
+            "styles": [
+              "apps/tms/src/styles.scss",
+              "src/styles.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/socicon/css/socicon.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "apps/tms/src/assets/plugins/line-awesome/css/line-awesome.css",
+              "apps/tms/src/assets/plugins/flaticon/flaticon.css",
+              "apps/tms/src/assets/plugins/flaticon2/flaticon.css",
+              "apps/tms/src/assets/sass/style.angular.scss"
+            ],
+            "scripts": [
+              "node_modules/popper.js/dist/umd/popper.js",
+              "node_modules/tooltip.js/dist/umd/tooltip.min.js",
+              "node_modules/perfect-scrollbar/dist/perfect-scrollbar.js"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "apps/tms/src/assets"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -31,6 +55,14 @@
                 {
                   "replace": "apps/tms/src/environments/environment.ts",
                   "with": "apps/tms/src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "apps/tms/src/app/core/services/index.ts",
+                  "with": "apps/tms/src/app/core/services.prod/index.ts"
+                },
+                {
+                  "replace": "apps/tms/src/app/core/auth/_services/index.ts",
+                  "with": "apps/tms/src/app/core/auth/_services.prod/index.ts"
                 }
               ],
               "optimization": true,
@@ -51,6 +83,22 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/tms/src/environments/environment.ts",
+                  "with": "apps/tms/src/environments/environment.dev.ts"
+                },
+                {
+                  "replace": "apps/tms/src/app/core/services/index.ts",
+                  "with": "apps/tms/src/app/core/services.prod/index.ts"
+                },
+                {
+                  "replace": "apps/tms/src/app/core/auth/_services/index.ts",
+                  "with": "apps/tms/src/app/core/auth/_services.prod/index.ts"
                 }
               ]
             }
@@ -82,7 +130,10 @@
               "apps/tms/tsconfig.spec.json",
               "apps/tms/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/tms/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/tms/**/*"
+            ]
           }
         },
         "test": {
@@ -115,8 +166,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/tms-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/tms-e2e/**/*"]
+            "tsConfig": [
+              "apps/tms-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/tms-e2e/**/*"
+            ]
           }
         }
       }
@@ -134,7 +190,9 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": [
+              "apps/api/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -163,7 +221,10 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/api/**/*"
+            ]
           }
         },
         "test": {
@@ -188,7 +249,10 @@
               "libs/api-interfaces/tsconfig.lib.json",
               "libs/api-interfaces/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/api-interfaces/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/api-interfaces/**/*"
+            ]
           }
         },
         "test": {

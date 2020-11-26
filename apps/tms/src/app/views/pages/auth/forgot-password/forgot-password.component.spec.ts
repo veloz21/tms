@@ -2,10 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubheaderService } from '@layout';
-import { BoxModel } from '@models/box.model';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { BoxModel } from '@tms/models/box.model';
 import { of } from 'rxjs';
 import { ForgotPasswordComponent } from './forgot-password.component';
 

@@ -1,8 +1,8 @@
-import { TruckActions, TruckActionTypes } from '@actions/truck.actions';
-import { QueryParamsModel } from '@crud';
-import { Truck } from '@interfaces';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
+import { TruckActions, TruckActionTypes } from '@tms/actions/truck.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { Truck } from '@tms/interfaces';
 
 export interface TrucksState extends EntityState<Truck> {
   listLoading: boolean;

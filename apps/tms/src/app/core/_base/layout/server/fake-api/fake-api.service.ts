@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BoxTable } from '@server/box.table';
-import { EmployeeTable } from '@server/employees.table';
-import { TireTable } from '@server/tire.table';
-import { TravelDataContext } from '@server/travel.data-context';
-import { WorkshopDataContext } from '@server/workshop.data-context';
+import { BoxTable } from '@tms/server/box.table';
+import { EmployeeTable } from '@tms/server/employees.table';
+import { TireTable } from '@tms/server/tire.table';
+import { TravelDataContext } from '@tms/server/travel.data-context';
+import { WorkshopDataContext } from '@tms/server/workshop.data-context';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Observable } from 'rxjs';
 import { AuthDataContext } from '../../../../auth';

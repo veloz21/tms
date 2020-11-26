@@ -1,7 +1,7 @@
-import { QueryParamsModel } from '@crud';
-import { BoxModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
+import { QueryParamsModel } from '@tms/crud';
+import { BoxModel } from '@tms/models';
 
 export enum BoxActionTypes {
   CreateBox = '[Edit Box Component] Create Box ',
@@ -52,8 +52,8 @@ export class UpdateBoxSuccess implements Action {
 export class BoxesStatusUpdated implements Action {
   readonly type = BoxActionTypes.BoxesStatusUpdated;
   constructor(public payload: {
-      boxes: BoxModel[],
-      status: number
+    boxes: BoxModel[],
+    status: number
   }) { }
 }
 

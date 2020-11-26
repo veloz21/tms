@@ -1,7 +1,7 @@
-import { BaseDataSource, QueryResultsModel } from '@crud';
 import { select, Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { selectEmployeesInitWaitingMessage, selectEmployeesInStore, selectEmployeesPageLoading } from '@selectors/employee.selectors';
+import { BaseDataSource, QueryResultsModel } from '@tms/crud';
+import { AppState } from '@tms/reducers';
+import { selectEmployeesInitWaitingMessage, selectEmployeesInStore, selectEmployeesPageLoading } from '@tms/selectors/employee.selectors';
 
 export class EmployeesDataSource extends BaseDataSource {
   constructor(private store: Store<AppState>) {

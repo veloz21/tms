@@ -1,5 +1,5 @@
-import { AVIABILITY_STATUS } from '@enums';
-import { Tire } from '@interfaces';
+import { AVIABILITY_STATUS } from '@tms/enums';
+import { Tire } from '@tms/interfaces';
 
 export class TireModel implements Tire {
   id: number;

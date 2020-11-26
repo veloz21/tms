@@ -5,7 +5,7 @@ import { BaseComponent } from './views/theme/base/base.component';
 import { ErrorPageComponent } from './views/theme/content/error-page/error-page.component';
 
 export const routes: Routes = [
-  { path: 'auth', loadChildren: () => import('app/views/pages/auth/auth.module').then(m => m.AuthModule) },
+  { path: 'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
   {
     path: '',
     component: BaseComponent,
@@ -13,23 +13,23 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: () => import('app/views/pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+        loadChildren: () => import('./views/pages/dashboard/dashboard.module').then(m => m.DashboardModule),
       },
       {
         path: 'workshop',
-        loadChildren: () => import('app/views/pages/workshop/workshop.module').then(m => m.WorkshopModule),
+        loadChildren: () => import('./views/pages/workshop/workshop.module').then(m => m.WorkshopModule),
       },
       {
         path: 'paysheet',
-        loadChildren: () => import('app/views/pages/paysheet/paysheet.module').then(m => m.PaysheetModule),
+        loadChildren: () => import('./views/pages/paysheet/paysheet.module').then(m => m.PaysheetModule),
       },
       {
         path: 'travel',
-        loadChildren: () => import('app/views/pages/travels/travel.module').then(m => m.TravelModule),
+        loadChildren: () => import('./views/pages/travels/travel.module').then(m => m.TravelModule),
       },
       {
         path: 'wizard',
-        loadChildren: () => import('app/views/pages/wizard/wizard.module').then(m => m.WizardModule),
+        loadChildren: () => import('./views/pages/wizard/wizard.module').then(m => m.WizardModule),
       },
       {
         path: 'error/403',

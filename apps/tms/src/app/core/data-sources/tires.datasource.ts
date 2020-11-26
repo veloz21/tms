@@ -1,7 +1,7 @@
-import { BaseDataSource, QueryResultsModel } from '@crud';
 import { select, Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { selectTiresInitWaitingMessage, selectTiresInStore, selectTiresPageLoading } from '@selectors/tire.selectors';
+import { BaseDataSource, QueryResultsModel } from '@tms/crud';
+import { AppState } from '@tms/reducers';
+import { selectTiresInitWaitingMessage, selectTiresInStore, selectTiresPageLoading } from '@tms/selectors/tire.selectors';
 
 export class TiresDataSource extends BaseDataSource {
   constructor(private store: Store<AppState>) {

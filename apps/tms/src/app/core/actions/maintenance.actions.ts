@@ -1,8 +1,8 @@
-import { QueryParamsModel } from '@crud';
-import { Maintenance } from '@interfaces';
-import { MaintenanceModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
+import { QueryParamsModel } from '@tms/crud';
+import { Maintenance } from '@tms/interfaces';
+import { MaintenanceModel } from '@tms/models';
 
 export enum MaintenanceActionTypes {
   CreateMaintenance = '[Edit Maintenance Component] Create Maintenance',

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CoreModule } from '@core/core.module';
-import { PartialsModule } from '@partials/partials.module';
+import { CoreModule } from '@tms/core/core.module';
+import { PartialsModule } from '@tms/partials/partials.module';
 import { ProtectedGuard } from 'ngx-auth';
 import { DashboardComponent } from './dashboard.component';
 

@@ -1,7 +1,7 @@
-import { HttpExtenstionsModel, QueryResultsModel } from '@crud';
-import { Truck } from '@interfaces';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TrucksState } from '@reducers';
+import { HttpExtenstionsModel, QueryResultsModel } from '@tms/crud';
+import { Truck } from '@tms/interfaces';
+import { TrucksState } from '@tms/reducers';
 import { each } from 'lodash';
 
 export const selectTruckState = createFeatureSelector<TrucksState>('trucks');

@@ -1,8 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DeleteDialogComponent } from '@shared/dialogs/delete-dialog/delete-dialog.component';
-import { DeleteDialogModule } from '@shared/dialogs/delete-dialog/delete-dialog.module';
+import { DeleteDialogComponent } from '@tms/shared/dialogs/delete-dialog/delete-dialog.component';
+import { DeleteDialogModule } from '@tms/shared/dialogs/delete-dialog/delete-dialog.module';
 import { ProtectedGuard } from 'ngx-auth';
 import { WorkshopComponent } from './workshop.component';
 
@@ -35,7 +35,7 @@ const routes: Routes = [{
     DeleteDialogModule
   ],
   providers: [],
-  entryComponents: [ DeleteDialogComponent],
+  entryComponents: [DeleteDialogComponent],
   declarations: [WorkshopComponent]
 })
 export class WorkshopModule { }

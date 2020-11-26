@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Maintenance } from '@interfaces';
-import { MaintenanceModel } from '@models';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { selectMaintenanceById } from '@selectors/maintenance.selectors';
-import { MaintenancesService } from '@services';
+import { Maintenance } from '@tms/interfaces';
+import { MaintenanceModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectMaintenanceById } from '@tms/selectors/maintenance.selectors';
+import { MaintenancesService } from '@tms/services';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 

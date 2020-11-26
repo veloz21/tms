@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutConfigService, SparklineChartOptions } from '@layout';
-import { Widget4Data } from '@partials/content/widgets/widget4/widget4.component';
+import { LayoutConfigService, SparklineChartOptions } from '@tms/layout';
+import { Widget4Data } from '@tms/partials/content/widgets/widget4/widget4.component';
 import { shuffle } from 'lodash';
 
 @Component({

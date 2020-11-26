@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { ErrorDialogComponent } from '@shared/dialogs/error-dialog/error-dialog.component';
-import { ErrorDialogModule } from '@shared/dialogs/error-dialog/error-dialog.module';
+import { ErrorDialogComponent } from '@tms/shared/dialogs/error-dialog/error-dialog.component';
+import { ErrorDialogModule } from '@tms/shared/dialogs/error-dialog/error-dialog.module';
 import { PublicGuard } from 'ngx-auth';
 import { AuthEffects, AuthenticationService, AuthGuard, authReducer } from '../../../core/auth';
 import { AccountComponent } from './account/account.component';
@@ -87,7 +90,7 @@ const routes: Routes = [
 })
 
 export class AuthModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<AuthModule> {
     return {
       ngModule: AuthModule,
       providers: [

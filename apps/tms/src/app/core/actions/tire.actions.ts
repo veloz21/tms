@@ -1,7 +1,7 @@
-import { QueryParamsModel } from '@crud';
-import { TireModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
+import { QueryParamsModel } from '@tms/crud';
+import { TireModel } from '@tms/models';
 
 export enum TireActionTypes {
   CreateTire = '[Edit Tire Component] Create Tire ',

@@ -1,8 +1,8 @@
-import { QueryParamsModel } from '@crud';
-import { Travel } from '@interfaces';
-import { TravelModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
+import { QueryParamsModel } from '@tms/crud';
+import { Travel } from '@tms/interfaces';
+import { TravelModel } from '@tms/models';
 
 export enum TravelActionTypes {
   CreateTravel = '[Edit Travel Component] Create Travel',

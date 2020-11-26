@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { LayoutConfigService, SplashScreenService, TranslationService } from '@layout';
+import { LayoutConfigService, SplashScreenService, TranslationService } from '@tms/layout';
 import { AuthNoticeService } from '../../../core/auth';
 
 @Component({

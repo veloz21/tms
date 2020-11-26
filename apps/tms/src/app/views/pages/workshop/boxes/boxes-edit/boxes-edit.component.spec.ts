@@ -2,10 +2,10 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SubheaderService } from '@layout';
-import { BoxModel } from '@models';
 import { Store } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
+import { SubheaderService } from '@tms/layout';
+import { BoxModel } from '@tms/models';
 import { of } from 'rxjs';
 import { BoxesEditComponent } from './boxes-edit.component';
 

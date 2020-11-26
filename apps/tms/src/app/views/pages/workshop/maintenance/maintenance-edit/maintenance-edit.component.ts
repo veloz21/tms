@@ -1,17 +1,17 @@
-import { CreateMaintenance, UpdateMaintenance } from '@actions/maintenance.actions';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TypesUtilsService } from '@crud';
-import { SubheaderService } from '@layout';
-import { BoxModel, EmployeeModel, MaintenanceModel, TruckModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectLastCreatedMaintenanceId } from '@selectors/maintenance.selectors';
-import { MaintenancesService } from '@services';
+import { CreateMaintenance, UpdateMaintenance } from '@tms/actions/maintenance.actions';
+import { TypesUtilsService } from '@tms/crud';
+import { SubheaderService } from '@tms/layout';
+import { BoxModel, EmployeeModel, MaintenanceModel, TruckModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectLastCreatedMaintenanceId } from '@tms/selectors/maintenance.selectors';
+import { MaintenancesService } from '@tms/services';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 

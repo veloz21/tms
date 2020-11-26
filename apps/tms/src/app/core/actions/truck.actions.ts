@@ -1,8 +1,8 @@
-import { QueryParamsModel } from '@crud';
-import { Truck } from '@interfaces';
-import { TruckModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
+import { QueryParamsModel } from '@tms/crud';
+import { Truck } from '@tms/interfaces';
+import { TruckModel } from '@tms/models';
 
 export enum TruckActionTypes {
   CreateTruck = '[Edit Truck Component] Truck Created',
@@ -54,8 +54,8 @@ export class UpdateTruckSuccess implements Action {
 export class TrucksStatusUpdated implements Action {
   readonly type = TruckActionTypes.TrucksStatusUpdated;
   constructor(public payload: {
-      trucks: Truck[],
-      status: number
+    trucks: Truck[],
+    status: number
   }) { }
 }
 

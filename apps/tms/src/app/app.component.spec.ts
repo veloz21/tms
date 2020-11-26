@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LayoutConfigService, SplashScreenService, TranslationService } from '@layout';
+import { LayoutConfigService, SplashScreenService, TranslationService } from '@tms/layout';
 import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 

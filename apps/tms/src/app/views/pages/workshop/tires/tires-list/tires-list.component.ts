@@ -1,16 +1,18 @@
-import { DeleteManyTires, DeleteOneTire, RequestTiresPage } from '@actions/tire.actions';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LayoutUtilsService, MessageType, QueryParamsModel } from '@crud';
-import { TiresDataSource } from '@data-sources';
-import { SubheaderService } from '@layout';
-import { TireModel } from '@models';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectTiresPageLastQuery } from '@selectors/tire.selectors';
+import { DeleteManyTires, DeleteOneTire, RequestTiresPage } from '@tms/actions/tire.actions';
+import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
+import { TiresDataSource } from '@tms/data-sources';
+import { SubheaderService } from '@tms/layout';
+import { TireModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectTiresPageLastQuery } from '@tms/selectors/tire.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
@@ -55,10 +57,10 @@ export class TiresListComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsubscribe),
     ).subscribe(() => (this.paginator.pageIndex = 0));
 
-		/* Data load will be triggered in two cases:
-		- when a pagination event occurs => this.paginator.page
-		- when a sort event occurs => this.sort.sortChange
-		**/
+    /* Data load will be triggered in two cases:
+    - when a pagination event occurs => this.paginator.page
+    - when a sort event occurs => this.sort.sortChange
+    **/
     merge(this.sort.sortChange, this.paginator.page).pipe(
       tap(() => this.loadTiresList()),
       takeUntil(this.ngUnsubscribe)
@@ -162,7 +164,7 @@ export class TiresListComponent implements OnInit, OnDestroy {
 
   deleteTire(_item: TireModel) {
     const _title = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_TITLE');
-    const _description =  this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_DESCRIPTION');
+    const _description = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_DESCRIPTION');
     const _waitDesciption = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_WAIT');
     const _deleteMessage = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_MESSAGE');
 

@@ -1,5 +1,5 @@
-import { AVIABILITY_STATUS } from '@enums';
-import { Truck } from '@interfaces';
+import { AVIABILITY_STATUS } from '@tms/enums';
+import { Truck } from '@tms/interfaces';
 
 export class TruckModel implements Truck {
   id: number;

@@ -1,11 +1,11 @@
-import * as fromTravelActions from '@actions/travel.actions';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { QueryParamsModel } from '@crud';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { TravelsService } from '@services';
+import * as fromTravelActions from '@tms/actions/travel.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { AppState } from '@tms/reducers';
+import { TravelsService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 

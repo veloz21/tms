@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Travel } from '@interfaces';
-import { TravelModel } from '@models';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { selectTravelById } from '@selectors/travel.selectors';
-import { TravelsService } from '@services';
+import { Travel } from '@tms/interfaces';
+import { TravelModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectTravelById } from '@tms/selectors/travel.selectors';
+import { TravelsService } from '@tms/services';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 

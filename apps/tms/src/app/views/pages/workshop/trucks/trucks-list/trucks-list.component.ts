@@ -1,16 +1,18 @@
-import { DeleteManyTrucks, DeleteOneTruck, RequestTrucksPage } from '@actions/truck.actions';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
-import { LayoutUtilsService, MessageType, QueryParamsModel } from '@crud';
-import { TrucksDataSource } from '@data-sources';
-import { Truck } from '@interfaces';
-import { SubheaderService } from '@layout';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectTrucksPageLastQuery } from '@selectors/trucks.selectors';
+import { DeleteManyTrucks, DeleteOneTruck, RequestTrucksPage } from '@tms/actions/truck.actions';
+import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
+import { TrucksDataSource } from '@tms/data-sources';
+import { Truck } from '@tms/interfaces';
+import { SubheaderService } from '@tms/layout';
+import { AppState } from '@tms/reducers';
+import { selectTrucksPageLastQuery } from '@tms/selectors/trucks.selectors';
 import { fromEvent, merge, of, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 

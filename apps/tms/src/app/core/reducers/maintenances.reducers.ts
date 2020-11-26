@@ -1,8 +1,8 @@
-import { MaintenanceActions, MaintenanceActionTypes } from '@actions/maintenance.actions';
-import { QueryParamsModel } from '@crud';
-import { Maintenance } from '@interfaces';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
+import { MaintenanceActions, MaintenanceActionTypes } from '@tms/actions/maintenance.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { Maintenance } from '@tms/interfaces';
 
 export interface MaintenancesState extends EntityState<Maintenance> {
   listLoading: boolean;

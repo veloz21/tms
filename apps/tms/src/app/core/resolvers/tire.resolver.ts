@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Tire } from '@interfaces';
-import { TireModel } from '@models';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { selectTireById } from '@selectors/tire.selectors';
-import { TiresService } from '@services';
+import { Tire } from '@tms/interfaces';
+import { TireModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectTireById } from '@tms/selectors/tire.selectors';
+import { TiresService } from '@tms/services';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
@@ -34,7 +34,7 @@ export class TireResolver implements Resolve<Tire> {
     });
   }
 
-  waitForTireDataToLoad(id: number): Observable <Tire> {
+  waitForTireDataToLoad(id: number): Observable<Tire> {
     return this.store.select(selectTireById(id)).pipe(
       filter(tire => !!tire),
       take(1)

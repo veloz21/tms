@@ -1,18 +1,18 @@
-import { CreateTravel, UpdateTravel } from '@actions/travel.actions';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TypesUtilsService } from '@crud';
-import { SubheaderService } from '@layout';
-import { TravelModel } from '@models';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectLastCreatedTravelId } from '@selectors/travel.selectors';
-import { TravelsService } from '@services';
+import { CreateTravel, UpdateTravel } from '@tms/actions/travel.actions';
+import { TypesUtilsService } from '@tms/crud';
+import { SubheaderService } from '@tms/layout';
+import { TravelModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectLastCreatedTravelId } from '@tms/selectors/travel.selectors';
+import { TravelsService } from '@tms/services';
 import * as Mapboxgl from 'mapbox-gl';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
@@ -165,24 +165,24 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
-    const [loadingDate , loadingTime] = this.getDateTime(this.travel.times.loading);
-    const [unloadingDate , unloadingTime] = this.getDateTime(this.travel.times.unloading);
-    const [originArriveDate , originArriveTime] = this.getDateTime(this.travel.times.originArrive);
-    const [destinationArriveDate , destinationArriveTime] = this.getDateTime(this.travel.times.destinationArrive);
+    const [loadingDate, loadingTime] = this.getDateTime(this.travel.times.loading);
+    const [unloadingDate, unloadingTime] = this.getDateTime(this.travel.times.unloading);
+    const [originArriveDate, originArriveTime] = this.getDateTime(this.travel.times.originArrive);
+    const [destinationArriveDate, destinationArriveTime] = this.getDateTime(this.travel.times.destinationArrive);
     this.travelForm = this.travelFB.group({
       operator: [this.travel.operator],
       box: [this.travel.box],
       truck: [this.travel.truck],
-      origin: [ this.travel.locations.origin.coordinates],
+      origin: [this.travel.locations.origin.coordinates],
       destination: [this.travel.locations.destination.coordinates],
       loadingDate: [loadingDate],
       loadingTime: [loadingTime],
-      unloadingDate: [unloadingDate ],
-      unloadingTime: [unloadingTime ],
-      originArriveDate: [originArriveDate ],
+      unloadingDate: [unloadingDate],
+      unloadingTime: [unloadingTime],
+      originArriveDate: [originArriveDate],
       originArriveTime: [originArriveTime],
-      destinationArriveDate: [destinationArriveDate ],
-      destinationArriveTime: [ destinationArriveTime],
+      destinationArriveDate: [destinationArriveDate],
+      destinationArriveTime: [destinationArriveTime],
       comments: [this.travel.comments, []],
     });
   }
@@ -268,7 +268,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       },
       destination: {
         type: 'Point',
-        coordinates : this.travelForm.get('destination').value,
+        coordinates: this.travelForm.get('destination').value,
       }
     };
     _travel.times = {

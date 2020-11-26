@@ -16,7 +16,25 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@bits404/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@bits404/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@tms/services": ["apps/tms/src/app/core/services/index.ts"],
+      "@tms/reducers": ["apps/tms/src/app/core/reducers/index.ts"],
+      "@tms/resolvers": ["apps/tms/src/app/core/resolvers/index.ts"],
+      "@tms/selectors/*": ["apps/tms/src/app/core/selectors/*"],
+      "@tms/interfaces": ["apps/tms/src/app/core/interfaces/index.ts"],
+      "@tms/models": ["apps/tms/src/app/core/models/index.ts"],
+      "@tms/actions/*": ["apps/tms/src/app/core/actions/*"],
+      "@tms/data-sources": ["apps/tms/src/app/core/data-sources/index.ts"],
+      "@tms/effects": ["apps/tms/src/app/core/effects/index.ts"],
+      "@tms/crud": ["apps/tms/src/app/core/_base/crud"],
+      "@tms/layout": ["apps/tms/src/app/core/_base/layout"],
+      "@tms/server/*": ["apps/tms/src/app/core/server/*"],
+      "@tms/environments/*": ["apps/tms/src/environments/*"],
+      "@tms/partials/*": ["apps/tms/src/app/views/partials/*"],
+      "@tms/core/*": ["apps/tms/src/app/core/*"],
+      "@tms/enums": ["apps/tms/src/app/core/enums/index.ts"],
+      "@tms/utils/*": ["apps/tms/src/app/core/_base/crud/utils/*"],
+      "@tms/shared/*": ["apps/tms/src/app/views/shared/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

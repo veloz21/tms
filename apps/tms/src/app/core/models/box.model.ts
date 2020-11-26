@@ -1,5 +1,5 @@
-import { AVIABILITY_STATUS } from '@enums';
-import { Box } from '@interfaces';
+import { AVIABILITY_STATUS } from '@tms/enums';
+import { Box } from '@tms/interfaces';
 
 export class BoxModel implements Box {
   id: number;

@@ -1,16 +1,16 @@
-import { CreateTruck, UpdateTruck } from '@actions/truck.actions';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AVIABILITY_STATUS } from '@core/enums';
-import { SubheaderService } from '@layout';
-import { TruckModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectLastCreatedTruckId } from '@selectors/trucks.selectors';
+import { CreateTruck, UpdateTruck } from '@tms/actions/truck.actions';
+import { AVIABILITY_STATUS } from '@tms/core/enums';
+import { SubheaderService } from '@tms/layout';
+import { TruckModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectLastCreatedTruckId } from '@tms/selectors/trucks.selectors';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 

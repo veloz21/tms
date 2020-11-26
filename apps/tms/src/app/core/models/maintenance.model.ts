@@ -1,4 +1,4 @@
-import { Box, Employee, Maintenance, Truck } from '@interfaces';
+import { Box, Employee, Maintenance, Truck } from '@tms/interfaces';
 
 export class MaintenanceModel implements Maintenance {
   id: number;
@@ -13,13 +13,13 @@ export class MaintenanceModel implements Maintenance {
     end: Date
   };
 
-  constructor(maintenance ?: Partial < Maintenance >) {
+  constructor(maintenance?: Partial<Maintenance>) {
     this.truck = maintenance && maintenance.truck || null;
     this.box = maintenance && maintenance.box || null;
     this.mechanic = maintenance && maintenance.mechanic || null;
     this.comments = maintenance && maintenance.comments || '';
     this.reasons = maintenance && maintenance.reasons || '';
-    this.times = maintenance &&  maintenance.times || {
+    this.times = maintenance && maintenance.times || {
       start: new Date(),
       end: new Date()
     };

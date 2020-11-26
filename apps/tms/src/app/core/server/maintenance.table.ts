@@ -1,5 +1,5 @@
-import { AVIABILITY_STATUS } from '@core/enums';
-import { BoxModel, EmployeeModel, TruckModel } from '@core/models';
+import { AVIABILITY_STATUS } from '@tms/core/enums';
+import { BoxModel, EmployeeModel, TruckModel } from '@tms/core/models';
 
 export class MaintenanceTable {
   public static maintenances: any[] = [

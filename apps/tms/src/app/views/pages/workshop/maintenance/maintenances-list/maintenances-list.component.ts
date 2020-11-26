@@ -1,16 +1,18 @@
-import { DeleteManyMaintenances, DeleteOneMaintenance, RequestMaintenancesPage } from '@actions/maintenance.actions';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
-import { LayoutUtilsService, MessageType, QueryParamsModel } from '@crud';
-import { MaintenancesDataSource } from '@data-sources';
-import { Maintenance } from '@interfaces';
-import { SubheaderService } from '@layout';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectMaintenancesPageLastQuery } from '@selectors/maintenance.selectors';
+import { DeleteManyMaintenances, DeleteOneMaintenance, RequestMaintenancesPage } from '@tms/actions/maintenance.actions';
+import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
+import { MaintenancesDataSource } from '@tms/data-sources';
+import { Maintenance } from '@tms/interfaces';
+import { SubheaderService } from '@tms/layout';
+import { AppState } from '@tms/reducers';
+import { selectMaintenancesPageLastQuery } from '@tms/selectors/maintenance.selectors';
 import { fromEvent, merge, of, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@crud';
-import { environment } from '@environments/environment.dev';
-import { TruckModel } from '@models';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
+import { environment } from '@tms/environments/environment.dev';
+import { TruckModel } from '@tms/models';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 

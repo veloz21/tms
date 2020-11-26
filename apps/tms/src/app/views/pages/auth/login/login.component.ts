@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
+import { AppState } from '@tms/reducers';
 import { Observable, Subject } from 'rxjs';
 import { finalize, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService, AuthNoticeService, Login } from '../../../../core/auth';
@@ -97,11 +97,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: controls.password.value,
     };
     this.auth
-      .login(authData.company, authData.email, authData.password, )
+      .login(authData.company, authData.email, authData.password,)
       .pipe(
         tap(user => {
           if (user) {
-            this.store.dispatch(new Login({ Success: 'Yes'}));
+            this.store.dispatch(new Login({ Success: 'Yes' }));
             console.log(user);
             this.router.navigateByUrl(this.returnUrl);
           } else {

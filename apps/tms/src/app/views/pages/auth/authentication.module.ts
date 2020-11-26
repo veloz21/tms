@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AuthenticationService } from '@core/auth/_services';
+import { AuthenticationService } from '@tms/core/auth/_services';
 import { AuthModule, AUTH_SERVICE, PROTECTED_FALLBACK_PAGE_URI, PUBLIC_FALLBACK_PAGE_URI } from 'ngx-auth';
 @NgModule({
   imports: [AuthModule],

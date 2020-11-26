@@ -1,8 +1,8 @@
-import { BoxActions, BoxActionTypes } from '@actions/box.actions';
-import { QueryParamsModel } from '@crud';
-import { BoxModel } from '@models';
 import { createEntityAdapter, EntityAdapter, EntityState, Update } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
+import { BoxActions, BoxActionTypes } from '@tms/actions/box.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { BoxModel } from '@tms/models';
 
 export interface BoxesState extends EntityState<BoxModel> {
   listLoading: boolean;

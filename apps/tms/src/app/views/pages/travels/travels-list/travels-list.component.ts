@@ -1,16 +1,18 @@
-import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage } from '@actions/travel.actions';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
-import { LayoutUtilsService, MessageType, QueryParamsModel } from '@crud';
-import { TravelsDataSource } from '@data-sources';
-import { Travel } from '@interfaces';
-import { SubheaderService } from '@layout';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectTravelsPageLastQuery } from '@selectors/travel.selectors';
+import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage } from '@tms/actions/travel.actions';
+import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
+import { TravelsDataSource } from '@tms/data-sources';
+import { Travel } from '@tms/interfaces';
+import { SubheaderService } from '@tms/layout';
+import { AppState } from '@tms/reducers';
+import { selectTravelsPageLastQuery } from '@tms/selectors/travel.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
@@ -25,7 +27,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   // Table fields
   hola: string;
   dataSource: TravelsDataSource;
-  displayedColumns = ['Select', 'Operator', 'Box', 'Truck',  'Comments', 'LoadTime', 'DownloadTime', 'ArriveTime', 'ArriveCustomerTime', 'Actions'];
+  displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'Comments', 'LoadTime', 'DownloadTime', 'ArriveTime', 'ArriveCustomerTime', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -54,10 +56,10 @@ export class TravelsListComponent implements OnInit, OnDestroy {
     const sortSubscription = this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     this.subscriptions.push(sortSubscription);
 
-		/* Data load will be triggered in two cases:
-		- when a pagination event occurs => this.paginator.page
-		- when a sort event occurs => this.sort.sortChange
-		**/
+    /* Data load will be triggered in two cases:
+    - when a pagination event occurs => this.paginator.page
+    - when a sort event occurs => this.sort.sortChange
+    **/
     const paginatorSubscriptions = merge(this.sort.sortChange, this.paginator.page).pipe(
       tap(() => this.loadTravelsList()),
       takeUntil(this.ngUnsuscribe)

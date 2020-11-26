@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@crud';
-import { MaintenanceModel } from '@models';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
+import { MaintenanceModel } from '@tms/models';
 import { environment } from 'environments/environment.dev';
 import { BehaviorSubject, Observable } from 'rxjs';
 

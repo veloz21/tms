@@ -1,11 +1,11 @@
-import * as fromTruckActions from '@actions/truck.actions';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { QueryParamsModel } from '@crud';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { TrucksService } from '@services';
+import * as fromTruckActions from '@tms/actions/truck.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { AppState } from '@tms/reducers';
+import { TrucksService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
@@ -26,7 +26,7 @@ export class TruckEffects {
         return forkJoin([requestToServer, lastQuery]);
       }),
       map(response => {
-        const result  = response[0];
+        const result = response[0];
         const lastQuery: QueryParamsModel = response[1];
         return new fromTruckActions.LoadTrucksPage({
           truck: result,

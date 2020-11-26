@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '@environments/environment.dev';
+import { environment } from '@tms/environments/environment.dev';
 import { AuthService } from 'ngx-auth';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, switchMapTo, tap } from 'rxjs/operators';
@@ -90,22 +90,22 @@ export class AuthenticationService implements AuthService {
   }
 
   public login(company: string, email: string, password: string): Observable<AuthModel> {
-    return this.http.post<AuthModel>(API_LOGIN_URL, {company, email, password}, this.httpOptions).pipe(
+    return this.http.post<AuthModel>(API_LOGIN_URL, { company, email, password }, this.httpOptions).pipe(
       tap(() => this.isLoggedIn.next(true)),
       tap(this.saveAccessData.bind(this)),
       switchMapTo(this.getCurrentUser()),
-      catchError( this.handleError('login', []))
+      catchError(this.handleError('login', []))
     );
   }
 
-  public getCompanyByToken(): Observable <CompanyModel> {
+  public getCompanyByToken(): Observable<CompanyModel> {
     const companyToken = localStorage.getItem(environment.authTokenKey);
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Authorization', 'Bearer ' + companyToken);
 
-    return this.http.get <CompanyModel>(API_LOGIN_URL, {
-        headers: httpHeaders
-      }
+    return this.http.get<CompanyModel>(API_LOGIN_URL, {
+      headers: httpHeaders
+    }
     );
   }
 
@@ -144,7 +144,7 @@ export class AuthenticationService implements AuthService {
   public register(name: string, email: string, password: string): Observable<string> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post(API_REGISTER_URL, {name, email, password},  { headers: httpHeaders  }).pipe(
+    return this.http.post(API_REGISTER_URL, { name, email, password }, { headers: httpHeaders }).pipe(
       catchError(this.handleError('register', []))
     );
   }
@@ -183,17 +183,17 @@ export class AuthenticationService implements AuthService {
     return this.http.get(hashUrl, httpOptions);
   }
 
-  public requestPassword(email: string): Observable <any> {
+  public requestPassword(email: string): Observable<any> {
     return this.http.get(API_LOGIN_URL + '/forgot?=' + email)
-          .pipe(catchError(this.handleError('forgot-password', [])));
+      .pipe(catchError(this.handleError('forgot-password', [])));
   }
 
-  getAllCompanys(): Observable <CompanyModel[]> {
-    return this.http.get <CompanyModel[]>(API_LOGIN_URL);
+  getAllCompanys(): Observable<CompanyModel[]> {
+    return this.http.get<CompanyModel[]>(API_LOGIN_URL);
   }
 
-  getCompanyById(companyId: number): Observable <CompanyModel> {
-    return this.http.get <CompanyModel>(API_LOGIN_URL + `/${companyId}`);
+  getCompanyById(companyId: number): Observable<CompanyModel> {
+    return this.http.get<CompanyModel>(API_LOGIN_URL + `/${companyId}`);
   }
 
   // DELETE => delete the user from the server
@@ -203,93 +203,93 @@ export class AuthenticationService implements AuthService {
   }
 
   // UPDATE => PUT: update the user on the server
-  updateCompany(_company: CompanyModel): Observable <any> {
+  updateCompany(_company: CompanyModel): Observable<any> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     return this.http.put(API_LOGIN_URL, _company, {
-        headers: httpHeaders
-      }
+      headers: httpHeaders
+    }
     );
   }
 
   // CREATE =>  POST: add a new user to the server
-  createCompany(company: CompanyModel): Observable <CompanyModel> {
+  createCompany(company: CompanyModel): Observable<CompanyModel> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post <CompanyModel>(API_LOGIN_URL, company, {
-        headers: httpHeaders
-      }
+    return this.http.post<CompanyModel>(API_LOGIN_URL, company, {
+      headers: httpHeaders
+    }
     );
   }
 
   // Method from server should return QueryResultsModel(items: any[], totalsCount: number)
   // items => filtered/sorted result
-  findCompanys(queryParams: QueryParamsModel): Observable <QueryResultsModel> {
+  findCompanys(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post <QueryResultsModel>(API_LOGIN_URL + '/findUsers', queryParams, {
-        headers: httpHeaders
-      }
+    return this.http.post<QueryResultsModel>(API_LOGIN_URL + '/findUsers', queryParams, {
+      headers: httpHeaders
+    }
     );
   }
 
   // Permission
-  getAllPermissions(): Observable <Permission[]> {
-    return this.http.get <Permission[]>(API_PERMISSION_URL);
+  getAllPermissions(): Observable<Permission[]> {
+    return this.http.get<Permission[]>(API_PERMISSION_URL);
   }
 
-  getRolePermissions(roleId: number): Observable <Permission[]> {
-    return this.http.get <Permission[]>(API_PERMISSION_URL + '/getRolePermission?=' + roleId);
+  getRolePermissions(roleId: number): Observable<Permission[]> {
+    return this.http.get<Permission[]>(API_PERMISSION_URL + '/getRolePermission?=' + roleId);
   }
 
   // Roles
-  getAllRoles(): Observable <Role[]> {
-    return this.http.get <Role[]>(API_ROLES_URL);
+  getAllRoles(): Observable<Role[]> {
+    return this.http.get<Role[]>(API_ROLES_URL);
   }
 
-  getRoleById(roleId: number): Observable <Role> {
-    return this.http.get <Role>(API_ROLES_URL + `/${roleId}`);
+  getRoleById(roleId: number): Observable<Role> {
+    return this.http.get<Role>(API_ROLES_URL + `/${roleId}`);
   }
 
   // CREATE =>  POST: add a new role to the server
-  createRole(role: Role): Observable <Role> {
+  createRole(role: Role): Observable<Role> {
     // Note: Add headers if needed (tokens/bearer)
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post <Role>(API_ROLES_URL, role, {
-        headers: httpHeaders
-      }
+    return this.http.post<Role>(API_ROLES_URL, role, {
+      headers: httpHeaders
+    }
     );
   }
 
   // UPDATE => PUT: update the role on the server
-  updateRole(role: Role): Observable <any> {
+  updateRole(role: Role): Observable<any> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     return this.http.put(API_ROLES_URL, role, {
-        headers: httpHeaders
-      }
+      headers: httpHeaders
+    }
     );
   }
 
   // DELETE => delete the role from the server
-  deleteRole(roleId: number): Observable <Role> {
+  deleteRole(roleId: number): Observable<Role> {
     const url = `${API_ROLES_URL}/${roleId}`;
-    return this.http.delete <Role>(url);
+    return this.http.delete<Role>(url);
   }
 
   // Check Role Before deletion
-  isRoleAssignedToUsers(roleId: number): Observable <boolean> {
-    return this.http.get <boolean>(API_ROLES_URL + '/checkIsRollAssignedToUser?roleId=' + roleId);
+  isRoleAssignedToUsers(roleId: number): Observable<boolean> {
+    return this.http.get<boolean>(API_ROLES_URL + '/checkIsRollAssignedToUser?roleId=' + roleId);
   }
 
-  findRoles(queryParams: QueryParamsModel): Observable <QueryResultsModel> {
+  findRoles(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     // This code imitates server calls
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post <QueryResultsModel>(API_ROLES_URL + '/findRoles', queryParams, {
-        headers: httpHeaders
-      }
+    return this.http.post<QueryResultsModel>(API_ROLES_URL + '/findRoles', queryParams, {
+      headers: httpHeaders
+    }
     );
   }
 

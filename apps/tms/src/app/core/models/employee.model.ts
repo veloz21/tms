@@ -1,4 +1,4 @@
-import { Employee } from '@interfaces';
+import { Employee } from '@tms/interfaces';
 
 export class EmployeeModel implements Employee {
   id: number;

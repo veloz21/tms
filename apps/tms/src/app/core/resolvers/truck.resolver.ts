@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Truck } from '@interfaces';
-import { TruckModel } from '@models';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { selectTruckById } from '@selectors/trucks.selectors';
-import { TrucksService } from '@services';
+import { Truck } from '@tms/interfaces';
+import { TruckModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectTruckById } from '@tms/selectors/trucks.selectors';
+import { TrucksService } from '@tms/services';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 

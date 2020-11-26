@@ -1,6 +1,6 @@
-import { environment } from '@environments/environment';
 import { routerReducer } from '@ngrx/router-store';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { environment } from '@tms/environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 export { boxesReducer, BoxesState } from './boxes.reducers';

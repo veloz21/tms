@@ -1,14 +1,14 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Component, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { TireModel } from '@models';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { TiresService } from '@services';
+import { TireModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { TiresService } from '@tms/services';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, share, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BaseAutocompleteComponent } from '../base-autocomplete/base-autocomplete.component';
+import { MatFormFieldControl } from '/form-field';
 
 @Component({
   selector: 'b404-tires-autocomplete',

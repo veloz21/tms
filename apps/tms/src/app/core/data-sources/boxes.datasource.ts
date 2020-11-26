@@ -1,7 +1,7 @@
-import { selectBoxesInitWaitingMessage, selectBoxesInStore, selectBoxesPageLoading } from '@selectors/boxes.selectors';
-import { QueryResultsModel, BaseDataSource } from '@crud';
-import { Store, select } from '@ngrx/store';
-import { AppState } from '@reducers';
+import { select, Store } from '@ngrx/store';
+import { BaseDataSource, QueryResultsModel } from '@tms/crud';
+import { AppState } from '@tms/reducers';
+import { selectBoxesInitWaitingMessage, selectBoxesInStore, selectBoxesPageLoading } from '@tms/selectors/boxes.selectors';
 
 export class BoxesDataSource extends BaseDataSource {
   constructor(private store: Store<AppState>) {

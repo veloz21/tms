@@ -4,8 +4,8 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { ExtendedFormControl } from '@utils/extended.form.control';
+import { AppState } from '@tms/reducers';
+import { ExtendedFormControl } from '@tms/utils/extended.form.control';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { first, takeUntil, tap } from 'rxjs/operators';
 

@@ -1,8 +1,8 @@
-import { QueryParamsModel } from '@crud';
-import { Employee } from '@interfaces';
-import { EmployeeModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
+import { QueryParamsModel } from '@tms/crud';
+import { Employee } from '@tms/interfaces';
+import { EmployeeModel } from '@tms/models';
 
 export enum EmployeeActionTypes {
   CreateEmployee = '[Edit Employee Component] Create employee',
@@ -58,8 +58,8 @@ export class UpdateEmployeeSuccess implements Action {
 export class EmployeesStatusUpdated implements Action {
   readonly type = EmployeeActionTypes.EmployeesStatusUpdated;
   constructor(public payload: {
-      employees: Employee[],
-      status: number
+    employees: Employee[],
+    status: number
   }) { }
 }
 

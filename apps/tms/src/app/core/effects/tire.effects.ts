@@ -1,11 +1,11 @@
-import * as fromTireActions from '@actions/tire.actions';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { QueryParamsModel } from '@crud';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { TiresService } from '@services';
+import * as fromTireActions from '@tms/actions/tire.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { AppState } from '@tms/reducers';
+import { TiresService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 

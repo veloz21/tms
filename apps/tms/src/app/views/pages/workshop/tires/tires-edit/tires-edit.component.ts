@@ -1,18 +1,18 @@
-import { CreateTire, UpdateTire } from '@actions/tire.actions';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AVIABILITY_STATUS } from '@core/enums';
-import { Tire } from '@interfaces';
-import { SubheaderService } from '@layout';
-import { TireModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectLastCreatedTireId } from '@selectors/tire.selectors';
-import { TiresService } from '@services';
+import { CreateTire, UpdateTire } from '@tms/actions/tire.actions';
+import { AVIABILITY_STATUS } from '@tms/core/enums';
+import { Tire } from '@tms/interfaces';
+import { SubheaderService } from '@tms/layout';
+import { TireModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectLastCreatedTireId } from '@tms/selectors/tire.selectors';
+import { TiresService } from '@tms/services';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -145,7 +145,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  refreshTire(isNew: boolean = false, id = 0) {
+  refreshTire(isNew: boolean = false, id = "") {
     this.loadingSubject.next(false);
     let url = this.router.url;
     if (!isNew) {

@@ -1,16 +1,18 @@
-import { DeleteManyBoxes, DeleteOneBox, RequestBoxesPage } from '@actions/box.actions';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LayoutUtilsService, MessageType, QueryParamsModel } from '@crud';
-import { BoxesDataSource } from '@data-sources';
-import { SubheaderService } from '@layout';
-import { BoxModel } from '@models';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectBoxesPageLastQuery } from '@selectors/boxes.selectors';
+import { DeleteManyBoxes, DeleteOneBox, RequestBoxesPage } from '@tms/actions/box.actions';
+import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
+import { BoxesDataSource } from '@tms/data-sources';
+import { SubheaderService } from '@tms/layout';
+import { BoxModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectBoxesPageLastQuery } from '@tms/selectors/boxes.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
+import { AppState } from '@tms/reducers';
 import { Subject } from 'rxjs';
 import { finalize, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService, AuthNoticeService } from '../../../../core/auth/';
@@ -101,7 +101,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       email: controls.email.value,
       password: controls.password.value
     };
-    this.auth.register(_company.name, _company.email, _company.password ).pipe(
+    this.auth.register(_company.name, _company.email, _company.password).pipe(
       tap(company => {
         if (company) {
           this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.SUCCESS'), 'success');

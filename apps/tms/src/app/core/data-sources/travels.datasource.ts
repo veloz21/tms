@@ -1,8 +1,8 @@
 import { OnDestroy } from '@angular/core';
-import { BaseDataSource, QueryResultsModel } from '@crud';
 import { select, Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { selectTravelsInitWaitingMessage, selectTravelsInStore, selectTravelsPageLoading } from '@selectors/travel.selectors';
+import { BaseDataSource, QueryResultsModel } from '@tms/crud';
+import { AppState } from '@tms/reducers';
+import { selectTravelsInitWaitingMessage, selectTravelsInStore, selectTravelsPageLoading } from '@tms/selectors/travel.selectors';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

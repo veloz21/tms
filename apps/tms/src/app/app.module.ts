@@ -1,23 +1,18 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { GestureConfig, MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DataTableService, FakeApiService, KtDialogService, LayoutConfigService, LayoutRefService, MenuAsideService, MenuConfigService, MenuHorizontalService, PageConfigService, SplashScreenService, SubheaderService } from '@layout';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateModule } from '@ngx-translate/core';
+import { DataTableService, FakeApiService, KtDialogService, LayoutConfigService, LayoutRefService, MenuAsideService, MenuConfigService, MenuHorizontalService, PageConfigService, SplashScreenService, SubheaderService } from '@tms/layout';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import 'hammerjs';
-import * as json from 'highlight.js/lib/languages/json';
-import * as scss from 'highlight.js/lib/languages/scss';
-import * as typescript from 'highlight.js/lib/languages/typescript';
-import * as xml from 'highlight.js/lib/languages/xml';
 import { InlineSVGModule } from 'ng-inline-svg';
-import { HighlightLanguage, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { environment } from '../environments/environment';
@@ -48,15 +43,6 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
       appConfig.loadConfigs(new LayoutConfig().configs);
     }
   };
-}
-
-export function hljsLanguages(): HighlightLanguage[] {
-  return [
-    { name: 'typescript', func: typescript },
-    { name: 'scss', func: scss },
-    { name: 'xml', func: xml },
-    { name: 'json', func: json }
-  ];
 }
 
 @NgModule({
@@ -108,10 +94,6 @@ export function hljsLanguages(): HighlightLanguage[] {
       provide: APP_INITIALIZER,
       useFactory: initializeLayoutConfig,
       deps: [LayoutConfigService], multi: true
-    },
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: { languages: hljsLanguages }
     },
     // template services
     SubheaderService,

@@ -1,8 +1,8 @@
-import { EmployeeActions, EmployeeActionTypes } from '@actions/employee.actions';
-import { QueryParamsModel } from '@crud';
-import { Employee } from '@interfaces';
 import { createEntityAdapter, EntityAdapter, EntityState, Update } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
+import { EmployeeActions, EmployeeActionTypes } from '@tms/actions/employee.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { Employee } from '@tms/interfaces';
 
 export interface EmployeesState extends EntityState<Employee> {
   listLoading: boolean;

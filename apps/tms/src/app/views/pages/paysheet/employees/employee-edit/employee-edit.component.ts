@@ -1,17 +1,17 @@
-import { CreateEmployee, UpdateEmployee } from '@actions/employee.actions';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AVIABILITY_STATUS } from '@enums';
-import { Employee } from '@interfaces';
-import { SubheaderService } from '@layout';
-import { EmployeeModel } from '@models';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectLastCreatedEmployeeId } from '@selectors/employee.selectors';
+import { CreateEmployee, UpdateEmployee } from '@tms/actions/employee.actions';
+import { AVIABILITY_STATUS } from '@tms/enums';
+import { Employee } from '@tms/interfaces';
+import { SubheaderService } from '@tms/layout';
+import { EmployeeModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectLastCreatedEmployeeId } from '@tms/selectors/employee.selectors';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 

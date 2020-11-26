@@ -1,11 +1,11 @@
-import * as fromMaintenanceActions from '@actions/maintenance.actions';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
-import { QueryParamsModel } from '@crud';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AppState } from '@reducers';
-import { MaintenancesService } from '@services';
+import * as fromMaintenanceActions from '@tms/actions/maintenance.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { AppState } from '@tms/reducers';
+import { MaintenancesService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 

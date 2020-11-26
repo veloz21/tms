@@ -12,5 +12,6 @@
     {
       "path": "./tsconfig.editor.json"
     }
-  ]
+  ],
+  "typeRoots": ["src/typings.d.ts"]
 }

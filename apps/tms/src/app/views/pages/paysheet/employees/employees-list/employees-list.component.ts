@@ -1,16 +1,18 @@
-import { DeleteManyEmployees, DeleteOneEmployee, RequestEmployeePage } from '@actions/employee.actions';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatPaginator, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LayoutUtilsService, MessageType, QueryParamsModel } from '@crud';
-import { EmployeesDataSource } from '@data-sources';
-import { SubheaderService } from '@layout';
-import { EmployeeModel } from '@models';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@reducers';
-import { selectEmployeesPageLastQuery } from '@selectors/employee.selectors';
+import { DeleteManyEmployees, DeleteOneEmployee, RequestEmployeePage } from '@tms/actions/employee.actions';
+import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
+import { EmployeesDataSource } from '@tms/data-sources';
+import { SubheaderService } from '@tms/layout';
+import { EmployeeModel } from '@tms/models';
+import { AppState } from '@tms/reducers';
+import { selectEmployeesPageLastQuery } from '@tms/selectors/employee.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
@@ -53,10 +55,10 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
     const sortSubscription = this.sort.sortChange.pipe(takeUntil(this.ngUnsuscribe)).subscribe(() => (this.paginator.pageIndex = 0));
     this.subscriptions.push(sortSubscription);
 
-		/* Data load will be triggered in two cases:
-		- when a pagination event occurs => this.paginator.page
-		- when a sort event occurs => this.sort.sortChange
-		**/
+    /* Data load will be triggered in two cases:
+    - when a pagination event occurs => this.paginator.page
+    - when a sort event occurs => this.sort.sortChange
+    **/
     const paginatorSubscriptions = merge(this.sort.sortChange, this.paginator.page).pipe(
       tap(() => this.loadEmployeesList()),
       takeUntil(this.ngUnsuscribe)

@@ -1,10 +1,22 @@
 {
   "extends": "../../tslint.json",
   "rules": {
-    "directive-selector": [true, "attribute", "bits404", "camelCase"],
-    "component-selector": [true, "element", "bits404", "kebab-case"]
+    "directive-selector": [
+      true,
+      "attribute",
+      "b404",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "b404",
+      "kebab-case"
+    ]
   },
   "linterOptions": {
-    "exclude": ["!**/*"]
+    "exclude": [
+      "!**/*"
+    ]
   }
 }

@@ -1,8 +1,8 @@
-import { TravelActions, TravelActionTypes } from '@actions/travel.actions';
-import { QueryParamsModel } from '@crud';
-import { Travel } from '@interfaces';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
+import { TravelActions, TravelActionTypes } from '@tms/actions/travel.actions';
+import { QueryParamsModel } from '@tms/crud';
+import { Travel } from '@tms/interfaces';
 
 export interface TravelsState extends EntityState<Travel> {
   listLoading: boolean;
