@@ -9,8 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { DeleteManyMaintenances, DeleteOneMaintenance, RequestMaintenancesPage } from '@tms/actions/maintenance.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { MaintenancesDataSource } from '@tms/data-sources';
-import { Maintenance } from '@tms/interfaces';
 import { SubheaderService } from '@tms/layout';
+import { MaintenanceModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectMaintenancesPageLastQuery } from '@tms/selectors/maintenance.selectors';
 import { fromEvent, merge, of, Subject } from 'rxjs';
@@ -34,8 +34,8 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
   filterCondition = '';
   lastQuery: QueryParamsModel;
   // Selection
-  selection = new SelectionModel<Maintenance>(true, []);
-  maintenancesResult: Maintenance[] = [];
+  selection = new SelectionModel<MaintenanceModel>(true, []);
+  maintenancesResult: MaintenanceModel[] = [];
   private ngUnsuscribe = new Subject();
 
   constructor(
@@ -146,7 +146,7 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteMaintenance(_item: Maintenance) {
+  deleteMaintenance(_item: MaintenanceModel) {
     const _title: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_TITLE');
     const _description: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_DESCRIPTION');
     const _waitDesciption: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_WAIT');
@@ -179,7 +179,7 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const idsForDeletion: number[] = [];
+      const idsForDeletion: string[] = [];
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.selection.selected.length; i++) {
         idsForDeletion.push(this.selection.selected[i].id);

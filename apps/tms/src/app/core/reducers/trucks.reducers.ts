@@ -2,18 +2,18 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
 import { TruckActions, TruckActionTypes } from '@tms/actions/truck.actions';
 import { QueryParamsModel } from '@tms/crud';
-import { Truck } from '@tms/interfaces';
+import { TruckModel } from '@tms/models';
 
-export interface TrucksState extends EntityState<Truck> {
+export interface TrucksState extends EntityState<TruckModel> {
   listLoading: boolean;
   actionsloading: boolean;
   totalCount: number;
   lastQuery: QueryParamsModel;
-  lastCreatedTruckId: number;
+  lastCreatedTruckId: string;
   showInitWaitingMessage: boolean;
 }
 
-export const adapter: EntityAdapter<Truck> = createEntityAdapter<Truck>();
+export const adapter: EntityAdapter<TruckModel> = createEntityAdapter<TruckModel>();
 
 export const initialTrucksState: TrucksState = adapter.getInitialState({
   listLoading: false,
@@ -53,7 +53,7 @@ export function trucksReducer(state = initialTrucksState, action: TruckActions):
   }
 }
 
-export const getTruckState = createFeatureSelector<Truck>('trucks');
+export const getTruckState = createFeatureSelector<TruckModel>('trucks');
 
 
 export const {

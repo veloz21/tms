@@ -9,8 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage } from '@tms/actions/travel.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TravelsDataSource } from '@tms/data-sources';
-import { Travel } from '@tms/interfaces';
 import { SubheaderService } from '@tms/layout';
+import { TravelModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTravelsPageLastQuery } from '@tms/selectors/travel.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
@@ -36,8 +36,8 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   filterCondition = '';
   lastQuery: QueryParamsModel;
   // Selection
-  selection = new SelectionModel<Travel>(true, []);
-  travelsResult: Travel[] = [];
+  selection = new SelectionModel<TravelModel>(true, []);
+  travelsResult: TravelModel[] = [];
   private subscriptions: Subscription[] = [];
   private ngUnsuscribe = new Subject();
 
@@ -173,7 +173,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteTravel(_item: Travel) {
+  deleteTravel(_item: TravelModel) {
     const _title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_TITLE');
     const _description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
     const _waitDesciption: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_WAIT');
@@ -202,7 +202,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const idsForDeletion: number[] = [];
+      const idsForDeletion: string[] = [];
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.selection.selected.length; i++) {
         idsForDeletion.push(this.selection.selected[i].id);

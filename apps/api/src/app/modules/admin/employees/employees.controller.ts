@@ -1,5 +1,8 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { GetHttpOptions } from '../../../core/decorators';
+import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
+import type { HttpOptions } from '../../../core/interfaces';
 import { JwtAuthGuard } from '../../auth';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
@@ -12,47 +15,27 @@ export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) { }
 
   @Post()
-  async create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    try {
-      return await this.employeesService.create(createEmployeeDto);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async create(@Body() createEmployeeDto: CreateEmployeeDto, @GetHttpOptions() options: HttpOptions) {
+    return await this.employeesService.create(createEmployeeDto, options);
   }
 
   @Get()
-  async findAll() {
-    try {
-      return await this.employeesService.findAll();
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async findAll(@Query() queryParams: QueryParamsDto<this>, @GetHttpOptions() options: HttpOptions) {
+    return await this.employeesService.findAll(queryParams, options);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    try {
-      return await this.employeesService.findOne(id);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
+    return await this.employeesService.findOne(id, options);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
-    try {
-      return await this.employeesService.update(id, updateEmployeeDto);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto, @GetHttpOptions() options: HttpOptions) {
+    return await this.employeesService.update(id, updateEmployeeDto, options);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    try {
-      return await this.employeesService.remove(id);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async remove(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
+    return await this.employeesService.remove(id, options);
   }
 }

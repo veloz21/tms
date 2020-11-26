@@ -13,10 +13,7 @@ export interface TiresState extends EntityState<TireModel> {
   showInitWaitingMessage: boolean;
 }
 
-export const adapter: EntityAdapter<TireModel> = createEntityAdapter<TireModel>({
-  selectId: (tire: TireModel) => tire._id + tire.id,
-  sortComparer: null,
-});
+export const adapter: EntityAdapter<TireModel> = createEntityAdapter<TireModel>();
 
 export const initialTiresState: TiresState = adapter.getInitialState({
   listLoading: false,
@@ -42,7 +39,7 @@ export function tiresReducer(state = initialTiresState, action: TireActions): Ti
     case TireActionTypes.CreateTireSuccess:
       return adapter.addOne(action.payload.tire, {
         ...state,
-        lastCreatedTireId: action.payload.tire._id
+        lastCreatedTireId: action.payload.tire.id
       });
     case TireActionTypes.UpdateTireSuccess:
       return adapter.updateOne(action.payload.partialTire, state);

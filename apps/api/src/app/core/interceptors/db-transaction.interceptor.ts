@@ -1,4 +1,4 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
+import { CallHandler, ExecutionContext, HttpException, HttpStatus, Injectable, NestInterceptor } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 import { from, Observable } from 'rxjs';
@@ -33,13 +33,15 @@ export class DbTransactionInterceptor implements NestInterceptor {
         ).pipe(mapTo(data))
       ),
       tap(() => session.inTransaction() && session.endSession()),
-      catchError(async err => {
+      catchError(async error => {
         if (session.inTransaction()) {
           await session.abortTransaction();
           session.endSession();
         }
 
-        throw err;
+        console.log(console.log(error));
+        throw error.message && error.message.length ? error :
+          new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
       })
     );
   }

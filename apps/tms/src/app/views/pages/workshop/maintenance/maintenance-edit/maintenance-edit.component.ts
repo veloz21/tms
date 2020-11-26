@@ -123,7 +123,7 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/workshop/maintenances', { relativeTo: this.activatedRoute });
   }
 
-  refreshMaintenance(isNew: boolean = false, id = 0) {
+  refreshMaintenance(isNew: boolean = false, id?: string) {
     this.loadingSubject.next(false);
     let url = this.router.url;
     if (!isNew) {
@@ -158,10 +158,8 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // tslint:disable-next-line:prefer-const
-    let editedMaintenance = this.prepareMaintenance();
-
-    if (editedMaintenance.id > 0) {
+    const editedMaintenance = this.prepareMaintenance();
+    if (!!editedMaintenance.id) {
       this.updateMaintenance(editedMaintenance, withBack);
       this.router.navigateByUrl('/workshop/maintenances', { relativeTo: this.activatedRoute });
       return;

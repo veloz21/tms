@@ -1,7 +1,6 @@
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { QueryParamsModel } from '@tms/crud';
-import { Travel } from '@tms/interfaces';
 import { TravelModel } from '@tms/models';
 
 export enum TravelActionTypes {
@@ -21,12 +20,12 @@ export enum TravelActionTypes {
 
 export class CreateTravel implements Action {
   readonly type = TravelActionTypes.CreateTravel;
-  constructor(public payload: { travel: Travel }) { }
+  constructor(public payload: { travel: TravelModel }) { }
 }
 
 export class CreateTravelSuccess implements Action {
   readonly type = TravelActionTypes.CreateTravelSuccess;
-  constructor(public payload: { travel: Travel }) { }
+  constructor(public payload: { travel: TravelModel }) { }
 }
 
 export class CreateTravelError implements Action {
@@ -47,19 +46,19 @@ export class UpdateTravel implements Action {
 export class UpdateTravelSuccess implements Action {
   readonly type = TravelActionTypes.UpdateTravelSuccess;
   constructor(public payload: {
-    partialTravel: Update<Travel>, // For State update
-    travel: Travel // For Server update (through service)
+    partialTravel: Update<TravelModel>, // For State update
+    travel: TravelModel // For Server update (through service)
   }) { }
 }
 
 export class DeleteOneTravel implements Action {
   readonly type = TravelActionTypes.DeleteOneTravel;
-  constructor(public payload: { id: number }) { }
+  constructor(public payload: { id: string }) { }
 }
 
 export class DeleteManyTravels implements Action {
   readonly type = TravelActionTypes.DeleteManyTravels;
-  constructor(public payload: { ids: number[] }) { }
+  constructor(public payload: { ids: string[] }) { }
 }
 
 export class RequestTravelsPage implements Action {
@@ -71,7 +70,7 @@ export class LoadTravelsPage implements Action {
   readonly type = TravelActionTypes.LoadTravelsPage;
   constructor(
     public payload: {
-      travel: Travel[];
+      travel: TravelModel[];
       totalCount: number;
       page: QueryParamsModel;
     }

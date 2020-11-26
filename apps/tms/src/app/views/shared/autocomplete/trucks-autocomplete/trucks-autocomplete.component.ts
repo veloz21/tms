@@ -92,11 +92,11 @@ export class TrucksAutocompleteComponent extends BaseAutocompleteComponent
   }
 
   protected shouldReloadPanel() {
-    console.log(this.haveModels, this.loading.value, this.value && (this.value.serialNumber !== '' || this.value.id > 0));
+    console.log(this.haveModels, this.loading.value, this.value && (this.value.serialNumber !== '' || !!this.value.id));
     if (
       this.haveModels ||
       this.loading.value ||
-      this.value && (this.value.serialNumber !== '' || this.value.id > 0)
+      this.value && (this.value.serialNumber !== '' || !!this.value.id)
     ) {
       return false;
     }

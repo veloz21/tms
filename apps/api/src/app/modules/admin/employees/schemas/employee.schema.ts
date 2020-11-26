@@ -23,7 +23,16 @@ export class Employee extends User implements IEmployee {
   address: string;
 
   @Prop()
+  birthDate: Date;
+
+  @Prop()
+  admissionDate: Date;
+
+  @Prop()
   secondaryCellphone: string;
+
+  @Prop()
+  status: number;
 
   @Prop(raw({
     currency: { type: String },
@@ -71,7 +80,7 @@ export class Employee extends User implements IEmployee {
   imagePath: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: mongoose.Types.ObjectId | Company;
+  company: mongoose.Types.ObjectId;
 }
 
 export const EmployeeSchema = SchemaFactory.createForClass(Employee);

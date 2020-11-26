@@ -1,65 +1,80 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { BoxModel } from '@tms/models';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpService } from './http-service';
 
 const API_BOXES_URL = environment.endpoint + 'api/workshop/boxes';
-// Real REST API
+
 @Injectable()
-export class BoxesService {
+export class BoxesService extends HttpService {
   lastFilter$: BehaviorSubject<QueryParamsModel> = new BehaviorSubject(new QueryParamsModel({}, 'asc', '', 0, 10));
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    })
+  };
 
   constructor(
     private http: HttpClient,
-    private httpUtils: HttpUtilsService) { }
+    private httpUtils: HttpUtilsService
+  ) {
+    super();
+  }
 
-  // Create
   createBox(box): Observable<BoxModel> {
-    return this.http.post<BoxModel>(API_BOXES_URL, box);
+    return this.http.post<BoxModel>(API_BOXES_URL, box, this.httpOptions).pipe(
+      catchError(this.handleError('createBox'))
+    );
   }
 
-  // READ
   getAllBoxes(): Observable<BoxModel[]> {
-    return this.http.get<BoxModel[]>(API_BOXES_URL);
+    return this.http.get<BoxModel[]>(API_BOXES_URL, this.httpOptions).pipe(
+      catchError(this.handleError('getAllBoxes'))
+    );
   }
 
-  getBoxById(boxId: number): Observable<BoxModel> {
-    return this.http.get<BoxModel>(API_BOXES_URL + `/${boxId}`);
+  getBoxById(boxId: string): Observable<BoxModel> {
+    return this.http.get<BoxModel>(API_BOXES_URL + `/${boxId}`, this.httpOptions).pipe(
+      catchError(this.handleError('getBoxById'))
+    );
   }
 
-  // Server should return filtered/sorted result
   findBoxes(queryParams: QueryParamsModel): Observable<BoxModel[]> {
-    // Note: Add headers if needed (tokens/bearer)
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_BOXES_URL;
     return this.http.get<BoxModel[]>(url, {
-      headers: httpHeaders,
+      headers: this.httpOptions.headers,
       params: httpParams
-    });
+    }).pipe(
+      catchError(this.handleError('findBoxes'))
+    );
   }
 
-  // UPDATE
   updateBox(box: BoxModel): Observable<any> {
-    // Note: Add headers if needed (tokens/bearer)
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    return this.http.put(API_BOXES_URL, box, { headers: httpHeaders });
-  }
-  // DELETE
-  deleteBox(boxId: number): Observable<BoxModel> {
-    const url = `${API_BOXES_URL}/${boxId}`;
-    return this.http.delete<BoxModel>(url);
+    return this.http.put(API_BOXES_URL, box, this.httpOptions).pipe(
+      catchError(this.handleError('updateBox'))
+    );
   }
 
-  deleteBoxes(ids: number[] = []): Observable<any> {
-    const url = API_BOXES_URL + '/delete';
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    const body = { prdocutIdsForDelete: ids };
-    return this.http.put<QueryResultsModel>(url, body, { headers: httpHeaders });
+  deleteBox(boxId: string): Observable<BoxModel> {
+    return this.http.delete<BoxModel>(`${API_BOXES_URL}/${boxId}`, this.httpOptions).pipe(
+      catchError(this.handleError('deleteBox'))
+    );
+  }
+
+  deleteBoxes(ids: string[] = []): Observable<any> {
+    const requests: Observable<BoxModel>[] = [];
+    for (let index = 0; index < ids.length; index++) {
+      requests.push(this.deleteBox(ids[index]));
+    }
+    return forkJoin(requests);
   }
 
   findQueryBoxes(value: string): Observable<BoxModel[]> {
@@ -68,11 +83,12 @@ export class BoxesService {
       'asc',
       'serialNumber',
     );
-    return this.http.get<BoxModel[]>(API_BOXES_URL).pipe(
-      mergeMap(res => {
-        const result = this.httpUtils.baseFilter(res, queryParams);
-        return of(result.items as BoxModel[]);
-      })
+    const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
+    return this.http.get<BoxModel[]>(API_BOXES_URL, {
+      headers: this.httpOptions.headers,
+      params: httpParams
+    }).pipe(
+      catchError(this.handleError('findQueryBoxes'))
     );
   }
 }

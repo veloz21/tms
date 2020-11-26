@@ -6,7 +6,7 @@ import { each } from 'lodash';
 
 export const selectTiresState = createFeatureSelector<TiresState>('tires');
 
-export const selectTireById = (tireId: number) => createSelector(
+export const selectTireById = (tireId: string) => createSelector(
   selectTiresState,
   tiresState => tiresState.entities[tireId]
 );

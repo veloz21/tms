@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Truck } from '@tms/interfaces';
 import { TruckModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTruckById } from '@tms/selectors/trucks.selectors';
@@ -10,21 +9,21 @@ import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 @Injectable()
-export class TruckResolver implements Resolve<Truck> {
+export class TruckResolver implements Resolve<TruckModel> {
   constructor(private trucksService: TrucksService, private store: Store<AppState>) { }
-  resolve(route: ActivatedRouteSnapshot): Observable<Truck> | Promise<Truck> | Truck {
-    const id = Number(route.paramMap.get('id'));
-    if (id === 0) {
+  resolve(route: ActivatedRouteSnapshot): Observable<TruckModel> | Promise<TruckModel> | TruckModel {
+    const id = String(route.paramMap.get('id'));
+    if (!id) {
       return this.getInitialTruck(id);
     }
     this.getTruckData(id);
     return this.waitForTruckDataToLoad(id);
   }
 
-  getInitialTruck(id: number) {
+  getInitialTruck(id: string) {
     return new TruckModel();
   }
-  getTruckData(id: number) {
+  getTruckData(id: string) {
     this.store.select(selectTruckById(id)).pipe(
       take(1)
     ).subscribe(truckStored => {
@@ -34,7 +33,7 @@ export class TruckResolver implements Resolve<Truck> {
     });
   }
 
-  waitForTruckDataToLoad(id: number): Observable<Truck> {
+  waitForTruckDataToLoad(id: string): Observable<TruckModel> {
     return this.store.select(selectTruckById(id)).pipe(
       filter(truck => !!truck),
       take(1)

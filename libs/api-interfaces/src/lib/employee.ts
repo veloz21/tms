@@ -1,9 +1,11 @@
 export interface IEmployee {
-  id?: string;
+  id?: any;
   firstName: string;
   lastName: string;
   cellphone: string;
   address: string;
+  birthDate: Date;
+  admissionDate: Date;
   secondaryCellphone: string;
   salary: {
     currency: string,
@@ -25,4 +27,5 @@ export interface IEmployee {
     },
   };
   imagePath: string;
+  status: number;
 }

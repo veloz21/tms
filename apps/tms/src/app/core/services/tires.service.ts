@@ -1,65 +1,81 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { TireModel } from '@tms/models';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpService } from './http-service';
 
 const API_TIRES_URL = environment.endpoint + 'api/workshop/tires';
-// Real REST API
+
 @Injectable()
-export class TiresService {
+export class TiresService extends HttpService {
   lastFilter$: BehaviorSubject<QueryParamsModel> = new BehaviorSubject(new QueryParamsModel({}, 'asc', '', 0, 10));
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    })
+  };
 
   constructor(
     private http: HttpClient,
-    private httpUtils: HttpUtilsService) { }
+    private httpUtils: HttpUtilsService
+  ) {
+    super();
+  }
 
-  // Create
   createTire(tire): Observable<TireModel> {
-    return this.http.post<TireModel>(API_TIRES_URL, tire);
+    return this.http.post<TireModel>(API_TIRES_URL, tire, this.httpOptions).pipe(
+      catchError(this.handleError('createTire'))
+    );
   }
 
-  // READ
   getAllTires(): Observable<TireModel[]> {
-    return this.http.get<TireModel[]>(API_TIRES_URL);
+    return this.http.get<TireModel[]>(API_TIRES_URL, this.httpOptions).pipe(
+      catchError(this.handleError('getAllTires'))
+    );
   }
 
-  getTireById(tireId: number): Observable<TireModel> {
-    return this.http.get<TireModel>(API_TIRES_URL + `/${tireId}`);
+  getTireById(tireId: string): Observable<TireModel> {
+    return this.http.get<TireModel>(API_TIRES_URL + `/${tireId}`, this.httpOptions).pipe(
+      catchError(this.handleError('getTireById'))
+    );
   }
 
-  // Server should return filtered/sorted result
   findTires(queryParams: QueryParamsModel): Observable<TireModel[]> {
-    // Note: Add headers if needed (tokens/bearer)
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_TIRES_URL;
     return this.http.get<TireModel[]>(url, {
-      headers: httpHeaders,
+      headers: this.httpOptions.headers,
       params: httpParams
-    });
+    }).pipe(
+      catchError(this.handleError('findTires'))
+    );
   }
 
-  // UPDATE
   updateTire(tire: TireModel): Observable<any> {
-    // Note: Add headers if needed (tokens/bearer)
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    return this.http.put(API_TIRES_URL, tire, { headers: httpHeaders });
+    return this.http.put(API_TIRES_URL, tire, this.httpOptions).pipe(
+      catchError(this.handleError('updateTire'))
+    );
   }
-  // DELETE
+
   deleteTire(tireId: string): Observable<TireModel> {
     const url = `${API_TIRES_URL}/${tireId}`;
-    return this.http.delete<TireModel>(url);
+    return this.http.delete<TireModel>(url, this.httpOptions).pipe(
+      catchError(this.handleError('deleteTire'))
+    );
   }
 
-  deleteTires(ids: number[] = []): Observable<any> {
-    const url = API_TIRES_URL + '/delete';
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    const body = { prdocutIdsForDelete: ids };
-    return this.http.put<QueryResultsModel>(url, body, { headers: httpHeaders });
+  deleteTires(ids: string[] = []): Observable<any> {
+    const requests: Observable<TireModel>[] = [];
+    for (let index = 0; index < ids.length; index++) {
+      requests.push(this.deleteTire(ids[index]));
+    }
+    return forkJoin(requests);
   }
 
   public findQueryTires(value: string): Observable<TireModel[]> {
@@ -68,11 +84,12 @@ export class TiresService {
       'asc',
       'serialNumber',
     );
-    return this.http.get<TireModel[]>(API_TIRES_URL).pipe(
-      mergeMap(res => {
-        const result = this.httpUtils.baseFilter(res, queryParams);
-        return of(result.items as TireModel[]);
-      })
+    const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
+    return this.http.get<TireModel[]>(API_TIRES_URL, {
+      headers: this.httpOptions.headers,
+      params: httpParams
+    }).pipe(
+      catchError(this.handleError('findQueryTires'))
     );
   }
 }

@@ -34,7 +34,7 @@ export class Maintenance implements IMaintenance {
   };
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: mongoose.Types.ObjectId | Company;
+  company: mongoose.Types.ObjectId;
 }
 
 export const MaintenanceSchema = SchemaFactory.createForClass(Maintenance);

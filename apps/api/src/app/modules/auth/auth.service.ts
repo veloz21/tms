@@ -43,25 +43,25 @@ export class AuthService {
     const updatedUser = await this.usersService.partialUpdate(user.id, {
       lastLogin: new Date(),
       refreshToken,
-    });
+    }, { company: user.company });
 
     return { accessToken, refreshToken };
   }
 
-  async logout(userId: string) {
+  async logout(userId: string, company) {
 
-    const user = await this.usersService.findOne(userId);
+    const user = await this.usersService.findOne(userId, { company });
     if (user) {
       const updatedUser = await this.usersService.partialUpdate(user.id, {
         refreshToken: null,
-      });
+      }, { company: user.company });
     }
 
     return;
   }
 
   async generateRecoverToken(user: UserDocument) {
-    return this.jwtService.sign({ email: user.email, sub: user.id }, { expiresIn: '24h', secret: environment.RECOVER_TOKEN_SECRET });
+    return this.jwtService.sign({ email: user.email, sub: user.id, company: user.company }, { expiresIn: '24h', secret: environment.RECOVER_TOKEN_SECRET });
   }
 
   async validateRecoverToken(token: string) {

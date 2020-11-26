@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Travel } from '@tms/interfaces';
 import { TravelModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTravelById } from '@tms/selectors/travel.selectors';
@@ -10,21 +9,21 @@ import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 @Injectable()
-export class TravelResolver implements Resolve<Travel> {
+export class TravelResolver implements Resolve<TravelModel> {
   constructor(private travelsService: TravelsService, private store: Store<AppState>) { }
-  resolve(route: ActivatedRouteSnapshot): Observable<Travel> | Promise<Travel> | Travel {
-    const id = Number(route.paramMap.get('id'));
-    if (id === 0) {
+  resolve(route: ActivatedRouteSnapshot): Observable<TravelModel> | Promise<TravelModel> | TravelModel {
+    const id = String(route.paramMap.get('id'));
+    if (!id) {
       return this.getInitialTravel(id);
     }
     this.getTravelData(id);
     return this.waitForTravelDataToLoad(id);
   }
 
-  getInitialTravel(id: number) {
+  getInitialTravel(id: string) {
     return new TravelModel();
   }
-  getTravelData(id: number) {
+  getTravelData(id: string) {
     this.store.select(selectTravelById(id)).pipe(
       take(1)
     ).subscribe(travelStored => {
@@ -34,7 +33,7 @@ export class TravelResolver implements Resolve<Travel> {
     });
   }
 
-  waitForTravelDataToLoad(id: number): Observable<Travel> {
+  waitForTravelDataToLoad(id: string): Observable<TravelModel> {
     return this.store.select(selectTravelById(id)).pipe(
       filter(travel => !!travel),
       take(1)

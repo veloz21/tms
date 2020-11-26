@@ -4,7 +4,6 @@ export class TruckTable {
   public static trucks: any[] = [
     {
       id: 1,
-      company: 'Galmex',
       truckModel: '123V123',
       brand: 'Volvo',
       serialNumber: '123',
@@ -19,7 +18,6 @@ export class TruckTable {
     },
     {
       id: 2,
-      company: 'Galmex',
       truckModel: '123',
       brand: 'Volvo',
       serialNumber: '12309870',

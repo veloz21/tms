@@ -2,20 +2,18 @@ import { createEntityAdapter, EntityAdapter, EntityState, Update } from '@ngrx/e
 import { createFeatureSelector } from '@ngrx/store';
 import { EmployeeActions, EmployeeActionTypes } from '@tms/actions/employee.actions';
 import { QueryParamsModel } from '@tms/crud';
-import { Employee } from '@tms/interfaces';
+import { EmployeeModel } from '@tms/models';
 
-export interface EmployeesState extends EntityState<Employee> {
+export interface EmployeesState extends EntityState<EmployeeModel> {
   listLoading: boolean;
   actionsloading: boolean;
   totalCount: number;
   lastQuery: QueryParamsModel;
-  lastCreatedEmployeeId: number;
+  lastCreatedEmployeeId: string;
   showInitWaitingMessage: boolean;
 }
 
-export const adapter: EntityAdapter<Employee> = createEntityAdapter<
-  Employee
->();
+export const adapter: EntityAdapter<EmployeeModel> = createEntityAdapter<EmployeeModel>();
 
 export const initialEmployeesState: EmployeesState = adapter.getInitialState({
   listLoading: false,
@@ -48,7 +46,7 @@ export function employeesReducer(
         lastCreatedEmployeeId: action.payload.employee.id,
       });
     case EmployeeActionTypes.EmployeesStatusUpdated: {
-      const _partialEmployees: Update<Employee>[] = [];
+      const _partialEmployees: Update<EmployeeModel>[] = [];
       for (let i = 0; i < action.payload.employees.length; i++) {
         _partialEmployees.push({
           id: action.payload.employees[i].id,
@@ -82,9 +80,7 @@ export function employeesReducer(
   }
 }
 
-export const getEmployeeState = createFeatureSelector<Employee>(
-  'employees'
-);
+export const getEmployeeState = createFeatureSelector<EmployeeModel>('employees');
 
 export const {
   selectAll,

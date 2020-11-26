@@ -8,11 +8,10 @@ export class MaintenanceTable {
       companny: 'Galmex',
       truck: new TruckModel({
         id: 2,
-        company: 'Galmex',
         truckModel: '123',
         brand: 'Volvo',
         serialNumber: '12309870',
-        motorNumber: 124650000,
+        motorNumber: '124650000',
         maintenancePeriod: '10',
         initialRange: 1230,
         rangeTraveled: 200,
@@ -24,7 +23,6 @@ export class MaintenanceTable {
       box: new BoxModel(),
       mechanic: new EmployeeModel({
         id: 1,
-        company: 'Galmex',
         firstName: 'Ernesto',
         lastName: 'Lozano',
         cellphone: '4493134435',

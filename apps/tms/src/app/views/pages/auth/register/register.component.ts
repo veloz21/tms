@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ICompany, IUser } from '@bits404/api-interfaces';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AppState } from '@tms/reducers';
 import { Subject } from 'rxjs';
-import { finalize, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService, AuthNoticeService } from '../../../../core/auth/';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 
@@ -18,6 +18,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   loading = false;
   errors: any = [];
+
+  get userForm() {
+    return this.registerForm.get('user') as FormGroup;
+  }
+
+  get companyForm() {
+    return this.registerForm.get('company') as FormGroup;
+  }
 
   private unsubscribe: Subject<any>;
   constructor(
@@ -34,6 +42,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initRegisterForm();
+    console.log('userForm', this.userForm);
   }
 
   ngOnDestroy(): void {
@@ -44,35 +53,35 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   initRegisterForm() {
     this.registerForm = this.fb.group({
-      email: ['', Validators.compose([
-        Validators.required,
-        Validators.email,
-        Validators.minLength(3),
-        // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
-        Validators.maxLength(320)
-      ]),
-      ],
-      username: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(100)
-      ]),
-      ],
-      password: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(100)
-      ])
-      ],
-      confirmPassword: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(100)
-      ])
-      ],
-      agree: [false, Validators.compose([Validators.required])]
-    }, {
-      validator: ConfirmPasswordValidator.MatchPassword
+      company: this.fb.group({
+        name: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100)
+        ])],
+      }),
+      user: this.fb.group({
+        email: ['', Validators.compose([
+          Validators.required,
+          Validators.email,
+          Validators.minLength(3),
+          // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+          Validators.maxLength(320)
+        ])],
+        password: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100)
+        ])],
+        confirmPassword: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100)
+        ])],
+        agree: [false, Validators.compose([Validators.required])]
+      }, {
+        validator: ConfirmPasswordValidator.MatchPassword
+      })
     });
   }
 
@@ -81,45 +90,48 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     // check form
     if (this.registerForm.invalid) {
-      Object.keys(controls).forEach(controlName =>
-        controls[controlName].markAsTouched()
-      );
+      this.registerForm.markAllAsTouched();
       return;
     }
 
-    this.loading = true;
-
-    if (!controls.agree.value) {
+    if (!this.userForm.get('agree').value) {
       // you must agree the terms and condition
       // checkbox cannot work inside mat-form-field https://github.com/angular/material2/issues/7891
       this.authNoticeService.setNotice('You must agree the terms and condition', 'danger');
       return;
     }
 
-    const _company = {
-      name: controls.username.value,
-      email: controls.email.value,
-      password: controls.password.value
-    };
-    this.auth.register(_company.name, _company.email, _company.password).pipe(
-      tap(company => {
-        if (company) {
-          this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.SUCCESS'), 'success');
-          this.router.navigateByUrl('/auth/login');
-        } else {
-          this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
-        }
-      }),
-      takeUntil(this.unsubscribe),
-      finalize(() => {
-        this.loading = false;
-        this.cdr.markForCheck();
-      })
-    ).subscribe();
+    this.loading = true;
+
+    const company = this.prepareCompany();
+    const user = this.prepareUser();
+
+    this.auth.register(company, user).subscribe(() => {
+      this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.SUCCESS'), 'success');
+      this.router.navigateByUrl('/auth/login');
+    }, error => {
+      this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
+    }, () => {
+      this.loading = false;
+      this.cdr.markForCheck();
+    });
   }
 
-  isControlHasError(controlName: string, validationType: string): boolean {
-    const control = this.registerForm.controls[controlName];
+  prepareCompany(): ICompany {
+    return {
+      name: this.companyForm.get('name').value,
+    };
+  }
+
+  prepareUser(): Partial<IUser> {
+    return {
+      email: this.userForm.get('email').value,
+      password: this.userForm.get('password').value,
+    }
+  }
+
+  isControlHasError(formGroup: FormGroup, controlName: string, validationType: string): boolean {
+    const control = formGroup.get(controlName);
     if (!control) {
       return false;
     }

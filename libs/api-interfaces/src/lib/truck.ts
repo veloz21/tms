@@ -12,5 +12,6 @@ export interface ITruck {
   circulationCard: string;
   airbag: string;
   dock: string;
+  status: number;
   tires: ITire[];
 }

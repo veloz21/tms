@@ -1,5 +1,8 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { GetHttpOptions } from '../../../core/decorators';
+import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
+import type { HttpOptions } from '../../../core/interfaces';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -12,47 +15,27 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    try {
-      return await this.usersService.create(createUserDto);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async create(@Body() createUserDto: CreateUserDto, @GetHttpOptions() options: HttpOptions) {
+    return await this.usersService.create(createUserDto, options);
   }
 
   @Get()
-  async findAll() {
-    try {
-      return await this.usersService.findAll();
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async findAll(@Query() queryParams: QueryParamsDto<this>, @GetHttpOptions() options: HttpOptions) {
+    return await this.usersService.findAll(queryParams, options);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    try {
-      return await this.usersService.findOne(id);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
+    return await this.usersService.findOne(id, options);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    try {
-      return await this.usersService.update(id, updateUserDto);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @GetHttpOptions() options: HttpOptions) {
+    return await this.usersService.update(id, updateUserDto, options);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    try {
-      return await this.usersService.remove(id);
-    } catch (error) {
-      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    }
+  async remove(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
+    return await this.usersService.remove(id, options);
   }
 }

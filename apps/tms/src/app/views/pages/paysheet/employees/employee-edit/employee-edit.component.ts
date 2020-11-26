@@ -7,7 +7,6 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { CreateEmployee, UpdateEmployee } from '@tms/actions/employee.actions';
 import { AVIABILITY_STATUS } from '@tms/enums';
-import { Employee } from '@tms/interfaces';
 import { SubheaderService } from '@tms/layout';
 import { EmployeeModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
@@ -48,7 +47,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.employee = this.activatedRoute.snapshot.data.employee as Employee;
+    this.employee = this.activatedRoute.snapshot.data.employee as EmployeeModel;
     this.activatedRoute.data.pipe(
       takeUntil(this.ngUnsuscribe)
     ).subscribe(data => {
@@ -124,7 +123,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/paysheet/employees', { relativeTo: this.activatedRoute });
   }
 
-  refreshEmployee(isNew: boolean = false, id = 0) {
+  refreshEmployee(isNew: boolean = false, id?: string) {
     this.loadingSubject.next(false);
     let url = this.router.url;
     if (!isNew) {
@@ -156,9 +155,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     }
 
     const editedEmployee = this.prepareEmployee();
-    console.log(editedEmployee);
-
-    if (editedEmployee.id > 0) {
+    if (!!editedEmployee.id) {
       this.updateEmployee(editedEmployee, withBack);
       this.router.navigateByUrl('/paysheet/employees', { relativeTo: this.activatedRoute });
       return;
@@ -167,7 +164,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.addEmployee(editedEmployee, withBack);
   }
 
-  prepareEmployee(): Employee {
+  prepareEmployee(): EmployeeModel {
     console.log(this.employeeForm.get('licenseType').value);
     console.log(this.employeeForm.get('licensedueDate').value);
     console.log(this.employeeForm.get('licenseAttchment').value);

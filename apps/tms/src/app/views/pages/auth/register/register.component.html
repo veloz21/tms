@@ -1,97 +1,106 @@
 <!--begin::Body-->
 <div class="b404-login__body">
-	<!--begin::Signin-->
-	<div class="b404-login__form">
-		<div class="b404-login__title">
-			<h3>{{ 'AUTH.REGISTER.TITLE' | translate }}</h3>
-		</div>
+  <!--begin::Signin-->
+  <div class="b404-login__form">
+    <div class="b404-login__title">
+      <h3>{{ 'AUTH.REGISTER.TITLE' | translate }}</h3>
+    </div>
 
-		<b404-auth-notice></b404-auth-notice>
+    <b404-auth-notice></b404-auth-notice>
 
-		<form class="b404-login__form b404-form" [formGroup]="registerForm" autocomplete="off">
-			
-			<div class="form-group">
-				<mat-form-field>
-					<mat-label>{{'AUTH.INPUT.USERNAME'| translate}}</mat-label>
-					<input matInput type="text" placeholder="{{'AUTH.INPUT.USERNAME'| translate}}" formControlName="username"/>
-					<mat-error *ngIf="isControlHasError('username','required')">
-						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('username','minlength')">
-						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('username','maxlength')">
-						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
-					</mat-error>
-				</mat-form-field>
-			</div>
-			<div class="form-group">
-				<mat-form-field>
-					<mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>
-					<input matInput type="email" placeholder="{{ 'AUTH.INPUT.EMAIL' | translate }}" formControlName="email" autocomplete="off"/>
-					<mat-error *ngIf="isControlHasError('email','required')">
-						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('email','email')">
-						<strong>{{ 'AUTH.VALIDATION.INVALID_FIELD' | translate }}</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('email','minlength')">
-						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('email','maxlength')">
-						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 320</strong>
-					</mat-error>
-				</mat-form-field>
-			</div>
-			
-			<div class="form-group">
-				<mat-form-field>
-					<mat-label>{{ 'AUTH.INPUT.PASSWORD' | translate }}</mat-label>
-					<input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}" formControlName="password" autocomplete="off"/>
-					<mat-error *ngIf="isControlHasError('password','required')">
-						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('password','minlength')">
-						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('password','maxlength')">
-						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
-					</mat-error>
-				</mat-form-field>
-			</div>
-			<div class="form-group">
-				<mat-form-field>
-					<mat-label>{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | translate }}</mat-label>
-					<input matInput type="password" placeholder="{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | translate }}" formControlName="confirmPassword" autocomplete="off"/>
-					<mat-error *ngIf="isControlHasError('confirmPassword','required')">
-						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('confirmPassword','minlength')">
-						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
-					</mat-error>
-					<mat-error *ngIf="isControlHasError('confirmPassword','maxlength')">
-						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
-					</mat-error>
-					<mat-error *ngIf="registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').errors.ConfirmPassword">
-						<strong>Passsword and ConfirmPassword didn't match.</strong>
-					</mat-error>
-				</mat-form-field>
-			</div>
-			<div class="form-group">
-				<mat-checkbox name="agree" formControlName="agree">
-					{{'AUTH.REGISTER.AGREE'| translate}} <a href="javascript:;">{{'AUTH.REGISTER.TERMS_CONDITIONS'| translate}}</a>
-				</mat-checkbox>
-			</div>
+    <form class="b404-login__form b404-form" [formGroup]="registerForm" autocomplete="off">
 
-			<!--begin::Action-->
-			<div class="b404-login__actions">
-				<a href="javascript:;" routerLink="/auth/forgot-password" class="b404-link b404-login__link-forgot">
-					{{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
-				</a>
-				<button routerLink="/auth/login" [disabled]="loading" id="kt_login_signup_cancel" class="btn btn-secondary btn-elevate b404-login__btn-secondary">{{ 'AUTH.GENERAL.BACK_BUTTON' | translate }}</button>
-				<button (click)="submit()" id="kt_login_signin_submit" class="btn btn-primary btn-elevate b404-login__btn-primary" [ngClass]="{'b404-spinner b404-spinner--right b404-spinner--md b404-spinner--light': loading}">{{ 'AUTH.GENERAL.SUBMIT_BUTTON' | translate }}</button>
-			</div>
-			<!--end::Action-->
-		</form>
-	</div>
+      <div class="form-group" formGroupName="company">
+        <mat-form-field>
+          <mat-label>{{'AUTH.INPUT.COMPANY'| translate}}</mat-label>
+          <input matInput type="text" placeholder="{{'AUTH.INPUT.COMPANY'| translate}}" formControlName="name" />
+          <mat-error *ngIf="isControlHasError(companyForm, 'username','required')">
+            <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError(companyForm, 'username','minlength')">
+            <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+          </mat-error>
+          <mat-error *ngIf="isControlHasError(companyForm, 'username','maxlength')">
+            <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <ng-container formGroupName="user">
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>{{ 'AUTH.INPUT.EMAIL' | translate }}</mat-label>
+            <input matInput type="email" placeholder="{{ 'AUTH.INPUT.EMAIL' | translate }}" formControlName="email"
+              autocomplete="off" />
+            <mat-error *ngIf="isControlHasError(userForm, 'email','required')">
+              <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+            </mat-error>
+            <mat-error *ngIf="isControlHasError(userForm, 'email','email')">
+              <strong>{{ 'AUTH.VALIDATION.INVALID_FIELD' | translate }}</strong>
+            </mat-error>
+            <mat-error *ngIf="isControlHasError(userForm, 'email','minlength')">
+              <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+            </mat-error>
+            <mat-error *ngIf="isControlHasError(userForm, 'email','maxlength')">
+              <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 320</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>{{ 'AUTH.INPUT.PASSWORD' | translate }}</mat-label>
+            <input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}"
+              formControlName="password" autocomplete="off" />
+            <mat-error *ngIf="isControlHasError(userForm, 'password','required')">
+              <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+            </mat-error>
+            <mat-error *ngIf="isControlHasError(userForm, 'password','minlength')">
+              <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+            </mat-error>
+            <mat-error *ngIf="isControlHasError(userForm, 'password','maxlength')">
+              <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | translate }}</mat-label>
+            <input matInput type="password" placeholder="{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | translate }}"
+              formControlName="confirmPassword" autocomplete="off" />
+            <mat-error *ngIf="isControlHasError(userForm, 'confirmPassword','required')">
+              <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+            </mat-error>
+            <mat-error *ngIf="isControlHasError(userForm, 'confirmPassword','minlength')">
+              <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+            </mat-error>
+            <mat-error *ngIf="isControlHasError(userForm, 'confirmPassword','maxlength')">
+              <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="userForm.get('confirmPassword').errors && userForm.get('confirmPassword').errors.ConfirmPassword">
+              <strong>Passsword and ConfirmPassword didn't match.</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-checkbox name="agree" formControlName="agree">
+            {{'AUTH.REGISTER.AGREE'| translate}} <a
+              href="javascript:;">{{'AUTH.REGISTER.TERMS_CONDITIONS'| translate}}</a>
+          </mat-checkbox>
+        </div>
+      </ng-container>
+
+      <!--begin::Action-->
+      <div class="b404-login__actions">
+        <a href="javascript:;" routerLink="/auth/forgot-password" class="b404-link b404-login__link-forgot">
+          {{ 'AUTH.GENERAL.FORGOT_BUTTON' | translate }}
+        </a>
+        <button routerLink="/auth/login" [disabled]="loading" id="kt_login_signup_cancel"
+          class="btn btn-secondary btn-elevate b404-login__btn-secondary">{{ 'AUTH.GENERAL.BACK_BUTTON' | translate }}</button>
+        <button (click)="submit()" id="kt_login_signin_submit"
+          class="btn btn-primary btn-elevate b404-login__btn-primary"
+          [ngClass]="{'b404-spinner b404-spinner--right b404-spinner--md b404-spinner--light': loading}">{{ 'AUTH.GENERAL.SUBMIT_BUTTON' | translate }}</button>
+      </div>
+      <!--end::Action-->
+    </form>
+  </div>
 </div>

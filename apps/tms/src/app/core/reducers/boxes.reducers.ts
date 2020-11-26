@@ -9,7 +9,7 @@ export interface BoxesState extends EntityState<BoxModel> {
   actionsloading: boolean;
   totalCount: number;
   lastQuery: QueryParamsModel;
-  lastCreatedBoxId: number;
+  lastCreatedBoxId: string;
   showInitWaitingMessage: boolean;
 }
 

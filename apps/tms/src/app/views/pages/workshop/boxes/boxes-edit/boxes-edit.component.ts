@@ -143,7 +143,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  refreshBox(isNew: boolean = false, id = 0) {
+  refreshBox(isNew: boolean = false, id?: string) {
     this.loadingSubject.next(false);
     let url = this.router.url;
     if (!isNew) {
@@ -182,10 +182,8 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // tslint:disable-next-line:prefer-const
-    let editedBox = this.prepareBox();
-
-    if (editedBox.id > 0) {
+    const editedBox = this.prepareBox();
+    if (!!editedBox.id) {
       this.updateBox(editedBox, withBack);
       return;
     }

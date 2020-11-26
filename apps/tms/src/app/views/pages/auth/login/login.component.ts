@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IUser } from '@bits404/api-interfaces';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AppState } from '@tms/reducers';
 import { Observable, Subject } from 'rxjs';
-import { finalize, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService, AuthNoticeService, Login } from '../../../../core/auth';
 
 /**
@@ -80,41 +80,33 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    const controls = this.loginForm.controls;
-    /** check form */
+
     if (this.loginForm.invalid) {
-      Object.keys(controls).forEach(controlName =>
-        controls[controlName].markAsTouched()
-      );
+      this.loginForm.markAllAsTouched();
       return;
     }
 
     this.loading = true;
 
-    const authData = {
-      company: 'galmex',
-      email: controls.email.value,
-      password: controls.password.value,
-    };
-    this.auth
-      .login(authData.company, authData.email, authData.password,)
-      .pipe(
-        tap(user => {
-          if (user) {
-            this.store.dispatch(new Login({ Success: 'Yes' }));
-            console.log(user);
-            this.router.navigateByUrl(this.returnUrl);
-          } else {
-            this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
-          }
-        }),
-        takeUntil(this.unsubscribe),
-        finalize(() => {
-          this.loading = false;
-          this.cdr.markForCheck();
-        })
-      )
-      .subscribe();
+    const user = this.prepareUser();
+
+    this.auth.login(user).subscribe(() => {
+      this.store.dispatch(new Login({ Success: 'Yes' }));
+      console.log(user);
+      this.router.navigateByUrl(this.returnUrl);
+    }, error => {
+      this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
+    }, () => {
+      this.loading = false;
+      this.cdr.markForCheck();
+    });
+  }
+
+  prepareUser(): Partial<IUser> {
+    return {
+      email: this.loginForm.get('email').value,
+      password: this.loginForm.get('password').value,
+    }
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {

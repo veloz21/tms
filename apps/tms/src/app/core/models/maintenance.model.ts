@@ -1,11 +1,10 @@
-import { Box, Employee, Maintenance, Truck } from '@tms/interfaces';
+import { IBox, IEmployee, IMaintenance, ITruck } from '@bits404/api-interfaces';
 
-export class MaintenanceModel implements Maintenance {
-  id: number;
-  companny: string;
-  truck: Truck;
-  box: Box;
-  mechanic: Employee;
+export class MaintenanceModel implements IMaintenance {
+  id: string;
+  truck: Partial<ITruck>;
+  box: Partial<IBox>;
+  mechanic: Partial<IEmployee>;
   reasons: string;
   comments: string;
   times: {
@@ -13,7 +12,7 @@ export class MaintenanceModel implements Maintenance {
     end: Date
   };
 
-  constructor(maintenance?: Partial<Maintenance>) {
+  constructor(maintenance?: Partial<IMaintenance>) {
     this.truck = maintenance && maintenance.truck || null;
     this.box = maintenance && maintenance.box || null;
     this.mechanic = maintenance && maintenance.mechanic || null;

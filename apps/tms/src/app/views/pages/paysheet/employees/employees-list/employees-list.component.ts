@@ -189,7 +189,7 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const idsForDeletion: number[] = [];
+      const idsForDeletion: string[] = [];
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.selection.selected.length; i++) {
         idsForDeletion.push(this.selection.selected[i].id);

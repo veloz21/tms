@@ -111,7 +111,7 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/workshop/trucks', { relativeTo: this.activatedRoute });
   }
 
-  refreshTruck(isNew: boolean = false, id = 0) {
+  refreshTruck(isNew: boolean = false, id?: string) {
     this.loadingSubject.next(false);
     let url = this.router.url;
     if (!isNew) {
@@ -146,10 +146,8 @@ export class TruckEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // tslint:disable-next-line:prefer-const
-    let editedTruck = this.prepareTruck();
-
-    if (editedTruck.id > 0) {
+    const editedTruck = this.prepareTruck();
+    if (!!editedTruck.id) {
       this.updateTruck(editedTruck, withBack);
       this.router.navigateByUrl('/workshop/trucks', { relativeTo: this.activatedRoute });
       return;

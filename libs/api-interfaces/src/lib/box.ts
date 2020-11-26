@@ -7,5 +7,6 @@ export interface IBox {
   rangeTraveled: number;
   serialNumber: string;
   brand: string;
-  tires: ITire[]
+  status: number;
+  tires: ITire[];
 }

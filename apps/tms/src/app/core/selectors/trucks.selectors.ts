@@ -1,12 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { HttpExtenstionsModel, QueryResultsModel } from '@tms/crud';
-import { Truck } from '@tms/interfaces';
+import { TruckModel } from '@tms/models';
 import { TrucksState } from '@tms/reducers';
 import { each } from 'lodash';
 
 export const selectTruckState = createFeatureSelector<TrucksState>('trucks');
 
-export const selectTruckById = (truckId: number) =>
+export const selectTruckById = (truckId: string) =>
   createSelector(
     selectTruckState,
     (trucksState) => trucksState.entities[truckId]
@@ -40,12 +40,12 @@ export const selectTrucksInitWaitingMessage = createSelector(
 export const selectTrucksInStore = createSelector(
   selectTruckState,
   (trucksState) => {
-    const items: Truck[] = [];
+    const items: TruckModel[] = [];
     each(trucksState.entities, (element) => {
       items.push(element);
     });
     const httpExtension = new HttpExtenstionsModel();
-    const result: Truck[] = httpExtension.sortArray(
+    const result: TruckModel[] = httpExtension.sortArray(
       items,
       trucksState.lastQuery.sortField,
       trucksState.lastQuery.sortOrder

@@ -1,7 +1,6 @@
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { QueryParamsModel } from '@tms/crud';
-import { Maintenance } from '@tms/interfaces';
 import { MaintenanceModel } from '@tms/models';
 
 export enum MaintenanceActionTypes {
@@ -21,12 +20,12 @@ export enum MaintenanceActionTypes {
 
 export class CreateMaintenance implements Action {
   readonly type = MaintenanceActionTypes.CreateMaintenance;
-  constructor(public payload: { maintenance: Maintenance }) { }
+  constructor(public payload: { maintenance: MaintenanceModel }) { }
 }
 
 export class CreateMaintenanceSuccess implements Action {
   readonly type = MaintenanceActionTypes.CreateMaintenanceSuccess;
-  constructor(public payload: { maintenance: Maintenance }) { }
+  constructor(public payload: { maintenance: MaintenanceModel }) { }
 }
 
 export class CreateMaintenanceError implements Action {
@@ -52,12 +51,12 @@ export class UpdateMaintenanceSuccess implements Action {
 
 export class DeleteOneMaintenance implements Action {
   readonly type = MaintenanceActionTypes.DeleteOneMaintenance;
-  constructor(public payload: { id: number }) { }
+  constructor(public payload: { id: string }) { }
 }
 
 export class DeleteManyMaintenances implements Action {
   readonly type = MaintenanceActionTypes.DeleteManyMaintenances;
-  constructor(public payload: { ids: number[] }) { }
+  constructor(public payload: { ids: string[] }) { }
 }
 
 export class RequestMaintenancesPage implements Action {
@@ -67,7 +66,7 @@ export class RequestMaintenancesPage implements Action {
 
 export class LoadMaintenancesPage implements Action {
   readonly type = MaintenanceActionTypes.LoadMaintenancesPage;
-  constructor(public payload: { maintenance: Maintenance[], totalCount: number, page: QueryParamsModel }) { }
+  constructor(public payload: { maintenance: MaintenanceModel[], totalCount: number, page: QueryParamsModel }) { }
 }
 
 export class CancelMaintenancesPage implements Action {
