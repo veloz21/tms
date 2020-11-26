@@ -1,9 +1,13 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { DbTransactionInterceptor } from '../../../core/interceptors';
+import { JwtAuthGuard } from '../../auth';
 import { BoxesService } from './boxes.service';
 import { CreateBoxDto } from './dto/create-box.dto';
 import { UpdateBoxDto } from './dto/update-box.dto';
 
 @Controller('')
+@UseGuards(JwtAuthGuard)
+@UseInterceptors(DbTransactionInterceptor)
 export class BoxesController {
   constructor(private readonly boxesService: BoxesService) { }
 

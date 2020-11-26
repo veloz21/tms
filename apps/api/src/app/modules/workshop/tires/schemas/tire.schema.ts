@@ -16,7 +16,7 @@ export class Tire implements ITire {
   rangeTraveled: number;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: Company;
+  company: mongoose.Types.ObjectId | Company;
 }
 
 export const TireSchema = SchemaFactory.createForClass(Tire);
@@ -29,5 +29,6 @@ TireSchema.set('toJSON', {
   transform: function (doc, el) {
     el.id = el._id;
     delete el._id;
+    delete el.company;
   }
 });

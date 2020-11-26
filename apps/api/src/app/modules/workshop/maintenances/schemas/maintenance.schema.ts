@@ -34,7 +34,7 @@ export class Maintenance implements IMaintenance {
   };
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: Company;
+  company: mongoose.Types.ObjectId | Company;
 }
 
 export const MaintenanceSchema = SchemaFactory.createForClass(Maintenance);
@@ -45,5 +45,6 @@ MaintenanceSchema.set('toJSON', {
   transform: function (doc, el) {
     el.id = el._id;
     delete el._id;
+    delete el.company;
   }
 });

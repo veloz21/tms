@@ -48,7 +48,7 @@ export class Travel implements ITravel {
   comments: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: Company;
+  company: mongoose.Types.ObjectId | Company;
 }
 
 export const TravelSchema = SchemaFactory.createForClass(Travel);
@@ -59,5 +59,6 @@ BoxSchema.set('toJSON', {
   transform: function (doc, el) {
     el.id = el._id;
     delete el._id;
+    delete el.company;
   }
 });

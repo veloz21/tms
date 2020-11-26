@@ -71,7 +71,7 @@ export class Employee extends User implements IEmployee {
   imagePath: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: Company;
+  company: mongoose.Types.ObjectId | Company;
 }
 
 export const EmployeeSchema = SchemaFactory.createForClass(Employee);
@@ -84,5 +84,6 @@ EmployeeSchema.set('toJSON', {
   transform: function (doc, el) {
     el.id = el._id;
     delete el._id;
+    delete el.company;
   }
 });

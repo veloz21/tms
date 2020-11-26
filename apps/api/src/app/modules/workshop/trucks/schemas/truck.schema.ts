@@ -43,7 +43,7 @@ export class Truck implements ITruck {
   tires: Tire[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: Company;
+  company: mongoose.Types.ObjectId | Company;
 }
 
 
@@ -55,5 +55,6 @@ TruckSchema.set('toJSON', {
   transform: function (doc, el) {
     el.id = el._id;
     delete el._id;
+    delete el.company;
   }
 });

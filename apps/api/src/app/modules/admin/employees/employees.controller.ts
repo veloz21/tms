@@ -1,9 +1,13 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { DbTransactionInterceptor } from '../../../core/interceptors';
+import { JwtAuthGuard } from '../../auth';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { EmployeesService } from './employees.service';
 
 @Controller('employees')
+@UseGuards(JwtAuthGuard)
+@UseInterceptors(DbTransactionInterceptor)
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) { }
 

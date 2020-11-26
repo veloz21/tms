@@ -20,7 +20,7 @@ import { TrucksModule } from './trucks/trucks.module';
 export class WorkshopModule {
   // configure(consumer: MiddlewareConsumer) {
   //   consumer
-  //     .apply(CompanyMiddleware)
+  //     .apply(ValidateCompanyMiddleware)
   //     .forRoutes({ path: '/**', method: RequestMethod.ALL });
   // }
 }

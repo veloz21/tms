@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { HttpOptions } from '../../../core/interfaces';
 import { CreateTireDto } from './dto/create-tire.dto';
 import { UpdateTireDto } from './dto/update-tire.dto';
 import { Tire, TireDocument } from './schemas/tire.schema';
@@ -12,23 +13,26 @@ export class TiresService {
     @InjectModel(Tire.name) private readonly tireModel: Model<TireDocument>,
   ) { }
 
-  create(createTireDto: CreateTireDto): Promise<TireDocument> {
-    return new this.tireModel(createTireDto).save();
+  create(createTireDto: CreateTireDto, options: HttpOptions): Promise<TireDocument> {
+    return new this.tireModel({
+      ...createTireDto,
+      company: options.company,
+    }).save({ session: options.session });
   }
 
-  findAll(): Promise<TireDocument[]> {
-    return this.tireModel.find().exec();
+  findAll(options: HttpOptions): Promise<TireDocument[]> {
+    return this.tireModel.find({ company: options.company }).exec();
   }
 
-  findOne(_id: string): Promise<TireDocument> {
-    return this.tireModel.findOne({ _id }).exec();
+  findOne(_id: string, options: HttpOptions): Promise<TireDocument> {
+    return this.tireModel.findOne({ _id, company: options.company }).exec();
   }
 
-  update(_id: string, updateTireDto: UpdateTireDto): Promise<TireDocument> {
-    return this.tireModel.findOneAndUpdate({ _id }, { $set: updateTireDto }, { new: true }).exec();
+  update(_id: string, updateTireDto: UpdateTireDto, options: HttpOptions): Promise<TireDocument> {
+    return this.tireModel.findOneAndUpdate({ _id, company: options.company }, { $set: updateTireDto }, { new: true, session: options.session }).exec();
   }
 
-  remove(_id: string): Promise<TireDocument> {
-    return this.tireModel.findOneAndRemove({ _id }).exec();
+  remove(_id: string, options: HttpOptions): Promise<TireDocument> {
+    return this.tireModel.findOneAndRemove({ _id, company: options.company }, { session: options.session }).exec();
   }
 }

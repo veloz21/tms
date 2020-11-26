@@ -11,8 +11,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) { }
 
-  getJwtTokens(id: number, email: string, companyId) {
-    const payload = { sub: id, email, companyId };
+  getJwtTokens(id: number, email: string, company) {
+    const payload = { sub: id, email, company };
 
     const accessToken = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payload, { expiresIn: '24h', secret: environment.REFRESH_TOKEN_SECRET });

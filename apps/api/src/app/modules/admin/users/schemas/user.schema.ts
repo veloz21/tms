@@ -26,7 +26,7 @@ export class User implements IUser {
   tenantId: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
-  company: Company;
+  company: mongoose.Types.ObjectId | Company;
 
   comparePassword: (password: string) => boolean;
   hashPassword: () => void;
@@ -59,5 +59,6 @@ UserSchema.set('toJSON', {
   transform: function (doc, el) {
     el.id = el._id;
     delete el._id;
+    delete el.company;
   }
 });
