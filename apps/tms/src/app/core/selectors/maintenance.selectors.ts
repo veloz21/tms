@@ -1,12 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { HttpExtenstionsModel, QueryResultsModel } from '@tms/crud';
-import { Maintenance } from '@tms/interfaces';
+import { MaintenanceModel } from '@tms/models';
 import { MaintenancesState } from '@tms/reducers';
 import { each } from 'lodash';
 
 export const selectMaintenanceState = createFeatureSelector<MaintenancesState>('maintenance');
 
-export const selectMaintenanceById = (maintenanceId: number) =>
+export const selectMaintenanceById = (maintenanceId: string) =>
   createSelector(
     selectMaintenanceState,
     (maintenancesState) => maintenancesState.entities[maintenanceId]
@@ -40,12 +40,12 @@ export const selectMaintenancesInitWaitingMessage = createSelector(
 export const selectMaintenancesInStore = createSelector(
   selectMaintenanceState,
   (maintenancesState) => {
-    const items: Maintenance[] = [];
+    const items: MaintenanceModel[] = [];
     each(maintenancesState.entities, (element) => {
       items.push(element);
     });
     const httpExtension = new HttpExtenstionsModel();
-    const result: Maintenance[] = httpExtension.sortArray(
+    const result: MaintenanceModel[] = httpExtension.sortArray(
       items,
       maintenancesState.lastQuery.sortField,
       maintenancesState.lastQuery.sortOrder

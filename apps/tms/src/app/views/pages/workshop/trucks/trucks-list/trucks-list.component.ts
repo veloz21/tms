@@ -9,8 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { DeleteManyTrucks, DeleteOneTruck, RequestTrucksPage } from '@tms/actions/truck.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TrucksDataSource } from '@tms/data-sources';
-import { Truck } from '@tms/interfaces';
 import { SubheaderService } from '@tms/layout';
+import { TruckModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTrucksPageLastQuery } from '@tms/selectors/trucks.selectors';
 import { fromEvent, merge, of, Subject } from 'rxjs';
@@ -34,8 +34,8 @@ export class TrucksListComponent implements OnInit, OnDestroy {
   filterCondition = '';
   lastQuery: QueryParamsModel;
   // Selection
-  selection = new SelectionModel<Truck>(true, []);
-  trucksResult: Truck[] = [];
+  selection = new SelectionModel<TruckModel>(true, []);
+  trucksResult: TruckModel[] = [];
   private ngUnsuscribe = new Subject();
 
   constructor(
@@ -151,7 +151,7 @@ export class TrucksListComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteTruck(_item: Truck) {
+  deleteTruck(_item: TruckModel) {
     const _title: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_ONE_TITLE');
     const _description: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_ONE_DESCRIPTION');
     const _waitDesciption: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_ONE_WAIT');
@@ -184,7 +184,7 @@ export class TrucksListComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const idsForDeletion: number[] = [];
+      const idsForDeletion: string[] = [];
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.selection.selected.length; i++) {
         idsForDeletion.push(this.selection.selected[i].id);

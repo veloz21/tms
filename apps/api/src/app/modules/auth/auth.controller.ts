@@ -1,11 +1,12 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Body, Controller, HttpCode, HttpException, HttpStatus, Post, Request, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Post, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 import { GetHttpOptions } from '../../core/decorators';
 import { EmailTemplate } from '../../core/enums';
 import { DbTransactionInterceptor } from '../../core/interceptors';
 import { CompanyService, CreateCompanyDto } from '../admin/company';
 import { CreateUserDto, UsersService } from '../admin/users';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('')
@@ -116,5 +117,11 @@ export class AuthController {
     }
 
     return user;
+  }
+
+  @Get('user')
+  @UseGuards(JwtAuthGuard)
+  async getUserByToken(@Request() req) {
+    return await this.userService.findOne(req.user.userId, { company: req.user.company });
   }
 }

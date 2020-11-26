@@ -176,7 +176,7 @@ export class TiresListComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.store.dispatch(new DeleteOneTire({ id: _item._id }));
+      this.store.dispatch(new DeleteOneTire({ id: _item.id }));
       this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
     });
   }
@@ -195,7 +195,7 @@ export class TiresListComponent implements OnInit, OnDestroy {
         return;
       }
 
-      const idsForDeletion: number[] = [];
+      const idsForDeletion: string[] = [];
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.selection.selected.length; i++) {
         idsForDeletion.push(this.selection.selected[i].id);

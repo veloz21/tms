@@ -15,6 +15,9 @@ export class Tire implements ITire {
   @Prop()
   rangeTraveled: number;
 
+  @Prop()
+  status: number;
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
   company: mongoose.Types.ObjectId;
 }

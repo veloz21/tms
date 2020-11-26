@@ -25,6 +25,9 @@ export class Box implements IBox {
   @Prop()
   brand: string;
 
+  @Prop()
+  status: number;
+
   @Prop({ type: [TireSchema], default: [] })
   tires: Tire[]
 

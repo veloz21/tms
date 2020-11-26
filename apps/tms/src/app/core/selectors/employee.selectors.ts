@@ -1,14 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { HttpExtenstionsModel, QueryResultsModel } from '@tms/crud';
-import { Employee } from '@tms/interfaces';
+import { EmployeeModel } from '@tms/models';
 import { EmployeesState } from '@tms/reducers';
 import { each } from 'lodash';
 
-export const selectEmployeeState = createFeatureSelector<EmployeesState>(
-  'employees'
-);
+export const selectEmployeeState = createFeatureSelector<EmployeesState>('employees');
 
-export const selectEmployeeById = (employeeId: number) =>
+export const selectEmployeeById = (employeeId: string) =>
   createSelector(
     selectEmployeeState,
     (employeesState) => employeesState.entities[employeeId]
@@ -42,12 +40,12 @@ export const selectEmployeesInitWaitingMessage = createSelector(
 export const selectEmployeesInStore = createSelector(
   selectEmployeeState,
   (employeesState) => {
-    const items: Employee[] = [];
+    const items: EmployeeModel[] = [];
     each(employeesState.entities, (element) => {
       items.push(element);
     });
     const httpExtension = new HttpExtenstionsModel();
-    const result: Employee[] = httpExtension.sortArray(
+    const result: EmployeeModel[] = httpExtension.sortArray(
       items,
       employeesState.lastQuery.sortField,
       employeesState.lastQuery.sortOrder

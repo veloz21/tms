@@ -199,7 +199,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  refreshTravel(isNew: boolean = false, id = 0) {
+  refreshTravel(isNew: boolean = false, id?: string) {
     this.loadingSubject.next(false);
     let url = this.router.url;
     if (!isNew) {
@@ -234,10 +234,8 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // tslint:disable-next-line:prefer-const
-    let editedTravel = this.prepareTravel();
-
-    if (editedTravel.id > 0) {
+    const editedTravel = this.prepareTravel();
+    if (!!editedTravel.id) {
       this.updateTravel(editedTravel, withBack);
       this.router.navigateByUrl('/travel/travel', {
         relativeTo: this.activatedRoute,

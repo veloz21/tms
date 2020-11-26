@@ -1,65 +1,81 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { TruckModel } from '@tms/models';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { HttpService } from './http-service';
 
 const API_TRUCKS_URL = environment.endpoint + 'api/workshop/trucks';
-// Real REST API
+
 @Injectable()
-export class TrucksService {
+export class TrucksService extends HttpService {
   lastFilter$: BehaviorSubject<QueryParamsModel> = new BehaviorSubject(new QueryParamsModel({}, 'asc', '', 0, 10));
 
-  constructor(private http: HttpClient, private httpUtils: HttpUtilsService) { }
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    })
+  };
 
-  // CREATE =>  POST: add a new product to the server
+  constructor(
+    private http: HttpClient,
+    private httpUtils: HttpUtilsService
+  ) {
+    super();
+  }
+
   createTruck(truck): Observable<TruckModel> {
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    return this.http.post<TruckModel>(API_TRUCKS_URL, truck, { headers: httpHeaders });
+    return this.http.post<TruckModel>(API_TRUCKS_URL, truck, this.httpOptions).pipe(
+      catchError(this.handleError('createTruck'))
+    );
   }
 
-  // READ
   getAllTrucks(): Observable<TruckModel[]> {
-    return this.http.get<TruckModel[]>(API_TRUCKS_URL);
+    return this.http.get<TruckModel[]>(API_TRUCKS_URL, this.httpOptions).pipe(
+      catchError(this.handleError('getAllTrucks'))
+    );
   }
 
-  getTruckById(truckId: number): Observable<TruckModel> {
-    return this.http.get<TruckModel>(API_TRUCKS_URL + `/${truckId}`);
+  getTruckById(truckId: string): Observable<TruckModel> {
+    return this.http.get<TruckModel>(API_TRUCKS_URL + `/${truckId}`, this.httpOptions).pipe(
+      catchError(this.handleError('getTruckById'))
+    );
   }
 
-  // Server should return filtered/sorted result
   findTrucks(queryParams: QueryParamsModel): Observable<TruckModel[]> {
-    // Note: Add headers if needed (tokens/bearer)
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_TRUCKS_URL;
     return this.http.get<TruckModel[]>(url, {
-      headers: httpHeaders,
+      headers: this.httpOptions.headers,
       params: httpParams
-    });
+    }).pipe(
+      catchError(this.handleError('findTrucks'))
+    );
   }
 
-  // UPDATE => PUT: update the Truck on the server
   updateTruck(truck: TruckModel): Observable<any> {
-    // Note: Add headers if needed (tokens/bearer)
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    return this.http.put(API_TRUCKS_URL, truck, { headers: httpHeaders });
+    return this.http.put(API_TRUCKS_URL, truck, this.httpOptions).pipe(
+      catchError(this.handleError('updateTruck'))
+    );
   }
 
-  // DELETE => delete the Truck from the server
-  deleteTruck(truckId: number): Observable<TruckModel> {
+  deleteTruck(truckId: string): Observable<TruckModel> {
     const url = `${API_TRUCKS_URL}/${truckId}`;
-    return this.http.delete<TruckModel>(url);
+    return this.http.delete<TruckModel>(url, this.httpOptions).pipe(
+      catchError(this.handleError('deleteTruck'))
+    );
   }
 
-  deleteTrucks(ids: number[] = []): Observable<any> {
-    const url = API_TRUCKS_URL + '/delete';
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    const body = { truckIdsForDelete: ids };
-    return this.http.put<QueryResultsModel>(url, body, { headers: httpHeaders });
+  deleteTrucks(ids: string[] = []): Observable<any> {
+    const requests: Observable<TruckModel>[] = [];
+    for (let index = 0; index < ids.length; index++) {
+      requests.push(this.deleteTruck(ids[index]));
+    }
+    return forkJoin(requests);
   }
 
   public findQueryTrucks(value: string): Observable<TruckModel[]> {
@@ -68,11 +84,12 @@ export class TrucksService {
       'asc',
       'serialNumber',
     );
-    return this.http.get<TruckModel[]>(API_TRUCKS_URL).pipe(
-      mergeMap(res => {
-        const result = this.httpUtils.baseFilter(res, queryParams);
-        return of(result.items as TruckModel[]);
-      })
+    const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
+    return this.http.get<TruckModel[]>(API_TRUCKS_URL, {
+      headers: this.httpOptions.headers,
+      params: httpParams
+    }).pipe(
+      catchError(this.handleError('findQueryTrucks'))
     );
   }
 }

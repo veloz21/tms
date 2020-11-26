@@ -1,7 +1,6 @@
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { QueryParamsModel } from '@tms/crud';
-import { Truck } from '@tms/interfaces';
 import { TruckModel } from '@tms/models';
 
 export enum TruckActionTypes {
@@ -22,12 +21,12 @@ export enum TruckActionTypes {
 
 export class CreateTruck implements Action {
   readonly type = TruckActionTypes.CreateTruck;
-  constructor(public payload: { truck: Truck }) { }
+  constructor(public payload: { truck: TruckModel }) { }
 }
 
 export class CreateTruckSuccess implements Action {
   readonly type = TruckActionTypes.CreateTruckSuccess;
-  constructor(public payload: { truck: Truck }) { }
+  constructor(public payload: { truck: TruckModel }) { }
 }
 
 export class CreateTruckError implements Action {
@@ -46,27 +45,27 @@ export class UpdateTruck implements Action {
 export class UpdateTruckSuccess implements Action {
   readonly type = TruckActionTypes.UpdateTruckSuccess;
   constructor(public payload: {
-    partialTruck: Update<Truck>, // For State update
-    truck: Truck // For Server update (through service)
+    partialTruck: Update<TruckModel>, // For State update
+    truck: TruckModel // For Server update (through service)
   }) { }
 }
 
 export class TrucksStatusUpdated implements Action {
   readonly type = TruckActionTypes.TrucksStatusUpdated;
   constructor(public payload: {
-    trucks: Truck[],
+    trucks: TruckModel[],
     status: number
   }) { }
 }
 
 export class DeleteOneTruck implements Action {
   readonly type = TruckActionTypes.DeleteOneTruck;
-  constructor(public payload: { id: number }) { }
+  constructor(public payload: { id: string }) { }
 }
 
 export class DeleteManyTrucks implements Action {
   readonly type = TruckActionTypes.DeleteManyTrucks;
-  constructor(public payload: { ids: number[] }) { }
+  constructor(public payload: { ids: string[] }) { }
 }
 
 export class RequestTrucksPage implements Action {
@@ -76,7 +75,7 @@ export class RequestTrucksPage implements Action {
 
 export class LoadTrucksPage implements Action {
   readonly type = TruckActionTypes.LoadTrucksPage;
-  constructor(public payload: { truck: Truck[], totalCount: number, page: QueryParamsModel }) { }
+  constructor(public payload: { truck: TruckModel[], totalCount: number, page: QueryParamsModel }) { }
 }
 
 export class CancelTrucksPage implements Action {

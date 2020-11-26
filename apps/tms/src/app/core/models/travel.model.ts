@@ -1,11 +1,10 @@
-import { Box, Employee, Travel, Truck } from '@tms/interfaces';
+import { IBox, IEmployee, ITravel, ITruck } from '@bits404/api-interfaces';
 
-export class TravelModel implements Travel {
-  id: number;
-  company: string;
-  operator: Employee;
-  box: Box;
-  truck: Truck;
+export class TravelModel implements ITravel {
+  id: string;
+  operator: Partial<IEmployee>;
+  box: Partial<IBox>;
+  truck: Partial<ITruck>;
   locations: {
     origin: {
       type: 'Point',
@@ -24,7 +23,7 @@ export class TravelModel implements Travel {
   };
   comments: string;
 
-  constructor(travel?: Partial<Travel>) {
+  constructor(travel?: Partial<ITravel>) {
     this.operator = (travel && travel.operator) || null;
     this.box = (travel && travel.box) || null;
     this.truck = (travel && travel.truck) || null;

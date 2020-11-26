@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ICompany, IUser } from '@bits404/api-interfaces';
 import { environment } from '@tms/environments/environment';
 import { AuthService } from 'ngx-auth';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
@@ -12,7 +13,7 @@ import { TokenStorage } from './token-storage.service';
 
 const API_LOGIN_URL = environment.endpoint + 'api/auth/login';
 const API_REGISTER_URL = environment.endpoint + 'api/auth/register';
-const API_TOKEN_URL = environment.endpoint + '/api/auth/token';
+const API_TOKEN_URL = environment.endpoint + 'api/auth/token';
 const API_PERMISSION_URL = '';
 const API_ROLES_URL = '';
 
@@ -89,8 +90,8 @@ export class AuthenticationService implements AuthService {
     return url.endsWith('auth/token');
   }
 
-  public login(company: string, email: string, password: string): Observable<AuthModel> {
-    return this.http.post<AuthModel>(API_LOGIN_URL, { company, email, password }, this.httpOptions).pipe(
+  public login(user: Partial<IUser>): Observable<AuthModel> {
+    return this.http.post<AuthModel>(API_LOGIN_URL, user, this.httpOptions).pipe(
       tap(() => this.isLoggedIn.next(true)),
       tap(this.saveAccessData.bind(this)),
       switchMapTo(this.getCurrentUser()),
@@ -141,10 +142,9 @@ export class AuthenticationService implements AuthService {
     }
   }
 
-  public register(name: string, email: string, password: string): Observable<string> {
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post(API_REGISTER_URL, { name, email, password }, { headers: httpHeaders }).pipe(
+  public register(company: Partial<ICompany>, user: Partial<IUser>): Observable<string> {
+    return this.http.post(API_REGISTER_URL, { company, user }, this.httpOptions).pipe(
+      switchMapTo(this.login(user)),
       catchError(this.handleError('register', []))
     );
   }
@@ -162,10 +162,11 @@ export class AuthenticationService implements AuthService {
   // }
 
   public getCurrentUser(): Observable<any> {
-    return this.http.get<CompanyModel>(API_LOGIN_URL, { headers: { 'Content-Type': 'application/json' } }).pipe(
-      tap(user => this.tokenStorage.setUser(user)),
-      catchError(this.handleError('changePassword', []))
-    );
+    return of({});
+    // return this.http.get<CompanyModel>(API_LOGIN_URL, this.httpOptions).pipe(
+    //   tap(user => this.tokenStorage.setUser(user)),
+    //   catchError(this.handleError('changePassword', []))
+    // );
   }
 
   getVersion(): Observable<any> {

@@ -1,8 +1,7 @@
-import { Employee } from '@tms/interfaces';
+import { IEmployee } from '@bits404/api-interfaces';
 
-export class EmployeeModel implements Employee {
-  id: number;
-  company: string;
+export class EmployeeModel implements IEmployee {
+  id: string;
   firstName: string;
   lastName: string;
   cellphone: string;
@@ -32,7 +31,7 @@ export class EmployeeModel implements Employee {
   imagePath: string;
   status: number;
 
-  constructor(employee?: Partial<Employee>) {
+  constructor(employee?: Partial<IEmployee>) {
     this.firstName = employee && employee.firstName || '';
     this.lastName = employee && employee.lastName || '';
     this.cellphone = employee && employee.cellphone || '';

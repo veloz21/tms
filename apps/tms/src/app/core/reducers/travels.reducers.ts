@@ -2,20 +2,18 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
 import { TravelActions, TravelActionTypes } from '@tms/actions/travel.actions';
 import { QueryParamsModel } from '@tms/crud';
-import { Travel } from '@tms/interfaces';
+import { TravelModel } from '@tms/models';
 
-export interface TravelsState extends EntityState<Travel> {
+export interface TravelsState extends EntityState<TravelModel> {
   listLoading: boolean;
   actionsloading: boolean;
   totalCount: number;
   lastQuery: QueryParamsModel;
-  lastCreatedTravelId: number;
+  lastCreatedTravelId: string;
   showInitWaitingMessage: boolean;
 }
 
-export const adapter: EntityAdapter<Travel> = createEntityAdapter<
-  Travel
->();
+export const adapter: EntityAdapter<TravelModel> = createEntityAdapter<TravelModel>();
 
 export const initialTravelsState: TravelsState = adapter.getInitialState({
   listLoading: false,
@@ -72,7 +70,7 @@ export function travelsReducer(
   }
 }
 
-export const getTravelState = createFeatureSelector<Travel>('travel');
+export const getTravelState = createFeatureSelector<TravelModel>('travel');
 
 export const {
   selectAll,

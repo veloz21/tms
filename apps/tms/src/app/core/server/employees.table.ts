@@ -4,7 +4,6 @@ export class EmployeeTable {
   public static employees: any[] = [
     {
       id: 1,
-      company: 'Galmex',
       firstName: 'Ernesto',
       lastName: 'Lozano',
       cellphone: '4493134435',
@@ -36,7 +35,6 @@ export class EmployeeTable {
     },
     {
       id: 2,
-      company: 'Galmex',
       firstName: 'Juan',
       lastName: 'Perez',
       cellphone: '4493134435',

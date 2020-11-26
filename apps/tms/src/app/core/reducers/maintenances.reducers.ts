@@ -2,18 +2,18 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
 import { MaintenanceActions, MaintenanceActionTypes } from '@tms/actions/maintenance.actions';
 import { QueryParamsModel } from '@tms/crud';
-import { Maintenance } from '@tms/interfaces';
+import { MaintenanceModel } from '@tms/models';
 
-export interface MaintenancesState extends EntityState<Maintenance> {
+export interface MaintenancesState extends EntityState<MaintenanceModel> {
   listLoading: boolean;
   actionsloading: boolean;
   totalCount: number;
   lastQuery: QueryParamsModel;
-  lastCreatedMaintenanceId: number;
+  lastCreatedMaintenanceId: string;
   showInitWaitingMessage: boolean;
 }
 
-export const adapter: EntityAdapter<Maintenance> = createEntityAdapter<Maintenance>();
+export const adapter: EntityAdapter<MaintenanceModel> = createEntityAdapter<MaintenanceModel>();
 
 export const initialMaintenancesState: MaintenancesState = adapter.getInitialState({
   listLoading: false,
@@ -71,7 +71,7 @@ export function maintenancesReducer(state = initialMaintenancesState, action: Ma
   }
 }
 
-export const getMaintenanceState = createFeatureSelector<Maintenance>('maintenance');
+export const getMaintenanceState = createFeatureSelector<MaintenanceModel>('maintenance');
 
 export const {
   selectAll,

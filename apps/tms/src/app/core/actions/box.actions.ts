@@ -59,16 +59,12 @@ export class BoxesStatusUpdated implements Action {
 
 export class DeleteOneBox implements Action {
   readonly type = BoxActionTypes.DeleteOneBox;
-  constructor(public payload: {
-    id: number
-  }) { }
+  constructor(public payload: { id: string }) { }
 }
 
 export class DeleteManyBoxes implements Action {
   readonly type = BoxActionTypes.DeleteManyBoxes;
-  constructor(public payload: {
-    ids: number[]
-  }) { }
+  constructor(public payload: { ids: string[] }) { }
 }
 
 export class RequestBoxesPage implements Action {

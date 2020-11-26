@@ -60,5 +60,6 @@ UserSchema.set('toJSON', {
     el.id = el._id;
     delete el._id;
     delete el.company;
+    delete el.password;
   }
 });

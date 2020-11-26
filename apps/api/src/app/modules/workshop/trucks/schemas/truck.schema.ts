@@ -39,6 +39,9 @@ export class Truck implements ITruck {
   @Prop()
   dock: string;
 
+  @Prop()
+  status: number;
+
   @Prop({ type: [TireSchema], default: [] })
   tires: Tire[];
 

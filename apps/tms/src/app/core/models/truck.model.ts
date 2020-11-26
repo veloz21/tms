@@ -1,13 +1,12 @@
+import { ITire, ITruck } from '@bits404/api-interfaces';
 import { AVIABILITY_STATUS } from '@tms/enums';
-import { Truck } from '@tms/interfaces';
 
-export class TruckModel implements Truck {
-  id: number;
-  company: string;
+export class TruckModel implements ITruck {
+  id: string;
   truckModel: string;
   brand: string;
   serialNumber: string;
-  motorNumber: number;
+  motorNumber: string;
   maintenancePeriod: string;
   initialRange: number;
   rangeTraveled: number;
@@ -15,12 +14,13 @@ export class TruckModel implements Truck {
   airbag: string;
   dock: string;
   status: number;
+  tires: ITire[];
 
-  constructor(truck?: Partial<Truck>) {
+  constructor(truck?: Partial<ITruck>) {
     this.truckModel = truck && truck.truckModel || '';
     this.brand = truck && truck.brand || '';
     this.serialNumber = truck && truck.serialNumber || '';
-    this.motorNumber = truck && truck.motorNumber || null;
+    this.motorNumber = truck && truck.motorNumber || '';
     this.maintenancePeriod = truck && truck.maintenancePeriod || '';
     this.initialRange = truck && truck.initialRange || null;
     this.rangeTraveled = truck && truck.rangeTraveled || null;
@@ -28,5 +28,6 @@ export class TruckModel implements Truck {
     this.airbag = truck && truck.airbag || '';
     this.dock = truck && truck.dock || '';
     this.status = truck && truck.status || AVIABILITY_STATUS.AVAILABLE;
+    this.tires = truck && truck.tires || [];
   }
 }

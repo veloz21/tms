@@ -23,7 +23,16 @@ export class Employee extends User implements IEmployee {
   address: string;
 
   @Prop()
+  birthDate: Date;
+
+  @Prop()
+  admissionDate: Date;
+
+  @Prop()
   secondaryCellphone: string;
+
+  @Prop()
+  status: number;
 
   @Prop(raw({
     currency: { type: String },

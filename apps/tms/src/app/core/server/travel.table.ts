@@ -5,10 +5,8 @@ export class TravelTable {
   public static travel: any[] = [
     {
       id: 1,
-      company: 'Galmex',
       operator: new EmployeeModel({
         id: 1,
-        company: 'Galmex',
         firstName: 'Ernesto',
         lastName: 'Lozano',
         cellphone: '4493134435',
@@ -49,11 +47,10 @@ export class TravelTable {
       }),
       truck: new TruckModel({
         id: 1,
-        company: 'Galmex',
         truckModel: '123V123',
         brand: 'Volvo',
         serialNumber: '123',
-        motorNumber: 12465,
+        motorNumber: "12465",
         maintenancePeriod: '11',
         initialRange: 123,
         rangeTraveled: 200,
@@ -82,10 +79,8 @@ export class TravelTable {
     },
     {
       id: 2,
-      company: 'Galmex',
       operator: new EmployeeModel({
         id: 1,
-        company: 'Galmex',
         firstName: 'Ernesto',
         lastName: 'Lozano',
         cellphone: '4493134435',
@@ -126,11 +121,10 @@ export class TravelTable {
       }),
       truck: new TruckModel({
         id: 1,
-        company: 'Galmex',
         truckModel: '123V123',
         brand: 'Volvo',
         serialNumber: '123',
-        motorNumber: 12465,
+        motorNumber: "12465",
         maintenancePeriod: '11',
         initialRange: 123,
         rangeTraveled: 200,

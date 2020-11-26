@@ -6,7 +6,7 @@ import { each } from 'lodash';
 
 export const selectBoxesState = createFeatureSelector<BoxesState>('boxes');
 
-export const selectBoxById = (boxId: number) => createSelector(
+export const selectBoxById = (boxId: string) => createSelector(
   selectBoxesState,
   boxesState => boxesState.entities[boxId]
 );

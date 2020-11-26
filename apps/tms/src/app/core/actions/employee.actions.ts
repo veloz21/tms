@@ -1,7 +1,6 @@
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { QueryParamsModel } from '@tms/crud';
-import { Employee } from '@tms/interfaces';
 import { EmployeeModel } from '@tms/models';
 
 export enum EmployeeActionTypes {
@@ -22,12 +21,12 @@ export enum EmployeeActionTypes {
 
 export class CreateEmployee implements Action {
   readonly type = EmployeeActionTypes.CreateEmployee;
-  constructor(public payload: { employee: Employee }) { }
+  constructor(public payload: { employee: EmployeeModel }) { }
 }
 
 export class CreateEmployeeSuccess implements Action {
   readonly type = EmployeeActionTypes.CreateEmployeeSuccess;
-  constructor(public payload: { employee: Employee }) { }
+  constructor(public payload: { employee: EmployeeModel }) { }
 }
 
 export class CreateEmployeeError implements Action {
@@ -49,8 +48,8 @@ export class UpdateEmployeeSuccess implements Action {
   readonly type = EmployeeActionTypes.UpdateEmployeeSuccess;
   constructor(
     public payload: {
-      partialEmployee: Update<Employee>; // For State update
-      employee: Employee; // For Server update (through service)
+      partialEmployee: Update<EmployeeModel>; // For State update
+      employee: EmployeeModel; // For Server update (through service)
     }
   ) { }
 }
@@ -58,19 +57,19 @@ export class UpdateEmployeeSuccess implements Action {
 export class EmployeesStatusUpdated implements Action {
   readonly type = EmployeeActionTypes.EmployeesStatusUpdated;
   constructor(public payload: {
-    employees: Employee[],
+    employees: EmployeeModel[],
     status: number
   }) { }
 }
 
 export class DeleteOneEmployee implements Action {
   readonly type = EmployeeActionTypes.DeleteOneEmployee;
-  constructor(public payload: { id: number }) { }
+  constructor(public payload: { id: string }) { }
 }
 
 export class DeleteManyEmployees implements Action {
   readonly type = EmployeeActionTypes.DeleteManyEmployees;
-  constructor(public payload: { ids: number[] }) { }
+  constructor(public payload: { ids: string[] }) { }
 }
 
 export class RequestEmployeePage implements Action {
@@ -82,7 +81,7 @@ export class LoadEmployeePage implements Action {
   readonly type = EmployeeActionTypes.LoadEmployeePage;
   constructor(
     public payload: {
-      employee: Employee[];
+      employee: EmployeeModel[];
       totalCount: number;
       page: QueryParamsModel;
     }

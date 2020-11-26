@@ -57,23 +57,17 @@ export class UpdateTireSuccess implements Action {
 
 export class DeleteOneTire implements Action {
   readonly type = TireActionTypes.DeleteOneTire;
-  constructor(public payload: {
-    id: string
-  }) { }
+  constructor(public payload: { id: string }) { }
 }
 
 export class DeleteManyTires implements Action {
   readonly type = TireActionTypes.DeleteManyTires;
-  constructor(public payload: {
-    ids: number[]
-  }) { }
+  constructor(public payload: { ids: string[] }) { }
 }
 
 export class RequestTiresPage implements Action {
   readonly type = TireActionTypes.RequestTiresPage;
-  constructor(public payload: {
-    page: QueryParamsModel
-  }) { }
+  constructor(public payload: { page: QueryParamsModel }) { }
 }
 
 export class LoadTiresPage implements Action {

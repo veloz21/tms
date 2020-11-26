@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Maintenance } from '@tms/interfaces';
 import { MaintenanceModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectMaintenanceById } from '@tms/selectors/maintenance.selectors';
@@ -10,21 +9,21 @@ import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 @Injectable()
-export class MaintenanceResolver implements Resolve<Maintenance> {
+export class MaintenanceResolver implements Resolve<MaintenanceModel> {
   constructor(private maintenancesService: MaintenancesService, private store: Store<AppState>) { }
-  resolve(route: ActivatedRouteSnapshot): Observable<Maintenance> | Promise<Maintenance> | Maintenance {
-    const id = Number(route.paramMap.get('id'));
-    if (id === 0) {
+  resolve(route: ActivatedRouteSnapshot): Observable<MaintenanceModel> | Promise<MaintenanceModel> | MaintenanceModel {
+    const id = String(route.paramMap.get('id'));
+    if (!id) {
       return this.getInitialMaintenance(id);
     }
     this.getMaintenanceData(id);
     return this.waitForMaintenanceDataToLoad(id);
   }
 
-  getInitialMaintenance(id: number) {
+  getInitialMaintenance(id: string) {
     return new MaintenanceModel();
   }
-  getMaintenanceData(id: number) {
+  getMaintenanceData(id: string) {
     this.store.select(selectMaintenanceById(id)).pipe(
       take(1)
     ).subscribe(maintenanceStored => {
@@ -34,7 +33,7 @@ export class MaintenanceResolver implements Resolve<Maintenance> {
     });
   }
 
-  waitForMaintenanceDataToLoad(id: number): Observable<Maintenance> {
+  waitForMaintenanceDataToLoad(id: string): Observable<MaintenanceModel> {
     return this.store.select(selectMaintenanceById(id)).pipe(
       filter(maintenance => !!maintenance),
       take(1)

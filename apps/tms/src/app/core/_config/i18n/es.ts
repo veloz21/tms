@@ -44,7 +44,7 @@ export const locale = {
         SUCCESS: 'Su cuenta ha sido satisfactoriamente restablecida'
       },
       REGISTER: {
-        TITLE: 'Regístrarse',
+        TITLE: 'Registrar Empresa',
         DESC: 'Enter your details to create your account',
         SUCCESS: 'Su cuenta ha sido satisfactoriamente registrada.',
         AGREE: 'Estoy de acuerdo con los',
@@ -55,7 +55,8 @@ export const locale = {
         FULLNAME: 'Nombre completo',
         PASSWORD: 'Contraseña',
         CONFIRM_PASSWORD: 'Confirmar contraseña',
-        USERNAME: 'Nombre de Usuario'
+        USERNAME: 'Nombre de Usuario',
+        COMPANY: 'Nombre de la Empresa'
       },
       VALIDATION: {
         INVALID: '{{name}} no es valido',

@@ -7,7 +7,6 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { CreateTire, UpdateTire } from '@tms/actions/tire.actions';
 import { AVIABILITY_STATUS } from '@tms/core/enums';
-import { Tire } from '@tms/interfaces';
 import { SubheaderService } from '@tms/layout';
 import { TireModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
@@ -49,7 +48,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.tire = this.activatedRoute.snapshot.data.tire as Tire;
+    this.tire = this.activatedRoute.snapshot.data.tire as TireModel;
     this.activatedRoute.data.pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe(data => {
@@ -118,7 +117,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
       title: this.translate.instant('WORKSHOP.TIRES.TEXT.EDIT_TIRE'),
       page: `/workshop/tires/edit`,
       queryParams: {
-        id: this.tire._id
+        id: this.tire.id
       }
     }
     ]);
@@ -187,7 +186,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line:prefer-const
     let editedTire = this.prepareTire();
 
-    if (editedTire.id > 0) {
+    if (!!editedTire.id) {
       this.updateTire(editedTire, withBack);
       this.router.navigateByUrl('/workshop/tires', {
         relativeTo: this.activatedRoute,
@@ -201,7 +200,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
   prepareTire(): TireModel {
     const _tire = new TireModel();
     _tire.id = this.tire.id;
-    _tire._id = this.tire._id;
+    _tire.id = this.tire.id;
     _tire.serialNumber = this.tireForm.get('serialNumber').value;
     _tire.rangeTraveled = this.tireForm.get('rangeTraveled').value;
     _tire.status = AVIABILITY_STATUS.AVAILABLE;
@@ -235,7 +234,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
     this.loadingSubject.next(true);
 
     const updateTire: Update<TireModel> = {
-      id: _tire._id,
+      id: _tire.id,
       changes: _tire
     };
 
