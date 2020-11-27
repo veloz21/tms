@@ -3,14 +3,14 @@
 		<ng-container ktPortletTools>
 			<a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button matTooltip="{{'PAYSHEET.EMPLOYEE.BUTTONS.GO_BACK' | translate}}">
 				<i class="la la-arrow-left"></i>
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.BACK">Back</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.BACK" | translate}}</span>
 			</a>
 			<a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | translate}}">
 				<i class="la la-cog"></i>
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.RESET">Reset</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.RESET" | translate}}</span>
 			</a>
 			<a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.SAVE">Save</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.SAVE" | translate}}</span>
 			</a>
 		</ng-container>
 	</b404-portlet-header>
@@ -18,7 +18,7 @@
 		<div *ngIf="employee">
 			<form [formGroup]="employeeForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
 				<b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
-					<span translate="GENERAL.TEXT.OH_SNAP_CREATE">Oh snap! Change a few things up and try submitting again.</span>
+					<span>{{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}}</span>
 				</b404-alert>
 				<div class="b404-form__section b404-form__section--first">
 					<div class="b404-form__group">
@@ -28,7 +28,7 @@
 									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | translate }}" formControlName="firstName" required>
 									<mat-error>
 										{{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -37,7 +37,7 @@
 									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | translate }}" formControlName="lastName" required>
 									<mat-error>
 										{{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -64,7 +64,7 @@
 									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}" type="number" formControlName="cellphone" required maxlength="10">
 									<mat-error>
 										{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -73,7 +73,7 @@
 									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SECONDARY_CELLPHONE' | translate }}" type="number" formControlName="secondaryCellphone" required maxlength="10">
 									<mat-error>
 										{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -86,7 +86,7 @@
 									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}" type="number" formControlName="salary_total" required>
 									<mat-error>
 										{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -95,7 +95,7 @@
 									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate }}" formControlName="address" required>
 									<mat-error>
 										{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -168,7 +168,6 @@
 									<input type="file" formControlName="ine" >
 								</span>
 							</div>
-							
 						</div>
 					</div>
 				</div>

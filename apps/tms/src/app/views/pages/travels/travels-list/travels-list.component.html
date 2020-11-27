@@ -3,8 +3,7 @@
     [class]="'b404-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
     <ng-container ktPortletTools>
       <a [routerLink]="['/travels/add']" mat-raised-button color="primary"
-        matTooltip="{{'TRAVEL.TRAVEL.BUTTONS.CREATE_NEW' | translate}}"><span
-          translate="TRAVEL.TRAVEL.BUTTONS.NEW_TRAVEL">New Travel</span></a>
+        matTooltip="{{'TRAVEL.TRAVEL.BUTTONS.CREATE_NEW' | translate}}"><span>{{"TRAVEL.TRAVEL.BUTTONS.NEW_TRAVEL" | translate}}</span></a>
     </ng-container>
   </b404-portlet-header>
 
@@ -17,7 +16,7 @@
               <input matInput #searchInput placeholder="{{'GENERAL.INPUTS.SEARCH' | translate}}"
                 class="mat-form-field mat-form-field-fluid">
               <mat-hint align="start">
-                <strong><span translate="GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS">Search in all fields</span></strong>
+                <strong><span>{{"GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS" | translate}}</span></strong>
               </mat-hint>
             </mat-form-field>
           </div>
@@ -36,7 +35,7 @@
               <button mat-raised-button color="accent" (click)="deleteTravels()"
                 matTooltip="{{'TRAVEL.TRAVEL.TEXT.DELETE_SELECTED' | translate}}" class="mat-button-mt-4">
                 <mat-icon>delete</mat-icon>
-                <span translate='GENERAL.BUTTONS.DELETE_ALL'>Delete All</span>
+                <span>{{"GENERAL.BUTTONS.DELETE_ALL" | translate}}</span>
               </button>&nbsp;
             </div>
           </div>
@@ -146,10 +145,10 @@
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
       <div class="mat-table__message" *ngIf="!dataSource.hasItems">
-        <span translate="GENERAL.TEXT.NO_RECORDS_FOUND">No records found</span>
+        <span>{{"GENERAL.TEXT.NO_RECORDS_FOUND" | translate}}</span>
       </div>
       <div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">
-        <span translate="GENERAL.TEXT.WAIT">Please wait...</span>
+        <span>{{"GENERAL.TEXT.WAIT" | translate}}</span>
       </div>
     </div>
 

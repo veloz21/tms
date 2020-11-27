@@ -6,7 +6,7 @@ export const locale = {
       SELECT: 'Elige tu idioma',
     },
     TOPBAR: {
-      HI: 'Hola'
+      HI: 'Hola',
     },
     MENU: {
       NEW: 'Nuevo',
@@ -15,11 +15,11 @@ export const locale = {
       PAGES: 'Pages',
       FEATURES: 'Caracteristicas',
       APPS: 'Aplicaciones',
-      DASHBOARD: 'Tablero'
+      DASHBOARD: 'Tablero',
     },
     AUTH: {
       ACCOUNT: {
-        ENTER_COMPANY: 'Ingresar compañia'
+        ENTER_COMPANY: 'Ingresar compañia',
       },
       GENERAL: {
         OR: 'O',
@@ -36,19 +36,19 @@ export const locale = {
         DONT_ACCOUNT: '¿Aún no tienes una cuenta?',
         TITLE: 'Crear una cuenta',
         BUTTON: 'Ingresar',
-        SIGN_IN: 'Iniciar sesión '
+        SIGN_IN: 'Iniciar sesión ',
       },
       FORGOT: {
         TITLE: '¿Olvido la contraseña?',
         DESC: 'Ingrese su correo electrónico para restablecer su contraseña',
-        SUCCESS: 'Su cuenta ha sido satisfactoriamente restablecida'
+        SUCCESS: 'Su cuenta ha sido satisfactoriamente restablecida',
       },
       REGISTER: {
         TITLE: 'Registrar Empresa',
         DESC: 'Enter your details to create your account',
         SUCCESS: 'Su cuenta ha sido satisfactoriamente registrada.',
         AGREE: 'Estoy de acuerdo con los',
-        TERMS_CONDITIONS: 'términos y condiciones'
+        TERMS_CONDITIONS: 'términos y condiciones',
       },
       INPUT: {
         EMAIL: 'Email',
@@ -56,7 +56,7 @@ export const locale = {
         PASSWORD: 'Contraseña',
         CONFIRM_PASSWORD: 'Confirmar contraseña',
         USERNAME: 'Nombre de Usuario',
-        COMPANY: 'Nombre de la Empresa'
+        COMPANY: 'Nombre de la Empresa',
       },
       VALIDATION: {
         INVALID: '{{name}} no es valido',
@@ -69,7 +69,7 @@ export const locale = {
         MIN_LENGTH_FIELD: 'Longitud mínima:',
         MAX_LENGTH_FIELD: 'Longitud máxima:',
         INVALID_FIELD: 'Campos no validos',
-      }
+      },
     },
     GENERAL: {
       TEXT: {
@@ -87,7 +87,7 @@ export const locale = {
         STATUS: 'Estado',
       },
       MODEL: {
-        ACTIONS: 'Acciones'
+        ACTIONS: 'Acciones',
       },
       BUTTONS: {
         BACK: 'Regresar',
@@ -99,7 +99,7 @@ export const locale = {
       },
       INPUTS: {
         SEARCH: 'Buscar',
-        SEARCH_IN_ALL_FIELDS: 'Buscar en todos los campos'
+        SEARCH_IN_ALL_FIELDS: 'Buscar en todos los campos',
       },
     },
     TRAVEL: {
@@ -108,11 +108,13 @@ export const locale = {
           TRAVEL_LIST: 'Lista de Viajes',
           TRAVEL: 'Viajes',
           DELETE_ONE_TITLE: 'Eliminar Viaje',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este viaje permanentemente?',
+          DELETE_ONE_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar este viaje permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando viaje...',
           DELETE_ONE_MESSAGE: 'El viaje ha sido eliminado',
           DELETE_MANY_TITLE: 'Eliminar Viajes',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los viajes seleccionados permanentemente?',
+          DELETE_MANY_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar los viajes seleccionados permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando viajes...',
           DELETE_MANY_MESSAGE: 'Los viajes seleccionados han sido eliminados',
           CREATE_TITLE: 'Añadir Viaje',
@@ -120,7 +122,7 @@ export const locale = {
           EDIT_TRAVEL: 'Editar viaje',
           DELETE_ICON_LABEL: 'Eliminar viaje',
           EDIT_ICON_LABEL: 'Editar viaje',
-          DELETE_SELECTED: 'Eliminar viajes seleccionados'
+          DELETE_SELECTED: 'Eliminar viajes seleccionados',
         },
         MODEL: {
           OPERATOR_NAME: 'Nombre del operador',
@@ -132,13 +134,13 @@ export const locale = {
           LOAD_TIME: 'Tiempo de carga',
           DOWNLOAD_TIME: 'Tiempo de descarga',
           ARRIVE_TIME: 'Tiempo de llegada al destino',
-          ARRIVE_CUSTOMER_TIME: 'Tiempo de llegada al cliente'
+          ARRIVE_CUSTOMER_TIME: 'Tiempo de llegada al cliente',
         },
         BUTTONS: {
           NEW_TRAVEL: 'Nuevo viaje',
           CREATE_NEW: 'Añadir nuevo viaje',
           GO_BACK: 'Regresar a la lista de viajes',
-        }
+        },
       },
     },
     PAYSHEET: {
@@ -148,20 +150,23 @@ export const locale = {
           EMPLOYEE_LIST: 'Lista de empleados',
           EMPLOYEE: 'Empleados',
           DELETE_ONE_TITLE: 'Eliminar empleado',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este empleado permanentemente?',
+          DELETE_ONE_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar este empleado permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando empleado...',
           DELETE_ONE_MESSAGE: 'El empleado ha sido eliminado',
           DELETE_MANY_TITLE: 'Eliminar Empleados',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los empleados seleccionados permanentemente?',
+          DELETE_MANY_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar los empleados seleccionados permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando empleados...',
-          DELETE_MANY_MESSAGE: 'Los empleados seleccionados han sido eliminados',
+          DELETE_MANY_MESSAGE:
+            'Los empleados seleccionados han sido eliminados',
           CREATE_TITLE: 'Añadir Empleado',
           ADD_EMPLOYEE_MESSAGE: 'Empleado guardado exitosamente',
           EDIT_EMPLOYEE: 'Editar empleado',
           DELETE_ICON_LABEL: 'Eliminar empleado',
           EDIT_ICON_LABEL: 'Editar empleado',
           DELETE_SELECTED: 'Eliminar empleados seleccionados',
-          CREATE_EMPLOYEE: 'Crear empleado'
+          CREATE_EMPLOYEE: 'Crear empleado',
         },
         MODEL: {
           FIRST_NAME: 'Nombre(s)',
@@ -183,9 +188,9 @@ export const locale = {
         BUTTONS: {
           NEW_EMPLOYEE: 'Nuevo empleado',
           CREATE_NEW: 'Añadir nuevo empleado',
-          GO_BACK: 'Regresar a la lista de empleados'
-        }
-      }
+          GO_BACK: 'Regresar a la lista de empleados',
+        },
+      },
     },
     WORKSHOP: {
       WORKSHOP: 'Taller',
@@ -194,11 +199,13 @@ export const locale = {
           TRUCK_LIST: 'Lista de Camiones',
           TRUCK: 'Camiones',
           DELETE_ONE_TITLE: 'Eliminar Camión',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este camión permanentemente?',
+          DELETE_ONE_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar este camión permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando camión...',
           DELETE_ONE_MESSAGE: 'El camión ha sido eliminado',
           DELETE_MANY_TITLE: 'Eliminar Camiones',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los camiones seleccionados permanentemente?',
+          DELETE_MANY_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar los camiones seleccionados permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando camiones...',
           DELETE_MANY_MESSAGE: 'Los camiones seleccionados han sido eliminados',
           CREATE_TITLE: 'Añadir Camión',
@@ -206,16 +213,17 @@ export const locale = {
           EDIT_TRUCK: 'Editar camión',
           DELETE_ICON_LABEL: 'Eliminar Camión',
           EDIT_ICON_LABEL: 'Editar Camión',
-          DELETE_SELECTED: 'Eliminar camiones seleccionados'
+          DELETE_SELECTED: 'Eliminar camiones seleccionados',
         },
         MODEL: {
           MODEL: 'Modelo',
           BRAND: 'Marca',
           SERIAL_NUMBER: 'Número de serie',
           MOTOR_NUMBER: 'Número de motor',
-          MAINTENANCE_PERIOD: 'Periodo de mantenimineto',
+          MAINTENANCE_PERIOD: 'Periodo de mantenimiento',
           INITIAL_RANGE: 'Distancia inicial',
           RANGE_TRAVELED: 'Distancia viajada',
+          TRUCK_PHOTOGRAPHY: 'Fotografía del camión',
           CIRCULATION_CARD: 'Tarjeta de circulacion',
           AIRBAG: 'Bolsa de aire',
           DOCKS: 'Muelles',
@@ -225,26 +233,29 @@ export const locale = {
           CREATE_NEW: 'Añadir nuevo camión',
           DELETE_ALL: 'Eliminar todos',
           GO_BACK: 'Regresar a la lista de camiones',
-        }
+        },
       },
       MAINTENANCE: {
         TEXT: {
           MAINTENANCE_LIST: 'Lista de mantenimientos',
           MAINTENANCE: 'Mantenimientos',
           DELETE_ONE_TITLE: 'Eliminar mantenimiento',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este mantenimiento permanentemente?',
+          DELETE_ONE_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar este mantenimiento permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando mantenimiento...',
           DELETE_ONE_MESSAGE: 'El mantenimiento ha sido eliminado',
           DELETE_MANY_TITLE: 'Eliminar mantenimientos',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los mantenimientos seleccionados permanentemente?',
+          DELETE_MANY_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar los mantenimientos seleccionados permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando mantenimientos...',
-          DELETE_MANY_MESSAGE: 'Los mantenimientos seleccionados han sido eliminados',
+          DELETE_MANY_MESSAGE:
+            'Los mantenimientos seleccionados han sido eliminados',
           CREATE_TITLE: 'Añadir Mantenimiento',
           ADD_MAINTENANCE_MESSAGE: 'Mantenimiento guardado exitosamente',
           EDIT_MAINTENANCE: 'Editar mantenimiento',
           DELETE_ICON_LABEL: 'Eliminar mantenimiento',
           EDIT_ICON_LABEL: 'Editar mantenimiento',
-          DELETE_SELECTED: 'Eliminar mantenimientos seleccionados'
+          DELETE_SELECTED: 'Eliminar mantenimientos seleccionados',
         },
         MODEL: {
           TRUCK_SERIAL_NUMBER: 'Número serial del camión',
@@ -253,25 +264,27 @@ export const locale = {
           START_DATE: 'Fecha de entrada',
           END_DATE: 'Fecha de salida',
           COMMENTS: 'Comentarios',
-          REASONS: 'Razones'
+          REASONS: 'Razones',
         },
         BUTTONS: {
           NEW_MAINTENANCE: 'Nuevo mantenimiento',
           CREATE_NEW: 'Añadir nuevo mantenimiento',
           DELETE_ALL: 'Eliminar todos',
           GO_BACK: 'Regresar a la lista de mantenimientos',
-        }
+        },
       },
       BOXES: {
         TEXT: {
           BOXES_LIST: 'Lista de cajas',
           BOXES: 'Cajas',
           DELETE_ONE_TITLE: 'Eliminar caja',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar esta caja permanentemente?',
+          DELETE_ONE_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar esta caja permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando caja...',
           DELETE_ONE_MESSAGE: 'La caja ha sido eliminada',
           DELETE_MANY_TITLE: 'Eliminar cajas',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar las cajas seleccionadas permanentemente?',
+          DELETE_MANY_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar las cajas seleccionadas permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando cajas...',
           DELETE_MANY_MESSAGE: 'Las cajas seleccionadas han sido eliminados',
           CREATE_TITLE: 'Añadir caja',
@@ -279,7 +292,7 @@ export const locale = {
           EDIT_BOX: 'Editar caja',
           DELETE_ICON_LABEL: 'Eliminar caja',
           EDIT_ICON_LABEL: 'Editar caja',
-          DELETE_SELECTED: 'Eliminar cajas seleccionadas'
+          DELETE_SELECTED: 'Eliminar cajas seleccionadas',
         },
         MODEL: {
           MODEL: 'Modelo',
@@ -288,25 +301,27 @@ export const locale = {
           RANGE_TRAVELED: 'Rango viajado',
           SERIAL_NUMBER: 'Número serial',
           DRY: 'Seca',
-          REFRIGERATED: 'Refrigerada'
+          REFRIGERATED: 'Refrigerada',
         },
         BUTTONS: {
           NEW_BOX: 'Nueva caja',
           CREATE_NEW: 'Añadir nueva caja',
           DELETE_ALL: 'Eliminar todas',
           GO_BACK: 'Regresar a la lista de cajas',
-        }
+        },
       },
       TIRES: {
         TEXT: {
           TIRES_LIST: 'Lista de llantas',
           TIRES: 'Llantas',
           DELETE_ONE_TITLE: 'Eliminar llanta',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar esta llanta permanentemente?',
+          DELETE_ONE_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar esta llanta permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando llanta...',
           DELETE_ONE_MESSAGE: 'La llanta ha sido eliminada',
           DELETE_MANY_TITLE: 'Eliminar llantas',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar las llantas seleccionadas permanentemente?',
+          DELETE_MANY_DESCRIPTION:
+            '¿Estás seguro de que quieres eliminar las llantas seleccionadas permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando llantas...',
           DELETE_MANY_MESSAGE: 'Las llantas seleccionadas han sido eliminados',
           CREATE_TITLE: 'Añadir llanta',
@@ -314,7 +329,7 @@ export const locale = {
           EDIT_TIRE: 'Editar llanta',
           DELETE_ICON_LABEL: 'Eliminar llanta',
           EDIT_ICON_LABEL: 'Editar llanta',
-          DELETE_SELECTED: 'Eliminar llantas seleccionadas'
+          DELETE_SELECTED: 'Eliminar llantas seleccionadas',
         },
         MODEL: {
           SERIAL_NUMBER: 'Número serial',
@@ -325,8 +340,8 @@ export const locale = {
           CREATE_NEW: 'Añadir nueva llanta',
           DELETE_ALL: 'Eliminar todas',
           GO_BACK: 'Regresar a la lista de llantas',
-        }
-      }
+        },
+      },
     },
     ECOMMERCE: {
       COMMON: {
@@ -340,7 +355,7 @@ export const locale = {
         BUSINESS: 'Business',
         INDIVIDUAL: 'Individual',
         SEARCH: 'Search',
-        IN_ALL_FIELDS: 'in all fields'
+        IN_ALL_FIELDS: 'in all fields',
       },
       ECOMMERCE: 'eCommerce',
       CUSTOMERS: {
@@ -351,23 +366,23 @@ export const locale = {
           TITLE: 'Customer Delete',
           DESCRIPTION: 'Are you sure to permanently delete this customer?',
           WAIT_DESCRIPTION: 'Customer is deleting...',
-          MESSAGE: 'Customer has been deleted'
+          MESSAGE: 'Customer has been deleted',
         },
         DELETE_CUSTOMER_MULTY: {
           TITLE: 'Customers Delete',
           DESCRIPTION: 'Are you sure to permanently delete selected customers?',
           WAIT_DESCRIPTION: 'Customers are deleting...',
-          MESSAGE: 'Selected customers have been deleted'
+          MESSAGE: 'Selected customers have been deleted',
         },
         UPDATE_STATUS: {
           TITLE: 'Status has been updated for selected customers',
-          MESSAGE: 'Selected customers status have successfully been updated'
+          MESSAGE: 'Selected customers status have successfully been updated',
         },
         EDIT: {
           UPDATE_MESSAGE: 'Customer has been updated',
-          ADD_MESSAGE: 'Customer has been created'
-        }
-      }
+          ADD_MESSAGE: 'Customer has been created',
+        },
+      },
     },
-  }
+  },
 };

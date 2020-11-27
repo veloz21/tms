@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,7 +35,7 @@ export class TruckEditComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   truckForm: FormGroup;
   hasFormErrors = false;
-  availableYears: number[] = [];
+  url: any;
 
   private ngUnsuscribe = new Subject();
   constructor(
@@ -41,15 +47,15 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     private subheaderService: SubheaderService,
     private translate: TranslateService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.truck = this.activatedRoute.snapshot.data[' truck '];
-    this.activatedRoute.data.pipe(
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe(data => {
-      this.loadTruck(data.truck);
-    });
+    this.activatedRoute.data
+      .pipe(takeUntil(this.ngUnsuscribe))
+      .subscribe((data) => {
+        this.loadTruck(data.truck);
+      });
   }
 
   loadTruck(_truck, fromService: boolean = false) {
@@ -75,17 +81,35 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     this.loadingSubject.next(false);
     if (!this.truck.id) {
       this.subheaderService.setBreadcrumbs([
-        { title: this.translate.instant('WORKSHOP.WORKSHOP'), page: `/workshop` },
-        { title: this.translate.instant('WORKSHOP.TRUCK.TEXT.TRUCK'), page: `/workshop/trucks` },
-        { title: this.translate.instant('WORKSHOP.TRUCK.TEXT.CREATE_TITLE'), page: `/workshop/trucks/add` }
+        {
+          title: this.translate.instant('WORKSHOP.WORKSHOP'),
+          page: `/workshop`,
+        },
+        {
+          title: this.translate.instant('WORKSHOP.TRUCK.TEXT.TRUCK'),
+          page: `/workshop/trucks`,
+        },
+        {
+          title: this.translate.instant('WORKSHOP.TRUCK.TEXT.CREATE_TITLE'),
+          page: `/workshop/trucks/add`,
+        },
       ]);
       return;
     }
-    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK'));
+    this.subheaderService.setTitle(
+      this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK')
+    );
     this.subheaderService.setBreadcrumbs([
       { title: this.translate.instant('WORKSHOP.WORKSHOP'), page: `/workshop` },
-      { title: this.translate.instant('WORKSHOP.TRUCK.TEXT.TRUCK'), page: `/workshop/trucks` },
-      { title: this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK'), page: `/workshop/trucks/edit`, queryParams: { id: this.truck.id } }
+      {
+        title: this.translate.instant('WORKSHOP.TRUCK.TEXT.TRUCK'),
+        page: `/workshop/trucks`,
+      },
+      {
+        title: this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK'),
+        page: `/workshop/trucks/edit`,
+        queryParams: { id: this.truck.id },
+      },
     ]);
   }
 
@@ -108,7 +132,9 @@ export class TruckEditComponent implements OnInit, OnDestroy {
   }
 
   goBackWithoutId() {
-    this.router.navigateByUrl('/workshop/trucks', { relativeTo: this.activatedRoute });
+    this.router.navigateByUrl('/workshop/trucks', {
+      relativeTo: this.activatedRoute,
+    });
   }
 
   refreshTruck(isNew: boolean = false, id?: string) {
@@ -137,7 +163,7 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     const controls = this.truckForm.controls;
     /** check form */
     if (this.truckForm.invalid) {
-      Object.keys(controls).forEach(controlName =>
+      Object.keys(controls).forEach((controlName) =>
         controls[controlName].markAsTouched()
       );
 
@@ -149,7 +175,9 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     const editedTruck = this.prepareTruck();
     if (!!editedTruck.id) {
       this.updateTruck(editedTruck, withBack);
-      this.router.navigateByUrl('/workshop/trucks', { relativeTo: this.activatedRoute });
+      this.router.navigateByUrl('/workshop/trucks', {
+        relativeTo: this.activatedRoute,
+      });
       return;
     }
 
@@ -175,54 +203,73 @@ export class TruckEditComponent implements OnInit, OnDestroy {
 
   addTruck(_truck: TruckModel, withBack: boolean = false) {
     this.store.dispatch(new CreateTruck({ truck: _truck }));
-    this.store.pipe(
-      delay(1000),
-      select(selectLastCreatedTruckId),
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe(newId => {
-      if (!newId) {
-        return;
-      }
-      this.loadingSubject.next(false);
-      if (withBack) {
-        this.goBack(newId);
-      } else {
-        this.refreshTruck(true, newId);
-      }
-    });
+    this.store
+      .pipe(
+        delay(1000),
+        select(selectLastCreatedTruckId),
+        takeUntil(this.ngUnsuscribe)
+      )
+      .subscribe((newId) => {
+        if (!newId) {
+          return;
+        }
+        this.loadingSubject.next(false);
+        if (withBack) {
+          this.goBack(newId);
+        } else {
+          this.refreshTruck(true, newId);
+        }
+      });
   }
 
   updateTruck(_truck: TruckModel, withBack: boolean = false) {
     const updateTruck: Update<TruckModel> = {
       id: _truck.id,
-      changes: _truck
+      changes: _truck,
     };
-    this.store.dispatch(new UpdateTruck({
-      partialTruck: updateTruck,
-      truck: _truck
-    }));
-    of(undefined).pipe(delay(3000), takeUntil(this.ngUnsuscribe)).subscribe(() => {
-      this.loadingSubject.next(false);
-      if (withBack) {
-        this.goBack(_truck.id);
-      } else {
-        this.refreshTruck(true);
-      }
-    });
+    this.store.dispatch(
+      new UpdateTruck({
+        partialTruck: updateTruck,
+        truck: _truck,
+      })
+    );
+    of(undefined)
+      .pipe(delay(3000), takeUntil(this.ngUnsuscribe))
+      .subscribe(() => {
+        this.loadingSubject.next(false);
+        if (withBack) {
+          this.goBack(_truck.id);
+        } else {
+          this.refreshTruck(true);
+        }
+      });
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.CREATE_TITLE');
+    let result: string = this.translate.instant(
+      'WORKSHOP.TRUCK.TEXT.CREATE_TITLE'
+    );
     if (!this.truck || !this.truck.id) {
       return result;
     }
 
-    result = this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK') + ` - ${this.truck.truckModel} ${this.truck.brand} ${this.truck.serialNumber}`;
+    result =
+      this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK') +
+      ` - ${this.truck.truckModel} ${this.truck.brand} ${this.truck.serialNumber}`;
     return result;
   }
 
   onAlertClose($event) {
     this.hasFormErrors = false;
   }
-}
 
+  readUrl(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (Event: any) => {
+        this.url = Event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+}

@@ -3,14 +3,14 @@
 		<ng-container ktPortletTools>
 			<a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button matTooltip="{{'WORKSHOP.MAINTENANCE.BUTTONS.GO_BACK' | translate}}">
 				<i class="la la-arrow-left"></i>
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.BACK">Back</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.BACK" | translate}}</span>
 			</a>
 			<a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | translate}}">
 				<i class="la la-cog"></i>
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.RESET">Reset</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.RESET" | translate}}</span>
 			</a>
 			<a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.SAVE">Save</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.SAVE" | translate}}</span>
 			</a>
 		</ng-container>
 	</b404-portlet-header>
@@ -19,8 +19,7 @@
 			<!--begin::Form-->
 			<form [formGroup]="maintenanceForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
 				<b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
-					<span translate="GENERAL.TEXT.OH_SNAP_CREATE">Oh snap! Change a few things up and try submitting
-						again.</span>
+					<span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>
 				</b404-alert>
 
 				<div class="b404-form__section b404-form__section--first">
@@ -28,17 +27,17 @@
 						<div class="row">
 							<div class="col-md-4 b404-margin-bottom-10-mobile">
 								<mat-form-field class="mat-form-field-fluid">
-									<b404-trucks-autocomplete formControlName="truck" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.TRUCK_SERIAL_NUMBER'|translate}}"></b404-trucks-autocomplete>
+									<b404-trucks-autocomplete formControlName="truck" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.TRUCK_SERIAL_NUMBER'|translate}}" ></b404-trucks-autocomplete>
 								</mat-form-field>
 							</div>
 							<div class="col-md-4 b404-margin-bottom-10-mobile">
 								<mat-form-field class="mat-form-field-fluid">
-									<b404-boxes-autocomplete formControlName="box" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.BOX_SERIAL_NUMBER'|translate}}"></b404-boxes-autocomplete>
+									<b404-boxes-autocomplete formControlName="box" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.BOX_SERIAL_NUMBER'|translate}}" ></b404-boxes-autocomplete>
 								</mat-form-field>
 							</div>
 							<div class="col-md-4 b404-margin-bottom-10-mobile">
 								<mat-form-field class="mat-form-field-fluid">
-									<b404-employees-autocomplete formControlName="mechanic" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.MECHANIC_NAME' | translate }}"></b404-employees-autocomplete>
+									<b404-employees-autocomplete formControlName="mechanic" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.MECHANIC_NAME' | translate }}" required></b404-employees-autocomplete>
 								</mat-form-field>
 							</div>
 						</div>
@@ -47,12 +46,12 @@
 						<div class="row">
 							<div class="col-md-4 b404-margin-bottom-10-mobile">
 								<mat-form-field class="mat-form-field-fluid">
-									<input matInput [matDatepicker]="startDate" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.START_DATE' | translate }}" formControlName="start" />
+									<input matInput [matDatepicker]="startDate" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.START_DATE' | translate }}" formControlName="start" required />
 									<mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
 									<mat-datepicker #startDate></mat-datepicker>
 									<mat-error>
 										{{'WORKSHOP.MAINTENANCE.MODEL.START_DATE' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -61,10 +60,6 @@
 									<input matInput [matDatepicker]="endDate" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.END_DATE' | translate }}" formControlName="end" />
 									<mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
 									<mat-datepicker #endDate></mat-datepicker>
-									<mat-error>
-										{{'WORKSHOP.MAINTENANCE.MODEL.END_DATE' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
-									</mat-error>
 								</mat-form-field>
 							</div>
 						</div>
