@@ -1,5 +1,4 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,13 +17,12 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthenticationService } from './core/auth';
+import { AuthenticationModule } from './core/auth/authentication.module';
 import { CoreModule } from './core/core.module';
 import { metaReducers, reducers } from './core/reducers';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from './core/_base/crud';
 import { LayoutConfig } from './core/_config/layout.config';
 import { AuthModule } from './views/pages/auth/auth.module';
-import { AuthenticationModule } from './views/pages/auth/authentication.module';
 import { PartialsModule } from './views/partials/partials.module';
 import { ThemeModule } from './views/theme/theme.module';
 
@@ -51,7 +49,6 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
       passThruUnknownUrl: true,
       dataEncapsulation: false
@@ -64,8 +61,8 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     StoreDevtoolsModule.instrument(),
-    AuthModule.forRoot(),
     AuthenticationModule,
+    AuthModule,
     TranslateModule.forRoot(),
     MatProgressSpinnerModule,
     InlineSVGModule.forRoot(),
@@ -73,7 +70,6 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
   ],
   exports: [],
   providers: [
-    AuthenticationService,
     LayoutConfigService,
     LayoutRefService,
     MenuConfigService,

@@ -1,5 +1,6 @@
 import { IQueryParams } from '@bits404/api-interfaces';
-import { IsEnum, IsNumberString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsEnum, IsInt } from 'class-validator';
 
 enum SortOrder {
   'asc',
@@ -18,9 +19,11 @@ export class QueryParamsDto<T> implements IQueryParams {
 
   sortField: string;
 
-  @IsNumberString()
+  @IsInt()
+  @Transform(val => Number.parseInt(val, 10))
   pageNumber: number;
 
-  @IsNumberString()
+  @IsInt()
+  @Transform(val => Number.parseInt(val, 10))
   pageSize: number;
 }

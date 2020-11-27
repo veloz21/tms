@@ -12,7 +12,7 @@ import { filter, take } from 'rxjs/operators';
 export class BoxResolver implements Resolve<BoxModel> {
   constructor(private boxesService: BoxesService, private store: Store<AppState>) { }
   resolve(route: ActivatedRouteSnapshot): Observable<BoxModel> | Promise<BoxModel> | BoxModel {
-    const id = String(route.paramMap.get('id'));
+    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
     if (!id) {
       return this.getInitialBox(id);
     }

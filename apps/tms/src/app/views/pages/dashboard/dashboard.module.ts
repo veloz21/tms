@@ -1,28 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CoreModule } from '@tms/core/core.module';
 import { PartialsModule } from '@tms/partials/partials.module';
-import { ProtectedGuard } from 'ngx-auth';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 
 @NgModule({
   imports: [
+    CoreModule,
     CommonModule,
     PartialsModule,
-    CoreModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: DashboardComponent,
-        canActivate: [ProtectedGuard],
-      },
-    ]),
+    DashboardRoutingModule,
   ],
   providers: [],
   declarations: [
     DashboardComponent,
-  ]
+  ],
 })
 export class DashboardModule {
 }

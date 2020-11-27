@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as fromMaintenanceActions from '@tms/actions/maintenance.actions';
-import { QueryParamsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
 import { MaintenancesService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
@@ -21,19 +20,27 @@ export class MaintenanceEffects {
       ofType<fromMaintenanceActions.RequestMaintenancesPage>(fromMaintenanceActions.MaintenanceActionTypes.RequestMaintenancesPage),
       mergeMap(({ payload }) => {
         this.store.dispatch(this.showPageLoadingDistpatcher);
-        const requestToServer = this.maintenancesService.findMaintenances(payload.page);
+        const queryResponse = this.maintenancesService.findMaintenances(payload.page);
         const lastQuery = of(payload.page);
-        return forkJoin([requestToServer, lastQuery]);
+        return forkJoin({ queryResponse, lastQuery }).pipe(
+          catchError(error => {
+            return of({
+              queryResponse: {
+                items: [],
+                totalCount: 0,
+              },
+              lastQuery: payload.page,
+            });
+          })
+        );
       }),
-      map(response => {
-        const result = response[0];
-        const lastQuery: QueryParamsModel = response[1];
+      map(({ queryResponse, lastQuery }) => {
         return new fromMaintenanceActions.LoadMaintenancesPage({
-          maintenance: result,
-          totalCount: result.length,
-          page: lastQuery
+          maintenances: queryResponse.items,
+          totalCount: queryResponse.totalCount,
+          page: lastQuery,
         });
-      }),
+      })
     );
 
   @Effect()

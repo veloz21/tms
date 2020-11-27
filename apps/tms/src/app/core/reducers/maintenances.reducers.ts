@@ -59,7 +59,7 @@ export function maintenancesReducer(state = initialMaintenancesState, action: Ma
         lastQuery: new QueryParamsModel({}),
       };
     case MaintenanceActionTypes.LoadMaintenancesPage:
-      return adapter.addMany(action.payload.maintenance, {
+      return adapter.addMany(action.payload.maintenances, {
         ...initialMaintenancesState,
         totalCount: action.payload.totalCount,
         listLoading: false,

@@ -4,17 +4,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 // NGRX
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action, select, Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { LayoutUtilsService } from '@tms/crud';
 import { defer, Observable, of } from 'rxjs';
 // RxJS
-import { catchError, filter, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
 import { AppState } from '../../reducers';
 // Auth actions
 import * as fromAuthActions from '../_actions/auth.actions';
-import { isCompanyLoaded } from '../_selectors/auth.selectors';
-import { AuthenticationService } from '../_services';
 
 
 @Injectable()
@@ -55,7 +53,6 @@ export class AuthEffects {
     })
   );
 
-
   @Effect({
     dispatch: false
   })
@@ -66,25 +63,25 @@ export class AuthEffects {
     })
   );
 
-  @Effect({
-    dispatch: false
-  })
-  loadUser$ = this.actions$
-    .pipe(
-      ofType<fromAuthActions.CompanyRequested>(fromAuthActions.AuthActionTypes.CompanyRequested),
-      withLatestFrom(this.store.pipe(select(isCompanyLoaded))),
-      filter(([action, _isCompanyLoaded]) => !_isCompanyLoaded),
-      mergeMap(([action, _isUserLoaded]) => this.auth.getCompanyByToken()),
-      tap(_company => {
-        if (_company) {
-          this.store.dispatch(new fromAuthActions.CompanyLoaded({
-            company: _company
-          }));
-        } else {
-          this.store.dispatch(new fromAuthActions.Logout());
-        }
-      })
-    );
+  // @Effect({
+  //   dispatch: false
+  // })
+  // loadUser$ = this.actions$
+  //   .pipe(
+  //     ofType<fromAuthActions.CompanyRequested>(fromAuthActions.AuthActionTypes.CompanyRequested),
+  //     withLatestFrom(this.store.pipe(select(isCompanyLoaded))),
+  //     filter(([action, _isCompanyLoaded]) => !_isCompanyLoaded),
+  //     mergeMap(([action, _isUserLoaded]) => this.auth.getCompanyByToken()),
+  //     tap(_company => {
+  //       if (_company) {
+  //         this.store.dispatch(new fromAuthActions.CompanyLoaded({
+  //           company: _company
+  //         }));
+  //       } else {
+  //         this.store.dispatch(new fromAuthActions.Logout());
+  //       }
+  //     })
+  //   );
 
   @Effect()
   init$: Observable<Action> = defer(() => {
@@ -102,8 +99,7 @@ export class AuthEffects {
 
   private returnUrl: string;
 
-  constructor(private actions$: Actions, private router: Router, private auth: AuthenticationService, private snackBar: MatSnackBar, private store: Store<AppState>, private layoutUtilsService: LayoutUtilsService) {
-
+  constructor(private actions$: Actions, private router: Router, private snackBar: MatSnackBar, private store: Store<AppState>, private layoutUtilsService: LayoutUtilsService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.returnUrl = event.url;

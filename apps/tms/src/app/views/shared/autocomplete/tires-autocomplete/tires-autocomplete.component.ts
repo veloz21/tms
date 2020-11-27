@@ -1,14 +1,14 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Component, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { Store } from '@ngrx/store';
 import { TireModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { TiresService } from '@tms/services';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, share, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, share, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BaseAutocompleteComponent } from '../base-autocomplete/base-autocomplete.component';
-import { MatFormFieldControl } from '/form-field';
 
 @Component({
   selector: 'b404-tires-autocomplete',
@@ -78,6 +78,7 @@ export class TiresAutocompleteComponent extends BaseAutocompleteComponent
 
           const search = value.serialNumber;
           return this.tiresService.findQueryTires(search).pipe(
+            map(response => response.items),
             tap(response => {
               this.haveModels = response.length > 0;
 

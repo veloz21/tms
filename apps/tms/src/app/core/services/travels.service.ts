@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { TravelModel } from '@tms/models';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
@@ -30,7 +30,6 @@ export class TravelsService extends HttpService {
   }
 
   createTravel(travel): Observable<TravelModel> {
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
     return this.http.post<TravelModel>(API_TRAVELS_URL, travel, this.httpOptions).pipe(
       catchError(this.handleError('createTravel'))
     );
@@ -43,16 +42,16 @@ export class TravelsService extends HttpService {
   }
 
   getTravelById(travelId: string): Observable<TravelModel> {
-    return this.http.get<TravelModel>(API_TRAVELS_URL + `/${travelId}`, this.httpOptions).pipe(
+    return this.http.get<TravelModel>(`${API_TRAVELS_URL}/${travelId}`, this.httpOptions).pipe(
       catchError(this.handleError('getTravelById'))
     );
   }
 
-  findTravels(queryParams: QueryParamsModel): Observable<TravelModel[]> {
+  findTravels(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_TRAVELS_URL;
-    return this.http.get<TravelModel[]>(url, {
+    return this.http.get<QueryResultsModel>(url, {
       headers: this.httpOptions.headers,
       params: httpParams,
     }).pipe(
@@ -61,15 +60,13 @@ export class TravelsService extends HttpService {
   }
 
   updateTravel(travel: TravelModel): Observable<any> {
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    return this.http.put(API_TRAVELS_URL, travel, this.httpOptions).pipe(
+    return this.http.put(`${API_TRAVELS_URL}/${travel.id}`, travel, this.httpOptions).pipe(
       catchError(this.handleError('updateTravel'))
     );
   }
 
   deleteTravel(travelId: string): Observable<TravelModel> {
-    const url = `${API_TRAVELS_URL}/${travelId}`;
-    return this.http.delete<TravelModel>(url, this.httpOptions).pipe(
+    return this.http.delete<TravelModel>(`${API_TRAVELS_URL}/${travelId}`, this.httpOptions).pipe(
       catchError(this.handleError('deleteTravel'))
     );
   }

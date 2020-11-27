@@ -7,15 +7,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { NgbProgressbarModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from '../../core/auth';
 import { CoreModule } from '../../core/core.module';
 import { PagesModule } from '../pages/pages.module';
 import { PartialsModule } from '../partials/partials.module';
@@ -85,9 +82,9 @@ import { SubheaderComponent } from './subheader/subheader.component';
     CommonModule,
     RouterModule,
     NgxPermissionsModule.forChild(),
-    StoreModule.forFeature('roles', rolesReducer),
-    StoreModule.forFeature('permissions', permissionsReducer),
-    EffectsModule.forFeature([PermissionEffects, RoleEffects]),
+    // StoreModule.forFeature('roles', rolesReducer),
+    // StoreModule.forFeature('permissions', permissionsReducer),
+    // EffectsModule.forFeature([PermissionEffects, RoleEffects]),
     PagesModule,
     PartialsModule,
     CoreModule,

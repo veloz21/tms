@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.translationService.loadTranslations(enLang, esLang);
+    this.translationService.loadTranslations(esLang, enLang);
 
     // enable/disable loader
     this.loader = this.layoutConfigService.getConfig('loader.enabled');

@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -27,7 +26,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpUtilsService, InterceptService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
+import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { MaintenanceEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
@@ -41,7 +40,6 @@ import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { ModuleGuard } from '../../../../../core/auth';
 import { MaintenanceEditComponent } from './maintenance-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -66,7 +64,6 @@ const routes: Routes = [
   imports: [
     MatDialogModule,
     CommonModule,
-    HttpClientModule,
     PartialsModule,
     NgxPermissionsModule.forChild(),
     RouterModule.forChild(routes),
@@ -104,13 +101,6 @@ const routes: Routes = [
     EffectsModule.forFeature([MaintenanceEffects]),
   ],
   providers: [
-    ModuleGuard,
-    InterceptService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptService,
-      multi: true
-    },
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
       useValue: {

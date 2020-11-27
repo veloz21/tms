@@ -68,7 +68,7 @@ export function employeesReducer(
         lastQuery: new QueryParamsModel({}),
       };
     case EmployeeActionTypes.LoadEmployeePage:
-      return adapter.addMany(action.payload.employee, {
+      return adapter.addMany(action.payload.employees, {
         ...initialEmployeesState,
         totalCount: action.payload.totalCount,
         listLoading: false,

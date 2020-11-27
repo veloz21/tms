@@ -12,7 +12,7 @@ import { filter, take } from 'rxjs/operators';
 export class EmployeeResolver implements Resolve<EmployeeModel> {
   constructor(private employeesService: EmployeesService, private store: Store<AppState>) { }
   resolve(route: ActivatedRouteSnapshot): Observable<EmployeeModel> | Promise<EmployeeModel> | EmployeeModel {
-    const id = String(route.paramMap.get('id'));
+    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
     if (!id) {
       return this.getInitialEmployee(id);
     }

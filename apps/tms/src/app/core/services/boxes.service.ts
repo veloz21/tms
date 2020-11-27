@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { BoxModel } from '@tms/models';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
@@ -40,16 +40,16 @@ export class BoxesService extends HttpService {
   }
 
   getBoxById(boxId: string): Observable<BoxModel> {
-    return this.http.get<BoxModel>(API_BOXES_URL + `/${boxId}`, this.httpOptions).pipe(
+    return this.http.get<BoxModel>(`${API_BOXES_URL}/${boxId}`, this.httpOptions).pipe(
       catchError(this.handleError('getBoxById'))
     );
   }
 
-  findBoxes(queryParams: QueryParamsModel): Observable<BoxModel[]> {
+  findBoxes(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_BOXES_URL;
-    return this.http.get<BoxModel[]>(url, {
+    return this.http.get<QueryResultsModel>(url, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(
@@ -58,7 +58,7 @@ export class BoxesService extends HttpService {
   }
 
   updateBox(box: BoxModel): Observable<any> {
-    return this.http.put(API_BOXES_URL, box, this.httpOptions).pipe(
+    return this.http.put(`${API_BOXES_URL}/${box.id}`, box, this.httpOptions).pipe(
       catchError(this.handleError('updateBox'))
     );
   }
@@ -77,14 +77,14 @@ export class BoxesService extends HttpService {
     return forkJoin(requests);
   }
 
-  findQueryBoxes(value: string): Observable<BoxModel[]> {
+  findQueryBoxes(value: string): Observable<QueryResultsModel> {
     const queryParams = new QueryParamsModel(
       { Name: value },
       'asc',
       'serialNumber',
     );
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
-    return this.http.get<BoxModel[]>(API_BOXES_URL, {
+    return this.http.get<QueryResultsModel>(API_BOXES_URL, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(

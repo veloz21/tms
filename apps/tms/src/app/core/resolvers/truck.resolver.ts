@@ -12,7 +12,7 @@ import { filter, take } from 'rxjs/operators';
 export class TruckResolver implements Resolve<TruckModel> {
   constructor(private trucksService: TrucksService, private store: Store<AppState>) { }
   resolve(route: ActivatedRouteSnapshot): Observable<TruckModel> | Promise<TruckModel> | TruckModel {
-    const id = String(route.paramMap.get('id'));
+    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
     if (!id) {
       return this.getInitialTruck(id);
     }
@@ -23,6 +23,7 @@ export class TruckResolver implements Resolve<TruckModel> {
   getInitialTruck(id: string) {
     return new TruckModel();
   }
+
   getTruckData(id: string) {
     this.store.select(selectTruckById(id)).pipe(
       take(1)

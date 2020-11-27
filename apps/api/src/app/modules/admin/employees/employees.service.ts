@@ -23,12 +23,16 @@ export class EmployeesService {
   }
 
   findAll(queryParams: IQueryParams, options: HttpOptions): Promise<IQueryResults> {
-    const limit = queryParams.pageSize;
-    const skip = queryParams.pageNumber * queryParams.pageSize;
-    const query = this.employeeModel.find({ company: options.company }).sort({ [queryParams.sortField]: queryParams.sortOrder }).session(options.session);
+    const limit = Number(queryParams.pageSize);
+    const skip = Number(queryParams.pageNumber * queryParams.pageSize);
+
+    const baseQuery = this.employeeModel.find({ company: options.company }).session(options.session);
+    const query = this.employeeModel.find().merge(baseQuery).sort({ [queryParams.sortField]: queryParams.sortOrder }).limit(limit).skip(skip);
+    const countQuery = this.employeeModel.find().merge(baseQuery).count();
+
     return forkJoin({
-      items: query.limit(limit).skip(skip).exec(),
-      totalCount: query.count().exec(),
+      items: query.exec(),
+      totalCount: countQuery.exec(),
     }).toPromise();
   }
 

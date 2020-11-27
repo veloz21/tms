@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { TireModel } from '@tms/models';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
@@ -40,16 +40,16 @@ export class TiresService extends HttpService {
   }
 
   getTireById(tireId: string): Observable<TireModel> {
-    return this.http.get<TireModel>(API_TIRES_URL + `/${tireId}`, this.httpOptions).pipe(
+    return this.http.get<TireModel>(`${API_TIRES_URL}/${tireId}`, this.httpOptions).pipe(
       catchError(this.handleError('getTireById'))
     );
   }
 
-  findTires(queryParams: QueryParamsModel): Observable<TireModel[]> {
+  findTires(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_TIRES_URL;
-    return this.http.get<TireModel[]>(url, {
+    return this.http.get<QueryResultsModel>(url, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(
@@ -58,14 +58,13 @@ export class TiresService extends HttpService {
   }
 
   updateTire(tire: TireModel): Observable<any> {
-    return this.http.put(API_TIRES_URL, tire, this.httpOptions).pipe(
+    return this.http.put(`${API_TIRES_URL}/${tire.id}`, tire, this.httpOptions).pipe(
       catchError(this.handleError('updateTire'))
     );
   }
 
   deleteTire(tireId: string): Observable<TireModel> {
-    const url = `${API_TIRES_URL}/${tireId}`;
-    return this.http.delete<TireModel>(url, this.httpOptions).pipe(
+    return this.http.delete<TireModel>(`${API_TIRES_URL}/${tireId}`, this.httpOptions).pipe(
       catchError(this.handleError('deleteTire'))
     );
   }
@@ -78,14 +77,14 @@ export class TiresService extends HttpService {
     return forkJoin(requests);
   }
 
-  public findQueryTires(value: string): Observable<TireModel[]> {
+  public findQueryTires(value: string): Observable<QueryResultsModel> {
     const queryParams = new QueryParamsModel(
       { Name: value },
       'asc',
       'serialNumber',
     );
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
-    return this.http.get<TireModel[]>(API_TIRES_URL, {
+    return this.http.get<QueryResultsModel>(API_TIRES_URL, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(

@@ -66,7 +66,7 @@ export class RequestMaintenancesPage implements Action {
 
 export class LoadMaintenancesPage implements Action {
   readonly type = MaintenanceActionTypes.LoadMaintenancesPage;
-  constructor(public payload: { maintenance: MaintenanceModel[], totalCount: number, page: QueryParamsModel }) { }
+  constructor(public payload: { maintenances: MaintenanceModel[], totalCount: number, page: QueryParamsModel }) { }
 }
 
 export class CancelMaintenancesPage implements Action {

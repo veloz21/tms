@@ -75,7 +75,7 @@ export class RequestTrucksPage implements Action {
 
 export class LoadTrucksPage implements Action {
   readonly type = TruckActionTypes.LoadTrucksPage;
-  constructor(public payload: { truck: TruckModel[], totalCount: number, page: QueryParamsModel }) { }
+  constructor(public payload: { trucks: TruckModel[], totalCount: number, page: QueryParamsModel }) { }
 }
 
 export class CancelTrucksPage implements Action {

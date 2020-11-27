@@ -1,34 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { TiresRoutingModule } from './tires-routing.module';
 
-const routes: Routes = [
-  {
-    path: '',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./tires-list/tires-list.module').then(m => m.TireListModule),
-      },
-      {
-        path: 'add',
-        loadChildren: () => import('./tires-edit/tires-edit.module').then(m => m.TireEditModule),
-      },
-      {
-        path: 'edit',
-        loadChildren: () => import('./tires-edit/tires-edit.module').then(m => m.TireEditModule),
-      },
-      {
-        path: 'edit/:_id',
-        loadChildren: () => import('./tires-edit/tires-edit.module').then(m => m.TireEditModule),
-      },
-    ],
-  },
-];
 @NgModule({
   imports: [
-    RouterModule.forChild(routes),
+    TiresRoutingModule
   ],
   exports: [RouterModule],
 })
-export class TireModule {
-}
+export class TiresModule { }

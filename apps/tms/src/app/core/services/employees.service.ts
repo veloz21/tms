@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { EmployeeModel } from '@tms/models';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpService } from './http-service';
 
-const API_EMPLOYEES_URL = environment.endpoint + 'api/paysheet/employees';
+const API_EMPLOYEES_URL = environment.endpoint + 'api/admin/employees';
 
 @Injectable()
 export class EmployeesService extends HttpService {
@@ -40,16 +40,16 @@ export class EmployeesService extends HttpService {
   }
 
   getEmployeeById(employeeId: string): Observable<EmployeeModel> {
-    return this.http.get<EmployeeModel>(API_EMPLOYEES_URL + `/${employeeId}`).pipe(
+    return this.http.get<EmployeeModel>(`${API_EMPLOYEES_URL}/${employeeId}`).pipe(
       catchError(this.handleError('getEmployeeById'))
     );
   }
 
-  findEmployees(queryParams: QueryParamsModel): Observable<EmployeeModel[]> {
+  findEmployees(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_EMPLOYEES_URL;
-    return this.http.get<EmployeeModel[]>(url, {
+    return this.http.get<QueryResultsModel>(url, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(
@@ -58,14 +58,13 @@ export class EmployeesService extends HttpService {
   }
 
   updateEmployee(employee: EmployeeModel): Observable<EmployeeModel> {
-    return this.http.put(API_EMPLOYEES_URL, employee, this.httpOptions).pipe(
+    return this.http.put(`${API_EMPLOYEES_URL}/${employee.id}`, employee, this.httpOptions).pipe(
       catchError(this.handleError('updateEmployee'))
     );
   }
 
   deleteEmployee(employeeId: string): Observable<EmployeeModel> {
-    const url = `${API_EMPLOYEES_URL}/${employeeId}`;
-    return this.http.delete<EmployeeModel>(url, this.httpOptions).pipe(
+    return this.http.delete<EmployeeModel>(`${API_EMPLOYEES_URL}/${employeeId}`, this.httpOptions).pipe(
       catchError(this.handleError('deleteEmployee'))
     );
   }
@@ -78,14 +77,14 @@ export class EmployeesService extends HttpService {
     return forkJoin(requests);
   }
 
-  findQueryEmployees(value: string): Observable<EmployeeModel[]> {
+  findQueryEmployees(value: string): Observable<QueryResultsModel> {
     const queryParams = new QueryParamsModel(
       { Name: value },
       'asc',
       'fristName',
     );
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
-    return this.http.get<EmployeeModel[]>(API_EMPLOYEES_URL, {
+    return this.http.get<QueryResultsModel>(API_EMPLOYEES_URL, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(

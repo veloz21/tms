@@ -262,11 +262,15 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     _travel.locations = {
       origin: {
         type: 'Point',
-        coordinates: this.travelForm.get('origin').value,
+        // coordinates: [this.travelForm.get('origin').value, this.travelForm.get('origin').value],
+        // lng, lat
+        coordinates: [-102.322306, 22.114624],
       },
       destination: {
         type: 'Point',
-        coordinates: this.travelForm.get('destination').value,
+        // lng, lat
+        coordinates: [-89.423559, 32.000097],
+        // coordinates: [this.travelForm.get('destination').value, this.travelForm.get('destination').value],
       }
     };
     _travel.times = {

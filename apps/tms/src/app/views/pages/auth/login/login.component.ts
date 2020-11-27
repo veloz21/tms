@@ -8,14 +8,6 @@ import { AppState } from '@tms/reducers';
 import { Observable, Subject } from 'rxjs';
 import { AuthenticationService, AuthNoticeService, Login } from '../../../../core/auth';
 
-/**
- * ! Just example => Should be removed in development
- */
-const DEMO_PARAMS = {
-  EMAIL: 'admin@demo.com',
-  PASSWORD: 'demo'
-};
-
 @Component({
   selector: 'b404-login',
   templateUrl: './login.component.html',
@@ -63,14 +55,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   initLoginForm() {
 
     this.loginForm = this.fb.group({
-      email: [DEMO_PARAMS.EMAIL, Validators.compose([
+      email: ['', Validators.compose([
         Validators.required,
         Validators.email,
         Validators.minLength(3),
         Validators.maxLength(320) // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
       ])
       ],
-      password: [DEMO_PARAMS.PASSWORD, Validators.compose([
+      password: ['', Validators.compose([
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100)
@@ -94,9 +86,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.store.dispatch(new Login({ Success: 'Yes' }));
       console.log(user);
       this.router.navigateByUrl(this.returnUrl);
+      this.loading = false;
+      this.cdr.markForCheck();
     }, error => {
       this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
-    }, () => {
       this.loading = false;
       this.cdr.markForCheck();
     });

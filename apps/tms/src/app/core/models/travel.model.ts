@@ -30,10 +30,12 @@ export class TravelModel implements ITravel {
     this.locations = travel && travel.locations || {
       origin: {
         type: 'Point',
+        // lng, lat
         coordinates: []
       },
       destination: {
         type: 'Point',
+        // lng, lat
         coordinates: []
       }
     };

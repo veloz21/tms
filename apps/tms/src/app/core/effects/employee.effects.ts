@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as fromEmployeeActions from '@tms/actions/employee.actions';
-import { QueryParamsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
 import { EmployeesService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
@@ -20,18 +19,24 @@ export class EmployeeEffects {
     ofType<fromEmployeeActions.RequestEmployeePage>(fromEmployeeActions.EmployeeActionTypes.RequestEmployeePage),
     mergeMap(({ payload }) => {
       this.store.dispatch(this.showPageLoadingDistpatcher);
-      const requestToServer = this.employeesService.findEmployees(
-        payload.page
-      );
+      const queryResponse = this.employeesService.findEmployees(payload.page);
       const lastQuery = of(payload.page);
-      return forkJoin([requestToServer, lastQuery]);
+      return forkJoin({ queryResponse, lastQuery }).pipe(
+        catchError(error => {
+          return of({
+            queryResponse: {
+              items: [],
+              totalCount: 0,
+            },
+            lastQuery: payload.page,
+          });
+        })
+      );
     }),
-    map((response) => {
-      const result = response[0];
-      const lastQuery: QueryParamsModel = response[1];
+    map(({ queryResponse, lastQuery }) => {
       return new fromEmployeeActions.LoadEmployeePage({
-        employee: result,
-        totalCount: result.length,
+        employees: queryResponse.items,
+        totalCount: queryResponse.totalCount,
         page: lastQuery,
       });
     })

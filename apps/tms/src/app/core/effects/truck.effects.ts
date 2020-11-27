@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as fromTruckActions from '@tms/actions/truck.actions';
-import { QueryParamsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
 import { TrucksService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
@@ -21,17 +20,25 @@ export class TruckEffects {
       ofType<fromTruckActions.RequestTrucksPage>(fromTruckActions.TruckActionTypes.RequestTrucksPage),
       mergeMap(({ payload }) => {
         this.store.dispatch(this.showPageLoadingDistpatcher);
-        const requestToServer = this.trucksService.findTrucks(payload.page);
+        const queryResponse = this.trucksService.findTrucks(payload.page);
         const lastQuery = of(payload.page);
-        return forkJoin([requestToServer, lastQuery]);
+        return forkJoin({ queryResponse, lastQuery }).pipe(
+          catchError(error => {
+            return of({
+              queryResponse: {
+                items: [],
+                totalCount: 0,
+              },
+              lastQuery: payload.page,
+            });
+          })
+        );
       }),
-      map(response => {
-        const result = response[0];
-        const lastQuery: QueryParamsModel = response[1];
+      map(({ queryResponse, lastQuery }) => {
         return new fromTruckActions.LoadTrucksPage({
-          truck: result,
-          totalCount: result.length,
-          page: lastQuery
+          trucks: queryResponse.items,
+          totalCount: queryResponse.totalCount,
+          page: lastQuery,
         });
       })
     );

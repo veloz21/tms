@@ -18,8 +18,7 @@ export class DashboardComponent implements OnInit {
   widget4_3: Widget4Data;
   widget4_4: Widget4Data;
 
-  constructor(private layoutConfigService: LayoutConfigService) {
-  }
+  constructor(private layoutConfigService: LayoutConfigService) { }
 
   ngOnInit(): void {
     this.chartOptions1 = {

@@ -2,7 +2,6 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { environment } from '../../../environments/environment';
 import { CompanyModule } from '../admin/company';
 import { UsersModule } from '../admin/users';
 import { AuthController } from './auth.controller';
@@ -14,10 +13,7 @@ import { LocalStrategy } from './local.strategy';
   imports: [
     MailerModule,
     PassportModule,
-    JwtModule.register({
-      secret: environment.ACCESS_TOKEN_SECRET,
-      signOptions: { expiresIn: '15m' },
-    }),
+    JwtModule.register({}),
     UsersModule,
     CompanyModule,
   ],
