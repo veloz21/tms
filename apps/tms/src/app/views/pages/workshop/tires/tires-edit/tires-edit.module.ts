@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -27,8 +26,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { ModuleGuard } from '@tms/core/auth';
-import { HttpUtilsService, InterceptService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
+import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { TireEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
@@ -63,7 +61,6 @@ const routes: Routes = [
   imports: [
     MatDialogModule,
     CommonModule,
-    HttpClientModule,
     PartialsModule,
     NgxPermissionsModule.forChild(),
     RouterModule.forChild(routes),
@@ -98,13 +95,6 @@ const routes: Routes = [
     EffectsModule.forFeature([TireEffects]),
   ],
   providers: [
-    ModuleGuard,
-    InterceptService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptService,
-      multi: true
-    },
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
       useValue: {

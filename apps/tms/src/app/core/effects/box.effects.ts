@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as fromBoxActions from '@tms/actions/box.actions';
-import { QueryParamsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
 import { BoxesService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
@@ -25,24 +24,29 @@ export class BoxEffects {
   loadBoxesPage$ = this.actions$
     .pipe(
       ofType<fromBoxActions.RequestBoxesPage>(fromBoxActions.BoxActionTypes.RequestBoxesPage),
-      mergeMap(({
-        payload
-      }) => {
+      mergeMap(({ payload }) => {
         this.store.dispatch(this.showPageLoadingDistpatcher);
-        const requestToServer = this.boxesService.findBoxes(payload.page);
+        const queryResponse = this.boxesService.findBoxes(payload.page);
         const lastQuery = of(payload.page);
-        return forkJoin([requestToServer, lastQuery]);
+        return forkJoin({ queryResponse, lastQuery }).pipe(
+          catchError(error => {
+            return of({
+              queryResponse: {
+                items: [],
+                totalCount: 0,
+              },
+              lastQuery: payload.page,
+            });
+          })
+        );
       }),
-      map(response => {
-        const result = response[0];
-        const lastQuery: QueryParamsModel = response[1];
-        console.log(result.length);
+      map(({ queryResponse, lastQuery }) => {
         return new fromBoxActions.LoadBoxesPage({
-          boxes: result,
-          totalCount: result.length,
-          page: lastQuery
+          boxes: queryResponse.items,
+          totalCount: queryResponse.totalCount,
+          page: lastQuery,
         });
-      }),
+      })
     );
 
   @Effect()

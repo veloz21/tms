@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { EmployeeModel } from '@tms/models';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
@@ -45,11 +45,11 @@ export class EmployeesService extends HttpService {
     );
   }
 
-  findEmployees(queryParams: QueryParamsModel): Observable<EmployeeModel[]> {
+  findEmployees(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_EMPLOYEES_URL;
-    return this.http.get<EmployeeModel[]>(url, {
+    return this.http.get<QueryResultsModel>(url, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(

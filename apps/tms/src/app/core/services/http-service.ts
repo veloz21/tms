@@ -10,7 +10,8 @@ export class HttpService {
    */
   protected handleError<T>(operation = 'operation', result?: any) {
     return (httpError: any): Observable<any> => {
-      const errorMsg = JSON.parse(httpError.error) && JSON.parse(httpError.error).message || httpError instanceof HttpErrorResponse && httpError.statusText || httpError.error || '';
+      console.log('-----', httpError);
+      const errorMsg = httpError.error && typeof httpError.error !== 'object' ? JSON.parse(httpError.error) && JSON.parse(httpError.error).message : httpError instanceof HttpErrorResponse && httpError.statusText || httpError.error || '';
       // TODO: send the error to remote logging infrastructure
       console.error(operation, httpError); // log to console instead
       return throwError(result || errorMsg);

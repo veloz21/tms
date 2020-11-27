@@ -73,7 +73,7 @@ export class RequestTiresPage implements Action {
 export class LoadTiresPage implements Action {
   readonly type = TireActionTypes.LoadTiresPage;
   constructor(public payload: {
-    tire: TireModel[],
+    tires: TireModel[],
     totalCount: number,
     page: QueryParamsModel
   }) { }

@@ -42,7 +42,7 @@ export function trucksReducer(state = initialTrucksState, action: TruckActions):
       ...state, listLoading: false, lastQuery: new QueryParamsModel({})
     };
     case TruckActionTypes.LoadTrucksPage:
-      return adapter.addMany(action.payload.truck, {
+      return adapter.addMany(action.payload.trucks, {
         ...initialTrucksState,
         totalCount: action.payload.totalCount,
         listLoading: false,

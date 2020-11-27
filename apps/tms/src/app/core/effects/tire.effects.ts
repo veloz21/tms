@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as fromTireActions from '@tms/actions/tire.actions';
-import { QueryParamsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
 import { TiresService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
@@ -21,20 +20,27 @@ export class TireEffects {
       ofType<fromTireActions.RequestTiresPage>(fromTireActions.TireActionTypes.RequestTiresPage),
       mergeMap(({ payload }) => {
         this.store.dispatch(this.showPageLoadingDistpatcher);
-        const requestToServer = this.tiresService.findTires(payload.page);
+        const queryResponse = this.tiresService.findTires(payload.page);
         const lastQuery = of(payload.page);
-        return forkJoin([requestToServer, lastQuery]);
+        return forkJoin({ queryResponse, lastQuery }).pipe(
+          catchError(error => {
+            return of({
+              queryResponse: {
+                items: [],
+                totalCount: 0,
+              },
+              lastQuery: payload.page,
+            });
+          })
+        );
       }),
-      map(response => {
-        const result = response[0];
-        const lastQuery: QueryParamsModel = response[1];
-        console.log(lastQuery);
+      map(({ queryResponse, lastQuery }) => {
         return new fromTireActions.LoadTiresPage({
-          tire: result,
-          totalCount: result.length,
-          page: lastQuery
+          tires: queryResponse.items,
+          totalCount: queryResponse.totalCount,
+          page: lastQuery,
         });
-      }),
+      })
     );
 
   @Effect()
@@ -64,8 +70,6 @@ export class TireEffects {
         return this.hideActionLoadingDistpatcher;
       }),
     );
-
-
 
   @Effect()
   updateTire$ = this.actions$

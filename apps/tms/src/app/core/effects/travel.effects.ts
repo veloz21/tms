@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as fromTravelActions from '@tms/actions/travel.actions';
-import { QueryParamsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
 import { TravelsService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
@@ -11,32 +10,33 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 
 @Injectable()
 export class TravelEffects {
-  showPageLoadingDistpatcher = new fromTravelActions.TravelsPageToggleLoading({
-    isLoading: true,
-  });
+  showPageLoadingDistpatcher = new fromTravelActions.TravelsPageToggleLoading({ isLoading: true, });
   showLoadingDistpatcher = new fromTravelActions.TravelsPageToggleLoading({ isLoading: true });
-  hideActionLoadingDistpatcher = new fromTravelActions.TravelsPageToggleLoading({
-    isLoading: false,
-  });
+  hideActionLoadingDistpatcher = new fromTravelActions.TravelsPageToggleLoading({ isLoading: false, });
 
   @Effect()
   loadTravelsPage$ = this.actions$.pipe(
     ofType<fromTravelActions.RequestTravelsPage>(fromTravelActions.TravelActionTypes.RequestTravelsPage),
     mergeMap(({ payload }) => {
       this.store.dispatch(this.showPageLoadingDistpatcher);
-      const requestToServer = this.travelsService.findTravels(
-        payload.page
-      );
+      const queryResponse = this.travelsService.findTravels(payload.page);
       const lastQuery = of(payload.page);
-      return forkJoin([requestToServer, lastQuery]);
+      return forkJoin({ queryResponse, lastQuery }).pipe(
+        catchError(error => {
+          return of({
+            queryResponse: {
+              items: [],
+              totalCount: 0,
+            },
+            lastQuery: payload.page,
+          });
+        })
+      );
     }),
-    map((response) => {
-      console.log(response);
-      const result = response[0];
-      const lastQuery: QueryParamsModel = response[1];
+    map(({ queryResponse, lastQuery }) => {
       return new fromTravelActions.LoadTravelsPage({
-        travel: result,
-        totalCount: result.length,
+        travel: queryResponse.items,
+        totalCount: queryResponse.totalCount,
         page: lastQuery,
       });
     })

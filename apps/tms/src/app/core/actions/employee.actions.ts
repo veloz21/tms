@@ -81,7 +81,7 @@ export class LoadEmployeePage implements Action {
   readonly type = EmployeeActionTypes.LoadEmployeePage;
   constructor(
     public payload: {
-      employee: EmployeeModel[];
+      employees: EmployeeModel[];
       totalCount: number;
       page: QueryParamsModel;
     }

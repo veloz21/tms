@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { ICompany, IUser } from '@bits404/api-interfaces';
 import { environment } from '@tms/environments/environment';
+import { HttpService } from '@tms/services';
 import { AuthService } from 'ngx-auth';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, switchMapTo, tap } from 'rxjs/operators';
@@ -17,9 +18,10 @@ const API_TOKEN_URL = environment.endpoint + 'api/auth/token';
 const API_PERMISSION_URL = '';
 const API_ROLES_URL = '';
 
-
-@Injectable()
-export class AuthenticationService implements AuthService {
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthenticationService extends HttpService implements AuthService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -32,6 +34,7 @@ export class AuthenticationService implements AuthService {
     private http: HttpClient,
     private tokenStorage: TokenStorage,
   ) {
+    super();
     this.isLoggedIn = new BehaviorSubject(false);
     this.isAuthorized().subscribe(isLoggedIn => this.isLoggedIn.next(isLoggedIn));
   }
@@ -42,8 +45,10 @@ export class AuthenticationService implements AuthService {
    * @memberOf AuthService
    */
   public isAuthorized(): Observable<boolean> {
-    // console.log('AuthenticationService isAuthorized');
-    return this.tokenStorage.getAccessToken().pipe(map(token => !!token));
+    return this.tokenStorage.getAccessToken().pipe(map(token => {
+      console.log('isAuthorized', token);
+      return !!token;
+    }));
   }
 
   /**
@@ -51,7 +56,7 @@ export class AuthenticationService implements AuthService {
    * @description Should return access token in Observable from e.g. localStorage
    */
   public getAccessToken(): Observable<string> {
-    // console.log('AuthenticationService getAccessToken');
+    console.log('AuthenticationService getAccessToken');
     return this.tokenStorage.getAccessToken();
   }
 
@@ -66,10 +71,7 @@ export class AuthenticationService implements AuthService {
         return this.http.post<AuthModel>(API_TOKEN_URL, { refreshToken }, this.httpOptions);
       }),
       tap(this.saveAccessData.bind(this)),
-      catchError(err => {
-        this.logout();
-        return throwError(err);
-      })
+      catchError(this.handleError('refreshToken'))
     );
   }
 
@@ -95,7 +97,7 @@ export class AuthenticationService implements AuthService {
       tap(() => this.isLoggedIn.next(true)),
       tap(this.saveAccessData.bind(this)),
       switchMapTo(this.getCurrentUser()),
-      catchError(this.handleError('login', []))
+      catchError(this.handleError('login'))
     );
   }
 
@@ -127,7 +129,7 @@ export class AuthenticationService implements AuthService {
     return this.http.post(API_LOGIN_URL, {}, { responseType: 'text' }).pipe(
       tap(() => this.tokenStorage.clear()),
       tap(() => this.isLoggedIn.next(false)),
-      catchError(this.handleError('logout', []))
+      catchError(this.handleError('logout'))
     );
   }
 
@@ -145,19 +147,19 @@ export class AuthenticationService implements AuthService {
   public register(company: Partial<ICompany>, user: Partial<IUser>): Observable<string> {
     return this.http.post(API_REGISTER_URL, { company, user }, this.httpOptions).pipe(
       switchMapTo(this.login(user)),
-      catchError(this.handleError('register', []))
+      catchError(this.handleError('register'))
     );
   }
 
   // public recoverPassword(email: string): Observable<any> {
   //   return this.http.post(API_LOGIN_URL, { email }, this.httpOptions).pipe(
-  //     catchError(this.handleError('recoverPassword', []))
+  //     catchError(this.handleError('recoverPassword'))
   //   );
   // }
 
   // public changePassword(oldPassword: string, newPassword: string): Observable<any> {
   //   return this.http.put(API_LOGIN_URL, { oldPassword, newPassword }, this.httpOptions).pipe(
-  //     catchError(this.handleError('changePassword', []))
+  //     catchError(this.handleError('changePassword'))
   //   );
   // }
 
@@ -165,7 +167,7 @@ export class AuthenticationService implements AuthService {
     return of({});
     // return this.http.get<CompanyModel>(API_LOGIN_URL, this.httpOptions).pipe(
     //   tap(user => this.tokenStorage.setUser(user)),
-    //   catchError(this.handleError('changePassword', []))
+    //   catchError(this.handleError('changePassword'))
     // );
   }
 
@@ -186,7 +188,7 @@ export class AuthenticationService implements AuthService {
 
   public requestPassword(email: string): Observable<any> {
     return this.http.get(API_LOGIN_URL + '/forgot?=' + email)
-      .pipe(catchError(this.handleError('forgot-password', [])));
+      .pipe(catchError(this.handleError('forgot-password')));
   }
 
   getAllCompanys(): Observable<CompanyModel[]> {
@@ -292,19 +294,5 @@ export class AuthenticationService implements AuthService {
       headers: httpHeaders
     }
     );
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: any) {
-    return (error: any): Observable<any> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(operation, error); // log to console instead
-      return of({ status: 500 });
-    };
   }
 }

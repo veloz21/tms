@@ -55,7 +55,6 @@ export class AuthEffects {
     })
   );
 
-
   @Effect({
     dispatch: false
   })

@@ -29,7 +29,7 @@ export class MaintenanceEffects {
         const result = response[0];
         const lastQuery: QueryParamsModel = response[1];
         return new fromMaintenanceActions.LoadMaintenancesPage({
-          maintenance: result,
+          maintenances: result,
           totalCount: result.length,
           page: lastQuery
         });

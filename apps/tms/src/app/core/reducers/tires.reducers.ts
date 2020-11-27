@@ -53,7 +53,7 @@ export function tiresReducer(state = initialTiresState, action: TireActions): Ti
         ...state, listLoading: false, lastQuery: new QueryParamsModel({})
       };
     case TireActionTypes.LoadTiresPage:
-      return adapter.addMany(action.payload.tire, {
+      return adapter.addMany(action.payload.tires, {
         ...initialTiresState,
         totalCount: action.payload.totalCount,
         listLoading: false,

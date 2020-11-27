@@ -33,7 +33,7 @@ export { CompanysReducer } from './_reducers/company.reducers';
 export { permissionsReducer } from './_reducers/permission.reducers';
 export { rolesReducer } from './_reducers/role.reducers';
 // SELECTORS
-export { checkHasCompanyPermission, currentAuthToken, currentCompany, currentCompanyPermissions, currentCompanyPermissionsIds, currentCompanyRoleIds, isCompanyLoaded, isLoggedIn, isLoggedOut } from './_selectors/auth.selectors';
+// export { checkHasCompanyPermission, currentAuthToken, currentCompany, currentCompanyPermissions, currentCompanyPermissionsIds, currentCompanyRoleIds, isCompanyLoaded, isLoggedIn, isLoggedOut } from './_selectors/auth.selectors';
 export {
   selectCompanyById,
   selectCompanysActionLoading,

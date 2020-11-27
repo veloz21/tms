@@ -1,6 +1,5 @@
 // Angular
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -9,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -28,7 +27,7 @@ import { NgbModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpUtilsService, InterceptService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
+import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
@@ -41,7 +40,6 @@ import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { ModuleGuard } from '../../../../core/auth';
 import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../partials/content/crud';
 import { TravelEditComponent } from './travel-edit.component';
 
@@ -68,7 +66,6 @@ const routes: Routes = [
     MatDialogModule,
     CommonModule,
     NgbModule,
-    HttpClientModule,
     PartialsModule,
     NgxPermissionsModule.forChild(),
     RouterModule.forChild(routes),
@@ -106,22 +103,6 @@ const routes: Routes = [
     EffectsModule.forFeature([TravelEffects]),
   ],
   providers: [
-    ModuleGuard,
-    InterceptService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptService,
-      multi: true
-    },
-    {
-      provide: MAT_DIALOG_DEFAULT_OPTIONS,
-      useValue: {
-        hasBackdrop: true,
-        panelClass: 'b404-mat-dialog-container__wrapper',
-        height: 'auto',
-        width: '900px'
-      }
-    },
     TypesUtilsService,
     LayoutUtilsService,
     HttpUtilsService,

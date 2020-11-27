@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { TravelModel } from '@tms/models';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
@@ -30,7 +30,6 @@ export class TravelsService extends HttpService {
   }
 
   createTravel(travel): Observable<TravelModel> {
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
     return this.http.post<TravelModel>(API_TRAVELS_URL, travel, this.httpOptions).pipe(
       catchError(this.handleError('createTravel'))
     );
@@ -48,11 +47,11 @@ export class TravelsService extends HttpService {
     );
   }
 
-  findTravels(queryParams: QueryParamsModel): Observable<TravelModel[]> {
+  findTravels(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_TRAVELS_URL;
-    return this.http.get<TravelModel[]>(url, {
+    return this.http.get<QueryResultsModel>(url, {
       headers: this.httpOptions.headers,
       params: httpParams,
     }).pipe(
@@ -61,7 +60,6 @@ export class TravelsService extends HttpService {
   }
 
   updateTravel(travel: TravelModel): Observable<any> {
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
     return this.http.put(API_TRAVELS_URL, travel, this.httpOptions).pipe(
       catchError(this.handleError('updateTravel'))
     );
