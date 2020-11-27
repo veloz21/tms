@@ -2,7 +2,7 @@
   <b404-portlet-header [sticky]="true" [title]="'TRAVEL.TRAVEL.TEXT.TRAVEL_LIST'| translate"
     [class]="'b404-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
     <ng-container ktPortletTools>
-      <a [routerLink]="['/travel/travel/add']" mat-raised-button color="primary"
+      <a [routerLink]="['/travels/add']" mat-raised-button color="primary"
         matTooltip="{{'TRAVEL.TRAVEL.BUTTONS.CREATE_NEW' | translate}}"><span
           translate="TRAVEL.TRAVEL.BUTTONS.NEW_TRAVEL">New Travel</span></a>
     </ng-container>
@@ -94,25 +94,25 @@
         <ng-container matColumnDef="LoadTime" mdbTableCol>
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.LOAD_TIME" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let travel">{{travel.times.loading | date:'dd-MM, HH:mm'}}</mat-cell>
+          <mat-cell *matCellDef="let travel">{{travel.times?.loading | date:'dd-MM, HH:mm'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="DownloadTime" mdbTableCol>
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.DOWNLOAD_TIME" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let travel">{{travel.times.unloading | date:'dd-MM, HH:mm'}}</mat-cell>
+          <mat-cell *matCellDef="let travel">{{travel.times?.unloading | date:'dd-MM, HH:mm'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ArriveTime" mdbTableCol>
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.ARRIVE_TIME" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let travel">{{travel.times.originArrive | date:'dd-MM, HH:mm'}}</mat-cell>
+          <mat-cell *matCellDef="let travel">{{travel.times?.originArrive | date:'dd-MM, HH:mm'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="ArriveCustomerTime" mdbTableCol>
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let travel">{{travel.times.destinationArrive | date:'dd-MM, HH:mm'}}</mat-cell>
+          <mat-cell *matCellDef="let travel">{{travel.times?.destinationArrive | date:'dd-MM, HH:mm'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Comments" mdbTableCol>

@@ -40,7 +40,7 @@ export class TrucksService extends HttpService {
   }
 
   getTruckById(truckId: string): Observable<TruckModel> {
-    return this.http.get<TruckModel>(API_TRUCKS_URL + `/${truckId}`, this.httpOptions).pipe(
+    return this.http.get<TruckModel>(`${API_TRUCKS_URL}/${truckId}`, this.httpOptions).pipe(
       catchError(this.handleError('getTruckById'))
     );
   }
@@ -58,14 +58,13 @@ export class TrucksService extends HttpService {
   }
 
   updateTruck(truck: TruckModel): Observable<any> {
-    return this.http.put(API_TRUCKS_URL, truck, this.httpOptions).pipe(
+    return this.http.put(`${API_TRUCKS_URL}/${truck.id}`, truck, this.httpOptions).pipe(
       catchError(this.handleError('updateTruck'))
     );
   }
 
   deleteTruck(truckId: string): Observable<TruckModel> {
-    const url = `${API_TRUCKS_URL}/${truckId}`;
-    return this.http.delete<TruckModel>(url, this.httpOptions).pipe(
+    return this.http.delete<TruckModel>(`${API_TRUCKS_URL}/${truckId}`, this.httpOptions).pipe(
       catchError(this.handleError('deleteTruck'))
     );
   }
@@ -78,14 +77,14 @@ export class TrucksService extends HttpService {
     return forkJoin(requests);
   }
 
-  public findQueryTrucks(value: string): Observable<TruckModel[]> {
+  public findQueryTrucks(value: string): Observable<QueryResultsModel> {
     const queryParams = new QueryParamsModel(
       { Name: value },
       'asc',
       'serialNumber',
     );
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
-    return this.http.get<TruckModel[]>(API_TRUCKS_URL, {
+    return this.http.get<QueryResultsModel>(API_TRUCKS_URL, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(

@@ -8,7 +8,7 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { EmployeesService } from './employees.service';
 
-@Controller('employees')
+@Controller('')
 @UseGuards(JwtAuthGuard)
 @UseInterceptors(DbTransactionInterceptor)
 export class EmployeesController {

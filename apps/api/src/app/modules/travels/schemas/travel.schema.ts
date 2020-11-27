@@ -6,6 +6,7 @@ import { Company } from '../../admin/company';
 import { Employee, EmployeeSchema } from '../../admin/employees';
 import { Box, BoxSchema } from '../../workshop/boxes';
 import { Truck, TruckSchema } from '../../workshop/trucks';
+import { TravelLocations, TravelLocationsSchema } from './travel-locations.schema';
 
 export type TravelDocument = Travel & Document;
 
@@ -22,14 +23,8 @@ export class Travel implements ITravel {
   truck: Partial<Truck>;
 
   // GeoJson type
-  @Prop(raw({
-    origin: { type: String, coordinates: [Number], index: '2dsphere' },
-    destination: { type: String, coordinates: [Number], index: '2dsphere' },
-  }))
-  locations: {
-    origin: { type: 'Point', coordinates: number[] },
-    destination: { type: 'Point', coordinates: number[] },
-  };
+  @Prop({ type: TravelLocationsSchema, default: {} })
+  locations: TravelLocations;
 
   @Prop(raw({
     loading: Date,
@@ -53,7 +48,7 @@ export class Travel implements ITravel {
 
 export const TravelSchema = SchemaFactory.createForClass(Travel);
 
-BoxSchema.set('toJSON', {
+TravelSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: function (doc, el) {

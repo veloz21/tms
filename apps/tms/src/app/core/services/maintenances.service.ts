@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpUtilsService, QueryParamsModel } from '@tms/crud';
+import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
 import { MaintenanceModel } from '@tms/models';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
@@ -28,7 +28,6 @@ export class MaintenancesService extends HttpService {
   }
 
   createMaintenance(maintenance): Observable<MaintenanceModel> {
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
     return this.http.post<MaintenanceModel>(API_MAINTENANCE_URL, maintenance, this.httpOptions).pipe(
       catchError(this.handleError('createMaintenance'))
     );
@@ -41,16 +40,16 @@ export class MaintenancesService extends HttpService {
   }
 
   getMaintenanceById(maintenanceId: string): Observable<MaintenanceModel> {
-    return this.http.get<MaintenanceModel>(API_MAINTENANCE_URL + `/${maintenanceId}`, this.httpOptions).pipe(
+    return this.http.get<MaintenanceModel>(`${API_MAINTENANCE_URL}/${maintenanceId}`, this.httpOptions).pipe(
       catchError(this.handleError('getMaintenanceById'))
     );
   }
 
-  findMaintenances(queryParams: QueryParamsModel): Observable<MaintenanceModel[]> {
+  findMaintenances(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
 
     const url = API_MAINTENANCE_URL;
-    return this.http.get<MaintenanceModel[]>(url, {
+    return this.http.get<QueryResultsModel>(url, {
       headers: this.httpOptions.headers,
       params: httpParams
     }).pipe(
@@ -59,15 +58,13 @@ export class MaintenancesService extends HttpService {
   }
 
   updateMaintenance(maintenance: MaintenanceModel): Observable<any> {
-    const httpHeaders = this.httpUtils.getHTTPHeaders();
-    return this.http.put(API_MAINTENANCE_URL, maintenance, this.httpOptions).pipe(
+    return this.http.put(`${API_MAINTENANCE_URL}/${maintenance.id}`, maintenance, this.httpOptions).pipe(
       catchError(this.handleError('updateMaintenance'))
     );
   }
 
   deleteMaintenance(maintenanceId: string): Observable<MaintenanceModel> {
-    const url = `${API_MAINTENANCE_URL}/${maintenanceId}`;
-    return this.http.delete<MaintenanceModel>(url, this.httpOptions).pipe(
+    return this.http.delete<MaintenanceModel>(`${API_MAINTENANCE_URL}/${maintenanceId}`, this.httpOptions).pipe(
       catchError(this.handleError('deleteMaintenance'))
     );
   }

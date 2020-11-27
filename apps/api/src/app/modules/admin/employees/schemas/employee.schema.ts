@@ -4,6 +4,7 @@ import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Company } from '../../company';
 import { User } from '../../users/schemas/user.schema';
+import { EmployeeDocuments, EmployeeDocumentsSchema } from './employee-documents';
 
 export type EmployeeDocument = Employee & Document;
 
@@ -43,38 +44,8 @@ export class Employee extends User implements IEmployee {
     total: number,
   };
 
-  @Prop(
-    raw({
-      driversLicense: {
-        type: String,
-        dueDate: Date,
-        attachmentPath: String,
-      },
-      phychophysicistTest: {
-        date: Date,
-        expirationDate: Date,
-        attachmentPath: String,
-      },
-      ine: {
-        attachmentPath: [String],
-      },
-    })
-  )
-  documents: {
-    driversLicense: {
-      type: string,
-      dueDate: Date,
-      attachmentPath: string,
-    },
-    phychophysicistTest: {
-      date: Date,
-      expirationDate: Date,
-      attachmentPath: string,
-    },
-    ine: {
-      attachmentPath: string[],
-    },
-  };
+  @Prop({ type: EmployeeDocumentsSchema, default: {} })
+  documents: EmployeeDocuments;
 
   @Prop()
   imagePath: string;

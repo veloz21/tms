@@ -10,7 +10,7 @@ import { RegisterComponent } from './register/register.component';
 
 const routes: Route[] = [
   {
-    path: 'auth',
+    path: '',
     component: AuthComponent,
     canActivate: [PublicGuard],
     children: [

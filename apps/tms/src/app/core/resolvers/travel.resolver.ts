@@ -12,7 +12,7 @@ import { filter, take } from 'rxjs/operators';
 export class TravelResolver implements Resolve<TravelModel> {
   constructor(private travelsService: TravelsService, private store: Store<AppState>) { }
   resolve(route: ActivatedRouteSnapshot): Observable<TravelModel> | Promise<TravelModel> | TravelModel {
-    const id = String(route.paramMap.get('id'));
+    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
     if (!id) {
       return this.getInitialTravel(id);
     }
@@ -23,6 +23,7 @@ export class TravelResolver implements Resolve<TravelModel> {
   getInitialTravel(id: string) {
     return new TravelModel();
   }
+
   getTravelData(id: string) {
     this.store.select(selectTravelById(id)).pipe(
       take(1)

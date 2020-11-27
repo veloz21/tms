@@ -6,7 +6,7 @@ import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CompanyService } from './company.service';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
-@Controller('company')
+@Controller('')
 @UseInterceptors(DbTransactionInterceptor)
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) { }

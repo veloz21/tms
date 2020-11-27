@@ -12,7 +12,7 @@ import { filter, take } from 'rxjs/operators';
 export class TireResolver implements Resolve<TireModel> {
   constructor(private tiresService: TiresService, private store: Store<AppState>) { }
   resolve(route: ActivatedRouteSnapshot): Observable<TireModel> | Promise<TireModel> | TireModel {
-    const id = String(route.paramMap.get('id'));
+    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
     if (!id) {
       return this.getInitialTire(id);
     }
@@ -23,6 +23,7 @@ export class TireResolver implements Resolve<TireModel> {
   getInitialTire(id: string) {
     return new TireModel();
   }
+
   getTireData(id: string) {
     this.store.select(selectTireById(id)).pipe(
       take(1)

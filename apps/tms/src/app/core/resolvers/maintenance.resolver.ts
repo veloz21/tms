@@ -12,7 +12,7 @@ import { filter, take } from 'rxjs/operators';
 export class MaintenanceResolver implements Resolve<MaintenanceModel> {
   constructor(private maintenancesService: MaintenancesService, private store: Store<AppState>) { }
   resolve(route: ActivatedRouteSnapshot): Observable<MaintenanceModel> | Promise<MaintenanceModel> | MaintenanceModel {
-    const id = String(route.paramMap.get('id'));
+    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
     if (!id) {
       return this.getInitialMaintenance(id);
     }
@@ -23,6 +23,7 @@ export class MaintenanceResolver implements Resolve<MaintenanceModel> {
   getInitialMaintenance(id: string) {
     return new MaintenanceModel();
   }
+
   getMaintenanceData(id: string) {
     this.store.select(selectMaintenanceById(id)).pipe(
       take(1)

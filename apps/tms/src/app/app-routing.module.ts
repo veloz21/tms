@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProtectedGuard, PublicGuard } from 'ngx-auth';
 import { BaseComponent } from './views/theme/base/base.component';
 import { ErrorPageComponent } from './views/theme/content/error-page/error-page.component';
 
 export const routes: Routes = [
-  { path: 'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule) },
+  {
+    path: 'auth',
+    canActivate: [PublicGuard],
+    loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule)
+  },
   {
     path: '',
     component: BaseComponent,
-    // canActivate: [ProtectedGuard],
+    canActivate: [ProtectedGuard],
     children: [
       {
         path: 'dashboard',

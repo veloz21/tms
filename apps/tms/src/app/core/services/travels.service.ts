@@ -42,7 +42,7 @@ export class TravelsService extends HttpService {
   }
 
   getTravelById(travelId: string): Observable<TravelModel> {
-    return this.http.get<TravelModel>(API_TRAVELS_URL + `/${travelId}`, this.httpOptions).pipe(
+    return this.http.get<TravelModel>(`${API_TRAVELS_URL}/${travelId}`, this.httpOptions).pipe(
       catchError(this.handleError('getTravelById'))
     );
   }
@@ -60,14 +60,13 @@ export class TravelsService extends HttpService {
   }
 
   updateTravel(travel: TravelModel): Observable<any> {
-    return this.http.put(API_TRAVELS_URL, travel, this.httpOptions).pipe(
+    return this.http.put(`${API_TRAVELS_URL}/${travel.id}`, travel, this.httpOptions).pipe(
       catchError(this.handleError('updateTravel'))
     );
   }
 
   deleteTravel(travelId: string): Observable<TravelModel> {
-    const url = `${API_TRAVELS_URL}/${travelId}`;
-    return this.http.delete<TravelModel>(url, this.httpOptions).pipe(
+    return this.http.delete<TravelModel>(`${API_TRAVELS_URL}/${travelId}`, this.httpOptions).pipe(
       catchError(this.handleError('deleteTravel'))
     );
   }

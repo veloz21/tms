@@ -7,7 +7,7 @@ import { TireModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { TiresService } from '@tms/services';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, share, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, share, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BaseAutocompleteComponent } from '../base-autocomplete/base-autocomplete.component';
 
 @Component({
@@ -78,6 +78,7 @@ export class TiresAutocompleteComponent extends BaseAutocompleteComponent
 
           const search = value.serialNumber;
           return this.tiresService.findQueryTires(search).pipe(
+            map(response => response.items),
             tap(response => {
               this.haveModels = response.length > 0;
 

@@ -17,7 +17,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthenticationService } from './core/auth';
 import { AuthenticationModule } from './core/auth/authentication.module';
 import { CoreModule } from './core/core.module';
 import { metaReducers, reducers } from './core/reducers';
@@ -62,8 +61,8 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     StoreDevtoolsModule.instrument(),
-    AuthModule,
     AuthenticationModule,
+    AuthModule,
     TranslateModule.forRoot(),
     MatProgressSpinnerModule,
     InlineSVGModule.forRoot(),
@@ -71,7 +70,6 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
   ],
   exports: [],
   providers: [
-    AuthenticationService,
     LayoutConfigService,
     LayoutRefService,
     MenuConfigService,

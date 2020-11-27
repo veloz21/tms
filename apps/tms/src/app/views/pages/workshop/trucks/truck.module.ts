@@ -1,32 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [
-  {
-    path: '',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./trucks-list/trucks-list.module').then(m => m.TruckListModule)
-      },
-      {
-        path: 'add',
-        loadChildren: () => import('./truck-edit/truck-edit.module').then(m => m.TruckEditModule),
-      },
-      {
-        path: 'edit',
-        loadChildren: () => import('./truck-edit/truck-edit.module').then(m => m.TruckEditModule),
-      },
-      {
-        path: 'edit/:id',
-        loadChildren: () => import('./truck-edit/truck-edit.module').then(m => m.TruckEditModule),
-      }
-    ]
-  }
-];
+import { TrucksRoutingModule } from './trucks-routing.module';
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [TrucksRoutingModule],
   providers: [],
   entryComponents: [],
   declarations: []

@@ -46,7 +46,6 @@ export class AuthenticationService extends HttpService implements AuthService {
    */
   public isAuthorized(): Observable<boolean> {
     return this.tokenStorage.getAccessToken().pipe(map(token => {
-      console.log('isAuthorized', token);
       return !!token;
     }));
   }
@@ -56,7 +55,6 @@ export class AuthenticationService extends HttpService implements AuthService {
    * @description Should return access token in Observable from e.g. localStorage
    */
   public getAccessToken(): Observable<string> {
-    console.log('AuthenticationService getAccessToken');
     return this.tokenStorage.getAccessToken();
   }
 

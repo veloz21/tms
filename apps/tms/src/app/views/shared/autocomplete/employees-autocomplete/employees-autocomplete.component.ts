@@ -7,7 +7,7 @@ import { EmployeeModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { EmployeesService } from '@tms/services';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, share, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, share, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BaseAutocompleteComponent } from '../base-autocomplete/base-autocomplete.component';
 
 @Component({
@@ -77,6 +77,7 @@ export class EmployeesAutocompleteComponent extends BaseAutocompleteComponent
           this.loading.next(true);
           const search = value.firstName;
           return this.employeesService.findQueryEmployees(search).pipe(
+            map(response => response.items),
             tap(response => {
               this.haveModels = response.length > 0;
               this.lastSearch = {
