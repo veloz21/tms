@@ -109,9 +109,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.auth.register(company, user).subscribe(() => {
       this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.SUCCESS'), 'success');
       this.router.navigateByUrl('/auth/login');
+      this.loading = false;
+      this.cdr.markForCheck();
     }, error => {
       this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
-    }, () => {
       this.loading = false;
       this.cdr.markForCheck();
     });

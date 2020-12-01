@@ -54,14 +54,6 @@
                 {
                   "replace": "apps/tms/src/environments/environment.ts",
                   "with": "apps/tms/src/environments/environment.prod.ts"
-                },
-                {
-                  "replace": "apps/tms/src/app/core/services/index.ts",
-                  "with": "apps/tms/src/app/core/services.prod/index.ts"
-                },
-                {
-                  "replace": "apps/tms/src/app/core/auth/_services/index.ts",
-                  "with": "apps/tms/src/app/core/auth/_services.prod/index.ts"
                 }
               ],
               "optimization": true,
