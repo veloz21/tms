@@ -20,13 +20,22 @@ export class Box implements IBox {
   rangeTraveled: number;
 
   @Prop()
+  nickname: string;
+
+  @Prop()
   serialNumber: string;
 
   @Prop()
   brand: string;
 
   @Prop()
+  price: number;
+
+  @Prop()
   status: number;
+
+  @Prop()
+  imagePath: string;
 
   @Prop({ type: [TireSchema], default: [] })
   tires: Tire[]

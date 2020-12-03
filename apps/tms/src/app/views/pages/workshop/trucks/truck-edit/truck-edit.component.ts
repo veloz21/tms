@@ -116,12 +116,15 @@ export class TruckEditComponent implements OnInit, OnDestroy {
   createForm() {
     this.truckForm = this.truckFB.group({
       truckModel: [this.truck.truckModel, [Validators.required]],
+      nickName:[this.truck.nickname],
       brand: [this.truck.brand, [Validators.required]],
       serialNumber: [this.truck.serialNumber, [Validators.required]],
       motorNumber: [this.truck.motorNumber, [Validators.required]],
       maintenancePeriod: [this.truck.maintenancePeriod, [Validators.required]],
+      price: [this.truck.price],
       initialRange: [this.truck.initialRange, [Validators.required]],
       rangeTraveled: [this.truck.rangeTraveled, [Validators.required]],
+      image:[]
     });
   }
 
@@ -188,12 +191,14 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     const _truck = new TruckModel();
     _truck.id = this.truck.id;
     _truck.truckModel = this.truckForm.get('truckModel').value;
+    _truck.nickname = this.truckForm.get('nickName').value;
     _truck.brand = this.truckForm.get('brand').value;
     _truck.serialNumber = this.truckForm.get('serialNumber').value;
     _truck.motorNumber = this.truckForm.get('motorNumber').value;
     _truck.maintenancePeriod = this.truckForm.get('maintenancePeriod').value;
     _truck.initialRange = this.truckForm.get('initialRange').value;
     _truck.rangeTraveled = this.truckForm.get('rangeTraveled').value;
+    _truck.price = this.truckForm.get('price').value;
     _truck.circulationCard = '1';
     _truck.airbag = '1';
     _truck.dock = '1';

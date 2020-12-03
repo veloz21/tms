@@ -1,177 +1,199 @@
 <b404-portlet>
-	<b404-portlet-header [sticky]="true" [title]="getComponentTitle()" [class]="'b404-portlet__head--lg'" [viewLoading$]="loading$">
-		<ng-container ktPortletTools>
-			<a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button matTooltip="{{'PAYSHEET.EMPLOYEE.BUTTONS.GO_BACK' | translate}}">
-				<i class="la la-arrow-left"></i>
-				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.BACK" | translate}}</span>
-			</a>
-			<a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | translate}}">
-				<i class="la la-cog"></i>
-				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.RESET" | translate}}</span>
-			</a>
-			<a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
-				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.SAVE" | translate}}</span>
-			</a>
-		</ng-container>
-	</b404-portlet-header>
-	<b404-portlet-body>
-		<div *ngIf="employee">
-			<form [formGroup]="employeeForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
-				<b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
-					<span>{{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}}</span>
-				</b404-alert>
-				<div class="b404-form__section b404-form__section--first">
-					<div class="b404-form__group">
-						<div class="row">
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | translate }}" formControlName="firstName" required>
-									<mat-error>
-										{{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | translate }}
-										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-									</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | translate }}" formControlName="lastName" required>
-									<mat-error>
-										{{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | translate }}
-										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-									</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput [matDatepicker]="birthDate" placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.BIRTH_DATE' | translate }}" formControlName="birthDate" required />
-									<mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
-									<mat-datepicker #birthDate></mat-datepicker>
-								</mat-form-field>
-							</div>
-						</div>
-					</div>
-					<div class="b404-form__group">
-						<div class="row">
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput [matDatepicker]="dateofAdmission" placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DATE_ADMISSION' | translate }}" formControlName="admissionDate" required />
-									<mat-datepicker-toggle matSuffix [for]="dateofAdmission"></mat-datepicker-toggle>
-									<mat-datepicker #dateofAdmission></mat-datepicker>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}" type="number" formControlName="cellphone" required maxlength="10">
-									<mat-error>
-										{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}
-										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-									</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SECONDARY_CELLPHONE' | translate }}" type="number" formControlName="secondaryCellphone" required maxlength="10">
-									<mat-error>
-										{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}
-										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-									</mat-error>
-								</mat-form-field>
-							</div>
-						</div>
-					</div>
-					<div class="b404-form__group">
-						<div class="row">
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}" type="number" formControlName="salary_total" required>
-									<mat-error>
-										{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}
-										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-									</mat-error>
-								</mat-form-field>
-							</div>
-							<div class="col-md-8 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate }}" formControlName="address" required>
-									<mat-error>
-										{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate }}
-										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-									</mat-error>
-								</mat-form-field>
-							</div>
-						</div>
-					</div>
-					<div class="b404-form__group">
-						<div class="row">
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<mat-select placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.LICENSE_TYPE' | translate }}" formControlName="licenseType" required>
-										<mat-option value="D">D</mat-option>
-										<mat-option value="E">E</mat-option>
-										<mat-option value="F">F</mat-option>
-									</mat-select>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput [matDatepicker]="dueDate" placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DUE_DATE' | translate }}" formControlName="licensedueDate" required />
-									<mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
-									<mat-datepicker #dueDate></mat-datepicker>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<label for="">{{'PAYSHEET.EMPLOYEE.MODEL.DRIVERS_LICENSE'| translate}}</label><br>
-								<span>
-									<input type="file" formControlName="licenseAttchment" >
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="b404-form__group">
-						<div class="row">
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput [matDatepicker]="testDate" placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.TEST_DATE' | translate }}" formControlName="testDate" required />
-									<mat-datepicker-toggle matSuffix [for]="testDate"></mat-datepicker-toggle>
-									<mat-datepicker #testDate></mat-datepicker>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<mat-form-field class="mat-form-field-fluid">
-									<input matInput [matDatepicker]="testExpirationDate" placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.TEST_EXPIRATION_DATE' | translate }}" formControlName="testExpirationDate" required />
-									<mat-datepicker-toggle matSuffix [for]="testExpirationDate"></mat-datepicker-toggle>
-									<mat-datepicker #testExpirationDate></mat-datepicker>
-								</mat-form-field>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<label for="">{{'PAYSHEET.EMPLOYEE.MODEL.PSYCHOPHYSICAL_TEST'|translate}}</label><br>
-								<span>
-									<input type="file"  formControlName="testAttachment">
-								</span>
-							</div>
-						</div>
-					</div>
-					<div class="b404-form__group">
-						<div class="row">
-							<div class="col-md-4 b404-margin-bottom-10-mobile" *ngIf="url">
-								<img class="box" [src]="url">
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<label for="">{{'PAYSHEET.EMPLOYEE.MODEL.PHOTOGRAPHY'|translate}}</label><br>
-								<span>
-									<input type="file" formControlName="image"  (change)="readUrl($event)">
-								</span>
-							</div>
-							<div class="col-md-4 b404-margin-bottom-10-mobile">
-								<label for="">INE</label><br>
-								<span>
-									<input type="file" formControlName="ine" >
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-	</b404-portlet-body>
+  <b404-portlet-header [sticky]="true" [title]="getComponentTitle()" [class]="'b404-portlet__head--lg'"
+    [viewLoading$]="loading$">
+    <ng-container ktPortletTools>
+      <a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button
+        matTooltip="{{'PAYSHEET.EMPLOYEE.BUTTONS.GO_BACK' | translate}}">
+        <i class="la la-arrow-left"></i>
+        <span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.BACK" | translate}}</span>
+      </a>
+      <a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0"
+        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | translate}}">
+        <i class="la la-cog"></i>
+        <span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.RESET" | translate}}</span>
+      </a>
+      <a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)"
+        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
+        <span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.SAVE" | translate}}</span>
+      </a>
+    </ng-container>
+  </b404-portlet-header>
+  <b404-portlet-body>
+    <div *ngIf="employee">
+      <form [formGroup]="employeeForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+        <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
+          (close)="onAlertClose($event)">
+          <span>{{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}}</span>
+        </b404-alert>
+        <div class="b404-form__section b404-form__section--first">
+          <div class="b404-form__group">
+            <div class="row">
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | translate }}"
+                    formControlName="firstName" required>
+                  <mat-error>
+                    {{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | translate }}
+                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | translate }}"
+                    formControlName="lastName" required>
+                  <mat-error>
+                    {{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | translate }}
+                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput [matDatepicker]="birthDate"
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.BIRTH_DATE' | translate }}" formControlName="birthDate"
+                    required />
+                  <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                  <mat-datepicker #birthDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="b404-form__group">
+            <div class="row">
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput [matDatepicker]="dateofAdmission"
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DATE_ADMISSION' | translate }}"
+                    formControlName="admissionDate" required />
+                  <mat-datepicker-toggle matSuffix [for]="dateofAdmission"></mat-datepicker-toggle>
+                  <mat-datepicker #dateofAdmission></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}" type="number"
+                    formControlName="cellphone" required maxlength="10">
+                  <mat-error>
+                    {{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}
+                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SECONDARY_CELLPHONE' | translate }}"
+                    type="number" formControlName="secondaryCellphone" required maxlength="10">
+                  <mat-error>
+                    {{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}
+                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="b404-form__group">
+            <div class="row">
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}" type="number"
+                    formControlName="salary_total" required>
+                  <mat-error>
+                    {{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}
+                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-8 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate }}"
+                    formControlName="address" required>
+                  <mat-error>
+                    {{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate }}
+                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="b404-form__group">
+            <div class="row">
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <mat-select placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.LICENSE_TYPE' | translate }}"
+                    formControlName="licenseType" required>
+                    <mat-option value="D">D</mat-option>
+                    <mat-option value="E">E</mat-option>
+                    <mat-option value="F">F</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput [matDatepicker]="dueDate"
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DUE_DATE' | translate }}" formControlName="licensedueDate"
+                    required />
+                  <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+                  <mat-datepicker #dueDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.DRIVERS_LICENSE'| translate}}</label><br>
+                <span>
+                  <input type="file" formControlName="licenseAttchment">
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="b404-form__group">
+            <div class="row">
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput [matDatepicker]="testDate"
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.TEST_DATE' | translate }}" formControlName="testDate"
+                    required />
+                  <mat-datepicker-toggle matSuffix [for]="testDate"></mat-datepicker-toggle>
+                  <mat-datepicker #testDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
+                  <input matInput [matDatepicker]="testExpirationDate"
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.TEST_EXPIRATION_DATE' | translate }}"
+                    formControlName="testExpirationDate" required />
+                  <mat-datepicker-toggle matSuffix [for]="testExpirationDate"></mat-datepicker-toggle>
+                  <mat-datepicker #testExpirationDate></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.PSYCHOPHYSICAL_TEST'|translate}}</label><br>
+                <span>
+                  <input type="file" formControlName="testAttachment">
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="b404-form__group">
+            <div class="row">
+              <div class="col-md-4 b404-margin-bottom-10-mobile" *ngIf="url">
+                <img class="box" [src]="url">
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.PHOTOGRAPHY'|translate}}</label><br>
+                <span>
+                  <input type="file" formControlName="image" (change)="readUrl($event)">
+                </span>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <label for="">INE</label><br>
+                <span>
+                  <input type="file" formControlName="ine">
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </b404-portlet-body>
 </b404-portlet>

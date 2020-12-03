@@ -5,8 +5,11 @@ export interface IBox {
   boxModel: string;
   type: string;
   rangeTraveled: number;
+  nickname: string;
   serialNumber: string;
   brand: string;
+  price: number;
   status: number;
+  imagePath: string;
   tires: ITire[];
 }
