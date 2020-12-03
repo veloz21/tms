@@ -2,7 +2,7 @@
 	<b404-portlet-header [sticky]="true" [title]="'WORKSHOP.TRUCK.TEXT.TRUCK_LIST'|translate" [class]="'b404-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
 		<ng-container ktPortletTools>
 			<a [routerLink]="['/workshop/trucks/add']" mat-raised-button color="primary" matTooltip="{{'WORKSHOP.TRUCK.BUTTONS.CREATE_NEW' | translate}}">
-				<span translate="WORKSHOP.TRUCK.BUTTONS.NEW_TRUCK">New truck</span>
+				<span>{{"WORKSHOP.TRUCK.BUTTONS.NEW_TRUCK"| translate}}</span>
 			</a>
 		</ng-container>
 	</b404-portlet-header>
@@ -14,8 +14,7 @@
 						<mat-form-field>
 							<input matInput #searchInput placeholder="{{'GENERAL.INPUTS.SEARCH' | translate}}" class="mat-form-field mat-form-field-fluid" />
 							<mat-hint align="start">
-								<strong><span translate="GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS">Search in all
-										fields</span></strong>
+								<strong><span >{{"GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS" | translate}}</span></strong>
 							</mat-hint>
 						</mat-form-field>
 					</div>
@@ -32,7 +31,7 @@
 						<div class="b404-form__control b404-form__group--inline">
 							<button mat-raised-button color="accent" (click)="deleteTrucks()" matTooltip="{{'WORKSHOP.TRUCK.TEXT.DELETE_SELECTED' | translate}}" class="mat-button-mt-4">
 								<mat-icon>delete</mat-icon>
-								<span translate='GENERAL.BUTTONS.DELETE_ALL'>Delete All</span>
+								<span >{{"GENERAL.BUTTONS.DELETE_ALL" | translate}}</span>
 							</button>&nbsp; &nbsp;
 						</div>
 					</div>
@@ -133,13 +132,13 @@
 				<mat-row [ngClass]="{'available':  row.status==0,'not_available': row.status==1, 'in_maintenance': row.status==2}" *matRowDef="let row; columns: displayedColumns"></mat-row>
 			</mat-table>
 			<div class="mat-table__message" *ngIf="!dataSource.hasItems">
-				<span translate="GENERAL.TEXT.NO_RECORDS_FOUND">
-					No records found
+				<span>
+					{{"GENERAL.TEXT.NO_RECORDS_FOUND" | translate}}
 				</span>
 			</div>
 			<div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">
-				<span translate="GENERAL.TEXT.WAIT">
-					Please wait...
+				<span>
+					{{"GENERAL.TEXT.WAIT" | translate}}
 				</span>
 			</div>
 		</div>

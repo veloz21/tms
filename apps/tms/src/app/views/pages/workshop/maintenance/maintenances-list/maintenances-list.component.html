@@ -2,7 +2,7 @@
 	<b404-portlet-header [sticky]="true" [title]="'WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE_LIST'|translate" [class]="'b404-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
 		<ng-container ktPortletTools>
 			<a [routerLink]="['/workshop/maintenances/add']" mat-raised-button color="primary" matTooltip="{{'WORKSHOP.MAINTENANCE.BUTTONS.CREATE_NEW' | translate}}">
-				<span translate="WORKSHOP.MAINTENANCE.BUTTONS.NEW_MAINTENANCE">New maintenance</span></a>
+				<span >{{"WORKSHOP.MAINTENANCE.BUTTONS.NEW_MAINTENANCE" | translate}}</span></a>
 		</ng-container>
 	</b404-portlet-header>
 
@@ -14,8 +14,7 @@
 						<mat-form-field>
 							<input matInput #searchInput placeholder="{{'GENERAL.INPUTS.SEARCH' | translate}}" class="mat-form-field mat-form-field-fluid">
 							<mat-hint align="start">
-								<strong><span translate="GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS">Search in all
-										fields</span></strong>
+								<strong><span>{{"GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS" | translate}}</span></strong>
 							</mat-hint>
 						</mat-form-field>
 					</div>
@@ -32,7 +31,7 @@
 						<div class="b404-form__control b404-form__group--inline">
 							<button mat-raised-button color="accent" (click)="deleteMaintenances()" matTooltip="{{'WORKSHOP.MAINTENANCE.TEXT.DELETE_SELECTED' | translate}}" class="mat-button-mt-4">
 								<mat-icon>delete</mat-icon>
-								<span translate='GENERAL.BUTTONS.DELETE_ALL'>Delete All</span>
+								<span>{{"GENERAL.BUTTONS.DELETE_ALL" | translate}}</span>
 							</button>&nbsp;
 						</div>
 					</div>
@@ -114,11 +113,11 @@
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 			</mat-table>
-			<div class="mat-table__message" *ngIf="!dataSource.hasItems"><span translate="GENERAL.TEXT.NO_RECORDS_FOUND">
-					No records found
+			<div class="mat-table__message" *ngIf="!dataSource.hasItems"><span >
+				{{"GENERAL.TEXT.NO_RECORDS_FOUND" | translate}}
 				</span></div>
-			<div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async"><span translate="GENERAL.TEXT.WAIT">
-					Please wait...
+			<div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async"><span>
+				{{"GENERAL.TEXT.WAIT" | translate}}
 				</span></div>
 		</div>
 

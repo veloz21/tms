@@ -3,14 +3,14 @@
 		<ng-container ktPortletTools>
 			<a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button matTooltip="{{'TRAVEL.TRAVEL.BUTTONS.GO_BACK' | translate}}">
 				<i class="la la-arrow-left"></i>
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.BACK">Back</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.BACK" | translate}}</span>
 			</a>
 			<a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | translate}}">
 				<i class="la la-cog"></i>
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.RESET">Reset</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.RESET" | translate}}</span>
 			</a>
 			<a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)" mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
-				<span class="b404-hidden-mobile" translate="GENERAL.BUTTONS.SAVE">Save</span>
+				<span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.SAVE" | translate}}</span>
 			</a>
 		</ng-container>
 	</b404-portlet-header>
@@ -20,8 +20,7 @@
 			<form [formGroup]="travelForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
 
 				<b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
-					<span translate="GENERAL.TEXT.OH_SNAP_CREATE">Oh snap! Change a few things up and try submitting
-						again.</span>
+					<span>  {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>
 				</b404-alert>
 
 				<div class="b404-form__section b404-form__section--first">
@@ -32,7 +31,7 @@
 									<b404-employees-autocomplete formControlName="operator" placeholder="{{'TRAVEL.TRAVEL.MODEL.OPERATOR_NAME' | translate }}"></b404-employees-autocomplete>
 									<mat-error>
 										{{'TRAVEL.TRAVEL.MODEL.OPERATOR_ID' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -55,7 +54,7 @@
 									<input id="origin" matInput placeholder="{{'TRAVEL.TRAVEL.MODEL.ORIGIN' | translate }}" formControlName="origin" type="number" required>
 									<mat-error>
 										{{'TRAVEL.TRAVEL.MODEL.ORIGIN' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -64,7 +63,7 @@
 									<input matInput placeholder="{{'TRAVEL.TRAVEL.MODEL.DESTINATION' | translate }}" formControlName="destination"  type="number" required>
 									<mat-error>
 										{{'TRAVEL.TRAVEL.MODEL.DESTINATION' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 							</div>
@@ -75,7 +74,7 @@
 									<mat-datepicker #loadTime></mat-datepicker>
 									<mat-error>
 										{{'TRAVEL.TRAVEL.MODEL.LOAD_TIME' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 								<ngb-timepicker formControlName="loadingTime" [meridian]="true" [spinners]="false" [readonlyInputs]=""></ngb-timepicker>
@@ -91,7 +90,7 @@
 									<mat-datepicker #downloadTime></mat-datepicker>
 									<mat-error>
 										{{'TRAVEL.TRAVEL.MODEL.DOWNLOAD_TIME' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 								<ngb-timepicker formControlName="unloadingTime" [meridian]="true" [spinners]="false" [readonlyInputs]=""></ngb-timepicker>
@@ -103,7 +102,7 @@
 									<mat-datepicker #arriveTime></mat-datepicker>
 									<mat-error>
 										{{'TRAVEL.TRAVEL.MODEL.ARRIVE_TIME' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 								<ngb-timepicker formControlName="originArriveTime" [meridian]="true" [spinners]="false" [readonlyInputs]=""></ngb-timepicker>
@@ -115,7 +114,7 @@
 									<mat-datepicker #aCT></mat-datepicker>
 									<mat-error>
 										{{'TRAVEL.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME' | translate }}
-										<strong><span translate="GENERAL.TEXT.REQUIRED">Required</span></strong>
+										<strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
 									</mat-error>
 								</mat-form-field>
 								<ngb-timepicker formControlName="destinationArriveTime" [meridian]="true" [spinners]="false" [readonlyInputs]=""></ngb-timepicker>

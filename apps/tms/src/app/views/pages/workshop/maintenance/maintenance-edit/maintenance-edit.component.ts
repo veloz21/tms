@@ -1,14 +1,28 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { CreateMaintenance, UpdateMaintenance } from '@tms/actions/maintenance.actions';
+import {
+  CreateMaintenance,
+  UpdateMaintenance,
+} from '@tms/actions/maintenance.actions';
 import { TypesUtilsService } from '@tms/crud';
 import { SubheaderService } from '@tms/layout';
-import { BoxModel, EmployeeModel, MaintenanceModel, TruckModel } from '@tms/models';
+import {
+  BoxModel,
+  EmployeeModel,
+  MaintenanceModel,
+  TruckModel,
+} from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedMaintenanceId } from '@tms/selectors/maintenance.selectors';
 import { MaintenancesService } from '@tms/services';
@@ -43,15 +57,15 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private typesUtilsService: TypesUtilsService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.maintenance = this.activatedRoute.snapshot.data[' maintenance '];
-    this.activatedRoute.data.pipe(
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe(data => {
-      this.loadMaintenance(data.maintenance);
-    });
+    this.activatedRoute.data
+      .pipe(takeUntil(this.ngUnsuscribe))
+      .subscribe((data) => {
+        this.loadMaintenance(data.maintenance);
+      });
   }
 
   loadMaintenance(_maintenance, fromService: boolean = false) {
@@ -70,11 +84,12 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
 
   // If product didn't find in store
   loadMaintenanceFromService(maintenanceId) {
-    this.maintenanceService.getMaintenanceById(maintenanceId).pipe(
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe(res => {
-      this.loadMaintenance(res, true);
-    });
+    this.maintenanceService
+      .getMaintenanceById(maintenanceId)
+      .pipe(takeUntil(this.ngUnsuscribe))
+      .subscribe((res) => {
+        this.loadMaintenance(res, true);
+      });
   }
 
   ngOnDestroy() {
@@ -87,17 +102,46 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
     this.loadingSubject.next(false);
     if (!this.maintenance.id) {
       this.subheaderService.setBreadcrumbs([
-        { title: this.translate.instant('WORKSHOP.WORKSHOP'), page: `/workshop` },
-        { title: this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE'), page: `/workshop/maintenances` },
-        { title: this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.CREATE_TITLE'), page: `/workshop/maintenances/add` }
+        {
+          title: this.translate.instant('WORKSHOP.WORKSHOP'),
+          page: `/workshop`,
+        },
+        {
+          title: this.translate.instant(
+            'WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE'
+          ),
+          page: `/workshop/maintenances`,
+        },
+        {
+          title: this.translate.instant(
+            'WORKSHOP.MAINTENANCE.TEXT.CREATE_TITLE'
+          ),
+          page: `/workshop/maintenances/add`,
+        },
       ]);
       return;
     }
-    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE')),
+    this.subheaderService.setTitle(
+      this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE')
+    ),
       this.subheaderService.setBreadcrumbs([
-        { title: this.translate.instant('WORKSHOP.WORKSHOP'), page: `/workshop` },
-        { title: this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE'), page: `/workshop/maintenances` },
-        { title: this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE'), page: `/workshop/maintenances/edit`, queryParams: { id: this.maintenance.id } }
+        {
+          title: this.translate.instant('WORKSHOP.WORKSHOP'),
+          page: `/workshop`,
+        },
+        {
+          title: this.translate.instant(
+            'WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE'
+          ),
+          page: `/workshop/maintenances`,
+        },
+        {
+          title: this.translate.instant(
+            'WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE'
+          ),
+          page: `/workshop/maintenances/edit`,
+          queryParams: { id: this.maintenance.id },
+        },
       ]);
   }
 
@@ -120,7 +164,9 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
   }
 
   goBackWithoutId() {
-    this.router.navigateByUrl('/workshop/maintenances', { relativeTo: this.activatedRoute });
+    this.router.navigateByUrl('/workshop/maintenances', {
+      relativeTo: this.activatedRoute,
+    });
   }
 
   refreshMaintenance(isNew: boolean = false, id?: string) {
@@ -149,7 +195,7 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
     const controls = this.maintenanceForm.controls;
     /** check form */
     if (this.maintenanceForm.invalid) {
-      Object.keys(controls).forEach(controlName =>
+      Object.keys(controls).forEach((controlName) =>
         controls[controlName].markAsTouched()
       );
 
@@ -161,7 +207,9 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
     const editedMaintenance = this.prepareMaintenance();
     if (!!editedMaintenance.id) {
       this.updateMaintenance(editedMaintenance, withBack);
-      this.router.navigateByUrl('/workshop/maintenances', { relativeTo: this.activatedRoute });
+      this.router.navigateByUrl('/workshop/maintenances', {
+        relativeTo: this.activatedRoute,
+      });
       return;
     }
 
@@ -171,10 +219,15 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
   prepareMaintenance(): MaintenanceModel {
     const _maintenance = new MaintenanceModel();
     _maintenance.id = this.maintenance.id;
-    _maintenance.truck = this.maintenanceForm.get('truck').value || new TruckModel();
+    _maintenance.truck =
+      this.maintenanceForm.get('truck').value || new TruckModel();
     _maintenance.box = this.maintenanceForm.get('box').value || new BoxModel();
-    _maintenance.mechanic = this.maintenanceForm.get('mechanic').value || new EmployeeModel();
-    _maintenance.times = { start: this.maintenanceForm.get('start').value, end: this.maintenanceForm.get('end').value };
+    _maintenance.mechanic =
+      this.maintenanceForm.get('mechanic').value || new EmployeeModel();
+    _maintenance.times = {
+      start: this.maintenanceForm.get('start').value,
+      end: this.maintenanceForm.get('end').value,
+    };
     _maintenance.comments = this.maintenanceForm.get('comments').value;
     _maintenance.reasons = this.maintenanceForm.get('reasons').value;
     return _maintenance;
@@ -183,22 +236,24 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
   addMaintenance(_maintenance: MaintenanceModel, withBack: boolean = false) {
     this.loadingSubject.next(true);
     this.store.dispatch(new CreateMaintenance({ maintenance: _maintenance }));
-    this.store.pipe(
-      delay(1000),
-      select(selectLastCreatedMaintenanceId),
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe(newId => {
-      if (!newId) {
-        return;
-      }
+    this.store
+      .pipe(
+        delay(1000),
+        select(selectLastCreatedMaintenanceId),
+        takeUntil(this.ngUnsuscribe)
+      )
+      .subscribe((newId) => {
+        if (!newId) {
+          return;
+        }
 
-      this.loadingSubject.next(false);
-      if (withBack) {
-        this.goBack(newId);
-      } else {
-        this.refreshMaintenance(true, newId);
-      }
-    });
+        this.loadingSubject.next(false);
+        if (withBack) {
+          this.goBack(newId);
+        } else {
+          this.refreshMaintenance(true, newId);
+        }
+      });
   }
 
   updateMaintenance(_maintenance: MaintenanceModel, withBack: boolean = false) {
@@ -206,30 +261,39 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
 
     const updateMaintenance: Update<MaintenanceModel> = {
       id: _maintenance.id,
-      changes: _maintenance
+      changes: _maintenance,
     };
 
-    this.store.dispatch(new UpdateMaintenance({
-      partialMaintenance: updateMaintenance,
-      maintenance: _maintenance
-    }));
+    this.store.dispatch(
+      new UpdateMaintenance({
+        partialMaintenance: updateMaintenance,
+        maintenance: _maintenance,
+      })
+    );
 
-    of(undefined).pipe(delay(3000), takeUntil(this.ngUnsuscribe)).subscribe(() => { // Remove this line
-      if (withBack) {
-        this.goBack(_maintenance.id);
-      } else {
-        this.refreshMaintenance(false);
-      }
-    });
+    of(undefined)
+      .pipe(delay(3000), takeUntil(this.ngUnsuscribe))
+      .subscribe(() => {
+        // Remove this line
+        if (withBack) {
+          this.goBack(_maintenance.id);
+        } else {
+          this.refreshMaintenance(false);
+        }
+      });
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.CREATE_TITLE');
+    let result: string = this.translate.instant(
+      'WORKSHOP.MAINTENANCE.TEXT.CREATE_TITLE'
+    );
     if (!this.maintenance || !this.maintenance.id) {
       return result;
     }
 
-    result = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE') + ` - ${this.maintenance.mechanic} ${this.maintenance.times.start} ${this.maintenance.times.end}`;
+    result =
+      this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE') +
+      ` - ${this.maintenance.mechanic.firstName} ${this.maintenance.times.start} ${this.maintenance.times.end}`;
     return result;
   }
 
