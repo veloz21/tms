@@ -1,14 +1,14 @@
-import {  ChangeDetectionStrategy,  ChangeDetectorRef,  Component,  OnDestroy,  OnInit, } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { CreateMaintenance,  UpdateMaintenance,} from '@tms/actions/maintenance.actions';
+import { CreateMaintenance, UpdateMaintenance } from '@tms/actions/maintenance.actions';
 import { TypesUtilsService } from '@tms/crud';
 import { SubheaderService } from '@tms/layout';
-import { BoxModel, EmployeeModel, MaintenanceModel, TruckModel,} from '@tms/models';
+import { BoxModel, EmployeeModel, MaintenanceModel, TruckModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedMaintenanceId } from '@tms/selectors/maintenance.selectors';
 import { MaintenancesService } from '@tms/services';
@@ -43,7 +43,7 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private typesUtilsService: TypesUtilsService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.maintenance = this.activatedRoute.snapshot.data[' maintenance '];
@@ -138,7 +138,7 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
       mechanic: [this.maintenance.mechanic],
       comments: [this.maintenance.comments],
       reasons: [this.maintenance.reasons],
-      cost: [this.maintenance.cost],
+      price: [this.maintenance.price],
       start: [this.maintenance.times.start, [Validators.nullValidator]],
       end: [this.maintenance.times.end, [Validators.nullValidator]],
     });
@@ -209,7 +209,7 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
     _maintenance.truck = this.maintenanceForm.get('truck').value || new TruckModel();
     _maintenance.box = this.maintenanceForm.get('box').value || new BoxModel();
     _maintenance.mechanic = this.maintenanceForm.get('mechanic').value || new EmployeeModel();
-    _maintenance.cost = this.maintenanceForm.get('cost').value;
+    _maintenance.price = this.maintenanceForm.get('price').value;
     _maintenance.times = {
       start: this.maintenanceForm.get('start').value,
       end: this.maintenanceForm.get('end').value,

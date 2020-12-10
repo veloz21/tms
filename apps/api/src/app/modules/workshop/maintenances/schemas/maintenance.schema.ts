@@ -28,7 +28,7 @@ export class Maintenance implements IMaintenance {
   comments: string;
 
   @Prop()
-  cost: number;
+  price: number;
 
   @Prop({ type: { start: Date, end: Date }, default: [] })
   times: {
