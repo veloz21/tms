@@ -148,7 +148,10 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.hasFormErrors = false;
     const controls = this.employeeForm.controls;
     if (this.employeeForm.invalid) {
-      this.employeeForm.markAllAsTouched();
+      Object.keys(controls).forEach((controlName) =>
+        controls[controlName].markAsTouched()
+      );
+
       this.hasFormErrors = true;
       this.selectedTab = 0;
       return;
@@ -157,7 +160,6 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     const editedEmployee = this.prepareEmployee();
     if (!!editedEmployee.id) {
       this.updateEmployee(editedEmployee, withBack);
-      this.router.navigateByUrl('/paysheet/employees', { relativeTo: this.activatedRoute });
       return;
     }
 
@@ -169,6 +171,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     console.log(this.employeeForm.get('licensedueDate').value);
     console.log(this.employeeForm.get('licenseAttchment').value);
     const _employee = new EmployeeModel();
+    _employee.id= this.employee.id;
     _employee.firstName = this.employeeForm.get('firstName').value;
     _employee.lastName = this.employeeForm.get('lastName').value;
     _employee.cellphone = this.employeeForm.get('cellphone').value;

@@ -16,6 +16,9 @@ export class Truck implements ITruck {
   brand: string;
 
   @Prop()
+  nickname: string;
+
+  @Prop()
   serialNumber: string;
 
   @Prop()
@@ -31,6 +34,9 @@ export class Truck implements ITruck {
   rangeTraveled: number;
 
   @Prop()
+  price: number;
+
+  @Prop()
   circulationCard: string;
 
   @Prop()
@@ -42,6 +48,9 @@ export class Truck implements ITruck {
   @Prop()
   status: number;
 
+  @Prop()
+  imagePath: string;
+  
   @Prop({ type: [TireSchema], default: [] })
   tires: Tire[];
 

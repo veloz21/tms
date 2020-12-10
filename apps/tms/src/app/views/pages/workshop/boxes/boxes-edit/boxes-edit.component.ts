@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import {  ChangeDetectionStrategy,  ChangeDetectorRef,  Component,  OnDestroy,  OnInit,} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -134,10 +128,13 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
   createForm() {
     this.boxForm = this.boxFB.group({
       boxModel: [this.box.boxModel, [Validators.required]],
+      nickName: [this.box.nickname],
       type: [this.box.type, [Validators.required]],
       rangeTraveled: [this.box.rangeTraveled, [Validators.required]],
       serialNumber: [this.box.serialNumber],
+      price:[this.box.price],
       brand: [this.box.brand],
+      image: []
     });
   }
 
@@ -207,10 +204,12 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
     const _box = new BoxModel();
     _box.id = this.box.id;
     _box.boxModel = this.boxForm.get('boxModel').value;
+    _box.nickname = this.boxForm.get('nickName').value;
     _box.type = this.boxForm.get('type').value;
     _box.rangeTraveled = this.boxForm.get('rangeTraveled').value;
     _box.serialNumber = this.boxForm.get('serialNumber').value;
     _box.brand = this.boxForm.get('brand').value;
+    _box.price = this.boxForm.get('price').value;
     _box.status = AVIABILITY_STATUS.AVAILABLE;
     return _box;
   }

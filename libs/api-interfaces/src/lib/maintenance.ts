@@ -9,6 +9,7 @@ export interface IMaintenance {
   mechanic: Partial<IEmployee>,
   reasons: string,
   comments: string,
+  cost: number;
   times: {
     start: Date,
     end: Date,

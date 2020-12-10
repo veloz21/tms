@@ -7,6 +7,7 @@ export class MaintenanceModel implements IMaintenance {
   mechanic: Partial<IEmployee>;
   reasons: string;
   comments: string;
+  cost: number;
   times: {
     start: Date;
     end: Date;
@@ -18,6 +19,7 @@ export class MaintenanceModel implements IMaintenance {
     this.mechanic = (maintenance && maintenance.mechanic) || null;
     this.comments = (maintenance && maintenance.comments) || '';
     this.reasons = (maintenance && maintenance.reasons) || '';
+    this.cost = maintenance && maintenance.cost || null;
     this.times = (maintenance && maintenance.times) || {
       start: new Date(),
       end: null,
