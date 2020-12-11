@@ -203,6 +203,11 @@
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "api:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "api:build:production"
+            }
           }
         },
         "lint": {
