@@ -6,5 +6,4 @@ export const environment = {
   AWS_ACCESS_KEY_ID: "AKIAJ572RJT6NYLUAC2A",
   AWS_SECRET_ACCESS_KEY: "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",
   BD_URI: "mongodb://localhost/tms",
-  BD_ENDPINT: "mongodb://localhost/",
 };
