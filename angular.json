@@ -183,7 +183,8 @@
             "tsConfig": "apps/api/tsconfig.app.json",
             "assets": [
               "apps/api/src/assets"
-            ]
+            ],
+            "webpackConfig": "webpack.config.js"
           },
           "configurations": {
             "production": {

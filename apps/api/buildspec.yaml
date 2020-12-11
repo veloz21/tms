@@ -18,8 +18,14 @@ phases:
       # - echo testing...
       - echo building...
       - nx build --prod
+      - nx build api --prod
 artifacts:
-  files:
-    - "**/*"
-  discard-paths: no
-  base-directory: dist/apps/tms
+  secondary-artifacts:
+    tms:
+      base-directory: dist/apps/tms
+      files:
+        - "**/*"
+    api:
+      base-directory: dist/apps/api
+      files:
+        - "**/*"
