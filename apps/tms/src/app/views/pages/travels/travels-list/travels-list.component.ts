@@ -26,8 +26,10 @@ import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 
 export class TravelsListComponent implements OnInit, OnDestroy {
   // Table fields
   hola: string;
+  showed: boolean;
   dataSource: TravelsDataSource;
   displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'Comments', 'LoadTime', 'DownloadTime', 'ArriveTime', 'ArriveCustomerTime', 'Actions'];
+  displayedColumsCompletedTravel = ['Operator', 'Box', 'Truck', 'LoadTime', 'DownloadTime', 'ArriveTime', 'ArriveCustomerTime', 'Actions']
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -52,6 +54,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.hola = 'travel list';
+    this.showed = false;
     // If the user changes the sort order, reset back to the first page.
     const sortSubscription = this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     this.subscriptions.push(sortSubscription);

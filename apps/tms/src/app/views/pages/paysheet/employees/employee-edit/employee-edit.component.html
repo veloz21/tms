@@ -63,11 +63,12 @@
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field class="mat-form-field-fluid">
-                  <input matInput [matDatepicker]="dateofAdmission"
-                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DATE_ADMISSION' | translate }}"
-                    formControlName="admissionDate" required />
-                  <mat-datepicker-toggle matSuffix [for]="dateofAdmission"></mat-datepicker-toggle>
-                  <mat-datepicker #dateofAdmission></mat-datepicker>
+                  <mat-select placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.EMPLOYEE_TYPE' | translate }}"
+                    formControlName="type" required>
+                    <mat-option value="Chofer">Chofer</mat-option>
+                    <mat-option value="Administrativo">Administrativo</mat-option>
+                    <mat-option value="Mecánico">Mecánico</mat-option>
+                  </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
@@ -96,6 +97,15 @@
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field class="mat-form-field-fluid">
+                  <input matInput [matDatepicker]="dateofAdmission"
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DATE_ADMISSION' | translate }}"
+                    formControlName="admissionDate" required />
+                  <mat-datepicker-toggle matSuffix [for]="dateofAdmission"></mat-datepicker-toggle>
+                  <mat-datepicker #dateofAdmission></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field class="mat-form-field-fluid">
                   <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}" type="number"
                     formControlName="salary_total" required>
                   <mat-error>
@@ -104,7 +114,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-md-8 b404-margin-bottom-10-mobile">
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field class="mat-form-field-fluid">
                   <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate }}"
                     formControlName="address" required>

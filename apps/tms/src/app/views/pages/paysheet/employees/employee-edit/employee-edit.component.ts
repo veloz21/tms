@@ -100,6 +100,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       secondaryCellphone: [this.employee.secondaryCellphone],
       address: [this.employee.address, [Validators.required]],
       birthDate: [this.employee.birthDate, [Validators.nullValidator]],
+      type: [this.employee.type],
       admissionDate: [this.employee.admissionDate, [Validators.nullValidator]],
       salary_total: [this.employee.salary.total, [Validators.required]],
       licenseType: [this.employee.documents.driversLicense.type],
