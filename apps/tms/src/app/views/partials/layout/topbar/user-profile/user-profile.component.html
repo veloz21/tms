@@ -1,24 +1,22 @@
-<div ngbDropdown placement="bottom-right" *ngIf="company$ | async as _company" class="b404-header__topbar-item b404-header__topbar-item--user">
+<div ngbDropdown placement="bottom-right" class="b404-header__topbar-item b404-header__topbar-item--user">
 	<div ngbDropdownToggle class="b404-header__topbar-wrapper">
 		<div class="b404-header__topbar-user" [ngClass]="{'b404-header__topbar-icon': icon}">
 			<span class="b404-header__topbar-welcome b404-hidden-mobile" *ngIf="greeting">{{'TOPBAR.HI'| translate}},</span>
-			<span class="b404-header__topbar-username b404-hidden-mobile" *ngIf="greeting">{{_company.id}}</span>
+			<span class="b404-header__topbar-username b404-hidden-mobile" *ngIf="greeting">Bits404</span>
 			<i *ngIf="icon" class="flaticon2-user-outline-symbol"></i>
-			<img *ngIf="avatar" alt="Pic" [attr.src]="">
-			<span *ngIf="badge" class="b404-badge b404-badge--username b404-badge--unified-success b404-badge--lg b404-badge--rounded b404-badge--bold">{{_company.id|firstLetter}}</span>
+			<span *ngIf="badge" class="b404-badge b404-badge--username b404-badge--unified-success b404-badge--lg b404-badge--rounded b404-badge--bold">Bits404</span>
 		</div>
 	</div>
 	<div ngbDropdownMenu class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
 		<!--begin: Head -->
 		<div class="b404-user-card b404-user-card--skin-dark b404-notification-item-padding-x" style="background-image: url(./assets/media/misc/bg-1.jpg)">
 			<div class="b404-user-card__avatar">
-				<img alt="Pic" [attr.src]=""/>
 				<span [hidden]="true" class="b404-badge b404-badge--lg b404-badge--rounded b404-badge--bold b404-font-success">
-					{{_company.id|firstLetter}}
+					Bits404
 				</span>
 			</div>
 			<div class="b404-user-card__name">
-				{{_company.id}}
+				Bits404
 			</div>
 			<div class="b404-user-card__badge">
 				<span class="btn btn-success btn-sm btn-bold btn-font-md">23 messages</span>
