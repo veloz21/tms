@@ -4,60 +4,76 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 // NGRX
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
-import { LayoutUtilsService } from '@tms/crud';
-import { defer, Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 // RxJS
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-import { AppState } from '../../reducers';
 // Auth actions
 import * as fromAuthActions from '../_actions/auth.actions';
-
+import { AuthenticationService } from '../_services';
 
 @Injectable()
 export class AuthEffects {
-  @Effect({
-    dispatch: false
-  })
+  @Effect()
   login$ = this.actions$.pipe(
     ofType<fromAuthActions.Login>(fromAuthActions.AuthActionTypes.Login),
-    catchError(err => of([console.log(err)]))
+    mergeMap(({ payload }) => {
+      return this.authService.login(payload.user).pipe(
+        switchMap((loginResponse) => {
+          return of(
+            new fromAuthActions.LoginSuccess({
+              accessToken: loginResponse.accessToken,
+              refreshToken: loginResponse.refreshToken,
+            })
+          );
+        }),
+        catchError((error) => of(new fromAuthActions.LoginError({ error })))
+      );
+    }),
+    catchError((err) => of([console.log(err)]))
   );
 
   @Effect({
-    dispatch: false
+    dispatch: false,
   })
   logout$ = this.actions$.pipe(
     ofType<fromAuthActions.Logout>(fromAuthActions.AuthActionTypes.Logout),
-    tap(() => {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      this.router.navigate(['/auth/login'], {
-      });
+    mergeMap(() => {
+      return this.authService.logout().pipe(
+        tap(() => {
+          this.router.navigate(['/auth/login'], {});
+        }),
+        catchError((error) =>
+          tap(() => {
+            this.router.navigate(['/auth/login'], {});
+          })
+        )
+      );
     })
   );
 
   @Effect({
-    dispatch: false
+    dispatch: false,
   })
   loginSuccess$ = this.actions$.pipe(
-    ofType<fromAuthActions.LoginSucces>(fromAuthActions.AuthActionTypes.LoginSucces),
-    map(() => {
-      this.snackBar.open('Success', 'Ok', {
-        duration: 2000,
-        verticalPosition: 'top'
-      });
+    ofType<fromAuthActions.LoginSuccess>(
+      fromAuthActions.AuthActionTypes.LoginSuccess
+    ),
+    tap(() => {
+      this.router.navigate(['/dashboard'], {});
     })
   );
 
   @Effect({
-    dispatch: false
+    dispatch: false,
   })
   register$ = this.actions$.pipe(
     ofType<fromAuthActions.Register>(fromAuthActions.AuthActionTypes.Register),
-    tap(action => {
-      localStorage.setItem(environment.authTokenKey, action.payload.accessToken);
+    tap((action) => {
+      localStorage.setItem(
+        environment.authTokenKey,
+        action.payload.accessToken
+      );
     })
   );
 
@@ -81,24 +97,31 @@ export class AuthEffects {
   //     })
   //   );
 
-  @Effect()
-  init$: Observable<Action> = defer(() => {
-    const userToken = localStorage.getItem(environment.authTokenKey);
-    let observableResult = of({
-      type: 'NO_ACTION'
-    });
-    if (userToken) {
-      observableResult = of(new fromAuthActions.Login({
-        Success: 'Si hay token'
-      }));
-    }
-    return observableResult;
-  });
+  // @Effect()
+  // init$: Observable<Action> = defer(() => {
+  //   const userToken = localStorage.getItem(environment.authTokenKey);
+  //   let observableResult = of({
+  //     type: 'NO_ACTION',
+  //   });
+  //   if (userToken) {
+  //     observableResult = of(
+  //       new fromAuthActions.Login({
+  //         Success: 'Si hay token',
+  //       })
+  //     );
+  //   }
+  //   return observableResult;
+  // });
 
   private returnUrl: string;
 
-  constructor(private actions$: Actions, private router: Router, private snackBar: MatSnackBar, private store: Store<AppState>, private layoutUtilsService: LayoutUtilsService) {
-    this.router.events.subscribe(event => {
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private authService: AuthenticationService
+  ) {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.returnUrl = event.url;
       }

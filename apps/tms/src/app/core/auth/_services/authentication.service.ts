@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICompany, IUser } from '@bits404/api-interfaces';
 import { environment } from '@tms/environments/environment';
@@ -13,30 +17,30 @@ import { Role } from '../_models/role.model';
 import { TokenStorage } from './token-storage.service';
 
 const API_LOGIN_URL = environment.endpoint + 'api/auth/login';
+const API_LOGOUT_URL = environment.endpoint + 'api/auth/logout';
 const API_REGISTER_URL = environment.endpoint + 'api/auth/register';
 const API_TOKEN_URL = environment.endpoint + 'api/auth/token';
 const API_PERMISSION_URL = '';
 const API_ROLES_URL = '';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticationService extends HttpService implements AuthService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
-    })
+    }),
   };
 
   isLoggedIn: BehaviorSubject<boolean>;
-  constructor(
-    private http: HttpClient,
-    private tokenStorage: TokenStorage,
-  ) {
+  constructor(private http: HttpClient, private tokenStorage: TokenStorage) {
     super();
     this.isLoggedIn = new BehaviorSubject(false);
-    this.isAuthorized().subscribe(isLoggedIn => this.isLoggedIn.next(isLoggedIn));
+    this.isAuthorized().subscribe((isLoggedIn) =>
+      this.isLoggedIn.next(isLoggedIn)
+    );
   }
 
   /**
@@ -45,9 +49,11 @@ export class AuthenticationService extends HttpService implements AuthService {
    * @memberOf AuthService
    */
   public isAuthorized(): Observable<boolean> {
-    return this.tokenStorage.getAccessToken().pipe(map(token => {
-      return !!token;
-    }));
+    return this.tokenStorage.getAccessToken().pipe(
+      map((token) => {
+        return !!token;
+      })
+    );
   }
 
   /**
@@ -66,7 +72,11 @@ export class AuthenticationService extends HttpService implements AuthService {
   public refreshToken(): Observable<AuthModel> {
     return this.tokenStorage.getRefreshToken().pipe(
       switchMap((refreshToken: string) => {
-        return this.http.post<AuthModel>(API_TOKEN_URL, { refreshToken }, this.httpOptions);
+        return this.http.post<AuthModel>(
+          API_TOKEN_URL,
+          { refreshToken },
+          this.httpOptions
+        );
       }),
       tap(this.saveAccessData.bind(this)),
       catchError(this.handleError('refreshToken'))
@@ -91,12 +101,14 @@ export class AuthenticationService extends HttpService implements AuthService {
   }
 
   public login(user: Partial<IUser>): Observable<AuthModel> {
-    return this.http.post<AuthModel>(API_LOGIN_URL, user, this.httpOptions).pipe(
-      tap(() => this.isLoggedIn.next(true)),
-      tap(this.saveAccessData.bind(this)),
-      switchMapTo(this.getCurrentUser()),
-      catchError(this.handleError('login'))
-    );
+    return this.http
+      .post<AuthModel>(API_LOGIN_URL, user, this.httpOptions)
+      .pipe(
+        tap(() => this.isLoggedIn.next(true)),
+        tap(this.saveAccessData.bind(this)),
+        switchMapTo(this.getCurrentUser()),
+        catchError(this.handleError('login'))
+      );
   }
 
   public getCompanyByToken(): Observable<CompanyModel> {
@@ -105,18 +117,21 @@ export class AuthenticationService extends HttpService implements AuthService {
     httpHeaders.set('Authorization', 'Bearer ' + companyToken);
 
     return this.http.get<CompanyModel>(API_LOGIN_URL, {
-      headers: httpHeaders
-    }
-    );
+      headers: httpHeaders,
+    });
   }
 
   public loginByToken(account: string, token: string): Observable<any> {
     return this.tokenStorage.getRefreshToken().pipe(
       switchMap((refreshToken: string) => {
-        return this.http.post<AuthModel>(API_TOKEN_URL, { refreshToken }, this.httpOptions);
+        return this.http.post<AuthModel>(
+          API_TOKEN_URL,
+          { refreshToken },
+          this.httpOptions
+        );
       }),
       tap(this.saveAccessData.bind(this)),
-      catchError(err => {
+      catchError((err) => {
         this.logout();
         return throwError(err);
       })
@@ -124,7 +139,8 @@ export class AuthenticationService extends HttpService implements AuthService {
   }
 
   public logout(): Observable<void> {
-    return this.http.post(API_LOGIN_URL, {}, { responseType: 'text' }).pipe(
+    console.log('Logout service');
+    return this.http.post(API_LOGOUT_URL, {}, { responseType: 'text' }).pipe(
       tap(() => this.tokenStorage.clear()),
       tap(() => this.isLoggedIn.next(false)),
       catchError(this.handleError('logout'))
@@ -142,11 +158,16 @@ export class AuthenticationService extends HttpService implements AuthService {
     }
   }
 
-  public register(company: Partial<ICompany>, user: Partial<IUser>): Observable<string> {
-    return this.http.post(API_REGISTER_URL, { company, user }, this.httpOptions).pipe(
-      switchMapTo(this.login(user)),
-      catchError(this.handleError('register'))
-    );
+  public register(
+    company: Partial<ICompany>,
+    user: Partial<IUser>
+  ): Observable<string> {
+    return this.http
+      .post(API_REGISTER_URL, { company, user }, this.httpOptions)
+      .pipe(
+        switchMapTo(this.login(user)),
+        catchError(this.handleError('register'))
+      );
   }
 
   // public recoverPassword(email: string): Observable<any> {
@@ -170,13 +191,12 @@ export class AuthenticationService extends HttpService implements AuthService {
   }
 
   getVersion(): Observable<any> {
-
-    const hashUrl = `hash.json?v=${(new Date()).getTime()}`;
+    const hashUrl = `hash.json?v=${new Date().getTime()}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
+        'Content-Type': 'application/json',
+      }),
     };
 
     const headers = new Headers();
@@ -185,7 +205,8 @@ export class AuthenticationService extends HttpService implements AuthService {
   }
 
   public requestPassword(email: string): Observable<any> {
-    return this.http.get(API_LOGIN_URL + '/forgot?=' + email)
+    return this.http
+      .get(API_LOGIN_URL + '/forgot?=' + email)
       .pipe(catchError(this.handleError('forgot-password')));
   }
 
@@ -208,9 +229,8 @@ export class AuthenticationService extends HttpService implements AuthService {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     return this.http.put(API_LOGIN_URL, _company, {
-      headers: httpHeaders
-    }
-    );
+      headers: httpHeaders,
+    });
   }
 
   // CREATE =>  POST: add a new user to the server
@@ -218,9 +238,8 @@ export class AuthenticationService extends HttpService implements AuthService {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     return this.http.post<CompanyModel>(API_LOGIN_URL, company, {
-      headers: httpHeaders
-    }
-    );
+      headers: httpHeaders,
+    });
   }
 
   // Method from server should return QueryResultsModel(items: any[], totalsCount: number)
@@ -228,9 +247,12 @@ export class AuthenticationService extends HttpService implements AuthService {
   findCompanys(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post<QueryResultsModel>(API_LOGIN_URL + '/findUsers', queryParams, {
-      headers: httpHeaders
-    }
+    return this.http.post<QueryResultsModel>(
+      API_LOGIN_URL + '/findUsers',
+      queryParams,
+      {
+        headers: httpHeaders,
+      }
     );
   }
 
@@ -240,7 +262,9 @@ export class AuthenticationService extends HttpService implements AuthService {
   }
 
   getRolePermissions(roleId: number): Observable<Permission[]> {
-    return this.http.get<Permission[]>(API_PERMISSION_URL + '/getRolePermission?=' + roleId);
+    return this.http.get<Permission[]>(
+      API_PERMISSION_URL + '/getRolePermission?=' + roleId
+    );
   }
 
   // Roles
@@ -258,9 +282,8 @@ export class AuthenticationService extends HttpService implements AuthService {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     return this.http.post<Role>(API_ROLES_URL, role, {
-      headers: httpHeaders
-    }
-    );
+      headers: httpHeaders,
+    });
   }
 
   // UPDATE => PUT: update the role on the server
@@ -268,9 +291,8 @@ export class AuthenticationService extends HttpService implements AuthService {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     return this.http.put(API_ROLES_URL, role, {
-      headers: httpHeaders
-    }
-    );
+      headers: httpHeaders,
+    });
   }
 
   // DELETE => delete the role from the server
@@ -281,16 +303,21 @@ export class AuthenticationService extends HttpService implements AuthService {
 
   // Check Role Before deletion
   isRoleAssignedToUsers(roleId: number): Observable<boolean> {
-    return this.http.get<boolean>(API_ROLES_URL + '/checkIsRollAssignedToUser?roleId=' + roleId);
+    return this.http.get<boolean>(
+      API_ROLES_URL + '/checkIsRollAssignedToUser?roleId=' + roleId
+    );
   }
 
   findRoles(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     // This code imitates server calls
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post<QueryResultsModel>(API_ROLES_URL + '/findRoles', queryParams, {
-      headers: httpHeaders
-    }
+    return this.http.post<QueryResultsModel>(
+      API_ROLES_URL + '/findRoles',
+      queryParams,
+      {
+        headers: httpHeaders,
+      }
     );
   }
 }
