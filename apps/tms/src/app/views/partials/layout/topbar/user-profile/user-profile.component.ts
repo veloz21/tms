@@ -1,7 +1,8 @@
 // Angular
 import { Component, Input, OnInit } from '@angular/core';
 // NGRX
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { currentCompany } from '@tms/core/auth/_selectors/auth.selectors';
 // RxJS
 import { Observable } from 'rxjs';
 import { CompanyModel, Logout } from '../../../../../core/auth';
@@ -30,7 +31,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.company$ = this.store.pipe(select(currentCompany));
+    
+    this.company$ = this.store.pipe(select(currentCompany));
+    console.log(this.company$);
   }
 
   /**

@@ -1,12 +1,10 @@
-import { Company } from '../_interfaces/company.interface';
+import { ICompany } from "@bits404/api-interfaces";
 
-export class CompanyModel implements Company {
-  id: string;
-  email: string;
-  password: string;
+export class CompanyModel implements ICompany {
+  id?: string;
+  name: string
 
-  constructor( user?: Partial<Company>) {
-    this.email = user && user.email || '';
-    this.password = user && user.password || '';
+  constructor( user?: Partial<ICompany>) {
+    this.name = user && user.name || '';
   }
 }

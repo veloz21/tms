@@ -3,6 +3,7 @@ import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Company } from '../../admin/company';
+import { CompanyConfig, CompanyConfigSchema } from '../../admin/company/schemas/company.config.schemas';
 import { Employee, EmployeeSchema } from '../../admin/employees';
 import { Box, BoxSchema } from '../../workshop/boxes';
 import { Truck, TruckSchema } from '../../workshop/trucks';
@@ -39,8 +40,12 @@ export class Travel implements ITravel {
     destinationArrive: Date,
   };
 
+  @Prop({type: CompanyConfigSchema, default: {}})
+  config: Partial <CompanyConfig>;
+
   @Prop()
   comments: string;
+
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
   company: mongoose.Types.ObjectId;
