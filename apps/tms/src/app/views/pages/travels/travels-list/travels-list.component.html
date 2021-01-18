@@ -20,6 +20,9 @@
               </mat-hint>
             </mat-form-field>
           </div>
+          <div class="col-md-4">
+            <mat-checkbox [(ngModel)]="showed">{{'TRAVEL.TRAVEL.MODEL.COMPLETED_TRAVELS' | translate }}</mat-checkbox>
+          </div>
         </div>
       </div>
 
@@ -152,12 +155,111 @@
       </div>
     </div>
 
-    <!-- start: BOTTOM -->
     <div class="mat-table__bottom">
       <mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
       <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async"
         [showFirstLastButtons]="true"></mat-paginator>
     </div>
+
+      <!-- Second Table -->
+      <div *ngIf="showed">
+        Completed Travels
+      </div>&nbsp;
+      <div class="mat-table__wrapper" *ngIf="showed">
+        <mat-table class="example-container mat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
+          matSortActive="id" matSortDirection="asc" matSortDisableClear mdbTable mdbTableScroll scrollX="true">
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="Select" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" [color]="'primary'">
+              </mat-checkbox>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" class="mat-column-checkbox">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)" [color]="'primary'">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Operator" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.OPERATOR_NAME" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let travel">{{travel.operator.firstName}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Box" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.BOX_SERIALNUMBER" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let travel">{{travel.box.serialNumber}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Truck" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.TRUCK_SERIALNUMBER" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let travel">{{travel.truck.serialNumber}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="LoadTime" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.LOAD_TIME" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let travel">{{travel.times?.loading | date:'dd-MM, HH:mm'}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="DownloadTime" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.DOWNLOAD_TIME" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let travel">{{travel.times?.unloading | date:'dd-MM, HH:mm'}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="ArriveTime" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.ARRIVE_TIME" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let travel">{{travel.times?.originArrive | date:'dd-MM, HH:mm'}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="ArriveCustomerTime" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{"TRAVEL.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let travel">{{travel.times?.destinationArrive | date:'dd-MM, HH:mm'}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions" mdbTableCol>
+            <mat-header-cell *matHeaderCellDef>
+              {{"GENERAL.MODEL.ACTIONS" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let travel">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/travel/travel/edit/',travel.id]">
+                  <mat-icon>create</mat-icon>
+                  <span>{{'TRAVEL.TRAVEL.TEXT.EDIT_ICON_LABEL' | translate}}</span>
+                </button>
+              </mat-menu>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumsCompletedTravel"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumsCompletedTravel"></mat-row>
+        </mat-table>
+        <div class="mat-table__message" *ngIf="!dataSource.hasItems">
+          <span>{{"GENERAL.TEXT.NO_RECORDS_FOUND" | translate}}</span>
+        </div>
+        <div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">
+          <span>{{"GENERAL.TEXT.WAIT" | translate}}</span>
+        </div>
+      </div>
+
+      <!-- start: BOTTOM -->
+      <div class="mat-table__bottom" *ngIf="showed">
+        <mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async"
+          [showFirstLastButtons]="true"></mat-paginator>
+      </div>
     <!-- end: BOTTOM -->
   </b404-portlet-body>
   <!-- end::Body -->

@@ -71,23 +71,6 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       this.headerMargin = parseInt(style.height, 0);
     };
 
-    // Mapa (descomentar)
-    // Mapboxgl.accessToken = environment.mapboxKey;
-    // this.mapa = new Mapboxgl.Map({
-    //   container: 'map', // container id
-    //   style: 'mapbox://styles/mapbox/streets-v11',
-    //   center: [-102.29478263896532, 21.88026529174202], // lng ,lat
-    //   zoom: 13 // starting zoom
-    // });
-    //
-    // const marker = new Mapboxgl.Marker()
-    // .setLngLat([-102.25497318868636, 21.844753093407434])
-    // .addTo(this.mapa);
-    //
-    // this.mapa.addControl(new Mapboxgl.FullscreenControl());
-    // this.mapa.addControl(new Mapboxgl.NavigationControl());
-    // this.createMarker(-102.25497318868636, 21.844753093407434);
-    // this.createMarker(-102.29478263896532, 21.88026529174202);
   }
 
   loadTravel(_travel, fromService: boolean = false) {
@@ -175,6 +158,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       truck: [this.travel.truck],
       origin: [this.travel.locations.origin.coordinates],
       destination: [this.travel.locations.destination.coordinates],
+      cost: [],
       loadingDate: [loadingDate],
       loadingTime: [loadingTime],
       unloadingDate: [unloadingDate],

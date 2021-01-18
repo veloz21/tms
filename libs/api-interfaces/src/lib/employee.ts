@@ -5,6 +5,7 @@ export interface IEmployee {
   cellphone: string;
   address: string;
   birthDate: Date;
+  type: string;
   admissionDate: Date;
   secondaryCellphone: string;
   salary: {

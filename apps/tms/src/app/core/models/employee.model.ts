@@ -7,6 +7,7 @@ export class EmployeeModel implements IEmployee {
   cellphone: string;
   secondaryCellphone: string;
   address: string;
+  type: string;
   birthDate: Date;
   admissionDate: Date;
   salary: {

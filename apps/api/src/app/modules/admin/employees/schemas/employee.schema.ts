@@ -27,6 +27,9 @@ export class Employee extends User implements IEmployee {
   birthDate: Date;
 
   @Prop()
+  type: string;
+
+  @Prop()
   admissionDate: Date;
 
   @Prop()
