@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '@bits404/api-interfaces';
@@ -6,12 +12,16 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AppState } from '@tms/reducers';
 import { Observable, Subject } from 'rxjs';
-import { AuthenticationService, AuthNoticeService, Login } from '../../../../core/auth';
+import {
+  AuthenticationService,
+  AuthNoticeService,
+  Login,
+} from '../../../../core/auth';
 
 @Component({
   selector: 'b404-login',
   templateUrl: './login.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent implements OnInit, OnDestroy {
   // Public params
@@ -40,7 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.initLoginForm();
 
     // redirect back to the returnUrl before login
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.returnUrl = params.returnUrl || '/';
     });
   }
@@ -53,26 +63,28 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   initLoginForm() {
-
     this.loginForm = this.fb.group({
-      email: ['', Validators.compose([
-        Validators.required,
-        Validators.email,
-        Validators.minLength(3),
-        Validators.maxLength(320) // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
-      ])
+      email: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.email,
+          Validators.minLength(3),
+          Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+        ]),
       ],
-      password: ['', Validators.compose([
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(100)
-      ])
-      ]
+      password: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+        ]),
+      ],
     });
   }
 
   submit() {
-
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -82,24 +94,32 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     const user = this.prepareUser();
 
-    this.auth.login(user).subscribe(() => {
-      this.store.dispatch(new Login({ Success: 'Yes' }));
-      console.log(user);
-      this.router.navigateByUrl(this.returnUrl);
-      this.loading = false;
-      this.cdr.markForCheck();
-    }, error => {
-      this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
-      this.loading = false;
-      this.cdr.markForCheck();
-    });
+    this.store.dispatch(new Login({ user }));
+    // this.store.pipe(select());
+
+    // this.auth.login(user).subscribe(
+    //   () => {
+    //     console.log(user);
+    //     this.router.navigateByUrl(this.returnUrl);
+    //     this.loading = false;
+    //     this.cdr.markForCheck();
+    //   },
+    //   (error) => {
+    //     this.authNoticeService.setNotice(
+    //       this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'),
+    //       'danger'
+    //     );
+    //     this.loading = false;
+    //     this.cdr.markForCheck();
+    //   }
+    // );
   }
 
   prepareUser(): Partial<IUser> {
     return {
       email: this.loginForm.get('email').value,
       password: this.loginForm.get('password').value,
-    }
+    };
   }
 
   isControlHasError(controlName: string, validationType: string): boolean {
@@ -108,7 +128,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    const result = control.hasError(validationType) && (control.dirty || control.touched);
+    const result =
+      control.hasError(validationType) && (control.dirty || control.touched);
     return result;
   }
 }
