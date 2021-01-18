@@ -3,6 +3,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RouterModule } from 'nest-router';
+import { environment } from '../environments/environment';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AdminModule } from './modules/admin';
@@ -19,20 +20,9 @@ import { routes } from './routes';
     WorkshopModule,
     RouterModule.forRoutes(routes),
     MongooseModule.forRoot(
-      'mongodb://localhost/tms-nx',
+      environment.BD_URI,
       { useFindAndModify: false }
     ),
-    // MongooseModule.forFeatureAsync([
-    //   {
-    //     imports: [],
-    //     name: User.name,
-    //     useFactory: () => {
-    //       const schema = UserSchema;
-    //       schema.pre('save', () => console.log('Hello from pre save'));
-    //       return schema;
-    //     },
-    //   },
-    // ]),
     MailerModule.forRoot({
       transport: {
         host: 'mail.bits404.com',
