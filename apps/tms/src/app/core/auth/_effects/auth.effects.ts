@@ -38,8 +38,17 @@ export class AuthEffects {
   })
   logout$ = this.actions$.pipe(
     ofType<fromAuthActions.Logout>(fromAuthActions.AuthActionTypes.Logout),
-    tap(() => {
-      this.router.navigate(['/auth/login'], {});
+    mergeMap(() => {
+      return this.authService.logout().pipe(
+        tap(() => {
+          this.router.navigate(['/auth/login'], {});
+        }),
+        catchError((error) =>
+          tap(() => {
+            this.router.navigate(['/auth/login'], {});
+          })
+        )
+      );
     })
   );
 
