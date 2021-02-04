@@ -1,4 +1,10 @@
-import {  ChangeDetectionStrategy,  ChangeDetectorRef,  Component,  OnDestroy,  OnInit,} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -132,9 +138,9 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
       type: [this.box.type, [Validators.required]],
       rangeTraveled: [this.box.rangeTraveled, [Validators.required]],
       serialNumber: [this.box.serialNumber],
-      price:[this.box.price],
+      price: [this.box.price],
       brand: [this.box.brand],
-      image: []
+      image: [],
     });
   }
 
