@@ -27,20 +27,35 @@ import { NgbModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
+import {
+  HttpUtilsService,
+  LayoutUtilsService,
+  TypesUtilsService,
+} from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
 import { PartialsModule } from '@tms/partials/partials.module';
 import { travelsReducer } from '@tms/reducers';
 import { TravelResolver } from '@tms/resolvers';
-import { BoxesService, EmployeesService, TravelsService, TrucksService } from '@tms/services';
+import {
+  BoxesService,
+  EmployeesService,
+  TravelsService,
+  TrucksService,
+} from '@tms/services';
 import { BoxesAutocompleteModule } from '@tms/shared/autocomplete/boxes-autocomplete/boxes-autocomplete.module';
 import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-autocomplete/employees-autocomplete.module';
+import { PlacesComponent } from '@tms/shared/autocomplete/places-autocomplete/places-autocomplete.component';
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../partials/content/crud';
+import {
+  ActionNotificationComponent,
+  DeleteEntityDialogComponent,
+  FetchEntityDialogComponent,
+  UpdateStatusDialogComponent,
+} from '../../../partials/content/crud';
 import { TravelEditComponent } from './travel-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -49,16 +64,16 @@ const routes: Routes = [
     path: '',
     component: TravelEditComponent,
     resolve: {
-      travel: TravelResolver
-    }
+      travel: TravelResolver,
+    },
   },
   {
     path: ':id',
     component: TravelEditComponent,
     resolve: {
-      travel: TravelResolver
-    }
-  }
+      travel: TravelResolver,
+    },
+  },
 ];
 
 @NgModule({
@@ -95,10 +110,12 @@ const routes: Routes = [
     MatTabsModule,
     MatTooltipModule,
     NgbProgressbarModule,
-    environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
-      passThruUnknownUrl: true,
-      dataEncapsulation: false
-    }) : [],
+    environment.isMockEnabled
+      ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
+          passThruUnknownUrl: true,
+          dataEncapsulation: false,
+        })
+      : [],
     StoreModule.forFeature('travels', travelsReducer),
     EffectsModule.forFeature([TravelEffects]),
   ],
@@ -111,7 +128,7 @@ const routes: Routes = [
     TravelResolver,
     TrucksService,
     BoxesService,
-    EmployeesService
+    EmployeesService,
   ],
   entryComponents: [
     ActionNotificationComponent,
@@ -119,8 +136,6 @@ const routes: Routes = [
     FetchEntityDialogComponent,
     UpdateStatusDialogComponent,
   ],
-  declarations: [
-    TravelEditComponent
-  ]
+  declarations: [TravelEditComponent, PlacesComponent],
 })
-export class TravelEditModule { }
+export class TravelEditModule {}
