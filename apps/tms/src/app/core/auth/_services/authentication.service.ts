@@ -1,7 +1,7 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders,
+  HttpHeaders
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICompany, IUser } from '@bits404/api-interfaces';
@@ -66,9 +66,6 @@ export class AuthenticationService extends HttpService implements AuthService {
   }
 
   public requestCompany(): Observable<CompanyModel> {
-    // const company = new CompanyModel();
-    // company.name = 'Bits4004';
-    // return of(company);
     return this.http.get<CompanyModel>(API_COMPANY_URL + '/current');
   }
 
