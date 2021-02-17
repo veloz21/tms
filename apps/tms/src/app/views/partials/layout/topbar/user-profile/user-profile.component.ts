@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { currentCompany } from '@tms/core/auth/_selectors/auth.selectors';
 // RxJS
 import { Observable } from 'rxjs';
-import { CompanyModel, Logout } from '../../../../../core/auth';
+import { CompanyModel, Logout, RequestCompany } from '../../../../../core/auth';
 // State
 import { AppState } from '../../../../../core/reducers';
 
@@ -27,11 +27,11 @@ export class UserProfileComponent implements OnInit {
    *
    * @param store: Store<AppState>
    */
-  constructor(private store: Store<AppState>) {
-  }
+  constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {
-    
+  ngOnInit() {
+    console.log('dispatch requestCompany');
+    this.store.dispatch(new RequestCompany());
     this.company$ = this.store.pipe(select(currentCompany));
     console.log(this.company$);
   }

@@ -18,6 +18,7 @@ import { TokenStorage } from './token-storage.service';
 
 const API_LOGIN_URL = environment.endpoint + 'api/auth/login';
 const API_LOGOUT_URL = environment.endpoint + 'api/auth/logout';
+const API_COMPANY_URL = environment.endpoint + 'api/admin/company';
 const API_REGISTER_URL = environment.endpoint + 'api/auth/register';
 const API_TOKEN_URL = environment.endpoint + 'api/auth/token';
 const API_PERMISSION_URL = '';
@@ -62,6 +63,13 @@ export class AuthenticationService extends HttpService implements AuthService {
    */
   public getAccessToken(): Observable<string> {
     return this.tokenStorage.getAccessToken();
+  }
+
+  public requestCompany(): Observable<CompanyModel> {
+    // const company = new CompanyModel();
+    // company.name = 'Bits4004';
+    // return of(company);
+    return this.http.get<CompanyModel>(API_COMPANY_URL + '/current');
   }
 
   /**

@@ -8,8 +8,8 @@ export enum AuthActionTypes {
   LoginError = '[Login]Action Error',
   Logout = '[Logout] Action',
   Register = '[Register] Action',
-  CompanyRequested = '[Request Company] Action',
-  CompanyLoaded = '[Load Company] Auth API',
+  RequestCompany = '[Request Company] Action',
+  CompanyLoaded = '[Loaded Company] Action',
 }
 
 export class Login implements Action {
@@ -36,8 +36,8 @@ export class Register implements Action {
   constructor(public payload: { accessToken: string; refreshToken: string }) {}
 }
 
-export class CompanyRequested implements Action {
-  readonly type = AuthActionTypes.CompanyRequested;
+export class RequestCompany implements Action {
+  readonly type = AuthActionTypes.RequestCompany;
 }
 
 export class CompanyLoaded implements Action {
@@ -50,5 +50,5 @@ export type AuthActions =
   | LoginSuccess
   | Logout
   | Register
-  | CompanyRequested
+  | RequestCompany
   | CompanyLoaded;

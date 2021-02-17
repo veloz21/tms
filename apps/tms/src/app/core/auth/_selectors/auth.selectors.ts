@@ -5,32 +5,28 @@ import { each, find, some } from 'lodash';
 // Models
 import { Role } from '../_models/role.model';
 
-export const selectAuthState = state => state.auth;
+export const selectAuthState = (state) => state.auth;
 
 export const isLoggedIn = createSelector(
   selectAuthState,
-  auth => auth.loggedIn
+  (auth) => auth.loggedIn
 );
 
-export const isLoggedOut = createSelector(
-  isLoggedIn,
-  loggedIn => !loggedIn
-);
-
+export const isLoggedOut = createSelector(isLoggedIn, (loggedIn) => !loggedIn);
 
 export const currentAuthToken = createSelector(
   selectAuthState,
-  auth => auth.authToken
+  (auth) => auth.authToken
 );
 
 export const isCompanyLoaded = createSelector(
   selectAuthState,
-  auth => auth.isCompanyLoaded
+  (auth) => auth.isCompanyLoaded
 );
 
 export const currentCompany = createSelector(
   selectAuthState,
-  auth => auth.Company
+  (auth) => auth.company
 );
 
 // export const currentCompanyRoleIds = createSelector(
@@ -75,7 +71,10 @@ export const currentCompany = createSelector(
 //     }
 // );
 
-function getPermissionsIdsFrom(CompanyRolesIds: number[] = [], allRoles: Role[] = []): number[] {
+function getPermissionsIdsFrom(
+  CompanyRolesIds: number[] = [],
+  allRoles: Role[] = []
+): number[] {
   const CompanyRoles: Role[] = [];
   each(CompanyRolesIds, (_id: number) => {
     const CompanyRole = find(allRoles, (_role: Role) => _role.id === _id);
@@ -86,8 +85,8 @@ function getPermissionsIdsFrom(CompanyRolesIds: number[] = [], allRoles: Role[] 
 
   const result: number[] = [];
   each(CompanyRoles, (_role: Role) => {
-    each(_role.permissions, id => {
-      if (!some(result, _id => _id === id)) {
+    each(_role.permissions, (id) => {
+      if (!some(result, (_id) => _id === id)) {
         result.push(id);
       }
     });

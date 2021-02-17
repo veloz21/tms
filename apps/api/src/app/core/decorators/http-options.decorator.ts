@@ -8,12 +8,15 @@ import type { HttpOptions } from '../interfaces/http-options.interface';
  */
 export const GetHttpOptions = createParamDecorator(
   (data: string, ctx: ExecutionContext): HttpOptions => {
+    console.log('GetHttpOptions');
     const request = ctx.switchToHttp().getRequest();
-    const company = request.user && request.user.company || null;
+    console.log('request.user', request.user);
+    const company = (request.user && request.user.company) || null;
+    console.log('company', company);
     const httpOptions: HttpOptions = {
       company: company ? new mongoose.Types.ObjectId(company) : null,
       session: request.dbSession || null,
     };
     return data ? httpOptions?.[data] : httpOptions;
-  },
+  }
 );

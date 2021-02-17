@@ -1,15 +1,46 @@
 // SERVICES
-export {
-  AuthNotice
-} from './auth-notice/auth-notice.interface';
-export {
-  AuthNoticeService
-} from './auth-notice/auth-notice.service';
+export { AuthNotice } from './auth-notice/auth-notice.interface';
+export { AuthNoticeService } from './auth-notice/auth-notice.service';
 // ACTIONS
-export { AuthActions, AuthActionTypes, CompanyLoaded, CompanyRequested, Login, Logout, Register } from './_actions/auth.actions';
-export { CompanyCreated, CompanyDeleted, CompanyOnServerCreated, CompanysActionToggleLoading, CompanysPageCancelled, CompanysPageLoaded, CompanysPageRequested, CompanysPageToggleLoading, CompanyUpdated } from './_actions/company.actions';
-export { AllPermissionsLoaded, AllPermissionsRequested, PermissionActions, PermissionActionTypes } from './_actions/permission.actions';
-export { AllRolesLoaded, AllRolesRequested, RoleActions, RoleActionTypes, RoleCreated, RoleDeleted, RoleOnServerCreated, RolesPageCancelled, RolesPageLoaded, RolesPageRequested, RoleUpdated } from './_actions/role.actions';
+export {
+  AuthActions,
+  AuthActionTypes,
+  CompanyLoaded,
+  Login,
+  Logout,
+  Register,
+  RequestCompany,
+} from './_actions/auth.actions';
+export {
+  CompanyCreated,
+  CompanyDeleted,
+  CompanyOnServerCreated,
+  CompanysActionToggleLoading,
+  CompanysPageCancelled,
+  CompanysPageLoaded,
+  CompanysPageRequested,
+  CompanysPageToggleLoading,
+  CompanyUpdated,
+} from './_actions/company.actions';
+export {
+  AllPermissionsLoaded,
+  AllPermissionsRequested,
+  PermissionActions,
+  PermissionActionTypes,
+} from './_actions/permission.actions';
+export {
+  AllRolesLoaded,
+  AllRolesRequested,
+  RoleActions,
+  RoleActionTypes,
+  RoleCreated,
+  RoleDeleted,
+  RoleOnServerCreated,
+  RolesPageCancelled,
+  RolesPageLoaded,
+  RolesPageRequested,
+  RoleUpdated,
+} from './_actions/role.actions';
 export { CompanysDataSource } from './_data-sources/companys.datasource';
 // DATA SOURCERS
 export { RolesDataSource } from './_data-sources/roles.datasource';
@@ -40,11 +71,26 @@ export {
   selectCompanysInStore,
   selectCompanysPageLastQuery,
   selectCompanysPageLoading,
-  selectCompanysShowInitWaitingMessage, selectHasCompanysInStore,
-  selectLastCreatedCompanyId
+  selectCompanysShowInitWaitingMessage,
+  selectHasCompanysInStore,
+  selectLastCreatedCompanyId,
 } from './_selectors/company.selectors';
-export { allPermissionsLoaded, selectAllPermissions, selectAllPermissionsIds, selectPermissionById } from './_selectors/permission.selectors';
-export { allRolesLoaded, selectAllRoles, selectAllRolesIds, selectLastCreatedRoleId, selectQueryResult, selectRoleById, selectRolesActionLoading, selectRolesPageLoading, selectRolesShowInitWaitingMessage } from './_selectors/role.selectors';
+export {
+  allPermissionsLoaded,
+  selectAllPermissions,
+  selectAllPermissionsIds,
+  selectPermissionById,
+} from './_selectors/permission.selectors';
+export {
+  allRolesLoaded,
+  selectAllRoles,
+  selectAllRolesIds,
+  selectLastCreatedRoleId,
+  selectQueryResult,
+  selectRoleById,
+  selectRolesActionLoading,
+  selectRolesPageLoading,
+  selectRolesShowInitWaitingMessage,
+} from './_selectors/role.selectors';
 export { AuthDataContext } from './_server/auth.data-context';
 export { AuthenticationService } from './_services';
-

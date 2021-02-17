@@ -77,6 +77,26 @@ export class AuthEffects {
     })
   );
 
+  @Effect()
+  requestCompany$ = this.actions$.pipe(
+    ofType<fromAuthActions.RequestCompany>(
+      fromAuthActions.AuthActionTypes.RequestCompany
+    ),
+    mergeMap(() => {
+      return this.authService
+        .requestCompany()
+        .pipe(
+          tap((response) => console.log('requestCompany response', response)),
+          switchMap((loginResponse) => {
+            return of(
+              new fromAuthActions.CompanyLoaded({ company: loginResponse })
+            );
+          })
+        )
+        .pipe(catchError((error) => of(console.log(error))));
+    })
+  );
+
   // @Effect({
   //   dispatch: false
   // })
