@@ -5,5 +5,12 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": true
     }
-  }
+  },
+  "prettier.arrowParens": "avoid",
+  "prettier.printWidth": 1000,
+  "prettier.embeddedLanguageFormatting": "off",
+  "prettier.bracketSpacing": false,
+  "prettier.enable": false,
+  "prettier.requireConfig": true,
+  "prettier.useEditorConfig": false
 }

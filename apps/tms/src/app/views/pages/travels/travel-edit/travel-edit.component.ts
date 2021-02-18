@@ -178,7 +178,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   goBackWithoutId() {
-    this.router.navigateByUrl('/travel/travel', {
+    this.router.navigateByUrl('/travels', {
       relativeTo: this.activatedRoute,
     });
   }
