@@ -4,6 +4,7 @@ import { environment } from '@tms/environments/environment';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 export { boxesReducer, BoxesState } from './boxes.reducers';
+export { completeTravelReducer, CompleteTravelsState } from './completeTravel.reducers';
 export { employeesReducer, EmployeesState } from './employees.reducers';
 export { maintenancesReducer, MaintenancesState } from './maintenances.reducers';
 export { tiresReducer, TiresState } from './tires.reducers';
@@ -11,7 +12,7 @@ export { travelsReducer, TravelsState } from './travels.reducers';
 export { trucksReducer, TrucksState } from './trucks.reducers';
 
 // tslint:disable-next-line:no-empty-interface
-export interface AppState { }
+export interface AppState {}
 
 export const reducers: ActionReducerMap<AppState> = { router: routerReducer };
 

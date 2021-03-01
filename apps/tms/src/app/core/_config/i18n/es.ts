@@ -103,21 +103,24 @@ export const locale = {
       },
     },
     TRAVEL: {
+      COMPLETETRAVEL: {
+        TEXT: {
+          COMPLETETRAVELS: 'Viajes completados',
+        },
+      },
       TRAVEL: {
         TEXT: {
-          TRAVEL_LIST: 'Lista de Viajes',
+          TRAVEL_LIST: 'Lista de viajes',
           TRAVEL: 'Viajes',
-          DELETE_ONE_TITLE: 'Eliminar Viaje',
-          DELETE_ONE_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar este viaje permanentemente?',
+          DELETE_ONE_TITLE: 'Eliminar viaje',
+          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este viaje permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando viaje...',
           DELETE_ONE_MESSAGE: 'El viaje ha sido eliminado',
-          DELETE_MANY_TITLE: 'Eliminar Viajes',
-          DELETE_MANY_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar los viajes seleccionados permanentemente?',
+          DELETE_MANY_TITLE: 'Eliminar viajes',
+          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los viajes seleccionados permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando viajes...',
           DELETE_MANY_MESSAGE: 'Los viajes seleccionados han sido eliminados',
-          CREATE_TITLE: 'Añadir Viaje',
+          CREATE_TITLE: 'Añadir viaje',
           ADD_TRAVEL_MESSAGE: 'Viaje guardado exitosamente',
           EDIT_TRAVEL: 'Editar viaje',
           DELETE_ICON_LABEL: 'Eliminar viaje',
@@ -152,16 +155,13 @@ export const locale = {
           EMPLOYEE_LIST: 'Lista de empleados',
           EMPLOYEE: 'Empleados',
           DELETE_ONE_TITLE: 'Eliminar empleado',
-          DELETE_ONE_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar este empleado permanentemente?',
+          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este empleado permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando empleado...',
           DELETE_ONE_MESSAGE: 'El empleado ha sido eliminado',
           DELETE_MANY_TITLE: 'Eliminar Empleados',
-          DELETE_MANY_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar los empleados seleccionados permanentemente?',
+          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los empleados seleccionados permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando empleados...',
-          DELETE_MANY_MESSAGE:
-            'Los empleados seleccionados han sido eliminados',
+          DELETE_MANY_MESSAGE: 'Los empleados seleccionados han sido eliminados',
           CREATE_TITLE: 'Añadir Empleado',
           ADD_EMPLOYEE_MESSAGE: 'Empleado guardado exitosamente',
           EDIT_EMPLOYEE: 'Editar empleado',
@@ -202,13 +202,11 @@ export const locale = {
           TRUCK_LIST: 'Lista de Camiones',
           TRUCK: 'Camiones',
           DELETE_ONE_TITLE: 'Eliminar Camión',
-          DELETE_ONE_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar este camión permanentemente?',
+          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este camión permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando camión...',
           DELETE_ONE_MESSAGE: 'El camión ha sido eliminado',
           DELETE_MANY_TITLE: 'Eliminar Camiones',
-          DELETE_MANY_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar los camiones seleccionados permanentemente?',
+          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los camiones seleccionados permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando camiones...',
           DELETE_MANY_MESSAGE: 'Los camiones seleccionados han sido eliminados',
           CREATE_TITLE: 'Añadir Camión',
@@ -245,16 +243,13 @@ export const locale = {
           MAINTENANCE_LIST: 'Lista de mantenimientos',
           MAINTENANCE: 'Mantenimientos',
           DELETE_ONE_TITLE: 'Eliminar mantenimiento',
-          DELETE_ONE_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar este mantenimiento permanentemente?',
+          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este mantenimiento permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando mantenimiento...',
           DELETE_ONE_MESSAGE: 'El mantenimiento ha sido eliminado',
           DELETE_MANY_TITLE: 'Eliminar mantenimientos',
-          DELETE_MANY_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar los mantenimientos seleccionados permanentemente?',
+          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los mantenimientos seleccionados permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando mantenimientos...',
-          DELETE_MANY_MESSAGE:
-            'Los mantenimientos seleccionados han sido eliminados',
+          DELETE_MANY_MESSAGE: 'Los mantenimientos seleccionados han sido eliminados',
           CREATE_TITLE: 'Añadir Mantenimiento',
           ADD_MAINTENANCE_MESSAGE: 'Mantenimiento guardado exitosamente',
           EDIT_MAINTENANCE: 'Editar mantenimiento',
@@ -284,13 +279,11 @@ export const locale = {
           BOXES_LIST: 'Lista de cajas',
           BOXES: 'Cajas',
           DELETE_ONE_TITLE: 'Eliminar caja',
-          DELETE_ONE_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar esta caja permanentemente?',
+          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar esta caja permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando caja...',
           DELETE_ONE_MESSAGE: 'La caja ha sido eliminada',
           DELETE_MANY_TITLE: 'Eliminar cajas',
-          DELETE_MANY_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar las cajas seleccionadas permanentemente?',
+          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar las cajas seleccionadas permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando cajas...',
           DELETE_MANY_MESSAGE: 'Las cajas seleccionadas han sido eliminados',
           CREATE_TITLE: 'Añadir caja',
@@ -324,13 +317,11 @@ export const locale = {
           TIRES_LIST: 'Lista de llantas',
           TIRES: 'Llantas',
           DELETE_ONE_TITLE: 'Eliminar llanta',
-          DELETE_ONE_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar esta llanta permanentemente?',
+          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar esta llanta permanentemente?',
           DELETE_ONE_WAIT: 'Eliminando llanta...',
           DELETE_ONE_MESSAGE: 'La llanta ha sido eliminada',
           DELETE_MANY_TITLE: 'Eliminar llantas',
-          DELETE_MANY_DESCRIPTION:
-            '¿Estás seguro de que quieres eliminar las llantas seleccionadas permanentemente?',
+          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar las llantas seleccionadas permanentemente?',
           DELETE_MANY_WAIT: 'Eliminando llantas...',
           DELETE_MANY_MESSAGE: 'Las llantas seleccionadas han sido eliminados',
           CREATE_TITLE: 'Añadir llanta',

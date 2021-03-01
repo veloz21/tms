@@ -11,7 +11,7 @@ export enum CompleteTravelActionTypes {
   UpdateCompleteTravelSuccess = '[Edit CompleteTravel Component] Update CompleteTravel Success ',
   DeleteOneCompleteTravel = '[CompleteTravels List Page] One CompleteTravel Deleted',
   DeleteManyCompleteTravels = '[CompleteTravels List Page] Many Selected CompleteTravels Deleted',
-  RequestCompleteTreavelPage = '[CompleteTravels List Page] CompleteTravels Page Requested',
+  RequestCompleteTravelsPage = '[CompleteTravels List Page] CompleteTravels Page Requested',
   LoadCompleteTravelPage = '[CompleteTravels API] CompleteTravels Page Loaded',
   CancellCompleteTravelPage = '[CompleteTravels API] CompleteTravels Page Cancelled',
   CompleteTravelPageToggleLoading = '[CompleteTravels] CompleteTravels Page Toggle Loading',
@@ -74,8 +74,8 @@ export class DeleteManyCompleteTravels implements Action {
   constructor(public payload: { ids: string[] }) {}
 }
 
-export class RequestCompleteTravlePage implements Action {
-  readonly type = CompleteTravelActionTypes.RequestCompleteTreavelPage;
+export class RequestCompleteTravelPage implements Action {
+  readonly type = CompleteTravelActionTypes.RequestCompleteTravelsPage;
   constructor(public payload: { page: QueryParamsModel }) {}
 }
 
@@ -112,16 +112,16 @@ export class CompleteTravelActionToggleLoading implements Action {
   ) {}
 }
 
-export type CompleteTravelActions =
-  | CreateCompleteTravel
-  | UpdateCompleteTravel
-  | DeleteOneCompleteTravel
-  | DeleteManyCompleteTravels
-  | RequestCompleteTravlePage
-  | LoadCompleteTravelPage
-  | CancellCompleteTravelPage
-  | CompleteTravelPageToggleLoading
-  | CompleteTravelActionToggleLoading
-  | CreateCompleteTravelError
-  | CreateCompleteTravelSuccess
-  | UpdateCompleteTravelSuccess;
+export type CompleteTravelActions = 
+| CreateCompleteTravel 
+| UpdateCompleteTravel 
+| DeleteOneCompleteTravel 
+| DeleteManyCompleteTravels 
+| RequestCompleteTravelPage 
+| LoadCompleteTravelPage 
+| CancellCompleteTravelPage 
+| CompleteTravelPageToggleLoading 
+| CompleteTravelActionToggleLoading 
+| CreateCompleteTravelError 
+| CreateCompleteTravelSuccess 
+| UpdateCompleteTravelSuccess;

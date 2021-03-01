@@ -1,9 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
-import {
-  CompleteTravelActions,
-  CompleteTravelActionTypes,
-} from '@tms/actions/completeTravel.actions';
+import { CompleteTravelActions, CompleteTravelActionTypes } from '@tms/actions/completeTravel.actions';
 import { QueryParamsModel } from '@tms/crud';
 import { TravelModel } from '@tms/models';
 
@@ -16,25 +13,18 @@ export interface CompleteTravelsState extends EntityState<TravelModel> {
   showInitWaitingMessage: boolean;
 }
 
-export const adapter: EntityAdapter<TravelModel> = createEntityAdapter<
-  TravelModel
->();
+export const adapter: EntityAdapter<TravelModel> = createEntityAdapter<TravelModel>();
 
-export const initialCompleteTravelsState: CompleteTravelsState = adapter.getInitialState(
-  {
-    listLoading: false,
-    actionsloading: false,
-    totalCount: 0,
-    lastQuery: new QueryParamsModel({}),
-    lastCreatedCompleteTravelId: undefined,
-    showInitWaitingMessage: true,
-  }
-);
+export const initialCompleteTravelsState: CompleteTravelsState = adapter.getInitialState({
+  listLoading: false,
+  actionsloading: false,
+  totalCount: 0,
+  lastQuery: new QueryParamsModel({}),
+  lastCreatedCompleteTravelId: undefined,
+  showInitWaitingMessage: true,
+});
 
-export function completeTravelReducer(
-  state = initialCompleteTravelsState,
-  action: CompleteTravelActions
-): CompleteTravelsState {
+export function completeTravelReducer(state = initialCompleteTravelsState, action: CompleteTravelActions): CompleteTravelsState {
   switch (action.type) {
     case CompleteTravelActionTypes.CompleteTravelPageToggleLoading:
       return {
@@ -78,13 +68,6 @@ export function completeTravelReducer(
   }
 }
 
-export const getcompleteTravelState = createFeatureSelector<TravelModel>(
-  'completeTravel'
-);
+export const getcompleteTravelState = createFeatureSelector<TravelModel>('completeTravel');
 
-export const {
-  selectAll,
-  selectEntities,
-  selectIds,
-  selectTotal,
-} = adapter.getSelectors();
+export const { selectAll, selectEntities, selectIds, selectTotal } = adapter.getSelectors();
