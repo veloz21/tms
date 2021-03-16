@@ -1,4 +1,4 @@
-import {  ChangeDetectionStrategy,  ChangeDetectorRef,  Component,  OnDestroy,  OnInit,} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CreateBox, UpdateBox } from '@tms/actions/box.actions';
 import { AVIABILITY_STATUS } from '@tms/core/enums';
 import { SubheaderService } from '@tms/layout';
-import { BoxModel } from '@tms/models';
+import { BoxModel, TireModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedBoxId } from '@tms/selectors/boxes.selectors';
 import { BoxesService } from '@tms/services';
@@ -22,6 +22,26 @@ import { delay, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoxesEditComponent implements OnInit, OnDestroy {
+  tiresList: TireModel[] = [
+    {
+      id: '1',
+      serialNumber: '123s3412',
+      rangeTraveled: 123,
+      status: 0,
+    },
+    {
+      id: '2',
+      serialNumber: '123s3412',
+      rangeTraveled: 123,
+      status: 0,
+    },
+    {
+      id: '3',
+      serialNumber: '123s3412sxsad',
+      rangeTraveled: 123,
+      status: 0,
+    },
+  ];
   box: BoxModel;
   boxId$: Observable<number>;
   oldBox: BoxModel;
@@ -33,26 +53,14 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
   url: any;
 
   private ngUnsubscribe = new Subject();
-  constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private boxFB: FormBuilder,
-    public dialog: MatDialog,
-    private translate: TranslateService,
-    private subheaderService: SubheaderService,
-    private boxService: BoxesService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private boxFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private boxService: BoxesService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.box = this.activatedRoute.snapshot.data[' box '];
-    this.activatedRoute.data
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((data) => {
-        console.log(data.box);
-        this.loadBox(data.box);
-      });
+    this.activatedRoute.data.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
+      console.log(data.box);
+      this.loadBox(data.box);
+    });
   }
 
   loadBox(_box, fromService: boolean = false) {
@@ -103,9 +111,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
       ]);
       return;
     }
-    this.subheaderService.setTitle(
-      this.translate.instant('WORKSHOP.BOXES.TEXT.EDIT_BOX')
-    );
+    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.BOXES.TEXT.EDIT_BOX'));
     this.subheaderService.setBreadcrumbs([
       {
         title: this.translate.instant('WORKSHOP.WORKSHOP'),
@@ -132,9 +138,9 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
       type: [this.box.type, [Validators.required]],
       rangeTraveled: [this.box.rangeTraveled, [Validators.required]],
       serialNumber: [this.box.serialNumber],
-      price:[this.box.price],
+      price: [this.box.price],
       brand: [this.box.brand],
-      image: []
+      image: [],
     });
   }
 
@@ -182,9 +188,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
     const controls = this.boxForm.controls;
     /** check form */
     if (this.boxForm.invalid) {
-      Object.keys(controls).forEach((controlName) =>
-        controls[controlName].markAsTouched()
-      );
+      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
 
       this.hasFormErrors = true;
       this.selectedTab = 0;
@@ -221,24 +225,18 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
         box: _box,
       })
     );
-    this.store
-      .pipe(
-        delay(1000),
-        select(selectLastCreatedBoxId),
-        takeUntil(this.ngUnsubscribe)
-      )
-      .subscribe((newId) => {
-        if (!newId) {
-          return;
-        }
+    this.store.pipe(delay(1000), select(selectLastCreatedBoxId), takeUntil(this.ngUnsubscribe)).subscribe((newId) => {
+      if (!newId) {
+        return;
+      }
 
-        this.loadingSubject.next(false);
-        if (withBack) {
-          this.goBack(newId);
-        } else {
-          this.refreshBox(true, newId);
-        }
-      });
+      this.loadingSubject.next(false);
+      if (withBack) {
+        this.goBack(newId);
+      } else {
+        this.refreshBox(true, newId);
+      }
+    });
   }
 
   updateBox(_box: BoxModel, withBack: boolean = false) {
@@ -274,9 +272,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
       return result;
     }
 
-    result =
-      this.translate.instant('WORKSHOP.BOXES.TEXT.EDIT_BOX') +
-      `- ${this.box.serialNumber} ${this.box.boxModel}, ${this.box.brand}`;
+    result = this.translate.instant('WORKSHOP.BOXES.TEXT.EDIT_BOX') + `- ${this.box.serialNumber} ${this.box.boxModel}, ${this.box.brand}`;
     return result;
   }
 

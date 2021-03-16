@@ -38,10 +38,12 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { TiresListComponent } from './tires-list.component';
 
-const routes: Routes = [{
-  path: '',
-  component: TiresListComponent,
-}];
+const routes: Routes = [
+  {
+    path: '',
+    component: TiresListComponent,
+  },
+];
 
 @NgModule({
   imports: [
@@ -73,10 +75,12 @@ const routes: Routes = [{
     MatTabsModule,
     MatTooltipModule,
     NgbProgressbarModule,
-    environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
-      passThruUnknownUrl: true,
-      dataEncapsulation: false
-    }) : [],
+    environment.isMockEnabled
+      ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
+          passThruUnknownUrl: true,
+          dataEncapsulation: false,
+        })
+      : [],
     StoreModule.forFeature('tires', tiresReducer),
     EffectsModule.forFeature([TireEffects]),
   ],
@@ -87,22 +91,14 @@ const routes: Routes = [{
         hasBackdrop: true,
         panelClass: 'b404-mat-dialog-container__wrapper',
         height: 'auto',
-        width: '900px'
-      }
+        width: '900px',
+      },
     },
     TypesUtilsService,
     LayoutUtilsService,
     HttpUtilsService,
     TiresService,
   ],
-  entryComponents: [
-    ActionNotificationComponent,
-    DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
-  ],
-  declarations: [
-    TiresListComponent
-  ],
+  entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent],
 })
-export class TireListModule { }
+export class TireListModule {}

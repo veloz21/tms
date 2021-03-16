@@ -1,23 +1,12 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  DeleteManyBoxes,
-  DeleteOneBox,
-  RequestBoxesPage,
-} from '@tms/actions/box.actions';
+import { DeleteManyBoxes, DeleteOneBox, RequestBoxesPage } from '@tms/actions/box.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { BoxesDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
@@ -25,14 +14,7 @@ import { BoxModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectBoxesPageLastQuery } from '@tms/selectors/boxes.selectors';
 import { fromEvent, merge, of, Subject } from 'rxjs';
-import {
-  debounceTime,
-  delay,
-  distinctUntilChanged,
-  skip,
-  takeUntil,
-  tap,
-} from 'rxjs/operators';
+import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'b404-boxes-list',
@@ -42,17 +24,9 @@ import {
 })
 export class BoxesListComponent implements OnInit, OnDestroy {
   // Table fields
+
   dataSource: BoxesDataSource;
-  displayedColumns = [
-    'Select',
-    'Model',
-    'Type',
-    'Km',
-    'SerialNumber',
-    'Brand',
-    'Status',
-    'Actions',
-  ];
+  displayedColumns = ['Select', 'Model', 'Type', 'Km', 'SerialNumber', 'Brand', 'Status', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -65,21 +39,11 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   boxesResult: BoxModel[] = [];
   private ngUnsubscribe = new Subject();
 
-  constructor(
-    public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private subheaderService: SubheaderService,
-    private layoutUtilsService: LayoutUtilsService,
-    private translate: TranslateService,
-    private store: Store<AppState>
-  ) {}
+  constructor(public dialog: MatDialog, private activatedRoute: ActivatedRoute, private router: Router, private subheaderService: SubheaderService, private layoutUtilsService: LayoutUtilsService, private translate: TranslateService, private store: Store<AppState>) {}
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(() => (this.paginator.pageIndex = 0));
+    this.sort.sortChange.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => (this.paginator.pageIndex = 0));
 
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
@@ -102,17 +66,13 @@ export class BoxesListComponent implements OnInit, OnDestroy {
       .subscribe();
 
     // Set title to page breadCrumbs
-    this.subheaderService.setTitle(
-      this.translate.instant('WORKSHOP.BOXES.TEXT.BOXES')
-    );
+    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.BOXES.TEXT.BOXES'));
 
     // Init DataSource
     this.dataSource = new BoxesDataSource(this.store);
-    this.dataSource.entitySubject
-      .pipe(skip(1), distinctUntilChanged(), takeUntil(this.ngUnsubscribe))
-      .subscribe((res) => {
-        this.boxesResult = res;
-      });
+    this.dataSource.entitySubject.pipe(skip(1), distinctUntilChanged(), takeUntil(this.ngUnsubscribe)).subscribe((res) => {
+      this.boxesResult = res;
+    });
     this.store
       .pipe(select(selectBoxesPageLastQuery))
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -120,17 +80,15 @@ export class BoxesListComponent implements OnInit, OnDestroy {
     // Load last query from store
 
     // Read from URL itemId, for restore previous state
-    const routeSubscription = this.activatedRoute.queryParams
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((params) => {
-        // First load
-        of(undefined)
-          .pipe(delay(1000), takeUntil(this.ngUnsubscribe))
-          .subscribe(() => {
-            // Remove this line, just loading imitation
-            this.loadBoxesList();
-          }); // Remove this line, just loading imitation
-      });
+    const routeSubscription = this.activatedRoute.queryParams.pipe(takeUntil(this.ngUnsubscribe)).subscribe((params) => {
+      // First load
+      of(undefined)
+        .pipe(delay(1000), takeUntil(this.ngUnsubscribe))
+        .subscribe(() => {
+          // Remove this line, just loading imitation
+          this.loadBoxesList();
+        }); // Remove this line, just loading imitation
+    });
   }
 
   ngOnDestroy() {
@@ -140,13 +98,7 @@ export class BoxesListComponent implements OnInit, OnDestroy {
 
   loadBoxesList() {
     this.selection.clear();
-    const queryParams = new QueryParamsModel(
-      this.filterConfiguration(),
-      this.sort.direction,
-      this.sort.active,
-      this.paginator.pageIndex,
-      this.paginator.pageSize
-    );
+    const queryParams = new QueryParamsModel(this.filterConfiguration(), this.sort.direction, this.sort.active, this.paginator.pageIndex, this.paginator.pageSize);
     // Call request from server
     this.store.dispatch(new RequestBoxesPage({ page: queryParams }));
     this.selection.clear();
@@ -170,24 +122,12 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   }
 
   deleteBox(_item: BoxModel) {
-    const _title = this.translate.instant(
-      'WORKSHOP.BOXES.TEXT.DELETE_ONE_TITLE'
-    );
-    const _description = this.translate.instant(
-      'WORKSHOP.BOXES.TEXT.DELETE_ONE_DESCRIPTION'
-    );
-    const _waitDesciption = this.translate.instant(
-      'WORKSHOP.BOXES.TEXT.DELETE_ONE_WAIT'
-    );
-    const _deleteMessage = this.translate.instant(
-      'WORKSHOP.BOXES.TEXT.DELETE_ONE_MESSAGE'
-    );
+    const _title = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_ONE_TITLE');
+    const _description = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_ONE_DESCRIPTION');
+    const _waitDesciption = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_ONE_WAIT');
+    const _deleteMessage = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_ONE_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(
-      _title,
-      _description,
-      _waitDesciption
-    );
+    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
     dialogRef
       .afterClosed()
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -197,32 +137,17 @@ export class BoxesListComponent implements OnInit, OnDestroy {
         }
 
         this.store.dispatch(new DeleteOneBox({ id: _item.id }));
-        this.layoutUtilsService.showActionNotification(
-          _deleteMessage,
-          MessageType.Delete
-        );
+        this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
       });
   }
 
   deleteBoxes() {
-    const _title = this.translate.instant(
-      'WORKSHOP.BOXES.TEXT.DELETE_MANY_TITLE'
-    );
-    const _description = this.translate.instant(
-      'WORKSHOP.BOXES.TEXT.DELETE_MANY_DESCRIPTION'
-    );
-    const _waitDesciption = this.translate.instant(
-      'WORKSHOP.BOXES.TEXT.DELETE_MANY_WAIT'
-    );
-    const _deleteMessage = this.translate.instant(
-      'WORKSHOP.BOXES.TEXT.DELETE_MANY_MESSAGE'
-    );
+    const _title = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_MANY_TITLE');
+    const _description = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_MANY_DESCRIPTION');
+    const _waitDesciption = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_MANY_WAIT');
+    const _deleteMessage = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_MANY_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(
-      _title,
-      _description,
-      _waitDesciption
-    );
+    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
     dialogRef
       .afterClosed()
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -237,10 +162,7 @@ export class BoxesListComponent implements OnInit, OnDestroy {
           idsForDeletion.push(this.selection.selected[i].id);
         }
         this.store.dispatch(new DeleteManyBoxes({ ids: idsForDeletion }));
-        this.layoutUtilsService.showActionNotification(
-          _deleteMessage,
-          MessageType.Delete
-        );
+        this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
         this.selection.clear();
       });
   }

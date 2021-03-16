@@ -21,41 +21,21 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterModule, Routes } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
-import { BoxEffects } from '@tms/effects';
+import { TireEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
 import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '@tms/partials/content/crud';
 import { PartialsModule } from '@tms/partials/partials.module';
-import { boxesReducer } from '@tms/reducers';
-import { BoxResolver } from '@tms/resolvers';
-import { BoxesService } from '@tms/services';
+import { tiresReducer } from '@tms/reducers';
+import { TiresService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { TireModule } from '../../tires/tires-list/tire.module';
-import { BoxesEditComponent } from './boxes-edit.component';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: BoxesEditComponent,
-    resolve: {
-      box: BoxResolver,
-    },
-  },
-  {
-    path: ':id',
-    component: BoxesEditComponent,
-    resolve: {
-      box: BoxResolver,
-    },
-  },
-];
+import { TiresListComponent } from './tires-list.component';
 
 @NgModule({
   imports: [
@@ -63,9 +43,7 @@ const routes: Routes = [
     CommonModule,
     PartialsModule,
     NgxPermissionsModule.forChild(),
-    RouterModule.forChild(routes),
     FormsModule,
-    TireModule,
     ReactiveFormsModule,
     TranslateModule.forChild(),
     MatButtonModule,
@@ -94,8 +72,8 @@ const routes: Routes = [
           dataEncapsulation: false,
         })
       : [],
-    StoreModule.forFeature('boxes', boxesReducer),
-    EffectsModule.forFeature([BoxEffects]),
+    StoreModule.forFeature('tires', tiresReducer),
+    EffectsModule.forFeature([TireEffects]),
   ],
   providers: [
     {
@@ -110,12 +88,10 @@ const routes: Routes = [
     TypesUtilsService,
     LayoutUtilsService,
     HttpUtilsService,
-    BoxesService,
-    TypesUtilsService,
-    LayoutUtilsService,
-    BoxResolver,
+    TiresService,
   ],
   entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent],
-  declarations: [BoxesEditComponent],
+  declarations: [TiresListComponent],
+  exports: [TiresListComponent],
 })
-export class BoxEditModule {}
+export class TireModule {}

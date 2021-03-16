@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field class="mat-form-field-fluid">
-                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}*"
+                        <input id="nickName" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}*"
                           formControlName="nickName" type="text">
                         <mat-error>
                           {{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}
@@ -133,6 +133,7 @@
       <mat-tab label="Add tire">
         <ng-template matTabContent>
           <div>
+            <b404-tires-list [TiresList]="tiresList"></b404-tires-list>
           </div>
         </ng-template>
       </mat-tab>
