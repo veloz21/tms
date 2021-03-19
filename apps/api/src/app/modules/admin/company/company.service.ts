@@ -12,7 +12,7 @@ export class CompanyService {
   constructor(
     @InjectModel(Company.name)
     private readonly companyModel: Model<CompanyDocument>
-  ) {}
+  ) { }
 
   create(
     createCompanyDto: CreateCompanyDto,
@@ -27,14 +27,7 @@ export class CompanyService {
     return this.companyModel.find({ _id: options.company }).exec();
   }
 
-  findOne(_id: string, options?: HttpOptions): Promise<CompanyDocument> {
-    return this.companyModel.findOne({ _id }).session(options.session).exec();
-  }
-
-  findOneById(
-    _id: mongoose.Types.ObjectId,
-    options?: HttpOptions
-  ): Promise<CompanyDocument> {
+  findOne(_id: string | mongoose.Types.ObjectId, options?: HttpOptions): Promise<CompanyDocument> {
     return this.companyModel.findOne({ _id }).session(options.session).exec();
   }
 

@@ -8,7 +8,7 @@ import {
   Param,
   Put,
   UseGuards,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 import { GetHttpOptions } from '../../../core/decorators';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
@@ -20,13 +20,13 @@ import { UpdateCompanyDto } from './dto/update-company.dto';
 @Controller('')
 @UseInterceptors(DbTransactionInterceptor)
 export class CompanyController {
-  constructor(private readonly companyService: CompanyService) {}
+  constructor(private readonly companyService: CompanyService) { }
 
   @Get('validate/:company')
-  async validate(@Param('company') company) {
+  async validate(@Param('company') company, @GetHttpOptions() options: HttpOptions) {
     console.log('validate company', company);
     try {
-      await this.companyService.findOneByName(company);
+      await this.companyService.findOneByName(company, options);
       return;
     } catch (error) {
       console.log('validate company error');
@@ -34,33 +34,24 @@ export class CompanyController {
     }
   }
 
-  @Get(':id')
+  @Get('current')
   @UseGuards(JwtAuthGuard)
-  async findOne(@Param('id') id: string) {
+  async getCurrentCompany(@GetHttpOptions() options: HttpOptions) {
     try {
-      return await this.companyService.findOne(id);
+      return await this.companyService.findOne(options.company, options);
     } catch (error) {
       throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
     }
   }
 
-  @Get('test')
-  async test() {
-    return 'bits44';
-  }
-
-  @Get('current2')
-  // @UseGuards(JwtAuthGuard)
-  async getCurrentCompany() {
-    // console.log(options.company);
-    return {
-      name: 'bits44',
-    };
-    // try {
-    //   return await this.companyService.findOneById(options.company);
-    // } catch (error) {
-    //   throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
-    // }
+  @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
+    try {
+      return await this.companyService.findOne(id, options);
+    } catch (error) {
+      throw new HttpException(error && error.message, HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Put(':id')
