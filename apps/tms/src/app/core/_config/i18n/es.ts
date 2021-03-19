@@ -268,7 +268,7 @@ export const locale = {
           MECHANIC_NAME: 'Nombre del mecánico',
           START_DATE: 'Fecha de entrada',
           END_DATE: 'Fecha de salida',
-          Price: 'Precio del mantenimiento',
+          PRICE: 'Precio del mantenimiento',
           COMMENTS: 'Comentarios',
           REASONS: 'Razones',
         },
