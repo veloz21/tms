@@ -32,7 +32,9 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   employeeForm: FormGroup;
   hasFormErrors = false;
   availableYears: number[] = [];
-  url: any;
+
+  imageUrl: string;
+  imageFile: File;
 
   private ngUnsuscribe = new Subject();
   constructor(
@@ -172,7 +174,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     console.log(this.employeeForm.get('licensedueDate').value);
     console.log(this.employeeForm.get('licenseAttchment').value);
     const _employee = new EmployeeModel();
-    _employee.id= this.employee.id;
+    _employee.id = this.employee.id;
     _employee.firstName = this.employeeForm.get('firstName').value;
     _employee.lastName = this.employeeForm.get('lastName').value;
     _employee.cellphone = this.employeeForm.get('cellphone').value;
@@ -262,13 +264,13 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.hasFormErrors = false;
   }
 
-  readUrl(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (Event: any) => {
-        this.url = Event.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
+  setImageAsUrl(file: File) {
+    const reader = new FileReader();
+    reader.onload = (Event: any) => {
+      this.imageUrl = Event.target.result;
+      setTimeout(() => this.cdr.detectChanges(), 100);
+    };
+    reader.readAsDataURL(file);
+    this.employeeForm.get('image').setValue(file);
   }
 }

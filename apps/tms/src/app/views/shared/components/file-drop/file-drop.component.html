@@ -1,0 +1,9 @@
+<ngx-file-drop dropZoneLabel="Seleccionar archivo(s)" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+  (onFileLeave)="fileLeave($event)" [multiple]="false" dropZoneClassName="b404-file-drop__drop-zone"
+  contentClassName="b404-file-drop__content" [directory]="false" [accept]="'.png,.jpeg,.jpg'">
+  <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+    <div (click)="openFileSelector()">
+      Seleccionar archivo(sss)
+    </div>
+  </ng-template>
+</ngx-file-drop>

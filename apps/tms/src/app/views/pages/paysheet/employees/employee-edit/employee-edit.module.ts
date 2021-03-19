@@ -37,6 +37,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../../partials/content/crud';
 import { PartialsModule } from '../../../../partials/partials.module';
+import { SharedModule } from '../../../../shared/shared.module';
 import { EmployeeEditComponent } from './employee-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -93,6 +94,7 @@ const routes: Routes = [
     }) : [],
     StoreModule.forFeature('employees', employeesReducer),
     EffectsModule.forFeature([EmployeeEffects]),
+    SharedModule,
   ],
   providers: [
     {

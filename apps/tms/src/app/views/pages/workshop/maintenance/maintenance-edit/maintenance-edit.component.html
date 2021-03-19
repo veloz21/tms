@@ -21,8 +21,7 @@
   <b404-portlet-body>
     <div *ngIf="maintenance">
       <!--begin::Form-->
-      <form [formGroup]="maintenanceForm" class="b404-form b404-form--group-seperator-dashed b404-form__border-black"
-        autocomplete="off">
+      <form [formGroup]="maintenanceForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
         <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
           (close)="onAlertClose($event)">
           <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>

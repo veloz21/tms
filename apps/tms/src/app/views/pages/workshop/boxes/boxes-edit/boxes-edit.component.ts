@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -36,7 +36,9 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   boxForm: FormGroup;
   hasFormErrors = false;
-  url: any;
+
+  imageUrl: string;
+  imageFile: File;
 
   private ngUnsubscribe = new Subject();
   constructor(
@@ -49,7 +51,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
     private subheaderService: SubheaderService,
     private boxService: BoxesService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.box = this.activatedRoute.snapshot.data[' box '];
@@ -290,13 +292,13 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
     this.hasFormErrors = false;
   }
 
-  readUrl(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (Event: any) => {
-        this.url = Event.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
+  setImageAsUrl(file: File) {
+    const reader = new FileReader();
+    reader.onload = (Event: any) => {
+      this.imageUrl = Event.target.result;
+      setTimeout(() => this.cdr.detectChanges(), 100);
+    };
+    reader.readAsDataURL(file);
+    this.boxForm.get('image').setValue(file);
   }
 }

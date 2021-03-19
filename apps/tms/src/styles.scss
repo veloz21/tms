@@ -50,7 +50,7 @@
 }
 
 $color-outline: rgb(95, 95, 95);
-form.b404-form__border-black {
+form.b404-form {
   mat-form-field {
     // to change border color
     .mat-form-field-outline {
@@ -60,5 +60,11 @@ form.b404-form__border-black {
     .mat-form-field-label {
       color: $color-outline !important;
     }
+  }
+  label {
+    color: $color-outline !important;
+  }
+  img {
+    max-height: 6rem;
   }
 }

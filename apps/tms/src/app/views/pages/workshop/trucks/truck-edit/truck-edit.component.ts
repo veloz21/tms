@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -35,7 +35,8 @@ export class TruckEditComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   truckForm: FormGroup;
   hasFormErrors = false;
-  url: any;
+  imageUrl: string;
+  imageFile: File;
 
   private ngUnsuscribe = new Subject();
   constructor(
@@ -47,7 +48,7 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     private subheaderService: SubheaderService,
     private translate: TranslateService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.truck = this.activatedRoute.snapshot.data[' truck '];
@@ -116,7 +117,7 @@ export class TruckEditComponent implements OnInit, OnDestroy {
   createForm() {
     this.truckForm = this.truckFB.group({
       truckModel: [this.truck.truckModel, [Validators.required]],
-      nickName:[this.truck.nickname],
+      nickName: [this.truck.nickname],
       brand: [this.truck.brand, [Validators.required]],
       serialNumber: [this.truck.serialNumber, [Validators.required]],
       motorNumber: [this.truck.motorNumber, [Validators.required]],
@@ -124,7 +125,7 @@ export class TruckEditComponent implements OnInit, OnDestroy {
       price: [this.truck.price],
       initialRange: [this.truck.initialRange, [Validators.required]],
       rangeTraveled: [this.truck.rangeTraveled, [Validators.required]],
-      image:[]
+      image: []
     });
   }
 
@@ -268,13 +269,13 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     this.hasFormErrors = false;
   }
 
-  readUrl(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (Event: any) => {
-        this.url = Event.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
+  setImageAsUrl(file: File) {
+    const reader = new FileReader();
+    reader.onload = (Event: any) => {
+      this.imageUrl = Event.target.result;
+      setTimeout(() => this.cdr.detectChanges(), 100);
+    };
+    reader.readAsDataURL(file);
+    this.truckForm.get('image').setValue(file);
   }
 }

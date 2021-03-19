@@ -23,8 +23,7 @@
       <mat-tab label="Basic info">
         <ng-template matTabContent>
           <div *ngIf="truck">
-            <form [formGroup]="truckForm" class="b404-form b404-form--group-seperator-dashed b404-form__border-black"
-              autocomplete="off">
+            <form [formGroup]="truckForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
               <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
                 (close)="onAlertClose($event)">
                 <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>
@@ -140,16 +139,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="b404-from__group">
+                <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <label for="">{{'WORKSHOP.TRUCK.MODEL.TRUCK_PHOTOGRAPHY'|translate}}</label><br>
-                      <span>
-                        <input type="file" formControlName="image" (change)="readUrl($event)">
-                      </span>
+                      <b404-file-drop [(file)]="imageFile" (fileChange)="setImageAsUrl($event)"></b404-file-drop>
                     </div>
-                    <div class="col-md-4 b404-margin-bottom-10-mobile" *ngIf="url">
-                      <img class="box" [src]="url">
+                    <div *ngIf="imageUrl" class="col-md-4 b404-margin-bottom-10-mobile">
+                      <img class="box" [src]="imageUrl">
                     </div>
                   </div>
                 </div>

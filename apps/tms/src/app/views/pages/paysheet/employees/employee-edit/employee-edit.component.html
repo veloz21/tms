@@ -185,20 +185,16 @@
           </div>
           <div class="b404-form__group">
             <div class="row">
-              <div class="col-md-4 b404-margin-bottom-10-mobile" *ngIf="url">
-                <img class="box" [src]="url">
-              </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.PHOTOGRAPHY'|translate}}</label><br>
-                <span>
-                  <input type="file" formControlName="image" (change)="readUrl($event)">
-                </span>
+                <b404-file-drop [(file)]="imageFile" (fileChange)="setImageAsUrl($event)"></b404-file-drop>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <label for="">INE</label><br>
-                <span>
-                  <input type="file" formControlName="ine">
-                </span>
+                <b404-file-drop></b404-file-drop>
+              </div>
+              <div *ngIf="imageUrl" class="col-md-4 b404-margin-bottom-10-mobile">
+                <img class="box" [src]="imageUrl">
               </div>
             </div>
           </div>
