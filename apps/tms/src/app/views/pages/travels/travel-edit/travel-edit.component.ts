@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +19,6 @@ import { TravelModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedTravelId } from '@tms/selectors/travel.selectors';
 import { TravelsService } from '@tms/services';
-import * as Mapboxgl from 'mapbox-gl';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -35,9 +40,6 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   travelForm: FormGroup;
   hasFormErrors = false;
-  availableYears: number[] = [];
-  mapa: Mapboxgl.Map;
-  coords: string;
   // sticky portlet header margin
   private headerMargin: number;
   private ngUnsuscribe = new Subject();
@@ -53,24 +55,21 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     private travelService: TravelsService,
     private typesUtilsService: TypesUtilsService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.travel = this.activatedRoute.snapshot.data[' travel '];
-    this.activatedRoute.data.pipe(
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe(data => {
-      this.loadTravel(data.travel);
-    });
+    this.activatedRoute.data
+      .pipe(takeUntil(this.ngUnsuscribe))
+      .subscribe((data) => {
+        this.loadTravel(data.travel);
+      });
 
     // sticky portlet header
     window.onload = () => {
-      const style = getComputedStyle(
-        document.getElementById('kt_header')
-      );
+      const style = getComputedStyle(document.getElementById('kt_header'));
       this.headerMargin = parseInt(style.height, 0);
     };
-
   }
 
   loadTravel(_travel, fromService: boolean = false) {
@@ -89,9 +88,8 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   // If didn't find in store
   loadTravelFromService(travelId) {
     this.travelService
-      .getTravelById(travelId).pipe(
-        takeUntil(this.ngUnsuscribe)
-      )
+      .getTravelById(travelId)
+      .pipe(takeUntil(this.ngUnsuscribe))
       .subscribe((res) => {
         this.loadTravel(res, true);
       });
@@ -109,11 +107,11 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       this.subheaderService.setBreadcrumbs([
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-          page: `/travel`
+          page: `/travel`,
         },
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-          page: `/travel/travel`
+          page: `/travel/travel`,
         },
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE'),
@@ -122,51 +120,76 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       ]);
       return;
     }
-    this.subheaderService.setTitle(this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL'));
-    this.subheaderService.setBreadcrumbs([{
-      title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-      page: `/travel`
-    },
-    {
-      title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-      page: `/travel/travel`
-    },
-    {
-      title: this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL'),
-      page: `/travel/travel/edit`,
-      queryParams: {
-        id: this.travel.id
+    this.subheaderService.setTitle(
+      this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL')
+    );
+    this.subheaderService.setBreadcrumbs([
+      {
+        title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
+        page: `/travel`,
       },
-    },
+      {
+        title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
+        page: `/travel/travel`,
+      },
+      {
+        title: this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL'),
+        page: `/travel/travel/edit`,
+        queryParams: {
+          id: this.travel.id,
+        },
+      },
     ]);
   }
 
   getDateTime(fromDate: Date) {
     const date = new Date(fromDate);
-    const time: NgbTimeStruct = { hour: date.getHours(), minute: date.getMinutes(), second: date.getSeconds() };
+    const time: NgbTimeStruct = {
+      hour: date.getHours(),
+      minute: date.getMinutes(),
+      second: date.getSeconds(),
+    };
     return [date, time];
   }
 
+  onSuggestionOrigin($oEvent?) {
+    console.log($oEvent.suggestion.latlng);
+    const origin = this.travelForm.get('origin') as FormGroup;
+    origin.get('lat').setValue($oEvent.suggestion.latlng.lat);
+    origin.get('lng').setValue($oEvent.suggestion.latlng.lng);
+  }
+
+  onSuggestionDestination($dEvent?) {
+    console.log($dEvent.suggestion.latlng);
+    const destination = this.travelForm.get('destination') as FormGroup;
+    destination.get('lat').setValue($dEvent.suggestion.latlng.lat);
+    destination.get('lng').setValue($dEvent.suggestion.latlng.lng);
+  }
+
   createForm() {
-    const [loadingDate, loadingTime] = this.getDateTime(this.travel.times.loading);
-    const [unloadingDate, unloadingTime] = this.getDateTime(this.travel.times.unloading);
-    const [originArriveDate, originArriveTime] = this.getDateTime(this.travel.times.originArrive);
-    const [destinationArriveDate, destinationArriveTime] = this.getDateTime(this.travel.times.destinationArrive);
     this.travelForm = this.travelFB.group({
       operator: [this.travel.operator],
       box: [this.travel.box],
       truck: [this.travel.truck],
-      origin: [this.travel.locations.origin.coordinates],
-      destination: [this.travel.locations.destination.coordinates],
       cost: [],
-      loadingDate: [loadingDate],
-      loadingTime: [loadingTime],
-      unloadingDate: [unloadingDate],
-      unloadingTime: [unloadingTime],
-      originArriveDate: [originArriveDate],
-      originArriveTime: [originArriveTime],
-      destinationArriveDate: [destinationArriveDate],
-      destinationArriveTime: [destinationArriveTime],
+      origin: this.travelFB.group({
+        autocomplete: [''],
+        lat: [''],
+        lng: [''],
+      }),
+      destination: this.travelFB.group({
+        autocomplete: [''],
+        lat: [],
+        lng: [],
+      }),
+      loadingDate: [],
+      loadingTime: [],
+      unloadingDate: [],
+      unloadingTime: [],
+      originArriveDate: [],
+      originArriveTime: [],
+      destinationArriveDate: [],
+      destinationArriveTime: [],
       comments: [this.travel.comments, []],
     });
   }
@@ -243,50 +266,46 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     _travel.operator = this.travelForm.get('operator').value;
     _travel.box = this.travelForm.get('box').value;
     _travel.truck = this.travelForm.get('truck').value;
+
+    const origin = this.travelForm.get('origin') as FormGroup;
+    const destination = this.travelForm.get('destination') as FormGroup;
     _travel.locations = {
       origin: {
         type: 'Point',
         // coordinates: [this.travelForm.get('origin').value, this.travelForm.get('origin').value],
         // lng, lat
-        coordinates: [-102.322306, 22.114624],
+        coordinates: [origin.get('lng').value, origin.get('lat').value],
       },
       destination: {
         type: 'Point',
         // lng, lat
-        coordinates: [-89.423559, 32.000097],
+        coordinates: [
+          destination.get('lng').value,
+          destination.get('lat').value,
+        ],
         // coordinates: [this.travelForm.get('destination').value, this.travelForm.get('destination').value],
-      }
+      },
     };
     _travel.times = {
-      loading: getDate('loadingDate', 'loadingTime'),
-      unloading: getDate('unloadingDate', 'unloadingTime'),
-      originArrive: getDate('originArriveDate', 'originArriveTime'),
-      destinationArrive: getDate('destinationArriveDate', 'destinationArriveTime')
+      loading: null,
+      unloading: null,
+      originArrive: null,
+      destinationArrive: null,
     };
     _travel.comments = this.travelForm.get('comments').value;
+    console.log(_travel);
     return _travel;
   }
 
-  // createMarker(lng: number, lat: number) {
-  //   const marker = new Mapboxgl.Marker({
-  //     draggable: true
-  //     })
-  //     .setLngLat([lng, lat])
-  //     .addTo(this.mapa);
-  //
-  //   marker.on('drag', () => {
-  //     console.log(marker.getLngLat());
-  //     const lnglat =  marker.getLngLat();
-  //   });
-  // }
-
   addTravel(_travel: TravelModel, withBack: boolean = false) {
     this.loadingSubject.next(true);
-    this.store.dispatch(
-      new CreateTravel({ travel: _travel })
-    );
+    this.store.dispatch(new CreateTravel({ travel: _travel }));
     this.store
-      .pipe(delay(1000), select(selectLastCreatedTravelId), takeUntil(this.ngUnsuscribe))
+      .pipe(
+        delay(1000),
+        select(selectLastCreatedTravelId),
+        takeUntil(this.ngUnsuscribe)
+      )
       .subscribe((newId) => {
         if (!newId) {
           return;
@@ -329,16 +348,24 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE');
+    let result: string = this.translate.instant(
+      'TRAVEL.TRAVEL.TEXT.CREATE_TITLE'
+    );
     if (!this.travel || !this.travel.id) {
       return result;
     }
 
-    result = this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') + ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
+    result =
+      this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') +
+      ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
     return result;
   }
 
   onAlertClose($event) {
     this.hasFormErrors = false;
+  }
+
+  onClear($event) {
+    console.log($event);
   }
 }

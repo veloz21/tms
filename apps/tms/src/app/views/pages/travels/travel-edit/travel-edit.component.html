@@ -61,30 +61,19 @@
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.ORIGIN' | translate}}</mat-label>
-                  <input id="origin" matInput placeholder="{{'TRAVEL.TRAVEL.MODEL.ORIGIN' | translate }}"
-                    formControlName="origin" type="number" required>
-                  <mat-error>
-                    {{'TRAVEL.TRAVEL.MODEL.ORIGIN' | translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-                  </mat-error>
-                </mat-form-field>
+                <form class="container" formGroupName="origin">
+                  <b404-places (onChange)="onSuggestionOrigin($event)" (onClear)="onClear($event)" required>
+                  </b404-places>
+                </form>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.DESTINATION' | translate}}</mat-label>
-                  <input matInput placeholder="{{'TRAVEL.TRAVEL.MODEL.DESTINATION' | translate }}"
-                    formControlName="destination" type="number" required>
-                  <mat-error>
-                    {{'TRAVEL.TRAVEL.MODEL.DESTINATION' | translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-                  </mat-error>
-                </mat-form-field>
+                <form class="container" formGroupName="destination">
+                  <b404-places (onChange)="onSuggestionDestination($event)" (onClear)="onClear($event)" required>
+                  </b404-places>
+                </form>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field appearance="outline" class="example-full-width">
-                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.COST' | translate}}</mat-label>
                   <mat-label>{{'TRAVEL.TRAVEL.MODEL.COST' | translate}}</mat-label>
                   <span matPrefix>$ &nbsp;</span>
                   <input matInput formControlName="cost" currencyMask>
@@ -161,10 +150,10 @@
           </div>
           <div class="b404-form__group">
             <div class="row">
-              <div class="col-md-12 b404-margin-bottom-10-mobile">
+              <div class="col-md-6 b404-margin-bottom-10-mobile">
+                <mat-label>{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate}}</mat-label>
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate}}</mat-label>
-                  <textarea matInput rows="7" placeholder="{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate }}"
+                  <textarea matInput rows="5" placeholder="{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate }}"
                     formControlName="comments" required></textarea>
                 </mat-form-field>
               </div>

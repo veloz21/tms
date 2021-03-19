@@ -22,6 +22,7 @@ import {
   SubheaderService
 } from '@tms/layout';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { NgAisModule } from 'angular-instantsearch';
 import 'hammerjs';
 import { InlineSVGModule } from 'ng-inline-svg';
 import {
@@ -65,28 +66,29 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AppRoutingModule,
+    AuthenticationModule,
+    AuthModule,
     BrowserAnimationsModule,
     BrowserModule,
-    AppRoutingModule,
+    CoreModule,
+    EffectsModule.forRoot([]),
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
         passThruUnknownUrl: true,
         dataEncapsulation: false,
       })
       : [],
+    InlineSVGModule.forRoot(),
+    MatProgressSpinnerModule,
     NgxPermissionsModule.forRoot(),
-    PartialsModule,
-    CoreModule,
+    NgAisModule.forRoot(),
     OverlayModule,
+    PartialsModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     StoreDevtoolsModule.instrument(),
-    AuthenticationModule,
-    AuthModule,
     TranslateModule.forRoot(),
-    MatProgressSpinnerModule,
-    InlineSVGModule.forRoot(),
     ThemeModule,
   ],
   exports: [],
