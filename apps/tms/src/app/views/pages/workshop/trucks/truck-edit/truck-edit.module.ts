@@ -37,6 +37,7 @@ import { TruckResolver } from '@tms/resolvers';
 import { TrucksService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { SharedModule } from '../../../../shared/shared.module';
 import { TruckEditComponent } from './truck-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -93,6 +94,7 @@ const routes: Routes = [
     }) : [],
     StoreModule.forFeature('trucks', trucksReducer),
     EffectsModule.forFeature([TruckEffects]),
+    SharedModule,
   ],
   providers: [
     {

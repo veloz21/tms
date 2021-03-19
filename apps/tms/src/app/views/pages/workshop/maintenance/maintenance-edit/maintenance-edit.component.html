@@ -21,7 +21,8 @@
   <b404-portlet-body>
     <div *ngIf="maintenance">
       <!--begin::Form-->
-      <form [formGroup]="maintenanceForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+      <form [formGroup]="maintenanceForm" class="b404-form b404-form--group-seperator-dashed b404-form__border-black"
+        autocomplete="off">
         <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
           (close)="onAlertClose($event)">
           <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>
@@ -31,21 +32,24 @@
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.MAINTENANCE.MODEL.TRUCK_SERIAL_NUMBER' | translate}}</mat-label>
                   <b404-trucks-autocomplete formControlName="truck"
                     placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.TRUCK_SERIAL_NUMBER'|translate}}">
                   </b404-trucks-autocomplete>
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.MAINTENANCE.MODEL.BOX_SERIAL_NUMBER' | translate}}</mat-label>
                   <b404-boxes-autocomplete formControlName="box"
                     placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.BOX_SERIAL_NUMBER'|translate}}">
                   </b404-boxes-autocomplete>
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.MAINTENANCE.MODEL.MECHANIC_NAME' | translate}}</mat-label>
                   <b404-employees-autocomplete formControlName="mechanic"
                     placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.MECHANIC_NAME' | translate }}" required>
                   </b404-employees-autocomplete>
@@ -56,7 +60,8 @@
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.MAINTENANCE.MODEL.START_DATE' | translate}}</mat-label>
                   <input matInput [matDatepicker]="startDate"
                     placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.START_DATE' | translate }}" formControlName="start"
                     required />
@@ -69,7 +74,8 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.MAINTENANCE.MODEL.END_DATE' | translate}}</mat-label>
                   <input matInput [matDatepicker]="endDate"
                     placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.END_DATE' | translate }}" formControlName="end" />
                   <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
@@ -77,10 +83,11 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="example-full-width">
+                <mat-form-field appearance="outline" class="example-full-width">
                   <mat-label>{{'WORKSHOP.MAINTENANCE.MODEL.PRICE' | translate}}</mat-label>
                   <span matPrefix>$ &nbsp;</span>
-                  <input currencyMask type="tel" matInput formControlName="price">
+                  <input matInput matInputCurrency formControlName="price" type="text"
+                    placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.PRICE' | translate}}" />
                 </mat-form-field>
               </div>
             </div>
@@ -88,13 +95,15 @@
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-6 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.MAINTENANCE.MODEL.COMMENTS' | translate}}</mat-label>
                   <textarea matInput rows="7" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.COMMENTS' | translate }}"
                     formControlName="comments"></textarea>
                 </mat-form-field>
               </div>
               <div class="col-md-6 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.MAINTENANCE.MODEL.REASONS' | translate}}</mat-label>
                   <textarea matInput rows="7" placeholder="{{'WORKSHOP.MAINTENANCE.MODEL.REASONS' | translate }}"
                     formControlName="reasons"></textarea>
                 </mat-form-field>

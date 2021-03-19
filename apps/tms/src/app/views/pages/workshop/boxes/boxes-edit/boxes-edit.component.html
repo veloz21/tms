@@ -23,7 +23,8 @@
       <mat-tab label="Basic info">
         <ng-template matTabContent>
           <div *ngIf="box">
-            <form [formGroup]="boxForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+            <form [formGroup]="boxForm" class="b404-form b404-form--group-seperator-dashed b404-form__border-black"
+              autocomplete="off">
 
               <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
                 (close)="onAlertClose($event)">
@@ -35,9 +36,10 @@
                   <div class="row">
 
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
-                        <input id="model" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.MODEL' | translate}}*"
-                          formControlName="boxModel">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.MODEL' | translate}}</mat-label>
+                        <input id="model" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.MODEL' | translate}}"
+                          formControlName="boxModel" required>
                         <mat-error>
                           {{'WORKSHOP.BOXES.MODEL.MODEL' | translate}}
                           <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
@@ -46,7 +48,8 @@
                     </div>
 
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.TYPE' | translate }}</mat-label>
                         <mat-select placeholder="{{'WORKSHOP.BOXES.MODEL.TYPE' | translate }}" formControlName="type"
                           required>
                           <mat-option value="{{'WORKSHOP.BOXES.MODEL.DRY' | translate }}">
@@ -57,9 +60,10 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
-                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}*"
-                          formControlName="nickName" type="text">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}</mat-label>
+                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}"
+                          formControlName="nickName" type="text" required>
                         <mat-error>
                           {{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}
                           <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
@@ -73,10 +77,11 @@
                 <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | translate}}</mat-label>
                         <input id="serialNumber" matInput
-                          placeholder="{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | translate}}*"
-                          formControlName="serialNumber">
+                          placeholder="{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | translate}}"
+                          formControlName="serialNumber" required>
                         <mat-error>
                           {{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | translate}}
                           <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
@@ -84,9 +89,10 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
-                        <input id="brand" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.BRAND' | translate}}*"
-                          formControlName="brand">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.BRAND' | translate}}</mat-label>
+                        <input id="brand" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.BRAND' | translate}}"
+                          formControlName="brand" required>
                         <mat-error>
                           {{'WORKSHOP.BOXES.MODEL.BRAND' | translate}}
                           <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
@@ -94,9 +100,10 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
-                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | translate}}*"
-                          formControlName="rangeTraveled" type="number">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | translate}}</mat-label>
+                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | translate}}"
+                          formControlName="rangeTraveled" type="number" required>
                         <mat-error>
                           {{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | translate}}
                           <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
@@ -108,10 +115,11 @@
                 <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="example-full-width">
+                      <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>{{'WORKSHOP.BOXES.MODEL.PRICE' | translate}}</mat-label>
                         <span matPrefix>$ &nbsp;</span>
-                        <input currencyMask  type="tel" matInput formControlName="price">
+                        <input matInput matInputCurrency formControlName="price" type="text"
+                          placeholder="{{'WORKSHOP.BOXES.MODEL.PRICE' | translate}}" />
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
@@ -120,7 +128,7 @@
                         <input type="file" formControlName="image" (change)="readUrl($event)">
                       </span>
                     </div>
-                    <div class="col-md-4 b404-margin-bottom-10-mobile" *ngIf="url">
+                    <div *ngIf="url" class="col-md-4 b404-margin-bottom-10-mobile">
                       <img class="box" [src]="url">
                     </div>
                   </div>

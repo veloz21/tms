@@ -19,15 +19,14 @@ import {
   MenuHorizontalService,
   PageConfigService,
   SplashScreenService,
-  SubheaderService,
+  SubheaderService
 } from '@tms/layout';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import 'hammerjs';
 import { InlineSVGModule } from 'ng-inline-svg';
-import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import {
   PerfectScrollbarConfigInterface,
-  PERFECT_SCROLLBAR_CONFIG,
+  PERFECT_SCROLLBAR_CONFIG
 } from 'ngx-perfect-scrollbar';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { environment } from '../environments/environment';
@@ -39,7 +38,7 @@ import { metaReducers, reducers } from './core/reducers';
 import {
   HttpUtilsService,
   LayoutUtilsService,
-  TypesUtilsService,
+  TypesUtilsService
 } from './core/_base/crud';
 import { LayoutConfig } from './core/_config/layout.config';
 import { AuthModule } from './views/pages/auth/auth.module';
@@ -63,21 +62,6 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
   };
 }
 
-export const customCurrencyMaskConfig = {
-  align: 'left',
-  allowNegative: true,
-  allowZero: true,
-  decimal: '.',
-  precision: 2,
-  prefix: '',
-  suffix: '',
-  thousands: ',',
-  nullable: true,
-  min: null,
-  max: 10000000,
-  inputMode: CurrencyMaskInputMode.FINANCIAL,
-};
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -86,14 +70,13 @@ export const customCurrencyMaskConfig = {
     AppRoutingModule,
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
-          passThruUnknownUrl: true,
-          dataEncapsulation: false,
-        })
+        passThruUnknownUrl: true,
+        dataEncapsulation: false,
+      })
       : [],
     NgxPermissionsModule.forRoot(),
     PartialsModule,
     CoreModule,
-    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
     OverlayModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([]),
@@ -140,4 +123,4 @@ export const customCurrencyMaskConfig = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

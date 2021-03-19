@@ -23,7 +23,8 @@
       <mat-tab label="Basic info">
         <ng-template matTabContent>
           <div *ngIf="truck">
-            <form [formGroup]="truckForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+            <form [formGroup]="truckForm" class="b404-form b404-form--group-seperator-dashed b404-form__border-black"
+              autocomplete="off">
               <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
                 (close)="onAlertClose($event)">
                 <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>
@@ -32,7 +33,8 @@
                 <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MODEL' | translate}}</mat-label>
                         <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MODEL' | translate }}"
                           formControlName="truckModel" required />
                         <mat-error>
@@ -42,7 +44,8 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.BRAND' | translate}}</mat-label>
                         <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.BRAND' | translate }}"
                           formControlName="brand" required />
                         <mat-error>
@@ -52,7 +55,8 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.NICKNAME' | translate}}</mat-label>
                         <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.NICKNAME' | translate }}"
                           formControlName="nickName" required />
                         <mat-error>
@@ -61,13 +65,14 @@
                         </mat-error>
                       </mat-form-field>
                     </div>
-                    
+
                   </div>
                 </div>
                 <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | translate}}</mat-label>
                         <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | translate }}"
                           formControlName="motorNumber" required />
                         <mat-error>
@@ -78,7 +83,8 @@
                     </div>
                     <!--New fields-->
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | translate}}</mat-label>
                         <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | translate }}"
                           formControlName="maintenancePeriod" required />
                         <mat-error>
@@ -88,7 +94,8 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | translate}}</mat-label>
                         <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | translate }}"
                           formControlName="serialNumber" required />
                         <mat-error>
@@ -102,7 +109,8 @@
                 <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | translate}}</mat-label>
                         <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | translate }}"
                           formControlName="initialRange" required type="number" />
                         <mat-error>
@@ -112,7 +120,8 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="mat-form-field-fluid">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | translate}}</mat-label>
                         <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | translate }}"
                           type="number" formControlName="rangeTraveled" required />
                         <mat-error>
@@ -122,13 +131,13 @@
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field class="example-full-width">
+                      <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>{{'WORKSHOP.TRUCK.MODEL.PRICE' | translate}}</mat-label>
                         <span matPrefix>$ &nbsp;</span>
-                        <input currencyMask type="tel" matInput  formControlName="price">
+                        <input matInput matInputCurrency formControlName="price" type="text"
+                          placeholder="{{'WORKSHOP.TRUCK.MODEL.PRICE' | translate}}" />
                       </mat-form-field>
                     </div>
-                    
                   </div>
                 </div>
                 <div class="b404-from__group">

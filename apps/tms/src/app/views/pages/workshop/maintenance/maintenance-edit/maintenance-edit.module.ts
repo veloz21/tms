@@ -40,6 +40,7 @@ import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { SharedModule } from '../../../../shared/shared.module';
 import { MaintenanceEditComponent } from './maintenance-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -99,6 +100,7 @@ const routes: Routes = [
     }) : [],
     StoreModule.forFeature('maintenance', maintenancesReducer),
     EffectsModule.forFeature([MaintenanceEffects]),
+    SharedModule,
   ],
   providers: [
     {

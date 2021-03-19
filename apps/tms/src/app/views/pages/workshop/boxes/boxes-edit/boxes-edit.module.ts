@@ -37,6 +37,7 @@ import { BoxResolver } from '@tms/resolvers';
 import { BoxesService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { SharedModule } from '../../../../shared/shared.module';
 import { BoxesEditComponent } from './boxes-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -93,6 +94,7 @@ const routes: Routes = [
     }) : [],
     StoreModule.forFeature('boxes', boxesReducer),
     EffectsModule.forFeature([BoxEffects]),
+    SharedModule,
   ],
   providers: [
     {
