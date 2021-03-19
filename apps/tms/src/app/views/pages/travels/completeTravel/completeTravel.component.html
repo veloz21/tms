@@ -1,10 +1,6 @@
 <b404-portlet>
-  <b404-portlet-header [sticky]="true" [title]="'TRAVEL.TRAVEL.TEXT.TRAVEL_LIST'| translate"
+  <b404-portlet-header [sticky]="true" [title]="'TRAVEL.COMPLETETRAVEL.TEXT.COMPLETETRAVELS'| translate"
     [class]="'b404-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
-    <ng-container ktPortletTools>
-      <a [routerLink]="['/travels/add']" mat-raised-button color="primary"
-        matTooltip="{{'TRAVEL.TRAVEL.BUTTONS.CREATE_NEW' | translate}}"><span>{{"TRAVEL.TRAVEL.BUTTONS.NEW_TRAVEL" | translate}}</span></a>
-    </ng-container>
   </b404-portlet-header>
 
   <b404-portlet-body>
@@ -19,9 +15,6 @@
                 <strong><span>{{"GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS" | translate}}</span></strong>
               </mat-hint>
             </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-checkbox [(ngModel)]="showed">{{'TRAVEL.TRAVEL.MODEL.COMPLETED_TRAVELS' | translate }}</mat-checkbox>
           </div>
         </div>
       </div>
@@ -86,7 +79,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let travel">{{travel.locations.origin.coordinates[0]}}</mat-cell>
 				</ng-container>
-
+ 
 				<ng-container matColumnDef="Destination" mdbTableCol>
 					<mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.DESTINATION" | translate }}
 					</mat-header-cell>
@@ -116,23 +109,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">{{travel.times?.destinationArrive | date:'dd-MM, HH:mm'}}</mat-cell>
         </ng-container>
-
-        <ng-container matColumnDef="Status" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Status
-          </mat-header-cell>
-          <mat-cell *matCellDef="let travel">
-            <span class="b404-badge b404-badge--inline b404-badge--pill b404-badge--info b404-badge--wide">
-              Acciones<button mat-icon-button [matMenuTriggerFor]="menu" ><mat-icon>keyboard_arrow_down</mat-icon></button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="doneTravel(travel)">
-                  <mat-icon>done</mat-icon>
-                  <span>Terminar</span>
-                </button>
-              </mat-menu>
-            </span>
-          </mat-cell>
-        </ng-container>
-
+        
         <ng-container matColumnDef="Actions" mdbTableCol>
           <mat-header-cell *matHeaderCellDef>
             {{"GENERAL.MODEL.ACTIONS" | translate }}
@@ -170,10 +147,5 @@
       <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async"
         [showFirstLastButtons]="true"></mat-paginator>
     </div>
-    
-    <div *ngIf="showed">
-      <b404-completetravel-list></b404-completetravel-list>
-    </div>
-
   </b404-portlet-body>
 </b404-portlet>

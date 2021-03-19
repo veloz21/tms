@@ -6,29 +6,28 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { CreateCompleteTravel } from '@tms/actions/completeTravel.actions';
-import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage } from '@tms/actions/travel.actions';
+import { DeleteManyCompleteTravels, DeleteOneCompleteTravel, RequestCompleteTravelPage } from '@tms/actions/completeTravel.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
-import { TravelsDataSource } from '@tms/data-sources';
+import { CompleteTravelsDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
 import { TravelModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
-import { selectTravelsPageLastQuery } from '@tms/selectors/travel.selectors';
+import { selectCompleteTravelsPageLastQuery } from '@tms/selectors/completeTravel.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'b404-travel-list',
-  templateUrl: './travels-list.component.html',
-  styleUrls: ['./travels-list.component.scss'],
+  selector: 'b404-completetravel-list',
+  templateUrl: './completeTravel.component.html',
+  styleUrls: ['./completeTravel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TravelsListComponent implements OnInit, OnDestroy {
+export class CompleteTravelsComponent implements OnInit, OnDestroy {
   // Table fields
-  showed: boolean;
-  dataSource: TravelsDataSource;
-  displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'LoadTime', 'DownloadTime', 'ArriveTime', 'ArriveCustomerTime', 'Status', 'Actions'];
+
+  dataSource: CompleteTravelsDataSource;
+  displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'LoadTime', 'DownloadTime', 'ArriveTime', 'ArriveCustomerTime', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -45,7 +44,6 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   constructor(public dialog: MatDialog, private translate: TranslateService, private activatedRoute: ActivatedRoute, private subheaderService: SubheaderService, private layoutUtilsService: LayoutUtilsService, private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.showed = false;
     // If the user changes the sort order, reset back to the first page.
     const sortSubscription = this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
     this.subscriptions.push(sortSubscription);
@@ -80,13 +78,13 @@ export class TravelsListComponent implements OnInit, OnDestroy {
     this.subheaderService.setTitle(this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'));
 
     // Init DataSource
-    this.dataSource = new TravelsDataSource(this.store);
+    this.dataSource = new CompleteTravelsDataSource(this.store);
     const entitiesSubscription = this.dataSource.entitySubject.pipe(skip(1), distinctUntilChanged(), takeUntil(this.ngUnsuscribe)).subscribe((res) => {
       this.travelsResult = res;
       console.log(this.travelsResult);
     });
     this.subscriptions.push(entitiesSubscription);
-    const lastQuerySubscription = this.store.pipe(select(selectTravelsPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe((res) => (this.lastQuery = res));
+    const lastQuerySubscription = this.store.pipe(select(selectCompleteTravelsPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe((res) => (this.lastQuery = res));
     // Load last query from store
     this.subscriptions.push(lastQuerySubscription);
 
@@ -118,7 +116,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
     this.selection.clear();
     const queryParams = new QueryParamsModel(this.filterConfiguration(), this.sort.direction, this.sort.active, this.paginator.pageIndex, this.paginator.pageSize);
     // Call request from server
-    this.store.dispatch(new RequestTravelsPage({ page: queryParams }));
+    this.store.dispatch(new RequestCompleteTravelPage({ page: queryParams }));
     this.selection.clear();
   }
 
@@ -169,7 +167,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.store.dispatch(new DeleteOneTravel({ id: _item.id }));
+      this.store.dispatch(new DeleteOneCompleteTravel({ id: _item.id }));
       this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
     });
   }
@@ -191,28 +189,9 @@ export class TravelsListComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.selection.selected.length; i++) {
         idsForDeletion.push(this.selection.selected[i].id);
       }
-      this.store.dispatch(new DeleteManyTravels({ ids: idsForDeletion }));
+      this.store.dispatch(new DeleteManyCompleteTravels({ ids: idsForDeletion }));
       this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
       this.selection.clear();
-    });
-  }
-
-  doneTravel(travel: TravelModel) {
-    const _title: string = this.translate.instant('Terminar viaje');
-    const _description: string = this.translate.instant('¿Estas seguro de que quieres terminar este viaje?');
-    const _waitDesciption: string = this.translate.instant('Esperando');
-    const _deleteMessage: string = this.translate.instant('Viaje Terminado');
-
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
-    dialogRef.afterClosed().subscribe((res) => {
-      if (!res) {
-        return;
-      }
-      console.log(travel);
-      this.store.dispatch(new CreateCompleteTravel({ completeTravel: travel }));
-      this.store.dispatch(new DeleteOneTravel({ id: travel.id }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
-      console.log('si termine');
     });
   }
 

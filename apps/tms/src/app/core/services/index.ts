@@ -1,4 +1,5 @@
 export * from './boxes.service';
+export * from './completeTravel.service';
 export * from './employees.service';
 export * from './http-service';
 export * from './maintenances.service';

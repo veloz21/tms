@@ -27,17 +27,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
-import { TravelEffects } from '@tms/effects';
+import { CompleteTravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
-import { travelsReducer } from '@tms/reducers';
-import { CompleteTravelService, TravelsService } from '@tms/services';
+import { completeTravelReducer } from '@tms/reducers';
+import { CompleteTravelService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../partials/content/crud';
 import { PartialsModule } from '../../../partials/partials.module';
-import { CompleteTravelModule } from '../completeTravel/completeTravel.module';
-import { TravelsListComponent } from './travels-list.component';
+import { CompleteTravelsComponent } from './completeTravel.component';
 
 @NgModule({
   imports: [
@@ -51,7 +50,6 @@ import { TravelsListComponent } from './travels-list.component';
     MatButtonModule,
     MatMenuModule,
     MatSelectModule,
-    CompleteTravelModule,
     MatInputModule,
     MatTableModule,
     MatAutocompleteModule,
@@ -69,20 +67,15 @@ import { TravelsListComponent } from './travels-list.component';
     MatTabsModule,
     MatTooltipModule,
     NgbProgressbarModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: TravelsListComponent,
-      },
-    ]),
+    RouterModule.forChild([]),
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
           passThruUnknownUrl: true,
           dataEncapsulation: false,
         })
       : [],
-    StoreModule.forFeature('travels', travelsReducer),
-    EffectsModule.forFeature([TravelEffects]),
+    StoreModule.forFeature('completeTravels', completeTravelReducer),
+    EffectsModule.forFeature([CompleteTravelEffects]),
   ],
   providers: [
     {
@@ -97,12 +90,12 @@ import { TravelsListComponent } from './travels-list.component';
     TypesUtilsService,
     LayoutUtilsService,
     HttpUtilsService,
-    TravelsService,
+    CompleteTravelService,
     TypesUtilsService,
     LayoutUtilsService,
-    CompleteTravelService,
   ],
   entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent],
-  declarations: [TravelsListComponent],
+  declarations: [CompleteTravelsComponent],
+  exports: [CompleteTravelsComponent],
 })
-export class TravelListModule {}
+export class CompleteTravelModule {}

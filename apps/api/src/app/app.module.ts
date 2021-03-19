@@ -19,18 +19,15 @@ import { routes } from './routes';
     TravelsModule,
     WorkshopModule,
     RouterModule.forRoutes(routes),
-    MongooseModule.forRoot(
-      environment.BD_URI,
-      { useFindAndModify: false }
-    ),
+    MongooseModule.forRoot(environment.BD_URI, { useFindAndModify: false }),
     MailerModule.forRoot({
       transport: {
         host: 'mail.bits404.com',
         port: 465,
         secure: true, // upgrade later with STARTTLS
         auth: {
-          user: "fernando.veloz@bits404.com",
-          pass: "pkd7W*Tv0EerXD!&Ihk6v7Wr8HJgD5h%",
+          user: 'fernando.veloz@bits404.com',
+          pass: 'pkd7W*Tv0EerXD!&Ihk6v7Wr8HJgD5h%',
         },
       },
       defaults: {
@@ -48,4 +45,4 @@ import { routes } from './routes';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -44,26 +44,13 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   private headerMargin: number;
   private ngUnsuscribe = new Subject();
 
-  constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private travelFB: FormBuilder,
-    public dialog: MatDialog,
-    private translate: TranslateService,
-    private subheaderService: SubheaderService,
-    private travelService: TravelsService,
-    private typesUtilsService: TypesUtilsService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private travelFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private travelService: TravelsService, private typesUtilsService: TypesUtilsService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.travel = this.activatedRoute.snapshot.data[' travel '];
-    this.activatedRoute.data
-      .pipe(takeUntil(this.ngUnsuscribe))
-      .subscribe((data) => {
-        this.loadTravel(data.travel);
-      });
+    this.activatedRoute.data.pipe(takeUntil(this.ngUnsuscribe)).subscribe((data) => {
+      this.loadTravel(data.travel);
+    });
 
     // sticky portlet header
     window.onload = () => {
@@ -120,9 +107,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       ]);
       return;
     }
-    this.subheaderService.setTitle(
-      this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL')
-    );
+    this.subheaderService.setTitle(this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL'));
     this.subheaderService.setBreadcrumbs([
       {
         title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
@@ -201,7 +186,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   goBackWithoutId() {
-    this.router.navigateByUrl('/travel/travel', {
+    this.router.navigateByUrl('/travels', {
       relativeTo: this.activatedRoute,
     });
   }
@@ -232,9 +217,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     const controls = this.travelForm.controls;
     /** check form */
     if (this.travelForm.invalid) {
-      Object.keys(controls).forEach((controlName) =>
-        controls[controlName].markAsTouched()
-      );
+      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
 
       this.hasFormErrors = true;
       this.selectedTab = 0;
@@ -244,7 +227,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     const editedTravel = this.prepareTravel();
     if (!!editedTravel.id) {
       this.updateTravel(editedTravel, withBack);
-      this.router.navigateByUrl('/travel/travel', {
+      this.router.navigateByUrl('/travels', {
         relativeTo: this.activatedRoute,
       });
       return;
@@ -287,10 +270,10 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       },
     };
     _travel.times = {
-      loading: null,
-      unloading: null,
-      originArrive: null,
-      destinationArrive: null,
+      loading: getDate('loadingDate', 'loadingTime'),
+      unloading: getDate('unloadingDate', 'unloadingTime'),
+      originArrive: getDate('originArriveDate', 'originArriveTime'),
+      destinationArrive: getDate('destinationArriveDate', 'destinationArriveTime'),
     };
     _travel.comments = this.travelForm.get('comments').value;
     console.log(_travel);
@@ -300,24 +283,18 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   addTravel(_travel: TravelModel, withBack: boolean = false) {
     this.loadingSubject.next(true);
     this.store.dispatch(new CreateTravel({ travel: _travel }));
-    this.store
-      .pipe(
-        delay(1000),
-        select(selectLastCreatedTravelId),
-        takeUntil(this.ngUnsuscribe)
-      )
-      .subscribe((newId) => {
-        if (!newId) {
-          return;
-        }
+    this.store.pipe(delay(1000), select(selectLastCreatedTravelId), takeUntil(this.ngUnsuscribe)).subscribe((newId) => {
+      if (!newId) {
+        return;
+      }
 
-        this.loadingSubject.next(false);
-        if (withBack) {
-          this.goBack(newId);
-        } else {
-          this.refreshTravel(true, newId);
-        }
-      });
+      this.loadingSubject.next(false);
+      if (withBack) {
+        this.goBack(newId);
+      } else {
+        this.refreshTravel(true, newId);
+      }
+    });
   }
 
   updateTravel(_travel: TravelModel, withBack: boolean = false) {
