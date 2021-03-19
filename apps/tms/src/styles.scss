@@ -67,4 +67,7 @@ form.b404-form {
   img {
     max-height: 6rem;
   }
+  input {
+    border-color: $color-outline !important;
+  }
 }

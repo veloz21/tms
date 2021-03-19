@@ -157,6 +157,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
 
       this.hasFormErrors = true;
       this.selectedTab = 0;
+      console.log(this.employeeForm);
       return;
     }
 

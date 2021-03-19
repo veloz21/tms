@@ -221,6 +221,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
 
       this.hasFormErrors = true;
       this.selectedTab = 0;
+      console.log(this.travelForm);
       return;
     }
 
@@ -239,6 +240,9 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   prepareTravel(): TravelModel {
     const getDate = (dateName: string, timeName: string) => {
       const ioDate: Date = this.travelForm.get(dateName).value;
+      if (!ioDate) {
+        return null;
+      }
       const receptionTime: NgbTimeStruct = this.travelForm.get(timeName).value;
       ioDate.setHours(receptionTime.hour);
       ioDate.setMinutes(receptionTime.minute);

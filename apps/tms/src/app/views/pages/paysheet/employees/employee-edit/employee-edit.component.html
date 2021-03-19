@@ -29,7 +29,8 @@
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | translate}}</mat-label>
                   <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | translate }}"
                     formControlName="firstName" required>
                   <mat-error>
@@ -39,7 +40,8 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | translate}}</mat-label>
                   <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | translate }}"
                     formControlName="lastName" required>
                   <mat-error>
@@ -49,7 +51,8 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.BIRTH_DATE' | translate}}</mat-label>
                   <input matInput [matDatepicker]="birthDate"
                     placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.BIRTH_DATE' | translate }}" formControlName="birthDate"
                     required />
@@ -62,7 +65,8 @@
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.EMPLOYEE_TYPE' | translate}}</mat-label>
                   <mat-select placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.EMPLOYEE_TYPE' | translate }}"
                     formControlName="type" required>
                     <mat-option value="Chofer">Chofer</mat-option>
@@ -72,7 +76,8 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate}}</mat-label>
                   <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}" type="number"
                     formControlName="cellphone" required maxlength="10">
                   <mat-error>
@@ -82,9 +87,10 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.SECONDARY_CELLPHONE' | translate}}</mat-label>
                   <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SECONDARY_CELLPHONE' | translate }}"
-                    type="number" formControlName="secondaryCellphone" required maxlength="10">
+                    type="number" formControlName="secondaryCellphone" maxlength="10">
                   <mat-error>
                     {{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | translate }}
                     <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
@@ -96,7 +102,8 @@
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.DATE_ADMISSION' | translate}}</mat-label>
                   <input matInput [matDatepicker]="dateofAdmission"
                     placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DATE_ADMISSION' | translate }}"
                     formControlName="admissionDate" required />
@@ -105,7 +112,8 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate}}</mat-label>
                   <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}" type="number"
                     formControlName="salary_total" required>
                   <mat-error>
@@ -115,7 +123,8 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate}}</mat-label>
                   <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate }}"
                     formControlName="address" required>
                   <mat-error>
@@ -129,9 +138,10 @@
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.LICENSE_TYPE' | translate}}</mat-label>
                   <mat-select placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.LICENSE_TYPE' | translate }}"
-                    formControlName="licenseType" required>
+                    formControlName="licenseType">
                     <mat-option value="D">D</mat-option>
                     <mat-option value="E">E</mat-option>
                     <mat-option value="F">F</mat-option>
@@ -139,47 +149,47 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.DUE_DATE' | translate}}</mat-label>
                   <input matInput [matDatepicker]="dueDate"
-                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DUE_DATE' | translate }}" formControlName="licensedueDate"
-                    required />
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.DUE_DATE' | translate }}"
+                    formControlName="licensedueDate" />
                   <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
                   <mat-datepicker #dueDate></mat-datepicker>
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.DRIVERS_LICENSE'| translate}}</label><br>
-                <span>
-                  <input type="file" formControlName="licenseAttchment">
-                </span>
+                <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.DRIVERS_LICENSE'|translate}}</label><br>
+                <!-- <input type="file" formControlName="licenseAttchment"> -->
+                <b404-file-drop></b404-file-drop>
               </div>
             </div>
           </div>
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.TEST_DATE' | translate}}</mat-label>
                   <input matInput [matDatepicker]="testDate"
-                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.TEST_DATE' | translate }}" formControlName="testDate"
-                    required />
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.TEST_DATE' | translate }}" formControlName="testDate" />
                   <mat-datepicker-toggle matSuffix [for]="testDate"></mat-datepicker-toggle>
                   <mat-datepicker #testDate></mat-datepicker>
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field class="mat-form-field-fluid">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.TEST_EXPIRATION_DATE' | translate}}</mat-label>
                   <input matInput [matDatepicker]="testExpirationDate"
                     placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.TEST_EXPIRATION_DATE' | translate }}"
-                    formControlName="testExpirationDate" required />
+                    formControlName="testExpirationDate" />
                   <mat-datepicker-toggle matSuffix [for]="testExpirationDate"></mat-datepicker-toggle>
                   <mat-datepicker #testExpirationDate></mat-datepicker>
                 </mat-form-field>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.PSYCHOPHYSICAL_TEST'|translate}}</label><br>
-                <span>
-                  <input type="file" formControlName="testAttachment">
-                </span>
+                <!-- <input type="file" formControlName="testAttachment"> -->
+                <b404-file-drop></b404-file-drop>
               </div>
             </div>
           </div>

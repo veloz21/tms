@@ -7,24 +7,25 @@ import {
   OnDestroy,
   Output,
   SimpleChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import * as places from 'places.js';
 
 @Component({
   selector: 'b404-places',
   template: `
-    <input #input type="search" placeholder="Where are we going?" />
+    <input style="height:50px;" #input type="search" [placeholder]="placeholder" />
   `,
 })
 export class PlacesComponent implements AfterViewInit, OnDestroy, OnChanges {
   private instance = null;
 
   @ViewChild('input') input;
-  @Output() onChange? = new EventEmitter();
-  @Output() onClear? = new EventEmitter();
+  @Output() onChange?= new EventEmitter();
+  @Output() onClear?= new EventEmitter();
 
   @Input() type: string;
+  @Input() placeholder: string;
 
   ngAfterViewInit() {
     this.instance = places({

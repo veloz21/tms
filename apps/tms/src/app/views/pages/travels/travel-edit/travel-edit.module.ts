@@ -30,7 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   HttpUtilsService,
   LayoutUtilsService,
-  TypesUtilsService,
+  TypesUtilsService
 } from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
@@ -42,7 +42,7 @@ import {
   BoxesService,
   EmployeesService,
   TravelsService,
-  TrucksService,
+  TrucksService
 } from '@tms/services';
 import { BoxesAutocompleteModule } from '@tms/shared/autocomplete/boxes-autocomplete/boxes-autocomplete.module';
 import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-autocomplete/employees-autocomplete.module';
@@ -54,8 +54,9 @@ import {
   ActionNotificationComponent,
   DeleteEntityDialogComponent,
   FetchEntityDialogComponent,
-  UpdateStatusDialogComponent,
+  UpdateStatusDialogComponent
 } from '../../../partials/content/crud';
+import { SharedModule } from '../../../shared/shared.module';
 import { TravelEditComponent } from './travel-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -112,12 +113,13 @@ const routes: Routes = [
     NgbProgressbarModule,
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
-          passThruUnknownUrl: true,
-          dataEncapsulation: false,
-        })
+        passThruUnknownUrl: true,
+        dataEncapsulation: false,
+      })
       : [],
     StoreModule.forFeature('travels', travelsReducer),
     EffectsModule.forFeature([TravelEffects]),
+    SharedModule,
   ],
   providers: [
     TypesUtilsService,
@@ -138,4 +140,4 @@ const routes: Routes = [
   ],
   declarations: [TravelEditComponent, PlacesComponent],
 })
-export class TravelEditModule {}
+export class TravelEditModule { }
