@@ -134,7 +134,7 @@ export const locale = {
           TRUCK_SERIALNUMBER: 'Número serial del camión',
           ORIGIN: 'Origen',
           DESTINATION: 'Destino',
-          COST: 'Costo del viaje',
+          COST: 'Precio de venta',
           COMMENTS: 'Comentarios',
           LOAD_TIME: 'Tiempo de carga',
           DOWNLOAD_TIME: 'Tiempo de descarga',
