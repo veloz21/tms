@@ -2,7 +2,7 @@
 	<div ngbDropdownToggle class="b404-header__topbar-wrapper">
 		<div class="b404-header__topbar-user" [ngClass]="{'b404-header__topbar-icon': icon}">
 			<span class="b404-header__topbar-welcome b404-hidden-mobile" *ngIf="greeting">{{'TOPBAR.HI'| translate}},</span>
-			<span class="b404-header__topbar-username b404-hidden-mobile" *ngIf="greeting">_user.name</span>
+			<span class="b404-header__topbar-username b404-hidden-mobile" *ngIf="greeting">{{_user.name}}</span>
 			<i *ngIf="icon" class="flaticon2-user-outline-symbol"></i>
 			<span *ngIf="badge" class="b404-badge b404-badge--username b404-badge--unified-success b404-badge--lg b404-badge--rounded b404-badge--bold">Bits404</span>
 		</div>
@@ -12,11 +12,11 @@
 		<div class="b404-user-card b404-user-card--skin-dark b404-notification-item-padding-x" style="background-image: url(./assets/media/misc/bg-1.jpg)">
 			<div class="b404-user-card__avatar">
 				<span [hidden]="true" class="b404-badge b404-badge--lg b404-badge--rounded b404-badge--bold b404-font-success">
-					Bits404
+					{{_user.name}}
 				</span>
 			</div>
 			<div class="b404-user-card__name">
-				Bits404
+				{{_user.name}}
 			</div>
 			<div class="b404-user-card__badge">
 				<span class="btn btn-success btn-sm btn-bold btn-font-md">23 messages</span>
