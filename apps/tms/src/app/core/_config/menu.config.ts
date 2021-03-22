@@ -2,13 +2,14 @@ export class MenuConfig {
   public defaults: any = {
     header: {
       self: {},
-      items: [{
-        title: 'Dashboards',
-        root: true,
-        alignment: 'left',
-        page: '/dashboard',
-        translate: 'MENU.DASHBOARD',
-      },
+      items: [
+        {
+          title: 'Dashboards',
+          root: true,
+          alignment: 'left',
+          page: '/dashboard',
+          translate: 'MENU.DASHBOARD',
+        },
         // {
         //   title: 'Applications',
         //   root: true,
@@ -60,7 +61,7 @@ export class MenuConfig {
         //   },
         //   ]
         // },
-      ]
+      ],
     },
     aside: {
       self: {},
@@ -74,23 +75,26 @@ export class MenuConfig {
           bullet: 'dot',
         },
         {
-          title: 'Paysheet',
-          bullet: 'dot',
-          icon: 'flaticon-avatar',
-          translate: 'PAYSHEET.PAYSHEET',
-          submenu: [{
-            title: 'Employees',
-            page: '/paysheet/employees',
-            translate: 'PAYSHEET.EMPLOYEE.TEXT.EMPLOYEE',
-          }]
-        },
-        {
           title: 'Travels',
           bullet: 'dot',
           icon: 'flaticon-paper-plane',
           translate: 'TRAVEL.TRAVEL.TEXT.TRAVEL',
-          page: '/travels'
+          page: '/travels',
         },
+        {
+          title: 'Paysheet',
+          bullet: 'dot',
+          icon: 'flaticon-avatar',
+          translate: 'PAYSHEET.PAYSHEET',
+          submenu: [
+            {
+              title: 'Employees',
+              page: '/paysheet/employees',
+              translate: 'PAYSHEET.EMPLOYEE.TEXT.EMPLOYEE',
+            },
+          ],
+        },
+
         {
           title: 'Workshop',
           bullet: 'dot',
@@ -117,9 +121,9 @@ export class MenuConfig {
               page: '/workshop/trucks',
               translate: 'WORKSHOP.TRUCK.TEXT.TRUCK',
             },
-          ]
+          ],
         },
-      ]
+      ],
     },
   };
 
