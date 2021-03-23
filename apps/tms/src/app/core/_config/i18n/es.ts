@@ -176,7 +176,7 @@ export const locale = {
           ADDRESS: 'Dirección',
           CELLPHONE: 'Número de celular',
           SECONDARY_CELLPHONE: 'Número secundario de celular',
-          BIRTH_DATE: 'Fecha de nacimineto',
+          BIRTH_DATE: 'Fecha de nacimiento',
           DATE_ADMISSION: 'Fecha de ingreso',
           SALARY: 'Sueldo',
           EMPLOYEE_TYPE: 'Tipo de empleado',
