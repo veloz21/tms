@@ -37,22 +37,11 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   imageFile: File;
 
   private ngUnsuscribe = new Subject();
-  constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private employeeFB: FormBuilder,
-    public dialog: MatDialog,
-    private translate: TranslateService,
-    private subheaderService: SubheaderService,
-    private cdr: ChangeDetectorRef
-  ) { }
+  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private employeeFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.employee = this.activatedRoute.snapshot.data.employee as EmployeeModel;
-    this.activatedRoute.data.pipe(
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe(data => {
+    this.activatedRoute.data.pipe(takeUntil(this.ngUnsuscribe)).subscribe((data) => {
       this.loadEmployee(data.employee);
     });
   }
@@ -82,7 +71,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       this.subheaderService.setBreadcrumbs([
         { title: this.translate.instant('PAYSHEET.PAYSHEET'), page: `/paysheet` },
         { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EMPLOYEE'), page: `/paysheet/employees` },
-        { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.CREATE_EMPLOYEE'), page: `/paysheet/employees/add` }
+        { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.CREATE_EMPLOYEE'), page: `/paysheet/employees/add` },
       ]);
       return;
     }
@@ -90,7 +79,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.subheaderService.setBreadcrumbs([
       { title: this.translate.instant('PAYSHEET.PAYSHEET'), page: `/paysheet` },
       { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EMPLOYEE'), page: `/paysheet/employees` },
-      { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EDIT_EMPLOYEE'), page: `/paysheet/employees/edit`, queryParams: { id: this.employee.id } }
+      { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EDIT_EMPLOYEE'), page: `/paysheet/employees/edit`, queryParams: { id: this.employee.id } },
     ]);
   }
 
@@ -112,7 +101,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       testExpirationDate: [this.employee.documents.phychophysicistTest.expirationDate],
       testAttachment: [],
       ine: [this.employee.documents.ine.attachmentPath],
-      image: []
+      image: [],
     });
   }
 
@@ -151,9 +140,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     this.hasFormErrors = false;
     const controls = this.employeeForm.controls;
     if (this.employeeForm.invalid) {
-      Object.keys(controls).forEach((controlName) =>
-        controls[controlName].markAsTouched()
-      );
+      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
 
       this.hasFormErrors = true;
       this.selectedTab = 0;
@@ -179,6 +166,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     _employee.firstName = this.employeeForm.get('firstName').value;
     _employee.lastName = this.employeeForm.get('lastName').value;
     _employee.cellphone = this.employeeForm.get('cellphone').value;
+    _employee.type = this.employeeForm.get('type').value;
     _employee.secondaryCellphone = this.employeeForm.get('secondaryCellphone').value;
     _employee.address = this.employeeForm.get('address').value;
     _employee.birthDate = this.employeeForm.get('birthDate').value;
@@ -200,7 +188,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       },
       ine: {
         attachmentPath: this.employeeForm.get('ine').value,
-      }
+      },
     };
     _employee.imagePath = this.employeeForm.get('image').value;
     _employee.status = AVIABILITY_STATUS.AVAILABLE;
@@ -211,11 +199,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   addEmployee(employee: EmployeeModel, withBack: boolean = false) {
     this.loadingSubject.next(true);
     this.store.dispatch(new CreateEmployee({ employee }));
-    this.store.pipe(
-      delay(1000),
-      select(selectLastCreatedEmployeeId),
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe(newId => {
+    this.store.pipe(delay(1000), select(selectLastCreatedEmployeeId), takeUntil(this.ngUnsuscribe)).subscribe((newId) => {
       if (!newId) {
         return;
       }
@@ -234,21 +218,26 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
 
     const updateEmployee: Update<EmployeeModel> = {
       id: _employee.id,
-      changes: _employee
+      changes: _employee,
     };
 
-    this.store.dispatch(new UpdateEmployee({
-      partialEmployee: updateEmployee,
-      employee: _employee
-    }));
+    this.store.dispatch(
+      new UpdateEmployee({
+        partialEmployee: updateEmployee,
+        employee: _employee,
+      })
+    );
 
-    of(undefined).pipe(delay(3000), takeUntil(this.ngUnsuscribe)).subscribe(() => { // Remove this line
-      if (withBack) {
-        this.goBack(_employee.id);
-      } else {
-        this.refreshEmployee(false);
-      }
-    });
+    of(undefined)
+      .pipe(delay(3000), takeUntil(this.ngUnsuscribe))
+      .subscribe(() => {
+        // Remove this line
+        if (withBack) {
+          this.goBack(_employee.id);
+        } else {
+          this.refreshEmployee(false);
+        }
+      });
   }
 
   getComponentTitle() {
