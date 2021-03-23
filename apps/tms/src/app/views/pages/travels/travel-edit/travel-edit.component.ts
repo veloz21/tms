@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -44,7 +38,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   private headerMargin: number;
   private ngUnsuscribe = new Subject();
 
-  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private travelFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private travelService: TravelsService, private typesUtilsService: TypesUtilsService, private cdr: ChangeDetectorRef) { }
+  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private travelFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private travelService: TravelsService, private typesUtilsService: TypesUtilsService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.travel = this.activatedRoute.snapshot.data[' travel '];
@@ -94,15 +88,15 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       this.subheaderService.setBreadcrumbs([
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-          page: `/travel`,
+          page: `/travels`,
         },
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-          page: `/travel/travel`,
+          page: `/travels`,
         },
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE'),
-          page: `/travel/travel/add`,
+          page: `/travels/add`,
         },
       ]);
       return;
@@ -111,15 +105,15 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     this.subheaderService.setBreadcrumbs([
       {
         title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-        page: `/travel`,
+        page: `/travels`,
       },
       {
         title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-        page: `/travel/travel`,
+        page: `/travels`,
       },
       {
         title: this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL'),
-        page: `/travel/travel/edit`,
+        page: `/travels/edit`,
         queryParams: {
           id: this.travel.id,
         },
@@ -199,7 +193,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    url = `/travel/travel`;
+    url = `/travels`;
     this.router.navigateByUrl(url, { relativeTo: this.activatedRoute });
   }
 
@@ -266,10 +260,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       destination: {
         type: 'Point',
         // lng, lat
-        coordinates: [
-          destination.get('lng').value,
-          destination.get('lat').value,
-        ],
+        coordinates: [destination.get('lng').value, destination.get('lat').value],
         // coordinates: [this.travelForm.get('destination').value, this.travelForm.get('destination').value],
       },
     };
@@ -329,16 +320,12 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant(
-      'TRAVEL.TRAVEL.TEXT.CREATE_TITLE'
-    );
+    let result: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE');
     if (!this.travel || !this.travel.id) {
       return result;
     }
 
-    result =
-      this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') +
-      ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
+    result = this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') + ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
     return result;
   }
 
