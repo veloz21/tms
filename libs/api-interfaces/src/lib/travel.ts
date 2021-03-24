@@ -7,10 +7,13 @@ export interface ITravel {
   operator: Partial<IEmployee>;
   box: Partial<IBox>;
   truck: Partial<ITruck>;
+  date: Date;
+  salePrice: number;
+  expenses: number;
   // GeoJson type
   locations: {
-    origin: { type: 'Point', coordinates: number[] },
-    destination: { type: 'Point', coordinates: number[] },
+    origin: { type: 'Point'; coordinates: number[] };
+    destination: { type: 'Point'; coordinates: number[] };
   };
   times: {
     loading: Date;

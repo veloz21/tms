@@ -135,6 +135,7 @@ export const locale = {
           ORIGIN: 'Origin',
           DESTINATION: 'Destination',
           COST: 'Sale price',
+          TRAVEL_DATE: 'Travel date',
           COMMENTS: 'Comments',
           LOAD_TIME: 'Load time',
           DOWNLOAD_TIME: 'Download time',

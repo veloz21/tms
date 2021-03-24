@@ -150,7 +150,9 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       operator: [this.travel.operator],
       box: [this.travel.box],
       truck: [this.travel.truck],
-      cost: [],
+      salesPrice: [this.travel.salePrice],
+      date: [this.travel.date],
+      expense: [this.travel.expenses],
       origin: this.travelFB.group({
         autocomplete: [''],
         lat: [''],
@@ -247,7 +249,8 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     _travel.operator = this.travelForm.get('operator').value;
     _travel.box = this.travelForm.get('box').value;
     _travel.truck = this.travelForm.get('truck').value;
-
+    _travel.salePrice = this.travelForm.get('salesPrice').value;
+    _travel.date = this.travelForm.get('date').value;
     const origin = this.travelForm.get('origin') as FormGroup;
     const destination = this.travelForm.get('destination') as FormGroup;
     _travel.locations = {

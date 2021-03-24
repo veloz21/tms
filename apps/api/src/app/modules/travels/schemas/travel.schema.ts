@@ -13,7 +13,6 @@ export type TravelDocument = Travel & Document;
 
 @Schema()
 export class Travel implements ITravel {
-
   @Prop({ type: EmployeeSchema, default: {} })
   operator: Partial<Employee>;
 
@@ -23,29 +22,39 @@ export class Travel implements ITravel {
   @Prop({ type: TruckSchema, default: {} })
   truck: Partial<Truck>;
 
+  @Prop()
+  date: Date;
+
+  @Prop()
+  salePrice: number;
+
+  @Prop()
+  expenses: number;
+
   // GeoJson type
   @Prop({ type: TravelLocationsSchema, default: {} })
   locations: TravelLocations;
 
-  @Prop(raw({
-    loading: Date,
-    unloading: Date,
-    originArrive: Date,
-    destinationArrive: Date,
-  }))
+  @Prop(
+    raw({
+      loading: Date,
+      unloading: Date,
+      originArrive: Date,
+      destinationArrive: Date,
+    })
+  )
   times: {
-    loading: Date,
-    unloading: Date,
-    originArrive: Date,
-    destinationArrive: Date,
+    loading: Date;
+    unloading: Date;
+    originArrive: Date;
+    destinationArrive: Date;
   };
 
-  @Prop({type: CompanyConfigSchema, default: {}})
-  config: Partial <CompanyConfig>;
+  @Prop({ type: CompanyConfigSchema, default: {} })
+  config: Partial<CompanyConfig>;
 
   @Prop()
   comments: string;
-
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
   company: mongoose.Types.ObjectId;
@@ -60,5 +69,5 @@ TravelSchema.set('toJSON', {
     el.id = el._id;
     delete el._id;
     delete el.company;
-  }
+  },
 });

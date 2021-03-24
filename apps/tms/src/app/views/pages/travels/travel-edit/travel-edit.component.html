@@ -78,7 +78,7 @@
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
                   <mat-label>{{'TRAVEL.TRAVEL.MODEL.COST' | translate}}</mat-label>
                   <span matPrefix>$ &nbsp;</span>
-                  <input matInput matInputCurrency formControlName="cost" type="text"
+                  <input matInput matInputCurrency formControlName="salesPrice" type="text"
                     placeholder="{{'TRAVEL.TRAVEL.MODEL.COST' | translate}}" />
                 </mat-form-field>
               </div>
@@ -151,9 +151,21 @@
               </div>
             </div>
           </div> -->
+          
           <div class="b404-form__group">
             <div class="row">
-              <div class="col-md-6 b404-margin-bottom-10-mobile">
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.TRAVEL_DATE' | translate}}</mat-label>
+                  <input matInput [matDatepicker]="Date"
+                    placeholder="{{'TRAVEL.TRAVEL.MODEL.TRAVEL_DATE' | translate }}" formControlName="date"
+                    required />
+                  <mat-datepicker-toggle matSuffix [for]="Date"></mat-datepicker-toggle>
+                  <mat-datepicker #Date></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-label>{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate}}</mat-label>
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
                   <textarea matInput rows="5" placeholder="{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate }}"

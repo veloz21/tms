@@ -5,15 +5,18 @@ export class TravelModel implements ITravel {
   operator: Partial<IEmployee>;
   box: Partial<IBox>;
   truck: Partial<ITruck>;
+  date: Date;
+  salePrice: number;
+  expenses: number;
   locations: {
     origin: {
-      type: 'Point',
-      coordinates: number[]
-    },
+      type: 'Point';
+      coordinates: number[];
+    };
     destination: {
-      type: 'Point',
-      coordinates: number[]
-    },
+      type: 'Point';
+      coordinates: number[];
+    };
   };
   times: {
     loading: Date;
@@ -27,23 +30,26 @@ export class TravelModel implements ITravel {
     this.operator = (travel && travel.operator) || null;
     this.box = (travel && travel.box) || null;
     this.truck = (travel && travel.truck) || null;
-    this.locations = travel && travel.locations || {
+    this.date = (travel && travel.date) || new Date();
+    this.salePrice = (travel && travel.salePrice) || null;
+    this.expenses = (travel && travel.expenses) || null;
+    this.locations = (travel && travel.locations) || {
       origin: {
         type: 'Point',
         // lng, lat
-        coordinates: []
+        coordinates: [],
       },
       destination: {
         type: 'Point',
         // lng, lat
-        coordinates: []
-      }
+        coordinates: [],
+      },
     };
-    this.times = travel && travel.times || {
+    this.times = (travel && travel.times) || {
       loading: new Date(),
       unloading: new Date(),
       originArrive: new Date(),
-      destinationArrive: new Date()
+      destinationArrive: new Date(),
     };
     this.comments = (travel && travel.comments) || '';
   }
