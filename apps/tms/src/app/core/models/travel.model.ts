@@ -1,4 +1,5 @@
 import { IBox, IEmployee, ITravel, ITruck } from '@bits404/api-interfaces';
+import { TravelStatusModel } from './travel-status.model';
 
 export class TravelModel implements ITravel {
   id: string;
@@ -15,12 +16,8 @@ export class TravelModel implements ITravel {
       coordinates: number[]
     },
   };
-  times: {
-    loading: Date;
-    unloading: Date;
-    originArrive: Date;
-    destinationArrive: Date;
-  };
+  status: Partial<TravelStatusModel>[];
+  currentStatus: string;
   comments: string;
 
   constructor(travel?: Partial<ITravel>) {
@@ -39,12 +36,7 @@ export class TravelModel implements ITravel {
         coordinates: []
       }
     };
-    this.times = travel && travel.times || {
-      loading: new Date(),
-      unloading: new Date(),
-      originArrive: new Date(),
-      destinationArrive: new Date()
-    };
+    this.status = (travel && travel.status) || [];
     this.comments = (travel && travel.comments) || '';
   }
 }

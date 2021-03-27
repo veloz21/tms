@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 import { GetHttpOptions } from '../../core/decorators';
 import { QueryParamsDto } from '../../core/dto';
 import { DbTransactionInterceptor } from '../../core/interceptors';
 import type { HttpOptions } from '../../core/interfaces';
-import { JwtAuthGuard } from '../auth';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateTravelDto } from './dto/create-travel.dto';
 import { UpdateTravelDto } from './dto/update-travel.dto';
 import { TravelsService } from './travels.service';
@@ -14,6 +14,12 @@ import { TravelsService } from './travels.service';
 export class TravelsController {
   constructor(private readonly travelsService: TravelsService) { }
 
+  @Get('status')
+  async getTravelStatus(@GetHttpOptions() options: HttpOptions) {
+    return await this.travelsService.getTravelStatus(options);
+  }
+
+  @UsePipes(new ValidationPipe({ transform: true }))
   @Post()
   async create(@Body() createTravelDto: CreateTravelDto, @GetHttpOptions() options: HttpOptions) {
     return await this.travelsService.create(createTravelDto, options);

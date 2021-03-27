@@ -37,7 +37,7 @@ import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
 import { PartialsModule } from '@tms/partials/partials.module';
 import { travelsReducer } from '@tms/reducers';
-import { TravelResolver } from '@tms/resolvers';
+import { TravelResolver, TravelStatusResolver } from '@tms/resolvers';
 import {
   BoxesService,
   EmployeesService,
@@ -66,6 +66,7 @@ const routes: Routes = [
     component: TravelEditComponent,
     resolve: {
       travel: TravelResolver,
+      travelStatus: TravelStatusResolver,
     },
   },
   {
@@ -128,6 +129,7 @@ const routes: Routes = [
     TravelsService,
     TypesUtilsService,
     TravelResolver,
+    TravelStatusResolver,
     TrucksService,
     BoxesService,
     EmployeesService,

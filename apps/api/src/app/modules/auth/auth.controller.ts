@@ -3,8 +3,11 @@ import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Post, Reque
 import { GetHttpOptions } from '../../core/decorators';
 import { EmailTemplate } from '../../core/enums';
 import { DbTransactionInterceptor } from '../../core/interceptors';
-import { CompanyService, CreateCompanyDto } from '../admin/company';
-import { CreateUserDto, UsersService } from '../admin/users';
+import { CompanyService } from '../admin/company/company.service';
+import { CreateCompanyDto } from '../admin/company/dto/create-company.dto';
+import { CreateUserDto } from '../admin/users/dto/create-user.dto';
+import { UsersService } from '../admin/users/users.service';
+import { TravelsService } from '../travels/travels.service';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
@@ -16,6 +19,7 @@ export class AuthController {
     private authService: AuthService,
     private userService: UsersService,
     private companyService: CompanyService,
+    private travelsService: TravelsService,
     private readonly mailerService: MailerService,
   ) { }
 
@@ -41,7 +45,6 @@ export class AuthController {
   @Post('register')
   @UseInterceptors(DbTransactionInterceptor)
   async register(@Body('company') createCompanyDto: CreateCompanyDto, @Body('user') createUserDto: CreateUserDto, @GetHttpOptions('session') session) {
-
     const company = await this.companyService.create(createCompanyDto, { session });
     if (!company.id) {
       throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
@@ -53,6 +56,7 @@ export class AuthController {
       throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
     }
 
+    await this.travelsService.createDefaultTravelStatus({ company: company.id, session });
     return;
   }
 

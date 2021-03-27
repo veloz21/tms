@@ -58,10 +58,21 @@ export class Employee extends User implements IEmployee {
 }
 
 export const EmployeeSchema = SchemaFactory.createForClass(Employee);
+export const EmployeeSubdocumentSchema = SchemaFactory.createForClass(Employee);
 
 EmployeeSchema.index({ company: 1, firstName: 1, lastName: 1 }, { unique: true });
 
 EmployeeSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, el) {
+    el.id = el._id;
+    delete el._id;
+    delete el.company;
+  }
+});
+
+EmployeeSubdocumentSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: function (doc, el) {

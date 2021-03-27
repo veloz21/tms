@@ -2,7 +2,7 @@ import { IBox } from './box';
 import { IEmployee } from './employee';
 import { ITruck } from './truck';
 
-export interface ICompletedTravel{
+export interface ICompletedTravel {
   id?: any;
   operator: Partial<IEmployee>;
   box: Partial<IBox>;

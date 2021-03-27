@@ -50,18 +50,28 @@ export class Truck implements ITruck {
 
   @Prop()
   imagePath: string;
-  
+
   @Prop({ type: [TireSchema], default: [] })
-  tires: Tire[];
+  tires: Partial<Tire>[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
   company: mongoose.Types.ObjectId;
 }
 
-
 export const TruckSchema = SchemaFactory.createForClass(Truck);
+export const TruckSubdocumentSchema = SchemaFactory.createForClass(Truck);
 
 TruckSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, el) {
+    el.id = el._id;
+    delete el._id;
+    delete el.company;
+  }
+});
+
+TruckSubdocumentSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: function (doc, el) {

@@ -17,7 +17,7 @@ export class TruckModel implements ITruck {
   dock: string;
   status: number;
   imagePath: string;
-  tires: ITire[];
+  tires: Partial<ITire>[];
 
   constructor(truck?: Partial<ITruck>) {
     this.truckModel = truck && truck.truckModel || '';

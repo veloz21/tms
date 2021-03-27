@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CreateTravel, UpdateTravel } from '@tms/actions/travel.actions';
 import { TypesUtilsService } from '@tms/crud';
 import { SubheaderService } from '@tms/layout';
-import { TravelModel } from '@tms/models';
+import { TravelModel, TravelStatusModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedTravelId } from '@tms/selectors/travel.selectors';
 import { TravelsService } from '@tms/services';
@@ -40,6 +40,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   travelForm: FormGroup;
   hasFormErrors = false;
+  companyTravelStatus: Partial<TravelStatusModel>[];
   // sticky portlet header margin
   private headerMargin: number;
   private ngUnsuscribe = new Subject();
@@ -47,7 +48,13 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private travelFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private travelService: TravelsService, private typesUtilsService: TypesUtilsService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.travel = this.activatedRoute.snapshot.data[' travel '];
+    this.travel = this.activatedRoute.snapshot.data.travel;
+    this.companyTravelStatus = this.activatedRoute.snapshot.data.travelStatus.map(ts => new TravelStatusModel({
+      ...ts,
+      date: null,
+      comments: '',
+    }));
+
     this.activatedRoute.data.pipe(takeUntil(this.ngUnsuscribe)).subscribe((data) => {
       this.loadTravel(data.travel);
     });
@@ -152,6 +159,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
+    const status = this.travel.status && this.travel.status.length > 0 ? this.travel.status : this.companyTravelStatus;
     this.travelForm = this.travelFB.group({
       operator: [this.travel.operator],
       box: [this.travel.box],
@@ -167,16 +175,20 @@ export class TravelEditComponent implements OnInit, OnDestroy {
         lat: [],
         lng: [],
       }),
-      loadingDate: [],
-      loadingTime: [],
-      unloadingDate: [],
-      unloadingTime: [],
-      originArriveDate: [],
-      originArriveTime: [],
-      destinationArriveDate: [],
-      destinationArriveTime: [],
+      status: this.travelFB.array([
+        ...status.map(s => this.travelStatus(s))
+      ]),
       comments: [this.travel.comments, []],
     });
+  }
+
+  travelStatus(status: Partial<TravelStatusModel>) {
+    return this.travelFB.group({
+      id: [status.id],
+      date: [status.date || null],
+      name: [status.name],
+      comments: [status.comments || ''],
+    })
   }
 
   goBack(id) {
@@ -238,16 +250,6 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   prepareTravel(): TravelModel {
-    const getDate = (dateName: string, timeName: string) => {
-      const ioDate: Date = this.travelForm.get(dateName).value;
-      if (!ioDate) {
-        return null;
-      }
-      const receptionTime: NgbTimeStruct = this.travelForm.get(timeName).value;
-      ioDate.setHours(receptionTime.hour);
-      ioDate.setMinutes(receptionTime.minute);
-      return ioDate;
-    };
     const _travel = new TravelModel();
     _travel.id = this.travel.id;
     _travel.operator = this.travelForm.get('operator').value;
@@ -273,14 +275,24 @@ export class TravelEditComponent implements OnInit, OnDestroy {
         // coordinates: [this.travelForm.get('destination').value, this.travelForm.get('destination').value],
       },
     };
-    _travel.times = {
-      loading: getDate('loadingDate', 'loadingTime'),
-      unloading: getDate('unloadingDate', 'unloadingTime'),
-      originArrive: getDate('originArriveDate', 'originArriveTime'),
-      destinationArrive: getDate('destinationArriveDate', 'destinationArriveTime'),
-    };
+
+    _travel.status = [];
+    (this.travelForm.get('status') as FormArray).controls.map((statusForm: FormGroup) => {
+      const status = new TravelStatusModel({
+        id: statusForm.get('id').value,
+        date: statusForm.get('date').value,
+        name: statusForm.get('name').value,
+        comments: statusForm.get('comments').value,
+      });
+      _travel.status.push(status);
+    });
+
+    if (_travel.status.length > 0) {
+      _travel.status[0].date = new Date();
+    }
+
+    _travel.currentStatus = _travel.status.length > 0 ? _travel.status[0].id : null;
     _travel.comments = this.travelForm.get('comments').value;
-    console.log(_travel);
     return _travel;
   }
 

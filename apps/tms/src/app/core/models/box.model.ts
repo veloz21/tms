@@ -12,7 +12,7 @@ export class BoxModel implements IBox {
   price: number;
   status: number;
   imagePath: string;
-  tires: ITire[];
+  tires: Partial<ITire>[];
 
   constructor(box?: Partial<IBox>) {
     this.boxModel = box && box.boxModel || '';

@@ -129,6 +129,16 @@ export class TravelEffects {
       map(() => this.hideActionLoadingDistpatcher)
     );
 
+  @Effect()
+  getTravelStatus = this.actions$
+    .pipe(
+      ofType<fromTravelActions.GetTravelStatus>(fromTravelActions.TravelActionTypes.GetTravelStatus),
+      mergeMap(() => {
+        return this.travelsService.getTravelStatus();
+      }),
+      map((travelStatus) => new fromTravelActions.StoreTravelStatus({ travelStatus }))
+    );
+
   constructor(
     private actions$: Actions,
     private travelsService: TravelsService,

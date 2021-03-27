@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type TravelLocationsDocument = TravelLocations & Document;
 
-@Schema()
+@Schema({ _id: false })
 export class TravelLocations {
 
   @Prop(raw({

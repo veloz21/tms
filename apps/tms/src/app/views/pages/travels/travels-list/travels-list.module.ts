@@ -29,7 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
-import { FakeApiService } from '@tms/layout';
+import { CurrentTravelStatusPipe, FakeApiService, NextTravelStatusPipe } from '@tms/layout';
 import { travelsReducer } from '@tms/reducers';
 import { CompleteTravelService, TravelsService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -77,9 +77,9 @@ import { TravelsListComponent } from './travels-list.component';
     ]),
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
-          passThruUnknownUrl: true,
-          dataEncapsulation: false,
-        })
+        passThruUnknownUrl: true,
+        dataEncapsulation: false,
+      })
       : [],
     StoreModule.forFeature('travels', travelsReducer),
     EffectsModule.forFeature([TravelEffects]),
@@ -103,6 +103,6 @@ import { TravelsListComponent } from './travels-list.component';
     CompleteTravelService,
   ],
   entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent],
-  declarations: [TravelsListComponent],
+  declarations: [TravelsListComponent, CurrentTravelStatusPipe, NextTravelStatusPipe],
 })
-export class TravelListModule {}
+export class TravelListModule { }

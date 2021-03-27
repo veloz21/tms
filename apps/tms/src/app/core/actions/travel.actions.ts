@@ -1,7 +1,7 @@
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { QueryParamsModel } from '@tms/crud';
-import { TravelModel } from '@tms/models';
+import { TravelModel, TravelStatusModel } from '@tms/models';
 
 export enum TravelActionTypes {
   CreateTravel = '[Edit Travel Component] Create Travel',
@@ -15,7 +15,9 @@ export enum TravelActionTypes {
   TravelsActionToggleLoading = '[Travels] Travels Action Toggle Loading',
   CreateTravelSuccess = '[Edit Travel Component] Create Truck Success',
   CreateTravelError = '[Edit Travel Component] Create Travel Error',
-  UpdateTravelSuccess = '[Edit Travel Component] Update Travel Success'
+  UpdateTravelSuccess = '[Edit Travel Component] Update Travel Success',
+  GetTravelStatus = '[Edit Travel Component] Get Travel Status',
+  StoreTravelStatus = '[Edit Travel Component] Store Travel Status',
 }
 
 export class CreateTravel implements Action {
@@ -91,6 +93,15 @@ export class TravelsActionToggleLoading implements Action {
   constructor(public payload: { isLoading: boolean }) { }
 }
 
+export class GetTravelStatus implements Action {
+  readonly type = TravelActionTypes.GetTravelStatus;
+}
+
+export class StoreTravelStatus implements Action {
+  readonly type = TravelActionTypes.StoreTravelStatus;
+  constructor(public payload: { travelStatus: TravelStatusModel[] }) { }
+}
+
 export type TravelActions =
   | CreateTravel
   | UpdateTravel
@@ -103,4 +114,6 @@ export type TravelActions =
   | TravelsActionToggleLoading
   | CreateTravelSuccess
   | CreateTravelError
-  | UpdateTravelSuccess;
+  | UpdateTravelSuccess
+  | GetTravelStatus
+  | StoreTravelStatus;

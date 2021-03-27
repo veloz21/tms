@@ -3,7 +3,7 @@ import { GetHttpOptions } from '../../../core/decorators';
 import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
 import type { HttpOptions } from '../../../core/interfaces';
-import { JwtAuthGuard } from '../../auth';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CompleteTravelsService } from './complete-travels.service';
 import { CreateCompleteTravelDto } from './dto/create-complete-travel.dto';
 import { UpdateCompleteTravelDto } from './dto/update-complete-travel.dto';
@@ -12,7 +12,7 @@ import { UpdateCompleteTravelDto } from './dto/update-complete-travel.dto';
 @UseGuards(JwtAuthGuard)
 @UseInterceptors(DbTransactionInterceptor)
 export class CompleteTravelsController {
-  constructor(private readonly completeTravelsService: CompleteTravelsService) {}
+  constructor(private readonly completeTravelsService: CompleteTravelsService) { }
 
   @Post()
   async create(@Body() createCompleteTravelDto: CreateCompleteTravelDto, @GetHttpOptions() options: HttpOptions) {

@@ -63,3 +63,8 @@ export const selectHasTravelsInStore = createSelector(
     return true;
   }
 );
+
+export const selectTravelStatus = createSelector(
+  selectTravelState,
+  (travelsState) => travelsState.travelStatus
+);

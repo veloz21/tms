@@ -3,7 +3,7 @@ import { GetHttpOptions } from '../../../core/decorators';
 import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
 import type { HttpOptions } from '../../../core/interfaces';
-import { JwtAuthGuard } from '../../auth';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { BoxesService } from './boxes.service';
 import { CreateBoxDto } from './dto/create-box.dto';
 import { UpdateBoxDto } from './dto/update-box.dto';
