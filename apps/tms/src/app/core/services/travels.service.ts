@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpUtilsService, QueryParamsModel, QueryResultsModel } from '@tms/crud';
 import { environment } from '@tms/environments/environment';
-import { TravelModel } from '@tms/models';
+import { TravelModel, TravelStatusModel } from '@tms/models';
 import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpService } from './http-service';
@@ -77,5 +77,11 @@ export class TravelsService extends HttpService {
       requests.push(this.deleteTravel(ids[index]));
     }
     return forkJoin(requests);
+  }
+
+  getTravelStatus(): Observable<TravelStatusModel[]> {
+    return this.http.get<TravelStatusModel[]>(`${API_TRAVELS_URL}/status`, this.httpOptions).pipe(
+      catchError(this.handleError('getTravelById'))
+    );
   }
 }

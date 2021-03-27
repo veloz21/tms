@@ -1,7 +1,7 @@
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { QueryParamsModel } from '@tms/crud';
-import { TravelModel } from '@tms/models';
+import { TravelModel, TravelStatusModel } from '@tms/models';
 
 export enum CompleteTravelActionTypes {
   CreateCompleteTravel = '[Edit CompleteTravel Component] Create CompleteTravel ',
@@ -16,6 +16,7 @@ export enum CompleteTravelActionTypes {
   CancellCompleteTravelPage = '[CompleteTravels API] CompleteTravels Page Cancelled',
   CompleteTravelPageToggleLoading = '[CompleteTravels] CompleteTravels Page Toggle Loading',
   CompleteTravelActionToggleLoading = '[CompleteTravels] CompleteTravels Action Toggle Loading',
+  UpdateTravelStatus = '[ListTravel Component] Update Travel Status',
 }
 
 export class CreateCompleteTravel implements Action {
@@ -24,7 +25,7 @@ export class CreateCompleteTravel implements Action {
     public payload: {
       completeTravel: TravelModel;
     }
-  ) {}
+  ) { }
 }
 export class CreateCompleteTravelError implements Action {
   readonly type = CompleteTravelActionTypes.CreateCompleteTravelError;
@@ -32,7 +33,7 @@ export class CreateCompleteTravelError implements Action {
     public payload: {
       isError: any;
     }
-  ) {}
+  ) { }
 }
 
 export class CreateCompleteTravelSuccess implements Action {
@@ -41,7 +42,7 @@ export class CreateCompleteTravelSuccess implements Action {
     public payload: {
       completeTravel: TravelModel;
     }
-  ) {}
+  ) { }
 }
 
 export class UpdateCompleteTravel implements Action {
@@ -51,7 +52,7 @@ export class UpdateCompleteTravel implements Action {
       partialCompleteTravel: Update<TravelModel>; // For State update
       completeTravel: TravelModel; // For Server update (through service)
     }
-  ) {}
+  ) { }
 }
 
 export class UpdateCompleteTravelSuccess implements Action {
@@ -61,22 +62,22 @@ export class UpdateCompleteTravelSuccess implements Action {
       partialCompleteTravel: Update<TravelModel>; // For State update
       completeTravel: TravelModel; // For Server update (through service)
     }
-  ) {}
+  ) { }
 }
 
 export class DeleteOneCompleteTravel implements Action {
   readonly type = CompleteTravelActionTypes.DeleteOneCompleteTravel;
-  constructor(public payload: { id: string }) {}
+  constructor(public payload: { id: string }) { }
 }
 
 export class DeleteManyCompleteTravels implements Action {
   readonly type = CompleteTravelActionTypes.DeleteManyCompleteTravels;
-  constructor(public payload: { ids: string[] }) {}
+  constructor(public payload: { ids: string[] }) { }
 }
 
 export class RequestCompleteTravelPage implements Action {
   readonly type = CompleteTravelActionTypes.RequestCompleteTravelsPage;
-  constructor(public payload: { page: QueryParamsModel }) {}
+  constructor(public payload: { page: QueryParamsModel }) { }
 }
 
 export class LoadCompleteTravelPage implements Action {
@@ -87,7 +88,7 @@ export class LoadCompleteTravelPage implements Action {
       totalCount: number;
       page: QueryParamsModel;
     }
-  ) {}
+  ) { }
 }
 
 export class CancellCompleteTravelPage implements Action {
@@ -100,7 +101,7 @@ export class CompleteTravelPageToggleLoading implements Action {
     public payload: {
       isLoading: boolean;
     }
-  ) {}
+  ) { }
 }
 
 export class CompleteTravelActionToggleLoading implements Action {
@@ -109,19 +110,25 @@ export class CompleteTravelActionToggleLoading implements Action {
     public payload: {
       isLoading: boolean;
     }
-  ) {}
+  ) { }
 }
 
-export type CompleteTravelActions = 
-| CreateCompleteTravel 
-| UpdateCompleteTravel 
-| DeleteOneCompleteTravel 
-| DeleteManyCompleteTravels 
-| RequestCompleteTravelPage 
-| LoadCompleteTravelPage 
-| CancellCompleteTravelPage 
-| CompleteTravelPageToggleLoading 
-| CompleteTravelActionToggleLoading 
-| CreateCompleteTravelError 
-| CreateCompleteTravelSuccess 
-| UpdateCompleteTravelSuccess;
+export class UpdateTravelStatus implements Action {
+  readonly type = CompleteTravelActionTypes.UpdateTravelStatus;
+  constructor(public payload: { travelId: string, status: TravelStatusModel }) { }
+}
+
+export type CompleteTravelActions =
+  | CreateCompleteTravel
+  | UpdateCompleteTravel
+  | DeleteOneCompleteTravel
+  | DeleteManyCompleteTravels
+  | RequestCompleteTravelPage
+  | LoadCompleteTravelPage
+  | CancellCompleteTravelPage
+  | CompleteTravelPageToggleLoading
+  | CompleteTravelActionToggleLoading
+  | CreateCompleteTravelError
+  | CreateCompleteTravelSuccess
+  | UpdateCompleteTravelSuccess
+  | UpdateTravelStatus;

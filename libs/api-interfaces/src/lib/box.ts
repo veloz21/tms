@@ -11,5 +11,5 @@ export interface IBox {
   price: number;
   status: number;
   imagePath: string;
-  tires: ITire[];
+  tires: Partial<ITire>[];
 }

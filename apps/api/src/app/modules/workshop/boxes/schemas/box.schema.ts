@@ -38,17 +38,28 @@ export class Box implements IBox {
   imagePath: string;
 
   @Prop({ type: [TireSchema], default: [] })
-  tires: Tire[]
+  tires: Partial<Tire>[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
   company: mongoose.Types.ObjectId;
 }
 
 export const BoxSchema = SchemaFactory.createForClass(Box);
+export const BoxSubdocumentSchema = SchemaFactory.createForClass(Box);
 
 BoxSchema.index({ company: 1, serialNumber: 1 }, { unique: true });
 
 BoxSchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, el) {
+    el.id = el._id;
+    delete el._id;
+    delete el.company;
+  }
+});
+
+BoxSubdocumentSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: function (doc, el) {

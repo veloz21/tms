@@ -1,5 +1,6 @@
 import { IBox } from './box';
 import { IEmployee } from './employee';
+import { ITravelStatus } from './travel-status';
 import { ITruck } from './truck';
 
 export interface ITravel {
@@ -12,11 +13,7 @@ export interface ITravel {
     origin: { type: 'Point', coordinates: number[] },
     destination: { type: 'Point', coordinates: number[] },
   };
-  times: {
-    loading: Date;
-    unloading: Date;
-    originArrive: Date;
-    destinationArrive: Date;
-  };
+  status: Partial<ITravelStatus>[];
+  currentStatus: any;
   comments: string;
 }

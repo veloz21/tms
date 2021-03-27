@@ -16,5 +16,5 @@ export interface ITruck {
   dock: string;
   status: number;
   imagePath: string;
-  tires: ITire[];
+  tires: Partial<ITire>[];
 }

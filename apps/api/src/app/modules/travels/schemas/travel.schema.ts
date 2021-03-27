@@ -1,53 +1,46 @@
 import { ITravel } from '@bits404/api-interfaces';
-import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Company } from '../../admin/company';
 import { CompanyConfig, CompanyConfigSchema } from '../../admin/company/schemas/company.config.schemas';
-import { Employee, EmployeeSchema } from '../../admin/employees';
-import { Box, BoxSchema } from '../../workshop/boxes';
-import { Truck, TruckSchema } from '../../workshop/trucks';
+import { Employee, EmployeeSubdocumentSchema } from '../../admin/employees/schemas/employee.schema';
+import { Box, BoxSubdocumentSchema } from '../../workshop/boxes';
+import { Truck, TruckSubdocumentSchema } from '../../workshop/trucks';
 import { TravelLocations, TravelLocationsSchema } from './travel-locations.schema';
+import { TravelStatus, TravelStatusSubdocumentSchema } from './travel-status.schema';
 
 export type TravelDocument = Travel & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Travel implements ITravel {
 
-  @Prop({ type: EmployeeSchema, default: {} })
+  @Prop({ type: EmployeeSubdocumentSchema, default: {} })
   operator: Partial<Employee>;
 
-  @Prop({ type: BoxSchema, default: {} })
+  @Prop({ type: BoxSubdocumentSchema, default: {} })
   box: Partial<Box>;
 
-  @Prop({ type: TruckSchema, default: {} })
+  @Prop({ type: TruckSubdocumentSchema, default: {} })
   truck: Partial<Truck>;
 
   // GeoJson type
   @Prop({ type: TravelLocationsSchema, default: {} })
   locations: TravelLocations;
 
-  @Prop(raw({
-    loading: Date,
-    unloading: Date,
-    originArrive: Date,
-    destinationArrive: Date,
-  }))
-  times: {
-    loading: Date,
-    unloading: Date,
-    originArrive: Date,
-    destinationArrive: Date,
-  };
+  @Prop({ type: [TravelStatusSubdocumentSchema], default: {} })
+  status: Partial<TravelStatus>[];
 
-  @Prop({type: CompanyConfigSchema, default: {}})
-  config: Partial <CompanyConfig>;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: TravelStatus.name })
+  currentStatus: mongoose.Types.ObjectId | string;
+
+  @Prop({ type: CompanyConfigSchema, default: {} })
+  config: Partial<CompanyConfig>;
 
   @Prop()
   comments: string;
 
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name, required: true })
   company: mongoose.Types.ObjectId;
 }
 

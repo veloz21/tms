@@ -6,12 +6,12 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { CreateCompleteTravel } from '@tms/actions/completeTravel.actions';
+import { CreateCompleteTravel, UpdateTravelStatus } from '@tms/actions/completeTravel.actions';
 import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage } from '@tms/actions/travel.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TravelsDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
-import { TravelModel } from '@tms/models';
+import { TravelModel, TravelStatusModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTravelsPageLastQuery } from '@tms/selectors/travel.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
@@ -28,7 +28,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   // Table fields
   showed: boolean;
   dataSource: TravelsDataSource;
-  displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'LoadTime', 'DownloadTime', 'ArriveTime', 'ArriveCustomerTime', 'Status', 'Actions'];
+  displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'Status', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -42,7 +42,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private ngUnsuscribe = new Subject();
 
-  constructor(public dialog: MatDialog, private translate: TranslateService, private activatedRoute: ActivatedRoute, private subheaderService: SubheaderService, private layoutUtilsService: LayoutUtilsService, private store: Store<AppState>) {}
+  constructor(public dialog: MatDialog, private translate: TranslateService, private activatedRoute: ActivatedRoute, private subheaderService: SubheaderService, private layoutUtilsService: LayoutUtilsService, private store: Store<AppState>) { }
 
   ngOnInit() {
     this.showed = false;
@@ -228,5 +228,16 @@ export class TravelsListComponent implements OnInit, OnDestroy {
     } else {
       this.travelsResult.forEach((row) => this.selection.select(row));
     }
+  }
+
+  updateStatus(travel: TravelModel) {
+    const currentStatusIndex = travel.status.findIndex(s => s.id === travel.currentStatus);
+    const nextStatus = travel.status[currentStatusIndex + 1];
+    const status = new TravelStatusModel({
+      ...nextStatus,
+      date: new Date(),
+      comments: '',
+    });
+    this.store.dispatch(new UpdateTravelStatus({ travelId: travel.id, status }));
   }
 }

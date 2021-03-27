@@ -2,7 +2,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector } from '@ngrx/store';
 import { TravelActions, TravelActionTypes } from '@tms/actions/travel.actions';
 import { QueryParamsModel } from '@tms/crud';
-import { TravelModel } from '@tms/models';
+import { TravelModel, TravelStatusModel } from '@tms/models';
 
 export interface TravelsState extends EntityState<TravelModel> {
   listLoading: boolean;
@@ -11,6 +11,7 @@ export interface TravelsState extends EntityState<TravelModel> {
   lastQuery: QueryParamsModel;
   lastCreatedTravelId: string;
   showInitWaitingMessage: boolean;
+  travelStatus: TravelStatusModel[];
 }
 
 export const adapter: EntityAdapter<TravelModel> = createEntityAdapter<TravelModel>();
@@ -22,6 +23,7 @@ export const initialTravelsState: TravelsState = adapter.getInitialState({
   lastQuery: new QueryParamsModel({}),
   lastCreatedTravelId: undefined,
   showInitWaitingMessage: true,
+  travelStatus: [],
 });
 
 export function travelsReducer(
@@ -59,12 +61,17 @@ export function travelsReducer(
       };
     case TravelActionTypes.LoadTravelsPage:
       return adapter.addMany(action.payload.travel, {
-        ...initialTravelsState,
+        ...state,
         totalCount: action.payload.totalCount,
         listLoading: false,
         lastQuery: action.payload.page,
         showInitWaitingMessage: false,
       });
+    case TravelActionTypes.StoreTravelStatus:
+      return {
+        ...state,
+        travelStatus: action.payload.travelStatus,
+      }
     default:
       return state;
   }
