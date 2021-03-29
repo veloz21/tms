@@ -1,7 +1,7 @@
 <ng-container *ngIf="multiple ; else elseTemplate">
   <mat-chip-list class="autocomplete autocomplete--multiple" #chipListModel>
     <mat-chip *ngFor="let model of selectedModels" (removed)="removeModelChip(model)"
-      matTooltip="{{ model.serialNumber }} | {{ model.model || model.brand }}">
+      matTooltip="{{ model.nickname }} | {{ model.serialNumber}}">
       {{ model.serialNumber }}
       <mat-icon *ngIf="!disabled" matChipRemove>cancel</mat-icon>
     </mat-chip>
@@ -22,8 +22,8 @@
     </mat-option>
     <ng-container *ngFor="let model of models$ | async">
       <mat-option *ngIf="!(loading$ | async)" [value]="model"
-        matTooltip="{{ model.serialNumber }} | {{ model.model || model.brand }}" (onSelectionChange)="selectedModel(model)">
-        {{ model.serialNumber }} | {{ model.model || model.brand || '' }}
+        matTooltip="{{ model.nickname }} | {{ model.serialNumber}}" (onSelectionChange)="selectedModel(model)">
+        {{ model.nickname }} | {{ model.serialNumber }}
       </mat-option>
     </ng-container>
   </mat-autocomplete>
@@ -43,9 +43,9 @@
         No se encontraron Camiones
       </mat-option>
       <ng-container *ngFor="let model of models$ | async">
-        <mat-option *ngIf="!(loading$ | async)" matTooltip="{{ model.serialNumber }} | {{ model.model || model.brand}}"
+        <mat-option *ngIf="!(loading$ | async)" matTooltip="{{ model.nickname }} | {{ model.serialNumber}}"
           [value]="model" (onSelectionChange)="selectedModel(model)">
-          {{ model.serialNumber }} | {{ model.model || model.brand || '' }}
+          {{ model.nickname }} | {{ model.serialNumber}}
         </mat-option>
       </ng-container>
     </mat-autocomplete>

@@ -8,6 +8,7 @@ export interface ITravel {
   operator: Partial<IEmployee>;
   box: Partial<IBox>;
   truck: Partial<ITruck>;
+  salePrice: number;
   // GeoJson type
   locations: {
     origin: { type: 'Point', coordinates: number[] },

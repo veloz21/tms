@@ -36,7 +36,7 @@
 			</mat-option>
 			<ng-container *ngFor="let model of models$ | async">
 				<mat-option *ngIf="!(loading$ | async)" matTooltip="{{ model.firstName }} | {{ model.lastName }}" [value]="model" (onSelectionChange)="selectedModel(model)">
-					{{ model.id }} | {{ model.firstName || '' }}
+					{{ model.firstName }} | {{ model.type }}
 				</mat-option>
 			</ng-container>
 		</mat-autocomplete>

@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -101,15 +95,15 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       this.subheaderService.setBreadcrumbs([
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-          page: `/travel`,
+          page: `/travels`,
         },
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-          page: `/travel/travel`,
+          page: `/travels`,
         },
         {
           title: this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE'),
-          page: `/travel/travel/add`,
+          page: `/travels/add`,
         },
       ]);
       return;
@@ -118,15 +112,15 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     this.subheaderService.setBreadcrumbs([
       {
         title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-        page: `/travel`,
+        page: `/travels`,
       },
       {
         title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
-        page: `/travel/travel`,
+        page: `/travels`,
       },
       {
         title: this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL'),
-        page: `/travel/travel/edit`,
+        page: `/travels/edit`,
         queryParams: {
           id: this.travel.id,
         },
@@ -164,7 +158,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       operator: [this.travel.operator],
       box: [this.travel.box],
       truck: [this.travel.truck],
-      cost: [],
+      salePrice: [this.travel.salePrice],
       origin: this.travelFB.group({
         autocomplete: [''],
         lat: [''],
@@ -211,7 +205,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    url = `/travel/travel`;
+    url = `/travels`;
     this.router.navigateByUrl(url, { relativeTo: this.activatedRoute });
   }
 
@@ -255,7 +249,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     _travel.operator = this.travelForm.get('operator').value;
     _travel.box = this.travelForm.get('box').value;
     _travel.truck = this.travelForm.get('truck').value;
-
+    _travel.salePrice = this.travelForm.get('salePrice').value;
     const origin = this.travelForm.get('origin') as FormGroup;
     const destination = this.travelForm.get('destination') as FormGroup;
     _travel.locations = {
@@ -268,10 +262,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       destination: {
         type: 'Point',
         // lng, lat
-        coordinates: [
-          destination.get('lng').value,
-          destination.get('lat').value,
-        ],
+        coordinates: [destination.get('lng').value, destination.get('lat').value],
         // coordinates: [this.travelForm.get('destination').value, this.travelForm.get('destination').value],
       },
     };
@@ -341,16 +332,12 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant(
-      'TRAVEL.TRAVEL.TEXT.CREATE_TITLE'
-    );
+    let result: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE');
     if (!this.travel || !this.travel.id) {
       return result;
     }
 
-    result =
-      this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') +
-      ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
+    result = this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') + ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
     return result;
   }
 

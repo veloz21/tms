@@ -6,6 +6,7 @@ export class TravelModel implements ITravel {
   operator: Partial<IEmployee>;
   box: Partial<IBox>;
   truck: Partial<ITruck>;
+  salePrice: number;
   locations: {
     origin: {
       type: 'Point',
@@ -24,17 +25,18 @@ export class TravelModel implements ITravel {
     this.operator = (travel && travel.operator) || null;
     this.box = (travel && travel.box) || null;
     this.truck = (travel && travel.truck) || null;
-    this.locations = travel && travel.locations || {
+    this.salePrice = (travel && travel.salePrice) || null;
+    this.locations = (travel && travel.locations) || {
       origin: {
         type: 'Point',
         // lng, lat
-        coordinates: []
+        coordinates: [],
       },
       destination: {
         type: 'Point',
         // lng, lat
-        coordinates: []
-      }
+        coordinates: [],
+      },
     };
     this.status = (travel && travel.status) || [];
     this.comments = (travel && travel.comments) || '';

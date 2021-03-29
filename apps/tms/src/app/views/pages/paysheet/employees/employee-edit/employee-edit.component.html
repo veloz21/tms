@@ -111,17 +111,16 @@
                   <mat-datepicker #dateofAdmission></mat-datepicker>
                 </mat-form-field>
               </div>
+
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
                   <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate}}</mat-label>
-                  <input matInput placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}" type="number"
-                    formControlName="salary_total" required>
-                  <mat-error>
-                    {{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-                  </mat-error>
+                  <span matPrefix>$ &nbsp;</span>
+                  <input matInput matInputCurrency formControlName="salary_total" type="text"
+                    placeholder="{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | translate}}" />
                 </mat-form-field>
               </div>
+
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
                   <mat-label>{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | translate}}</mat-label>

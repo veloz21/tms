@@ -24,6 +24,9 @@ export class Travel implements ITravel {
   @Prop({ type: TruckSubdocumentSchema, default: {} })
   truck: Partial<Truck>;
 
+  @Prop()
+  salePrice: number;
+
   // GeoJson type
   @Prop({ type: TravelLocationsSchema, default: {} })
   locations: TravelLocations;
@@ -53,5 +56,5 @@ TravelSchema.set('toJSON', {
     el.id = el._id;
     delete el._id;
     delete el.company;
-  }
+  },
 });
