@@ -25,6 +25,7 @@ export class CreateTravelDto extends BaseDBObject implements ITravel {
   @Type(() => TravelStatusDto)
   status: TravelStatusDto[];
 
+  salePrice: number;
   currentStatus: string;
   comments: string;
 }

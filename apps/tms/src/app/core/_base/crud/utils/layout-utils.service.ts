@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActionNotificationComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '@tms/partials/content/crud';
 import { DeleteDialogComponent } from '@tms/shared/dialogs/delete-dialog/delete-dialog.component';
 import { ErrorDialogComponent } from '@tms/shared/dialogs/error-dialog/error-dialog.component';
-import { InfoDialogComponent } from '@tms/shared/dialogs/info-dialog/info-dialog.component';
+import { DialogOptions } from '../../../../views/shared/dialogs/dialog-options.interface';
 
 export enum MessageType {
   Create,
@@ -44,22 +44,24 @@ export class LayoutUtilsService {
       verticalPosition: _verticalPosition
     });
   }
-  deleteElement(title: string = '', description: string = '', waitDesciption: string = '') {
+
+  deleteElement(dialogOptions: DialogOptions) {
     return this.dialog.open(DeleteDialogComponent, {
-      data: { title, description, waitDesciption, },
+      data: dialogOptions,
       width: '440px'
     });
   }
 
-  infoElement(title: string = '', description: string = '') {
-    return this.dialog.open(InfoDialogComponent, {
-      data: { title, description },
-      width: '440px'
-    });
+  infoElement(dialogOptions: DialogOptions) {
+    // return this.dialog.open(InfoDialogComponent, {
+    //   data: dialogOptions,
+    //   width: '440px'
+    // });
   }
-  errorElement(title: string = '', description: string = '') {
+
+  errorElement(dialogOptions: DialogOptions) {
     return this.dialog.open(ErrorDialogComponent, {
-      data: { title, description },
+      data: dialogOptions,
       width: '440px'
     });
   }

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { DialogOptions } from '../dialog-options.interface';
 
 @Component({
   selector: 'b404-info-dialog',
@@ -10,18 +10,19 @@ import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 export class InfoDialogComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<ErrorDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    public dialogRef: MatDialogRef<InfoDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogOptions
   ) { }
 
   ngOnInit() {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
   onYesClick(): void {
     this.dialogRef.close(true);
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 }

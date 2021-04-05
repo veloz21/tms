@@ -5,7 +5,7 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,7 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   DeleteManyTrucks,
   DeleteOneTruck,
-  RequestTrucksPage,
+  RequestTrucksPage
 } from '@tms/actions/truck.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TrucksDataSource } from '@tms/data-sources';
@@ -31,7 +31,7 @@ import {
   distinctUntilChanged,
   skip,
   takeUntil,
-  tap,
+  tap
 } from 'rxjs/operators';
 
 @Component({
@@ -74,7 +74,7 @@ export class TrucksListComponent implements OnInit, OnDestroy {
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
     private store: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.
@@ -183,24 +183,11 @@ export class TrucksListComponent implements OnInit, OnDestroy {
   }
 
   deleteTruck(_item: TruckModel) {
-    const _title: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.DELETE_ONE_TITLE'
-    );
-    const _description: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.DELETE_ONE_DESCRIPTION'
-    );
-    const _waitDesciption: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.DELETE_ONE_WAIT'
-    );
-    const _deleteMessage: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.DELETE_ONE_MESSAGE'
-    );
+    const title: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_ONE_TITLE');
+    const description: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_ONE_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_ONE_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(
-      _title,
-      _description,
-      _waitDesciption
-    );
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef
       .afterClosed()
       .pipe(takeUntil(this.ngUnsuscribe))
@@ -211,31 +198,18 @@ export class TrucksListComponent implements OnInit, OnDestroy {
 
         this.store.dispatch(new DeleteOneTruck({ id: _item.id }));
         this.layoutUtilsService.showActionNotification(
-          _deleteMessage,
+          deleteMessage,
           MessageType.Delete
         );
       });
   }
 
   deleteTrucks() {
-    const _title: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.DELETE_MANY_TITLE'
-    );
-    const _description: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.DELETE_MANY_DESCRIPTION'
-    );
-    const _waitDesciption: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.DELETE_MANY_WAIT'
-    );
-    const _deleteMessage: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.DELETE_MANY_MESSAGE'
-    );
+    const title: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_MANY_TITLE');
+    const description: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_MANY_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('WORKSHOP.TRUCK.TEXT.DELETE_MANY_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(
-      _title,
-      _description,
-      _waitDesciption
-    );
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef
       .afterClosed()
       .pipe(takeUntil(this.ngUnsuscribe))
@@ -251,7 +225,7 @@ export class TrucksListComponent implements OnInit, OnDestroy {
         }
         this.store.dispatch(new DeleteManyTrucks({ ids: idsForDeletion }));
         this.layoutUtilsService.showActionNotification(
-          _deleteMessage,
+          deleteMessage,
           MessageType.Delete
         );
         this.selection.clear();

@@ -158,29 +158,27 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   }
 
   deleteTravel(_item: TravelModel) {
-    const _title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_TITLE');
-    const _description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
-    const _waitDesciption: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_WAIT');
-    const _deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_MESSAGE');
+    const title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_TITLE');
+    const description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
       }
 
       this.store.dispatch(new DeleteOneTravel({ id: _item.id }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
     });
   }
 
   deleteTravels() {
-    const _title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_TITLE');
-    const _description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_DESCRIPTION');
-    const _waitDesciption: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_WAIT');
-    const _deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_MESSAGE');
+    const title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_TITLE');
+    const description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
@@ -192,18 +190,17 @@ export class TravelsListComponent implements OnInit, OnDestroy {
         idsForDeletion.push(this.selection.selected[i].id);
       }
       this.store.dispatch(new DeleteManyTravels({ ids: idsForDeletion }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
       this.selection.clear();
     });
   }
 
   doneTravel(travel: TravelModel) {
-    const _title: string = this.translate.instant('Terminar viaje');
-    const _description: string = this.translate.instant('¿Estas seguro de que quieres terminar este viaje?');
-    const _waitDesciption: string = this.translate.instant('Esperando');
-    const _deleteMessage: string = this.translate.instant('Viaje Terminado');
+    const title: string = this.translate.instant('Terminar viaje');
+    const description: string = this.translate.instant('¿Estas seguro de que quieres terminar este viaje?');
+    const deleteMessage: string = this.translate.instant('Viaje Terminado');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
@@ -211,7 +208,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
       console.log(travel);
       this.store.dispatch(new CreateCompleteTravel({ completeTravel: travel }));
       this.store.dispatch(new DeleteOneTravel({ id: travel.id }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
       console.log('si termine');
     });
   }

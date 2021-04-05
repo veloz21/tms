@@ -161,29 +161,27 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   }
 
   deleteEmployee(_item: EmployeeModel) {
-    const _title: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_TITLE');
-    const _description: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_DESCRIPTION');
-    const _waitDesciption: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_WAIT');
-    const _deleteMessage: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_MESSAGE');
+    const title: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_TITLE');
+    const description: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(takeUntil(this.ngUnsuscribe)).subscribe(res => {
       if (!res) {
         return;
       }
 
       this.store.dispatch(new DeleteOneEmployee({ id: _item.id }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
     });
   }
 
   deleteEmployees() {
-    const _title: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_TITLE');
-    const _description: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_DESCRIPTION');
-    const _waitDesciption: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_WAIT');
-    const _deleteMessage: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_MESSAGE');
+    const title: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_TITLE');
+    const description: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(takeUntil(this.ngUnsuscribe)).subscribe(res => {
       if (!res) {
         return;
@@ -195,7 +193,7 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
         idsForDeletion.push(this.selection.selected[i].id);
       }
       this.store.dispatch(new DeleteManyEmployees({ ids: idsForDeletion }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
       this.selection.clear();
     });
   }

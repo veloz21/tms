@@ -163,12 +163,11 @@ export class TiresListComponent implements OnInit, OnDestroy {
   }
 
   deleteTire(_item: TireModel) {
-    const _title = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_TITLE');
-    const _description = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_DESCRIPTION');
-    const _waitDesciption = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_WAIT');
-    const _deleteMessage = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_MESSAGE');
+    const title = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_TITLE');
+    const description = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_DESCRIPTION');
+    const deleteMessage = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe(res => {
@@ -177,17 +176,16 @@ export class TiresListComponent implements OnInit, OnDestroy {
       }
 
       this.store.dispatch(new DeleteOneTire({ id: _item.id }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
     });
   }
 
   deleteTires() {
-    const _title = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_TITLE');
-    const _description = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_DESCRIPTION');
-    const _waitDesciption = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_WAIT');
-    const _deleteMessage = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_MESSAGE');
+    const title = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_TITLE');
+    const description = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_DESCRIPTION');
+    const deleteMessage = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe(res => {
@@ -201,7 +199,7 @@ export class TiresListComponent implements OnInit, OnDestroy {
         idsForDeletion.push(this.selection.selected[i].id);
       }
       this.store.dispatch(new DeleteManyTires({ ids: idsForDeletion }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
       this.selection.clear();
     });
   }

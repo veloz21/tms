@@ -41,7 +41,7 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private ngUnsuscribe = new Subject();
 
-  constructor(public dialog: MatDialog, private translate: TranslateService, private activatedRoute: ActivatedRoute, private subheaderService: SubheaderService, private layoutUtilsService: LayoutUtilsService, private store: Store<AppState>) {}
+  constructor(public dialog: MatDialog, private translate: TranslateService, private activatedRoute: ActivatedRoute, private subheaderService: SubheaderService, private layoutUtilsService: LayoutUtilsService, private store: Store<AppState>) { }
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.
@@ -156,29 +156,27 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
   }
 
   deleteTravel(_item: TravelModel) {
-    const _title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_TITLE');
-    const _description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
-    const _waitDesciption: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_WAIT');
-    const _deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_MESSAGE');
+    const title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_TITLE');
+    const description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
       }
 
       this.store.dispatch(new DeleteOneCompleteTravel({ id: _item.id }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
     });
   }
 
   deleteTravels() {
-    const _title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_TITLE');
-    const _description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_DESCRIPTION');
-    const _waitDesciption: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_WAIT');
-    const _deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_MESSAGE');
+    const title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_TITLE');
+    const description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {
       if (!res) {
         return;
@@ -190,7 +188,7 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
         idsForDeletion.push(this.selection.selected[i].id);
       }
       this.store.dispatch(new DeleteManyCompleteTravels({ ids: idsForDeletion }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
       this.selection.clear();
     });
   }

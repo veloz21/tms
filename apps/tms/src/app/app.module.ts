@@ -23,7 +23,6 @@ import {
 } from '@tms/layout';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgAisModule } from 'angular-instantsearch';
-import 'hammerjs';
 import { InlineSVGModule } from 'ng-inline-svg';
 import {
   PerfectScrollbarConfigInterface,

@@ -1,30 +1,10 @@
-<div class="m-portlet">
-  <div class="m-portlet__head" *ngIf="data.title != ''">
-    <div class="m-portlet__head-caption">
-      <div class="m-portlet__head-title">
-        <span class="m-portlet__head-icon m--hide">
-          <i class="la la-gear"></i>
-        </span>
-        <h3 class="m-portlet__head-text">
-          {{data.title}}
-        </h3>
-      </div>
-    </div>
-  </div>
-  <div class="m-form">
-    <div class="m-portlet__body" *ngIf="data.description != ''">
-      <div class="form-group m-form__group row">
-        <div class="col-lg-12">
-          {{data.description}}
-        </div>
-      </div>
-    </div>
-    <div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit text-right">
-      <div class="m-form__actions m-form__actions--sm">
-        <button mat-button (click)="onNoClick()">{{ data.btnCancelDesciption || 'Cancelar' }}</button>&nbsp;
-        <button mat-button (click)="onYesClick()" color="primary"
-          cdkFocusInitial>{{ data.btnDesciption || 'Aceptar' }}</button>
-      </div>
-    </div>
-  </div>
-</div>
+<h2 mat-dialog-title *ngIf="data.title">{{ data.title }}</h2>
+<mat-dialog-content class="mat-typography">
+  {{ data.description || '' }}
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="onNoClick()">{{ data.btnCancelDescription || 'Cancelar' }}</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onYesClick()" color="primary">
+    {{ data.btnDescription || 'Eliminar' }}
+  </button>
+</mat-dialog-actions>

@@ -3,6 +3,7 @@ import { GetHttpOptions } from '../../core/decorators';
 import { QueryParamsDto } from '../../core/dto';
 import { DbTransactionInterceptor } from '../../core/interceptors';
 import type { HttpOptions } from '../../core/interfaces';
+import { stringToMongoId } from '../../core/utils';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateTravelDto } from './dto/create-travel.dto';
 import { UpdateTravelDto } from './dto/update-travel.dto';
@@ -32,16 +33,16 @@ export class TravelsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    return await this.travelsService.findOne(id, options);
+    return await this.travelsService.findOne(stringToMongoId(id), options);
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateTravelDto: UpdateTravelDto, @GetHttpOptions() options: HttpOptions) {
-    return await this.travelsService.update(id, updateTravelDto, options);
+    return await this.travelsService.update(stringToMongoId(id), updateTravelDto, options);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    return await this.travelsService.remove(id, options);
+    return await this.travelsService.remove(stringToMongoId(id), options);
   }
 }

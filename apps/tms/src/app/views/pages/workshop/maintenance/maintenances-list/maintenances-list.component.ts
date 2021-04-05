@@ -147,12 +147,11 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
   }
 
   deleteMaintenance(_item: MaintenanceModel) {
-    const _title: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_TITLE');
-    const _description: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_DESCRIPTION');
-    const _waitDesciption: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_WAIT');
-    const _deleteMessage: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_MESSAGE');
+    const title: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_TITLE');
+    const description: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(
       takeUntil(this.ngUnsuscribe)
     ).subscribe(res => {
@@ -161,17 +160,16 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
       }
 
       this.store.dispatch(new DeleteOneMaintenance({ id: _item.id }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
     });
   }
 
   deleteMaintenances() {
-    const _title: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_TITLE');
-    const _description: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_DESCRIPTION');
-    const _waitDesciption: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_WAIT');
-    const _deleteMessage: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_MESSAGE');
+    const title: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_TITLE');
+    const description: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_MESSAGE');
 
-    const dialogRef = this.layoutUtilsService.deleteElement(_title, _description, _waitDesciption);
+    const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(
       takeUntil(this.ngUnsuscribe)
     ).subscribe(res => {
@@ -185,7 +183,7 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
         idsForDeletion.push(this.selection.selected[i].id);
       }
       this.store.dispatch(new DeleteManyMaintenances({ ids: idsForDeletion }));
-      this.layoutUtilsService.showActionNotification(_deleteMessage, MessageType.Delete);
+      this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
       this.selection.clear();
     });
   }

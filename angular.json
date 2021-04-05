@@ -46,7 +46,11 @@
               "includePaths": [
                 "apps/tms/src/assets"
               ]
-            }
+            },
+            "allowedCommonJsDependencies": [
+              "object-path",
+              "lodash"
+            ]
           },
           "configurations": {
             "production": {
