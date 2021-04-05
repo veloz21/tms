@@ -25,7 +25,6 @@ import { RouterModule } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
@@ -36,6 +35,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../partials/content/crud';
 import { PartialsModule } from '../../../partials/partials.module';
+import { SharedModule } from '../../../shared/shared.module';
 import { CompleteTravelModule } from '../completeTravel/completeTravel.module';
 import { ChangeStatusDialogComponent } from '../components/change-status-dialog/change-status-dialog.component';
 import { ChangeStatusDialogModule } from '../components/change-status-dialog/change-status-dialog.module';
@@ -49,7 +49,6 @@ import { TravelsListComponent } from './travels-list.component';
     NgxPermissionsModule.forChild(),
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule.forChild(),
     MatButtonModule,
     MatMenuModule,
     MatSelectModule,
@@ -85,6 +84,7 @@ import { TravelsListComponent } from './travels-list.component';
       : [],
     StoreModule.forFeature('travels', travelsReducer),
     EffectsModule.forFeature([TravelEffects]),
+    SharedModule,
   ],
   providers: [
     {

@@ -100,9 +100,9 @@ export const locale = {
       INPUTS: {
         SEARCH: 'Search',
         SEARCH_IN_ALL_FIELDS: 'Search in all fields',
-      },
+      }
     },
-    TRAVEL: {
+    TRAVELS: {
       COMPLETETRAVEL: {
         TEXT: {
           COMPLETETRAVELS: 'Completed travels',
@@ -147,6 +147,12 @@ export const locale = {
           CREATE_NEW: 'Add new travel',
           GO_BACK: 'Back to travel list',
         },
+      },
+      TABLE: {
+        OPERATOR: 'Operator',
+        BOX: 'Box',
+        TRUCK: 'Truck',
+        STATUS: 'Status',
       },
     },
     PAYSHEET: {

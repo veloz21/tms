@@ -1,154 +1,175 @@
 <b404-portlet>
-	<b404-portlet-header [sticky]="true" [title]="'WORKSHOP.TRUCK.TEXT.TRUCK_LIST'|translate" [class]="'b404-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
-		<ng-container ktPortletTools>
-			<a [routerLink]="['/workshop/trucks/add']" mat-raised-button color="primary" matTooltip="{{'WORKSHOP.TRUCK.BUTTONS.CREATE_NEW' | translate}}">
-				<span>{{"WORKSHOP.TRUCK.BUTTONS.NEW_TRUCK"| translate}}</span>
-			</a>
-		</ng-container>
-	</b404-portlet-header>
-	<b404-portlet-body>
-		<div class="b404-form b404-margin-b-30">
-			<div class="b404-form__filtration">
-				<div class="row align-items-center">
-					<div class="col-md-4 b404-margin-bottom-10-mobile">
-						<mat-form-field>
-							<input matInput #searchInput placeholder="{{'GENERAL.INPUTS.SEARCH' | translate}}" class="mat-form-field mat-form-field-fluid" />
-							<mat-hint align="start">
-								<strong><span >{{"GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS" | translate}}</span></strong>
-							</mat-hint>
-						</mat-form-field>
-					</div>
-				</div>
-			</div>
+  <b404-portlet-header [sticky]="true" [title]="'MODULE.LIST' | b404Translate:translateParams"
+    [class]="'b404-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
+    <ng-container ktPortletTools>
+      <a [routerLink]="['/workshop/trucks/add']" mat-raised-button color="primary"
+        matTooltip="{{'MODULE.CREATE_NEW' | b404Translate:translateParams}}">
+        <span>{{"MODULE.NEW_ENTITY" | b404Translate:translateParams}}</span>
+      </a>
+    </ng-container>
+  </b404-portlet-header>
+  <b404-portlet-body>
+    <div class="b404-form b404-margin-b-30">
+      <div class="b404-form__filtration">
+        <div class="row align-items-center">
+          <div class="col-md-4 b404-margin-bottom-10-mobile">
+            <mat-form-field>
+              <input matInput #searchInput placeholder="{{'GENERAL.INPUTS.SEARCH' | b404Translate}}"
+                class="mat-form-field mat-form-field-fluid" />
+              <mat-hint align="start">
+                <strong><span>{{"GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS" | b404Translate}}</span></strong>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
 
-			<div class="row align-items-center collapse b404-form__group-actions b404-margin-top-20 b404-margin-bottom-20" [ngClass]="{ show: selection.selected.length > 0 }">
-				<div class="col-xl-12">
-					<div class="b404-form__group b404-form__group--inline">
-						<div class="b404-form__label b404-form__label-no-wrap">
-							<label class="b404--font-bold b404-font-danger-">{{"GENERAL.TEXT.SELECTED_RECORDS" | translate}}
-								{{ selection.selected.length }}</label>
-						</div>
-						<div class="b404-form__control b404-form__group--inline">
-							<button mat-raised-button color="accent" (click)="deleteTrucks()" matTooltip="{{'WORKSHOP.TRUCK.TEXT.DELETE_SELECTED' | translate}}" class="mat-button-mt-4">
-								<mat-icon>delete</mat-icon>
-								<span >{{"GENERAL.BUTTONS.DELETE_ALL" | translate}}</span>
-							</button>&nbsp; &nbsp;
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+      <div class="row align-items-center collapse b404-form__group-actions b404-margin-top-20 b404-margin-bottom-20"
+        [ngClass]="{ show: selection.selected.length > 0 }">
+        <div class="col-xl-12">
+          <div class="b404-form__group b404-form__group--inline">
+            <div class="b404-form__label b404-form__label-no-wrap">
+              <label class="b404--font-bold b404-font-danger-">
+                {{"GENERAL.TEXT.SELECTED_RECORDS" | b404Translate}}
+                {{ selection.selected.length }}
+              </label>
+            </div>
+            <div class="b404-form__control b404-form__group--inline">
+              <button mat-raised-button color="accent" (click)="deleteTrucks()"
+                matTooltip="{{'WORKSHOP.TRUCK.TEXT.DELETE_SELECTED' | b404Translate}}" class="mat-button-mt-4">
+                <mat-icon>delete</mat-icon>
+                <span>{{"GENERAL.BUTTONS.DELETE_ALL" | b404Translate}}</span>
+              </button>&nbsp; &nbsp;
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<div class="mat-table__wrapper">
-			<mat-table class="example-container mat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort" matSortActive="id" matSortDirection="asc" matSortDisableClear mdbTable mdbTableScroll scrollX="true" maxWidth="400">
-				<!-- Checkbox Column -->
-				<ng-container matColumnDef="Select" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
-						<mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="
+    <div class="mat-table__wrapper">
+      <mat-table class="example-container mat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
+        matSortActive="id" matSortDirection="asc" matSortDisableClear mdbTable mdbTableScroll scrollX="true"
+        maxWidth="400">
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="Select" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="
                 selection.hasValue() && !isAllSelected()
               " [color]="'primary'">
-						</mat-checkbox>
-					</mat-header-cell>
-					<mat-cell *matCellDef="let row" class="mat-column-checkbox">
-						<mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)" [color]="'primary'">
-						</mat-checkbox>
-					</mat-cell>
-				</ng-container>
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row" class="mat-column-checkbox">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)" [color]="'primary'">
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="Model" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.MODEL" | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck">{{truck.truckModel}}</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="Model" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.MODEL" | b404Translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck">{{truck.truckModel}}</mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="Brand" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.BRAND" | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck">{{truck.brand}}</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="Brand" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.BRAND" | b404Translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck">{{truck.brand}}</mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="SerialNumber" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER" | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck">{{truck.serialNumber}}</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="SerialNumber" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER" | b404Translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck">{{truck.serialNumber}}</mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="MotorNumber" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER" | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck">{{truck.motorNumber}}</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="MotorNumber" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER" | b404Translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck">{{truck.motorNumber}}</mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="MaintenancePeriod" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD" | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck">{{ truck.maintenancePeriod }}</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="MaintenancePeriod" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD" | b404Translate
+            }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck">{{ truck.maintenancePeriod }}</mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="InicialMilage" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.INITIAL_RANGE" | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck">{{truck.initialRange}}</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="InicialMilage" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.INITIAL_RANGE" | b404Translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck">{{truck.initialRange}}</mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="Milage" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED" | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck">{{truck.rangeTraveled}}</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="Milage" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED" | b404Translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck">{{truck.rangeTraveled}}</mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="Status" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef mat-sort-header>{{'GENERAL.TEXT.STATUS' | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck" [ngSwitch]="truck.status">
-						<span *ngSwitchCase="0" class="b404-badge b404-badge--inline b404-badge--pill b404-badge--success b404-badge--wide">{{ 'GENERAL.TEXT.AVAILABLE'|translate }}</span>
-						<span *ngSwitchCase="1" class="b404-badge b404-badge--inline b404-badge--pill b404-badge--danger b404-badge--wide">{{'GENERAL.TEXT.NOT_AVAILABLE'|translate }}</span>
-						<span *ngSwitchCase="2" class="b404-badge b404-badge--inline b404-badge--pill b404-badge--warning b404-badge--wide">{{'GENERAL.TEXT.IN_MAINTENANCE'|translate }}</span>
-					</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="Status" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'GENERAL.TEXT.STATUS' | b404Translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck" [ngSwitch]="truck.status">
+            <span *ngSwitchCase="0"
+              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--success b404-badge--wide">
+              {{ 'GENERAL.TEXT.AVAILABLE' | b404Translate }}</span>
+            <span *ngSwitchCase="1"
+              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--danger b404-badge--wide">
+              {{ 'GENERAL.TEXT.NOT_AVAILABLE' | b404Translate }}</span>
+            <span *ngSwitchCase="2"
+              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--warning b404-badge--wide">
+              {{ 'GENERAL.TEXT.IN_MAINTENANCE' | b404Translate }}</span>
+          </mat-cell>
+        </ng-container>
 
-				<ng-container matColumnDef="Actions" mdbTableCol>
-					<mat-header-cell *matHeaderCellDef>
-						{{"GENERAL.MODEL.ACTIONS" | translate }}
-					</mat-header-cell>
-					<mat-cell *matCellDef="let truck">
-						<button mat-icon-button [matMenuTriggerFor]="menu">
-							<mat-icon>more_vert</mat-icon>
-						</button>
-						<mat-menu #menu="matMenu">
-							<button mat-menu-item [routerLink]="['/workshop/trucks/edit/',truck.id]">
-								<mat-icon>create</mat-icon>
-								<span>{{'WORKSHOP.TRUCK.TEXT.EDIT_ICON_LABEL' | translate}}</span>
-							</button>
-							<button mat-menu-item (click)="deleteTruck(truck)">
-								<mat-icon>delete</mat-icon>
-								<span>{{'WORKSHOP.TRUCK.TEXT.DELETE_ICON_LABEL' | translate}}</span>
-							</button>
-						</mat-menu>
-					</mat-cell>
-				</ng-container>
+        <ng-container matColumnDef="Actions" mdbTableCol>
+          <mat-header-cell *matHeaderCellDef>
+            {{ "GENERAL.MODEL.ACTIONS" | b404Translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let truck">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item [routerLink]="['/workshop/trucks/edit/',truck.id]">
+                <mat-icon>create</mat-icon>
+                <span>{{'MODULE.EDIT_ICON_LABEL' | b404Translate:translateParams}}</span>
+              </button>
+              <button mat-menu-item (click)="deleteTruck(truck)">
+                <mat-icon>delete</mat-icon>
+                <span>{{'MODULE.DELETE_ICON_LABEL' | b404Translate:translateParams}}</span>
+              </button>
+            </mat-menu>
+          </mat-cell>
+        </ng-container>
 
-				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-				<mat-row [ngClass]="{'available':  row.status==0,'not_available': row.status==1, 'in_maintenance': row.status==2}" *matRowDef="let row; columns: displayedColumns"></mat-row>
-			</mat-table>
-			<div class="mat-table__message" *ngIf="!dataSource.hasItems">
-				<span>
-					{{"GENERAL.TEXT.NO_RECORDS_FOUND" | translate}}
-				</span>
-			</div>
-			<div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">
-				<span>
-					{{"GENERAL.TEXT.WAIT" | translate}}
-				</span>
-			</div>
-		</div>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row
+          [ngClass]="{'available':  row.status==0,'not_available': row.status==1, 'in_maintenance': row.status==2}"
+          *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <div class="mat-table__message" *ngIf="!dataSource.hasItems">
+        <span>
+          {{"GENERAL.TEXT.NO_RECORDS_FOUND" | b404Translate}}
+        </span>
+      </div>
+      <div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">
+        <span>
+          {{"GENERAL.TEXT.WAIT" | b404Translate}}
+        </span>
+      </div>
+    </div>
 
-		<!-- start: BOTTOM -->
-		<div class="mat-table__bottom">
-			<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
-			<mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
-		</div>
-		<!-- end: BOTTOM -->
-	</b404-portlet-body>
-	<!-- end::Body -->
+    <!-- start: BOTTOM -->
+    <div class="mat-table__bottom">
+      <mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async"
+        [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+    <!-- end: BOTTOM -->
+  </b404-portlet-body>
+  <!-- end::Body -->
 </b404-portlet>

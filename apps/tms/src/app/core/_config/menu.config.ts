@@ -78,7 +78,7 @@ export class MenuConfig {
           title: 'Travels',
           bullet: 'dot',
           icon: 'flaticon-paper-plane',
-          translate: 'TRAVEL.TRAVEL.TEXT.TRAVEL',
+          translate: 'TRAVELS.TRAVEL.TEXT.TRAVEL',
           page: '/travels',
         },
         {

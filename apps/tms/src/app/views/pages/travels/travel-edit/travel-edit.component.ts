@@ -94,32 +94,32 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     if (!this.travel.id) {
       this.subheaderService.setBreadcrumbs([
         {
-          title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
+          title: this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'),
           page: `/travels`,
         },
         {
-          title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
+          title: this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'),
           page: `/travels`,
         },
         {
-          title: this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE'),
+          title: this.translate.instant('TRAVELS.TRAVEL.TEXT.CREATE_TITLE'),
           page: `/travels/add`,
         },
       ]);
       return;
     }
-    this.subheaderService.setTitle(this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL'));
+    this.subheaderService.setTitle(this.translate.instant('TRAVELS.TRAVEL.TEXT.EDIT_TRAVEL'));
     this.subheaderService.setBreadcrumbs([
       {
-        title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
+        title: this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'),
         page: `/travels`,
       },
       {
-        title: this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'),
+        title: this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'),
         page: `/travels`,
       },
       {
-        title: this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL'),
+        title: this.translate.instant('TRAVELS.TRAVEL.TEXT.EDIT_TRAVEL'),
         page: `/travels/edit`,
         queryParams: {
           id: this.travel.id,
@@ -332,12 +332,12 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE');
+    let result: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.CREATE_TITLE');
     if (!this.travel || !this.travel.id) {
       return result;
     }
 
-    result = this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') + ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
+    result = this.translate.instant('TRAVELS.TRAVEL.TEXT.EDIT_TRAVEL') + ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
     return result;
   }
 

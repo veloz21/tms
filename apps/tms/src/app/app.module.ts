@@ -7,7 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { TranslateModule } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
 import {
   DataTableService,
   FakeApiService,
@@ -40,6 +40,7 @@ import {
   LayoutUtilsService,
   TypesUtilsService
 } from './core/_base/crud';
+import { MissingTranslationHelper } from './core/_base/layout/translate';
 import { LayoutConfig } from './core/_config/layout.config';
 import { AuthModule } from './views/pages/auth/auth.module';
 import { PartialsModule } from './views/partials/partials.module';
@@ -87,7 +88,10 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     StoreDevtoolsModule.instrument(),
-    TranslateModule.forRoot(),
+    TranslateModule.forRoot({
+      defaultLanguage: 'es',
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: MissingTranslationHelper },
+    }),
     ThemeModule,
   ],
   exports: [],

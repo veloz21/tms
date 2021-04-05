@@ -33,6 +33,7 @@ import {
   takeUntil,
   tap
 } from 'rxjs/operators';
+import { TranslateParams } from '../../../../../core/_base/layout/translate';
 
 @Component({
   selector: 'b404-trucks-list',
@@ -65,6 +66,7 @@ export class TrucksListComponent implements OnInit, OnDestroy {
   // Selection
   selection = new SelectionModel<TruckModel>(true, []);
   trucksResult: TruckModel[] = [];
+  public translateParams: TranslateParams;
   private ngUnsuscribe = new Subject();
 
   constructor(
@@ -74,7 +76,12 @@ export class TrucksListComponent implements OnInit, OnDestroy {
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
     private store: Store<AppState>
-  ) { }
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('WORKSHOP.TRUCK.ENTITY'),
+      entities: this.translate.instant('WORKSHOP.TRUCK.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.

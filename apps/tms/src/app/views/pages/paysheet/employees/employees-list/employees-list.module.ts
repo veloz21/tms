@@ -25,7 +25,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { EmployeeEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
@@ -36,6 +35,7 @@ import { employeesReducer } from '@tms/reducers';
 import { EmployeesService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { SharedModule } from '../../../../shared/shared.module';
 import { EmployeesListComponent } from './employees-list.component';
 
 // tslint:disable-next-line:class-name
@@ -55,7 +55,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule.forChild(),
     MatButtonModule,
     MatMenuModule,
     MatSelectModule,
@@ -82,6 +81,7 @@ const routes: Routes = [
     }) : [],
     StoreModule.forFeature('employees', employeesReducer),
     EffectsModule.forFeature([EmployeeEffects]),
+    SharedModule,
   ],
   providers: [
     {

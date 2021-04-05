@@ -15,6 +15,7 @@ import { AppState } from '@tms/reducers';
 import { selectEmployeesPageLastQuery } from '@tms/selectors/employee.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
+import { TranslateParams } from '../../../../../core/_base/layout/translate';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -40,6 +41,8 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private ngUnsuscribe = new Subject();
 
+  public translateParams: TranslateParams;
+
   constructor(
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
@@ -48,7 +51,12 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
     private store: Store<AppState>
-  ) { }
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITY'),
+      entities: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.

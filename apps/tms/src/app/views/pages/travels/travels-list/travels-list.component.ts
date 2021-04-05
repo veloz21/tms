@@ -16,6 +16,7 @@ import { AppState } from '@tms/reducers';
 import { selectTravelsPageLastQuery } from '@tms/selectors/travel.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
+import { TranslateParams } from '../../../../core/_base/layout/translate';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -42,7 +43,25 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private ngUnsuscribe = new Subject();
 
-  constructor(public dialog: MatDialog, private translate: TranslateService, private activatedRoute: ActivatedRoute, private subheaderService: SubheaderService, private layoutUtilsService: LayoutUtilsService, private store: Store<AppState>) { }
+  public translateParams: TranslateParams;
+  completedTravelTranslateParams: TranslateParams;
+  constructor(
+    public dialog: MatDialog,
+    private translate: TranslateService,
+    private activatedRoute: ActivatedRoute,
+    private subheaderService: SubheaderService,
+    private layoutUtilsService: LayoutUtilsService,
+    private store: Store<AppState>
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('TRAVELS.ENTITY'),
+      entities: this.translate.instant('TRAVELS.ENTITIES'),
+    };
+    this.completedTravelTranslateParams = {
+      entity: this.translate.instant('COMPLETED_TRAVELS.ENTITY'),
+      entities: this.translate.instant('COMPLETED_TRAVELS.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     this.showed = false;
@@ -77,7 +96,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(searchSubscription);
 
     // Set title to page breadCrumbs
-    this.subheaderService.setTitle(this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'));
+    this.subheaderService.setTitle(this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'));
 
     // Init DataSource
     this.dataSource = new TravelsDataSource(this.store);
@@ -158,9 +177,9 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   }
 
   deleteTravel(_item: TravelModel) {
-    const title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_TITLE');
-    const description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
-    const deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_MESSAGE');
+    const title: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_ONE_TITLE');
+    const description: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_ONE_MESSAGE');
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {
@@ -174,9 +193,9 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   }
 
   deleteTravels() {
-    const title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_TITLE');
-    const description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_DESCRIPTION');
-    const deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_MESSAGE');
+    const title: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_MANY_TITLE');
+    const description: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_MANY_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_MANY_MESSAGE');
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {

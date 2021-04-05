@@ -25,7 +25,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { BoxEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
@@ -36,6 +35,7 @@ import { boxesReducer } from '@tms/reducers';
 import { BoxesService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { SharedModule } from '../../../../shared/shared.module';
 import { BoxesListComponent } from './boxes-list.component';
 
 const routes: Routes = [{
@@ -53,7 +53,6 @@ const routes: Routes = [{
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule.forChild(),
     MatButtonModule,
     MatMenuModule,
     MatSelectModule,
@@ -80,6 +79,7 @@ const routes: Routes = [{
     }) : [],
     StoreModule.forFeature('boxes', boxesReducer),
     EffectsModule.forFeature([BoxEffects]),
+    SharedModule,
   ],
   providers: [
     {

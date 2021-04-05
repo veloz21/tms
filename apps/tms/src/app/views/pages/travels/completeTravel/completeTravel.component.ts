@@ -75,7 +75,7 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(searchSubscription);
 
     // Set title to page breadCrumbs
-    this.subheaderService.setTitle(this.translate.instant('TRAVEL.TRAVEL.TEXT.TRAVEL'));
+    this.subheaderService.setTitle(this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'));
 
     // Init DataSource
     this.dataSource = new CompleteTravelsDataSource(this.store);
@@ -156,9 +156,9 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
   }
 
   deleteTravel(_item: TravelModel) {
-    const title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_TITLE');
-    const description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
-    const deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_ONE_MESSAGE');
+    const title: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_ONE_TITLE');
+    const description: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_ONE_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_ONE_MESSAGE');
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {
@@ -172,9 +172,9 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
   }
 
   deleteTravels() {
-    const title: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_TITLE');
-    const description: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_DESCRIPTION');
-    const deleteMessage: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.DELETE_MANY_MESSAGE');
+    const title: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_MANY_TITLE');
+    const description: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_MANY_DESCRIPTION');
+    const deleteMessage: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.DELETE_MANY_MESSAGE');
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().subscribe((res) => {

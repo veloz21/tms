@@ -33,6 +33,7 @@ import {
   takeUntil,
   tap
 } from 'rxjs/operators';
+import { TranslateParams } from '../../../../../core/_base/layout/translate';
 
 @Component({
   selector: 'b404-boxes-list',
@@ -64,6 +65,7 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   selection = new SelectionModel<BoxModel>(true, []);
   boxesResult: BoxModel[] = [];
   private ngUnsubscribe = new Subject();
+  public translateParams: TranslateParams;
 
   constructor(
     public dialog: MatDialog,
@@ -73,7 +75,12 @@ export class BoxesListComponent implements OnInit, OnDestroy {
     private layoutUtilsService: LayoutUtilsService,
     private translate: TranslateService,
     private store: Store<AppState>
-  ) { }
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('WORKSHOP.BOXES.ENTITY'),
+      entities: this.translate.instant('WORKSHOP.BOXES.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.

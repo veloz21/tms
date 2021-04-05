@@ -1,10 +1,11 @@
 <b404-portlet>
-  <b404-portlet-header [sticky]="true" [title]="'TRAVEL.TRAVEL.TEXT.TRAVEL_LIST'| translate"
+  <b404-portlet-header [sticky]="true" [title]="'MODULE.LIST'| b404Translate:translateParams"
     [class]="'b404-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
     <ng-container ktPortletTools>
       <a [routerLink]="['/travels/add']" mat-raised-button color="primary"
-        matTooltip="{{'TRAVEL.TRAVEL.BUTTONS.CREATE_NEW' | translate}}"><span>{{"TRAVEL.TRAVEL.BUTTONS.NEW_TRAVEL" |
-          translate}}</span></a>
+        matTooltip="{{'MODULE.CREATE_NEW' | b404Translate:translateParams}}">
+        <span>{{"MODULE.NEW_ENTITY" | b404Translate:translateParams}}</span>
+      </a>
     </ng-container>
   </b404-portlet-header>
 
@@ -14,15 +15,19 @@
         <div class="row align-items-center">
           <div class="col-md-4 b404-margin-bottom-10-mobile">
             <mat-form-field>
-              <input matInput #searchInput placeholder="{{'GENERAL.INPUTS.SEARCH' | translate}}"
+              <input matInput #searchInput placeholder="{{'GENERAL.INPUTS.SEARCH' | b404Translate}}"
                 class="mat-form-field mat-form-field-fluid">
               <mat-hint align="start">
-                <strong><span>{{"GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS" | translate}}</span></strong>
+                <strong>
+                  <span>{{"GENERAL.INPUTS.SEARCH_IN_ALL_FIELDS" | b404Translate:translateParams}}</span>
+                </strong>
               </mat-hint>
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-checkbox [(ngModel)]="showed">{{'TRAVEL.TRAVEL.MODEL.COMPLETED_TRAVELS' | translate }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="showed">
+              {{'MODULE.SHOW' | b404Translate:completedTravelTranslateParams }}
+            </mat-checkbox>
           </div>
         </div>
       </div>
@@ -32,14 +37,16 @@
         <div class="col-xl-12">
           <div class="b404-form__group b404-form__group--inline">
             <div class="b404-form__label b404-form__label-no-wrap">
-              <label class="b404--font-bold b404-font-danger-">{{"GENERAL.TEXT.SELECTED_RECORDS" | translate}}
-                {{ selection.selected.length }}</label>
+              <label class="b404--font-bold b404-font-danger-">
+                {{"GENERAL.TEXT.SELECTED_RECORDS" | b404Translate}}
+                {{ selection.selected.length }}
+              </label>
             </div>
             <div class="b404-form__control b404-form__group--inline">
               <button mat-raised-button color="accent" (click)="deleteTravels()"
-                matTooltip="{{'TRAVEL.TRAVEL.TEXT.DELETE_SELECTED' | translate}}" class="mat-button-mt-4">
+                matTooltip="{{'MODULE.DELETE_SELECTED' | b404Translate:translateParams}}" class="mat-button-mt-4">
                 <mat-icon>delete</mat-icon>
-                <span>{{"GENERAL.BUTTONS.DELETE_ALL" | translate}}</span>
+                <span>{{"GENERAL.BUTTONS.DELETE_ALL" | b404Translate}}</span>
               </button>&nbsp;
             </div>
           </div>
@@ -65,7 +72,8 @@
         </ng-container>
 
         <ng-container matColumnDef="Operator" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.OPERATOR_NAME" | translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"TRAVELS.TABLE.OPERATOR" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">
             <span>{{travel.operator.firstName}}&nbsp;{{travel.operator.lastName}}</span>
@@ -73,13 +81,15 @@
         </ng-container>
 
         <ng-container matColumnDef="Box" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.BOX_SERIALNUMBER" | translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"TRAVELS.TABLE.BOX" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">{{travel.box.nickname}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Truck" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"TRAVEL.TRAVEL.MODEL.TRUCK_SERIALNUMBER" | translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"TRAVELS.TABLE.TRUCK" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">{{travel.truck.nickname}}</mat-cell>
         </ng-container>
@@ -114,7 +124,7 @@
 
         <ng-container matColumnDef="Actions" mdbTableCol>
           <mat-header-cell *matHeaderCellDef>
-            {{"GENERAL.MODEL.ACTIONS" | translate }}
+            {{"GENERAL.MODEL.ACTIONS" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">
             <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -123,11 +133,11 @@
             <mat-menu #menu="matMenu">
               <button mat-menu-item [routerLink]="['/travels/edit/',travel.id]">
                 <mat-icon>create</mat-icon>
-                <span>{{'TRAVEL.TRAVEL.TEXT.EDIT_ICON_LABEL' | translate}}</span>
+                <span>{{'MODULE.EDIT_ICON_LABEL' | b404Translate:translateParams}}</span>
               </button>
               <button mat-menu-item (click)="deleteTravel(travel)">
                 <mat-icon>delete</mat-icon>
-                <span>{{'TRAVEL.TRAVEL.TEXT.DELETE_ICON_LABEL' | translate}}</span>
+                <span>{{'MODULE.DELETE_ICON_LABEL' | b404Translate:translateParams}}</span>
               </button>
             </mat-menu>
           </mat-cell>
@@ -137,10 +147,10 @@
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
       <div class="mat-table__message" *ngIf="!dataSource.hasItems">
-        <span>{{"GENERAL.TEXT.NO_RECORDS_FOUND" | translate}}</span>
+        <span>{{"GENERAL.TEXT.NO_RECORDS_FOUND" | b404Translate}}</span>
       </div>
       <div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">
-        <span>{{"GENERAL.TEXT.WAIT" | translate}}</span>
+        <span>{{"GENERAL.TEXT.WAIT" | b404Translate}}</span>
       </div>
     </div>
 

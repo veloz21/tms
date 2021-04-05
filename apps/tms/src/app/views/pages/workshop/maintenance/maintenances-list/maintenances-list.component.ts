@@ -15,6 +15,7 @@ import { AppState } from '@tms/reducers';
 import { selectMaintenancesPageLastQuery } from '@tms/selectors/maintenance.selectors';
 import { fromEvent, merge, of, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
+import { TranslateParams } from '../../../../../core/_base/layout/translate';
 
 @Component({
   selector: 'b404-maintenances-list',
@@ -36,6 +37,7 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
   // Selection
   selection = new SelectionModel<MaintenanceModel>(true, []);
   maintenancesResult: MaintenanceModel[] = [];
+  public translateParams: TranslateParams;
   private ngUnsuscribe = new Subject();
 
   constructor(
@@ -45,7 +47,12 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
     private store: Store<AppState>
-  ) { }
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('WORKSHOP.MAINTENANCE.ENTITY'),
+      entities: this.translate.instant('WORKSHOP.MAINTENANCE.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.

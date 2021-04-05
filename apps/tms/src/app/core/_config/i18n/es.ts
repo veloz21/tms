@@ -102,7 +102,71 @@ export const locale = {
         SEARCH_IN_ALL_FIELDS: 'Buscar en todos los campos',
       },
     },
-    TRAVEL: {
+    MODULE: {
+      LIST: 'Lista de {{entities}}',
+      MODULE_NAME: '{{entities}}',
+      DELETE_ONE_TITLE: 'Eliminar {{entity}}',
+      DELETE_ONE_DESCRIPTION: {
+        X: '¿Estás seguro de que quieres eliminar esta {{entity}} permanentemente?',
+        Y: '¿Estás seguro de que quieres eliminar este {{entity}} permanentemente?',
+      },
+      DELETE_ONE_WAIT: 'Eliminando {{entity}}...',
+      DELETE_ONE_MESSAGE: {
+        X: 'El {{entity}} ha sido eliminado',
+        Y: 'La {{entity}} ha sido eliminado',
+      },
+      DELETE_MANY_TITLE: 'Eliminar {{entities}}',
+      DELETE_MANY_DESCRIPTION: {
+        X: '¿Estás seguro de que quieres eliminar los {{entities}} seleccionados permanentemente?',
+        Y: '¿Estás seguro de que quieres eliminar las {{entities}} seleccionadas permanentemente?',
+      },
+      DELETE_MANY_WAIT: 'Eliminando {{entities}}...',
+      DELETE_MANY_MESSAGE: {
+        X: 'Los {{entities}} seleccionados han sido eliminados',
+        Y: 'Las {{entities}} seleccionadas han sido eliminados',
+      },
+      CREATE_TITLE: 'Añadir {{entity}}',
+      ADD_ENTITY_MESSAGE: '{{entity}} guardado exitosamente',
+      EDIT_ENTITY: 'Editar {{entity}}',
+      DELETE_ICON_LABEL: 'Eliminar {{entity}}',
+      EDIT_ICON_LABEL: 'Editar {{entity}}',
+      DELETE_SELECTED: 'Eliminar {{entities}} seleccionados',
+      CREATE_ENTITY: 'Crear {{entity}}',
+      NEW_ENTITY: {
+        X: 'Nuevo {{entity}}',
+        Y: 'Nueva {{entity}}',
+      },
+      CREATE_NEW: {
+        X: 'Añadir nuevo {{entity}}',
+        Y: 'Añadir nuevo {{entity}}',
+      },
+      BUTTONS: {
+        NEW_TRAVEL: 'Nuevo viaje',
+        CREATE_NEW: 'Añadir nuevo viaje',
+        GO_BACK: 'Regresar a la lista de viajes',
+      },
+      GO_BACK: 'Regresar a la lista de {{entities}}',
+      SHOW: 'Mostrar {{entities}}',
+    },
+    COMPLETED_TRAVELS: {
+      ENTITY: {
+        GENDER: 'X',
+        VALUE: 'viaje completado'
+      },
+      ENTITIES: {
+        GENDER: 'X',
+        VALUE: 'viajes completados'
+      },
+    },
+    TRAVELS: {
+      ENTITY: {
+        GENDER: 'X',
+        VALUE: 'viaje'
+      },
+      ENTITIES: {
+        GENDER: 'X',
+        VALUE: 'viajes'
+      },
       COMPLETETRAVEL: {
         TEXT: {
           COMPLETETRAVELS: 'Viajes completados',
@@ -148,10 +212,24 @@ export const locale = {
           GO_BACK: 'Regresar a la lista de viajes',
         },
       },
+      TABLE: {
+        OPERATOR: 'Operador',
+        BOX: 'Caja',
+        TRUCK: 'Camión',
+        STATUS: 'Estatus',
+      },
     },
     PAYSHEET: {
       PAYSHEET: 'Nómina',
       EMPLOYEE: {
+        ENTITY: {
+          GENDER: 'X',
+          VALUE: 'empleado'
+        },
+        ENTITIES: {
+          GENDER: 'X',
+          VALUE: 'empleados'
+        },
         TEXT: {
           EMPLOYEE_LIST: 'Lista de empleados',
           EMPLOYEE: 'Empleados',
@@ -199,6 +277,14 @@ export const locale = {
     WORKSHOP: {
       WORKSHOP: 'Taller',
       TRUCK: {
+        ENTITY: {
+          GENDER: 'X',
+          VALUE: 'camión'
+        },
+        ENTITIES: {
+          GENDER: 'X',
+          VALUE: 'camiones'
+        },
         TEXT: {
           TRUCK_LIST: 'Lista de Camiones',
           TRUCK: 'Camiones',
@@ -240,6 +326,14 @@ export const locale = {
         },
       },
       MAINTENANCE: {
+        ENTITY: {
+          GENDER: 'X',
+          VALUE: 'mantenimiento'
+        },
+        ENTITIES: {
+          GENDER: 'X',
+          VALUE: 'mantenimientos'
+        },
         TEXT: {
           MAINTENANCE_LIST: 'Lista de mantenimientos',
           MAINTENANCE: 'Mantenimientos',
@@ -276,6 +370,14 @@ export const locale = {
         },
       },
       BOXES: {
+        ENTITY: {
+          GENDER: 'Y',
+          VALUE: 'caja'
+        },
+        ENTITIES: {
+          GENDER: 'Y',
+          VALUE: 'cajas'
+        },
         TEXT: {
           BOXES_LIST: 'Lista de cajas',
           BOXES: 'Cajas',
@@ -314,6 +416,14 @@ export const locale = {
         },
       },
       TIRES: {
+        ENTITY: {
+          GENDER: 'Y',
+          VALUE: 'llanta'
+        },
+        ENTITIES: {
+          GENDER: 'Y',
+          VALUE: 'llantas'
+        },
         TEXT: {
           TIRES_LIST: 'Lista de llantas',
           TIRES: 'Llantas',
@@ -341,47 +451,6 @@ export const locale = {
           CREATE_NEW: 'Añadir nueva llanta',
           DELETE_ALL: 'Eliminar todas',
           GO_BACK: 'Regresar a la lista de llantas',
-        },
-      },
-    },
-    ECOMMERCE: {
-      COMMON: {
-        SELECTED_RECORDS_COUNT: 'Selected records count: ',
-        ALL: 'All',
-        SUSPENDED: 'Suspended',
-        ACTIVE: 'Active',
-        FILTER: 'Filter',
-        BY_STATUS: 'by Status',
-        BY_TYPE: 'by Type',
-        BUSINESS: 'Business',
-        INDIVIDUAL: 'Individual',
-        SEARCH: 'Search',
-        IN_ALL_FIELDS: 'in all fields',
-      },
-      ECOMMERCE: 'eCommerce',
-      CUSTOMERS: {
-        CUSTOMERS: 'Customers',
-        CUSTOMERS_LIST: 'Customers list',
-        NEW_CUSTOMER: 'New Customer',
-        DELETE_CUSTOMER_SIMPLE: {
-          TITLE: 'Customer Delete',
-          DESCRIPTION: 'Are you sure to permanently delete this customer?',
-          WAIT_DESCRIPTION: 'Customer is deleting...',
-          MESSAGE: 'Customer has been deleted',
-        },
-        DELETE_CUSTOMER_MULTY: {
-          TITLE: 'Customers Delete',
-          DESCRIPTION: 'Are you sure to permanently delete selected customers?',
-          WAIT_DESCRIPTION: 'Customers are deleting...',
-          MESSAGE: 'Selected customers have been deleted',
-        },
-        UPDATE_STATUS: {
-          TITLE: 'Status has been updated for selected customers',
-          MESSAGE: 'Selected customers status have successfully been updated',
-        },
-        EDIT: {
-          UPDATE_MESSAGE: 'Customer has been updated',
-          ADD_MESSAGE: 'Customer has been created',
         },
       },
     },

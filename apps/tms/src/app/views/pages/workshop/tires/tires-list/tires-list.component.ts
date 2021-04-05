@@ -13,8 +13,9 @@ import { SubheaderService } from '@tms/layout';
 import { TireModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTiresPageLastQuery } from '@tms/selectors/tire.selectors';
-import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
+import { fromEvent, merge, of, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
+import { TranslateParams } from '../../../../../core/_base/layout/translate';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -37,8 +38,7 @@ export class TiresListComponent implements OnInit, OnDestroy {
   // Selection
   selection = new SelectionModel<TireModel>(true, []);
   tiresResult: TireModel[] = [];
-  private subscriptions: Subscription[] = [];
-
+  public translateParams: TranslateParams;
   private ngUnsubscribe = new Subject();
 
   constructor(
@@ -49,7 +49,12 @@ export class TiresListComponent implements OnInit, OnDestroy {
     private layoutUtilsService: LayoutUtilsService,
     private translate: TranslateService,
     private store: Store<AppState>
-  ) { }
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('WORKSHOP.TIRES.ENTITY'),
+      entities: this.translate.instant('WORKSHOP.TIRES.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.
