@@ -18,6 +18,7 @@ export enum TravelActionTypes {
   UpdateTravelSuccess = '[Edit Travel Component] Update Travel Success',
   GetTravelStatus = '[Edit Travel Component] Get Travel Status',
   StoreTravelStatus = '[Edit Travel Component] Store Travel Status',
+  UpdateTravelStatus = '[ListTravel Component] Update Travel Status',
 }
 
 export class CreateTravel implements Action {
@@ -102,6 +103,11 @@ export class StoreTravelStatus implements Action {
   constructor(public payload: { travelStatus: TravelStatusModel[] }) { }
 }
 
+export class UpdateTravelStatus implements Action {
+  readonly type = TravelActionTypes.UpdateTravelStatus;
+  constructor(public payload: { travelId: string, status: TravelStatusModel }) { }
+}
+
 export type TravelActions =
   | CreateTravel
   | UpdateTravel
@@ -116,4 +122,5 @@ export type TravelActions =
   | CreateTravelError
   | UpdateTravelSuccess
   | GetTravelStatus
-  | StoreTravelStatus;
+  | StoreTravelStatus
+  | UpdateTravelStatus;

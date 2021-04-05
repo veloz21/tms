@@ -6,6 +6,7 @@ import { Model } from 'mongoose';
 import { forkJoin } from 'rxjs';
 import type { HttpOptions } from '../../core/interfaces';
 import { CreateTravelDto } from './dto/create-travel.dto';
+import { UpdateTravelStatusDto } from './dto/update-travel-status.dto';
 import { UpdateTravelDto } from './dto/update-travel.dto';
 import { TravelStatus, TravelStatusDocument } from './schemas/travel-status.schema';
 import { Travel, TravelDocument } from './schemas/travel.schema';
@@ -44,6 +45,22 @@ export class TravelsService {
 
   update(_id: mongoose.Types.ObjectId, updateTravelDto: UpdateTravelDto, options: HttpOptions): Promise<TravelDocument> {
     return this.travelModel.findOneAndUpdate({ _id, company: options.company }, { $set: updateTravelDto }, { new: true, session: options.session }).exec();
+  }
+
+  async updateStatus(_id: mongoose.Types.ObjectId, updateTravelStatusDto: UpdateTravelStatusDto, options: HttpOptions): Promise<TravelDocument> {
+    const travel = await this.findOne(_id, options);
+    console.log('status', travel.status);
+    console.log(updateTravelStatusDto);
+
+    const newStatusId = (updateTravelStatusDto as any).id;
+    const statusIndex = travel.status.findIndex((s: any) => s._id == newStatusId);
+    travel.status[statusIndex].date = updateTravelStatusDto.date;
+    travel.status[statusIndex].comments = updateTravelStatusDto.comments;
+    travel.currentStatus = newStatusId;
+
+    console.log('status x2', travel.status);
+    console.log('currentStatus', travel.currentStatus);
+    return this.travelModel.findOneAndUpdate({ _id, company: options.company }, { $set: travel }, { new: true, session: options.session }).exec();
   }
 
   remove(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<TravelDocument> {

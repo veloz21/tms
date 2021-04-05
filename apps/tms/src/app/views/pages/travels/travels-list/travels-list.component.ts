@@ -6,8 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { CreateCompleteTravel, UpdateTravelStatus } from '@tms/actions/completeTravel.actions';
-import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage } from '@tms/actions/travel.actions';
+import { CreateCompleteTravel } from '@tms/actions/completeTravel.actions';
+import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage, UpdateTravelStatus } from '@tms/actions/travel.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TravelsDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
@@ -235,6 +235,15 @@ export class TravelsListComponent implements OnInit, OnDestroy {
       date: new Date(),
       comments: '',
     });
-    this.store.dispatch(new UpdateTravelStatus({ travelId: travel.id, status }));
+
+    const dialogRef = this.layoutUtilsService.travelStatus(status);
+    dialogRef.afterClosed().subscribe((validatedStatus: TravelStatusModel | null) => {
+      if (!validatedStatus) {
+        return;
+      }
+
+      this.store.dispatch(new UpdateTravelStatus({ travelId: travel.id, status: validatedStatus }));
+    });
+
   }
 }

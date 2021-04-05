@@ -81,7 +81,13 @@ export class TravelsService extends HttpService {
 
   getTravelStatus(): Observable<TravelStatusModel[]> {
     return this.http.get<TravelStatusModel[]>(`${API_TRAVELS_URL}/status`, this.httpOptions).pipe(
-      catchError(this.handleError('getTravelById'))
+      catchError(this.handleError('getTravelStatus'))
+    );
+  }
+
+  updateTravelStatus(travelId: string, newStatus: TravelStatusModel): Observable<TravelModel> {
+    return this.http.put<TravelModel>(`${API_TRAVELS_URL}/${travelId}/status`, newStatus, this.httpOptions).pipe(
+      catchError(this.handleError('updateTravelStatus'))
     );
   }
 }

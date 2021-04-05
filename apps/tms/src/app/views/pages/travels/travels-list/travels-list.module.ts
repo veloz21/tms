@@ -37,6 +37,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../partials/content/crud';
 import { PartialsModule } from '../../../partials/partials.module';
 import { CompleteTravelModule } from '../completeTravel/completeTravel.module';
+import { ChangeStatusDialogComponent } from '../components/change-status-dialog/change-status-dialog.component';
+import { ChangeStatusDialogModule } from '../components/change-status-dialog/change-status-dialog.module';
 import { TravelsListComponent } from './travels-list.component';
 
 @NgModule({
@@ -101,8 +103,15 @@ import { TravelsListComponent } from './travels-list.component';
     TypesUtilsService,
     LayoutUtilsService,
     CompleteTravelService,
+    ChangeStatusDialogModule,
   ],
-  entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent],
+  entryComponents: [
+    ActionNotificationComponent,
+    DeleteEntityDialogComponent,
+    FetchEntityDialogComponent,
+    UpdateStatusDialogComponent,
+    ChangeStatusDialogComponent
+  ],
   declarations: [TravelsListComponent, CurrentTravelStatusPipe, NextTravelStatusPipe],
 })
 export class TravelListModule { }

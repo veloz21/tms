@@ -4,7 +4,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActionNotificationComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '@tms/partials/content/crud';
 import { DeleteDialogComponent } from '@tms/shared/dialogs/delete-dialog/delete-dialog.component';
 import { ErrorDialogComponent } from '@tms/shared/dialogs/error-dialog/error-dialog.component';
+import { ChangeStatusDialogComponent } from '../../../../views/pages/travels/components/change-status-dialog/change-status-dialog.component';
 import { DialogOptions } from '../../../../views/shared/dialogs/dialog-options.interface';
+import { TravelStatusModel } from '../../../models';
 
 export enum MessageType {
   Create,
@@ -63,6 +65,13 @@ export class LayoutUtilsService {
     return this.dialog.open(ErrorDialogComponent, {
       data: dialogOptions,
       width: '440px'
+    });
+  }
+
+  travelStatus(status: TravelStatusModel) {
+    return this.dialog.open(ChangeStatusDialogComponent, {
+      data: { status },
+      width: '640px'
     });
   }
 

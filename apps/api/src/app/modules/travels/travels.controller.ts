@@ -6,6 +6,7 @@ import type { HttpOptions } from '../../core/interfaces';
 import { stringToMongoId } from '../../core/utils';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateTravelDto } from './dto/create-travel.dto';
+import { UpdateTravelStatusDto } from './dto/update-travel-status.dto';
 import { UpdateTravelDto } from './dto/update-travel.dto';
 import { TravelsService } from './travels.service';
 
@@ -34,6 +35,11 @@ export class TravelsController {
   @Get(':id')
   async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
     return await this.travelsService.findOne(stringToMongoId(id), options);
+  }
+
+  @Put(':id/status')
+  async updateStatus(@Param('id') id: string, @Body() updateTravelStatusDto: UpdateTravelStatusDto, @GetHttpOptions() options: HttpOptions) {
+    return await this.travelsService.updateStatus(stringToMongoId(id), updateTravelStatusDto, options);
   }
 
   @Put(':id')

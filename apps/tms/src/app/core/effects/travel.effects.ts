@@ -139,6 +139,24 @@ export class TravelEffects {
       map((travelStatus) => new fromTravelActions.StoreTravelStatus({ travelStatus }))
     );
 
+  @Effect()
+  updateTravelStatus$ = this.actions$.pipe(
+    ofType<fromTravelActions.UpdateTravelStatus>(fromTravelActions.TravelActionTypes.UpdateTravelStatus),
+    mergeMap(({ payload }) => {
+      this.store.dispatch(this.showLoadingDistpatcher);
+      return this.travelsService.updateTravelStatus(payload.travelId, payload.status).pipe(
+        map((travelUpdated) => (new fromTravelActions.UpdateTravelSuccess({
+          partialTravel: {
+            id: payload.travelId,
+            changes: travelUpdated,
+          },
+          travel: travelUpdated,
+        }))),
+        catchError(error => of(new fromTravelActions.CreateTravelError({ error })))
+      );
+    })
+  );
+
   constructor(
     private actions$: Actions,
     private travelsService: TravelsService,

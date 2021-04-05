@@ -1,7 +1,7 @@
 import { Update } from '@ngrx/entity';
 import { Action } from '@ngrx/store';
 import { QueryParamsModel } from '@tms/crud';
-import { TravelModel, TravelStatusModel } from '@tms/models';
+import { TravelModel } from '@tms/models';
 
 export enum CompleteTravelActionTypes {
   CreateCompleteTravel = '[Edit CompleteTravel Component] Create CompleteTravel ',
@@ -16,7 +16,6 @@ export enum CompleteTravelActionTypes {
   CancellCompleteTravelPage = '[CompleteTravels API] CompleteTravels Page Cancelled',
   CompleteTravelPageToggleLoading = '[CompleteTravels] CompleteTravels Page Toggle Loading',
   CompleteTravelActionToggleLoading = '[CompleteTravels] CompleteTravels Action Toggle Loading',
-  UpdateTravelStatus = '[ListTravel Component] Update Travel Status',
 }
 
 export class CreateCompleteTravel implements Action {
@@ -113,11 +112,6 @@ export class CompleteTravelActionToggleLoading implements Action {
   ) { }
 }
 
-export class UpdateTravelStatus implements Action {
-  readonly type = CompleteTravelActionTypes.UpdateTravelStatus;
-  constructor(public payload: { travelId: string, status: TravelStatusModel }) { }
-}
-
 export type CompleteTravelActions =
   | CreateCompleteTravel
   | UpdateCompleteTravel
@@ -131,4 +125,3 @@ export type CompleteTravelActions =
   | CreateCompleteTravelError
   | CreateCompleteTravelSuccess
   | UpdateCompleteTravelSuccess
-  | UpdateTravelStatus;
