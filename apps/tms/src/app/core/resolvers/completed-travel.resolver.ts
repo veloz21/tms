@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
-import { TravelModel } from '@tms/models';
+import { GetCompletedTravel } from '@tms/actions/completed-travel.actions';
+import { CompletedTravelModel, TravelModel } from '@tms/models';
+import { selectCompletedTravelById } from '@tms/selectors/completed-travel.selectors';
 import { Observable } from 'rxjs';
-import { GetCompletedTravel } from '../actions/completed-travel.actions';
-import { CompletedTravelModel } from '../models/completed-travel.model';
-import { selectCompletedTravelById } from '../selectors/completed-travel.selectors';
 import { BaseResolver } from './base-resolver';
 
 @Injectable()

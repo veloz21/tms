@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
+import { GetMaintenance } from '@tms/actions/maintenance.actions';
 import { MaintenanceModel } from '@tms/models';
+import { selectMaintenanceById } from '@tms/selectors/maintenance.selectors';
 import { Observable } from 'rxjs';
-import { GetMaintenance } from '../actions/maintenance.actions';
-import { selectMaintenanceById } from '../selectors/maintenance.selectors';
 import { BaseResolver } from './base-resolver';
 
 @Injectable()

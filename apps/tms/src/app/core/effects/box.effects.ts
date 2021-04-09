@@ -50,6 +50,16 @@ export class BoxEffects {
     );
 
   @Effect()
+  getBox = this.actions$
+    .pipe(
+      ofType<fromBoxActions.GetBox>(fromBoxActions.BoxActionTypes.GetBox),
+      mergeMap(({ payload }) => {
+        return this.boxesService.getBoxById(payload.id);
+      }),
+      map((box) => new fromBoxActions.StoreBox({ box }))
+    );
+
+  @Effect()
   deleteBox$ = this.actions$
     .pipe(
       ofType<fromBoxActions.DeleteOneBox>(fromBoxActions.BoxActionTypes.DeleteOneBox),

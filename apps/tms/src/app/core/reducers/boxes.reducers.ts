@@ -36,6 +36,7 @@ export function boxesReducer(state = initialBoxesState, action: BoxActions): Box
         ...state,
         actionsloading: action.payload.isLoading,
       };
+    case BoxActionTypes.StoreBox:
     case BoxActionTypes.CreateBoxSuccess:
       return adapter.addOne(action.payload.box, {
         ...state,

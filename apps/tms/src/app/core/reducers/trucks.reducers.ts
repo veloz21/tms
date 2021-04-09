@@ -32,6 +32,7 @@ export function trucksReducer(state = initialTrucksState, action: TruckActions):
     case TruckActionTypes.TrucksActionToggleLoading: return {
       ...state, actionsloading: action.payload.isLoading
     };
+    case TruckActionTypes.StoreTruck:
     case TruckActionTypes.CreateTruckSuccess: return adapter.addOne(action.payload.truck, {
       ...state, lastCreatedTruckId: action.payload.truck.id
     });

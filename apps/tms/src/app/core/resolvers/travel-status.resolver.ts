@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { GetTravelStatus } from '@tms/actions/travel.actions';
 import { TravelStatusModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTravelStatus } from '@tms/selectors/travel.selectors';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { GetTravelStatus } from '../actions/travel.actions';
 
 @Injectable()
 export class TravelStatusResolver implements Resolve<TravelStatusModel[]> {

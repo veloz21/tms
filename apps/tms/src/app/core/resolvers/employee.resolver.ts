@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
+import { GetEmployee } from '@tms/actions/employee.actions';
 import { EmployeeModel } from '@tms/models';
 import { selectEmployeeById } from '@tms/selectors/employee.selectors';
 import { Observable } from 'rxjs';
-import { GetEmployee } from '../actions/employee.actions';
 import { BaseResolver } from './base-resolver';
 
 @Injectable()
