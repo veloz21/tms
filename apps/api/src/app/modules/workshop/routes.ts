@@ -7,7 +7,7 @@ import { TrucksModule } from './trucks/trucks.module';
 export const workshopRoutes: Routes = [
   {
     path: 'workshop',
-    childrens: [
+    children: [
       {
         path: 'boxes',
         module: BoxesModule,

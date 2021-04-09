@@ -3,7 +3,7 @@ import { GetHttpOptions } from '../../../core/decorators';
 import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
 import { TransformInterceptor } from '../../../core/interceptors/transform.interceptor';
-import { HttpOptions } from '../../../core/interfaces';
+import type { HttpOptions } from '../../../core/interfaces';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CompletedTravelsService } from './completed-travels.service';
 import { CompletedTravelDto } from './dto/completed-travel.dto';
