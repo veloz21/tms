@@ -1,51 +1,25 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Resolve } from '@angular/router';
 import { TravelModel } from '@tms/models';
-import { AppState } from '@tms/reducers';
-import { selectCompleteTravelById } from '@tms/selectors/completeTravel.selectors';
-import { CompleteTravelService } from '@tms/services';
 import { Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { GetCompletedTravel } from '../actions/completed-travel.actions';
+import { CompletedTravelModel } from '../models/completed-travel.model';
+import { selectCompletedTravelById } from '../selectors/completed-travel.selectors';
+import { BaseResolver } from './base-resolver';
 
 @Injectable()
-export class CompleteTravelResolver implements Resolve<TravelModel> {
-  constructor(
-    private completeTravelService: CompleteTravelService,
-    private store: Store<AppState>
-  ) {}
-  resolve(
-    route: ActivatedRouteSnapshot
-  ): Observable<TravelModel> | Promise<TravelModel> | TravelModel {
-    const id = !!route.paramMap.get('id')
-      ? String(route.paramMap.get('id'))
-      : null;
-    if (!id) {
-      return this.getInitialCompleteTravel(id);
-    }
-    this.getCompleteTravelData(id);
-    return this.waitForCompleteTravelDataToLoad(id);
+export class CompletedTravelResolver extends BaseResolver<CompletedTravelModel> implements Resolve<TravelModel> {
+
+  protected backRoute: string = '/travels';
+  protected getEmptyModel(): CompletedTravelModel {
+    return new CompletedTravelModel();
   }
 
-  getInitialCompleteTravel(id: string) {
-    return new TravelModel();
+  protected getModelAction(id: string): GetCompletedTravel {
+    return new GetCompletedTravel({ id });
   }
 
-  getCompleteTravelData(id: string) {
-    this.store
-      .select(selectCompleteTravelById(id))
-      .pipe(take(1))
-      .subscribe((truckStored) => {
-        if (!truckStored) {
-          return this.completeTravelService.getCompleteTravelById(id);
-        }
-      });
-  }
-
-  waitForCompleteTravelDataToLoad(id: string): Observable<TravelModel> {
-    return this.store.select(selectCompleteTravelById(id)).pipe(
-      filter((tire) => !!tire),
-      take(1)
-    );
+  protected selectModelFromStore(id: string): Observable<CompletedTravelModel> {
+    return this.store.select(selectCompletedTravelById(id));
   }
 }

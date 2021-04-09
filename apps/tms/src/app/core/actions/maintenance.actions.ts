@@ -4,6 +4,8 @@ import { QueryParamsModel } from '@tms/crud';
 import { MaintenanceModel } from '@tms/models';
 
 export enum MaintenanceActionTypes {
+  GetMaintenance = '[Edit Maintenance Component] Get Maintenance',
+  StoreMaintenance = '[Edit Maintenance Component] Store Maintenance',
   CreateMaintenance = '[Edit Maintenance Component] Create Maintenance',
   UpdateMaintenance = '[Edit Maintenance Component] Update Maintenance',
   DeleteOneMaintenance = '[Maintenance List Page] Delete One Maintenance',
@@ -16,6 +18,16 @@ export enum MaintenanceActionTypes {
   CreateMaintenanceSuccess = '[Edit Maintenance Component] Create Maintenance Success',
   CreateMaintenanceError = '[Edit Maintenance Component] Create Maintenance Error',
   UpdateMaintenanceSuccess = '[Edit Travel Component] Update Travel Success'
+}
+
+export class GetMaintenance implements Action {
+  readonly type = MaintenanceActionTypes.GetMaintenance;
+  constructor(public payload: { id: string }) { }
+}
+
+export class StoreMaintenance implements Action {
+  readonly type = MaintenanceActionTypes.StoreMaintenance;
+  constructor(public payload: { maintenance: MaintenanceModel }) { }
 }
 
 export class CreateMaintenance implements Action {
@@ -96,5 +108,7 @@ export type MaintenanceActions =
   | CreateMaintenanceSuccess
   | CreateMaintenanceError
   | UpdateMaintenanceSuccess
+  | GetMaintenance
+  | StoreMaintenance
   ;
 

@@ -9,6 +9,8 @@ import { catchError, filter, take, timeout } from 'rxjs/operators';
 export class BaseResolver<T> implements Resolve<T> {
 
   protected backRoute: string = '';
+  protected requestNew: boolean = false;
+
   constructor(
     private router: Router,
     protected store: Store<AppState>,

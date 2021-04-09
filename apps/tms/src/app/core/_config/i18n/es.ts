@@ -167,9 +167,9 @@ export const locale = {
         GENDER: 'X',
         VALUE: 'viajes'
       },
-      COMPLETETRAVEL: {
+      COMPLETED_TRAVEL: {
         TEXT: {
-          COMPLETETRAVELS: 'Viajes completados',
+          COMPLETED_TRAVELS: 'Viajes completados',
         },
       },
       TRAVEL: {

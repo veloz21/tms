@@ -3,23 +3,23 @@ import { select, Store } from '@ngrx/store';
 import { BaseDataSource, QueryResultsModel } from '@tms/crud';
 import { AppState } from '@tms/reducers';
 import {
-  selectCompleteTravelsInitWaitingMessage,
-  selectCompleteTravelsInStore,
-  selectCompleteTravelsPageLoading,
-} from '@tms/selectors/completeTravel.selectors';
+  selectCompletedTravelsInitWaitingMessage,
+  selectCompletedTravelsInStore,
+  selectCompletedTravelsPageLoading
+} from '@tms/selectors/completed-travel.selectors';
 
 @Component({ template: '' })
-export class CompleteTravelsDataSource extends BaseDataSource {
+export class CompletedTravelsDataSource extends BaseDataSource {
   constructor(private store: Store<AppState>) {
     super();
-    this.loading$ = this.store.pipe(select(selectCompleteTravelsPageLoading));
+    this.loading$ = this.store.pipe(select(selectCompletedTravelsPageLoading));
 
     this.isPreloadTextViewed$ = this.store.pipe(
-      select(selectCompleteTravelsInitWaitingMessage)
+      select(selectCompletedTravelsInitWaitingMessage)
     );
 
     this.store
-      .pipe(select(selectCompleteTravelsInStore))
+      .pipe(select(selectCompletedTravelsInStore))
       .subscribe((response: QueryResultsModel) => {
         this.paginatorTotalSubject.next(response.totalCount);
         this.entitySubject.next(response.items);

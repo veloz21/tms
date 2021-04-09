@@ -1,10 +1,11 @@
-mat-cell,mat-header-cell{
+mat-cell,
+mat-header-cell {
   justify-content: center;
 }
 .mat-row,
 .mat-header-row {
-    min-width: 1000px;
-    width: 100%;
+  min-width: 1000px;
+  width: 100%;
 }
 mat-row.available {
   background-color: #0ff069;

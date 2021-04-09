@@ -1,32 +1,29 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { DeleteManyCompleteTravels, DeleteOneCompleteTravel, RequestCompleteTravelPage } from '@tms/actions/completeTravel.actions';
+import { DeleteManyCompletedTravels, DeleteOneCompletedTravel, RequestCompletedTravelsPage } from '@tms/actions/completed-travel.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
-import { CompleteTravelsDataSource } from '@tms/data-sources';
+import { CompletedTravelsDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
 import { TravelModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
-import { selectCompleteTravelsPageLastQuery } from '@tms/selectors/completeTravel.selectors';
+import { selectCompletedTravelsPageLastQuery } from '@tms/selectors/completed-travel.selectors';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'b404-completetravel-list',
-  templateUrl: './completeTravel.component.html',
-  styleUrls: ['./completeTravel.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'b404-completed-travels-list',
+  templateUrl: './completed-travels-list.component.html',
+  styleUrls: ['./completed-travels-list.component.scss']
 })
-export class CompleteTravelsComponent implements OnInit, OnDestroy {
-  // Table fields
+export class CompletedTravelsListComponent implements OnInit {
 
-  dataSource: CompleteTravelsDataSource;
+  dataSource: CompletedTravelsDataSource;
   displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'LoadTime', 'DownloadTime', 'ArriveTime', 'ArriveCustomerTime', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
@@ -78,13 +75,13 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
     this.subheaderService.setTitle(this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'));
 
     // Init DataSource
-    this.dataSource = new CompleteTravelsDataSource(this.store);
+    this.dataSource = new CompletedTravelsDataSource(this.store);
     const entitiesSubscription = this.dataSource.entitySubject.pipe(skip(1), distinctUntilChanged(), takeUntil(this.ngUnsuscribe)).subscribe((res) => {
       this.travelsResult = res;
       console.log(this.travelsResult);
     });
     this.subscriptions.push(entitiesSubscription);
-    const lastQuerySubscription = this.store.pipe(select(selectCompleteTravelsPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe((res) => (this.lastQuery = res));
+    const lastQuerySubscription = this.store.pipe(select(selectCompletedTravelsPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe((res) => (this.lastQuery = res));
     // Load last query from store
     this.subscriptions.push(lastQuerySubscription);
 
@@ -116,7 +113,7 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
     this.selection.clear();
     const queryParams = new QueryParamsModel(this.filterConfiguration(), this.sort.direction, this.sort.active, this.paginator.pageIndex, this.paginator.pageSize);
     // Call request from server
-    this.store.dispatch(new RequestCompleteTravelPage({ page: queryParams }));
+    this.store.dispatch(new RequestCompletedTravelsPage({ page: queryParams }));
     this.selection.clear();
   }
 
@@ -166,7 +163,7 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.store.dispatch(new DeleteOneCompleteTravel({ id: _item.id }));
+      this.store.dispatch(new DeleteOneCompletedTravel({ id: _item.id }));
       this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
     });
   }
@@ -187,7 +184,7 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
       for (let i = 0; i < this.selection.selected.length; i++) {
         idsForDeletion.push(this.selection.selected[i].id);
       }
-      this.store.dispatch(new DeleteManyCompleteTravels({ ids: idsForDeletion }));
+      this.store.dispatch(new DeleteManyCompletedTravels({ ids: idsForDeletion }));
       this.layoutUtilsService.showActionNotification(deleteMessage, MessageType.Delete);
       this.selection.clear();
     });
@@ -206,4 +203,5 @@ export class CompleteTravelsComponent implements OnInit, OnDestroy {
       this.travelsResult.forEach((row) => this.selection.select(row));
     }
   }
+
 }

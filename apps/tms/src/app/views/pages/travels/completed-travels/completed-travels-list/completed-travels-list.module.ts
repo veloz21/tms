@@ -27,21 +27,22 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
-import { CompleteTravelEffects } from '@tms/effects';
+import { CompletedTravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
-import { completeTravelReducer } from '@tms/reducers';
-import { CompleteTravelService } from '@tms/services';
+import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '@tms/partials/content/crud';
+import { PartialsModule } from '@tms/partials/partials.module';
+import { completedTravelReducer } from '@tms/reducers';
+import { CompletedTravelService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../partials/content/crud';
-import { PartialsModule } from '../../../partials/partials.module';
-import { CompleteTravelsComponent } from './completeTravel.component';
+import { CompletedTravelsListComponent } from './completed-travels-list.component';
 
 @NgModule({
+  declarations: [CompletedTravelsListComponent],
   imports: [
-    MatDialogModule,
     CommonModule,
+    MatDialogModule,
     PartialsModule,
     NgxPermissionsModule.forChild(),
     FormsModule,
@@ -70,12 +71,12 @@ import { CompleteTravelsComponent } from './completeTravel.component';
     RouterModule.forChild([]),
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
-          passThruUnknownUrl: true,
-          dataEncapsulation: false,
-        })
+        passThruUnknownUrl: true,
+        dataEncapsulation: false,
+      })
       : [],
-    StoreModule.forFeature('completeTravels', completeTravelReducer),
-    EffectsModule.forFeature([CompleteTravelEffects]),
+    StoreModule.forFeature('completedTravels', completedTravelReducer),
+    EffectsModule.forFeature([CompletedTravelEffects]),
   ],
   providers: [
     {
@@ -90,12 +91,11 @@ import { CompleteTravelsComponent } from './completeTravel.component';
     TypesUtilsService,
     LayoutUtilsService,
     HttpUtilsService,
-    CompleteTravelService,
+    CompletedTravelService,
     TypesUtilsService,
     LayoutUtilsService,
   ],
   entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent],
-  declarations: [CompleteTravelsComponent],
-  exports: [CompleteTravelsComponent],
+  exports: [CompletedTravelsListComponent],
 })
-export class CompleteTravelModule {}
+export class CompletedTravelsListModule { }
