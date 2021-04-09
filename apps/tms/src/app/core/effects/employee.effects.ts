@@ -43,6 +43,16 @@ export class EmployeeEffects {
   );
 
   @Effect()
+  getTravel = this.actions$
+    .pipe(
+      ofType<fromEmployeeActions.GetEmployee>(fromEmployeeActions.EmployeeActionTypes.GetEmployee),
+      mergeMap(({ payload }) => {
+        return this.employeesService.getEmployeeById(payload.id);
+      }),
+      map((employee) => new fromEmployeeActions.StoreEmployee({ employee }))
+    );
+
+  @Effect()
   deleteEmployee$ = this.actions$.pipe(
     ofType<fromEmployeeActions.DeleteOneEmployee>(fromEmployeeActions.EmployeeActionTypes.DeleteOneEmployee),
     mergeMap(({ payload }) => {

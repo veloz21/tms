@@ -43,6 +43,16 @@ export class TravelEffects {
   );
 
   @Effect()
+  getTravel = this.actions$
+    .pipe(
+      ofType<fromTravelActions.GetTravel>(fromTravelActions.TravelActionTypes.GetTravel),
+      mergeMap(({ payload }) => {
+        return this.travelsService.getTravelById(payload.id);
+      }),
+      map((travel) => new fromTravelActions.StoreTravel({ travel }))
+    );
+
+  @Effect()
   deleteTravel$ = this.actions$.pipe(
     ofType<fromTravelActions.DeleteOneTravel>(fromTravelActions.TravelActionTypes.DeleteOneTravel),
     mergeMap(({ payload }) => {

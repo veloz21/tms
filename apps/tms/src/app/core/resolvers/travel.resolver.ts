@@ -7,6 +7,7 @@ import { selectTravelById } from '@tms/selectors/travel.selectors';
 import { TravelsService } from '@tms/services';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { GetTravel } from '../actions/travel.actions';
 
 @Injectable()
 export class TravelResolver implements Resolve<TravelModel> {
@@ -14,13 +15,13 @@ export class TravelResolver implements Resolve<TravelModel> {
   resolve(route: ActivatedRouteSnapshot): Observable<TravelModel> | Promise<TravelModel> | TravelModel {
     const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
     if (!id) {
-      return this.getInitialTravel(id);
+      return this.getInitialTravel();
     }
     this.getTravelData(id);
     return this.waitForTravelDataToLoad(id);
   }
 
-  getInitialTravel(id: string) {
+  getInitialTravel() {
     return new TravelModel();
   }
 
@@ -28,8 +29,9 @@ export class TravelResolver implements Resolve<TravelModel> {
     this.store.select(selectTravelById(id)).pipe(
       take(1)
     ).subscribe(travelStored => {
+      console.log('travelStored', travelStored);
       if (!travelStored) {
-        return this.travelsService.getTravelById(id);
+        this.store.dispatch(new GetTravel({ id }));
       }
     });
   }
@@ -37,7 +39,9 @@ export class TravelResolver implements Resolve<TravelModel> {
   waitForTravelDataToLoad(id: string): Observable<TravelModel> {
     return this.store.select(selectTravelById(id)).pipe(
       filter(travel => !!travel),
-      take(1)
+      take(1),
+      // timeout(5000),
+      // catchError(() => of(this.getInitialTravel()))
     );
   }
 }

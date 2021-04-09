@@ -5,6 +5,7 @@ export * from './lib/employee';
 export * from './lib/maintenance';
 export * from './lib/query-params';
 export * from './lib/query-results';
+export * from './lib/status.enum';
 export * from './lib/tire';
 export * from './lib/travel';
 export * from './lib/travel-status';

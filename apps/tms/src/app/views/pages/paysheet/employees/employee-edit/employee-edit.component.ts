@@ -24,7 +24,7 @@ import { delay, takeUntil } from 'rxjs/operators';
 export class EmployeeEditComponent implements OnInit, OnDestroy {
   // Public properties
   employee: EmployeeModel;
-  employeeId$: Observable<number>;
+  employeeId$: Observable<string>;
   oldEmployee: EmployeeModel;
   selectedTab = 0;
   loadingSubject = new BehaviorSubject<boolean>(true);
@@ -37,16 +37,15 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   imageFile: File;
 
   private ngUnsuscribe = new Subject();
-  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private employeeFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private cdr: ChangeDetectorRef) {}
+  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private employeeFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.employee = this.activatedRoute.snapshot.data.employee as EmployeeModel;
     this.activatedRoute.data.pipe(takeUntil(this.ngUnsuscribe)).subscribe((data) => {
-      this.loadEmployee(data.employee);
+      this.loadEmployee(data.employee as EmployeeModel);
     });
   }
 
-  loadEmployee(_employee, fromService: boolean = false) {
+  loadEmployee(_employee: EmployeeModel, fromService: boolean = false) {
     if (!_employee) {
       this.goBack('');
     }
@@ -97,8 +96,8 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       licenseType: [this.employee.documents.driversLicense.type],
       licensedueDate: [this.employee.documents.driversLicense.dueDate],
       licenseAttchment: [],
-      testDate: [this.employee.documents.phychophysicistTest.date],
-      testExpirationDate: [this.employee.documents.phychophysicistTest.expirationDate],
+      testDate: [this.employee.documents.psychophysicistTest.date],
+      testExpirationDate: [this.employee.documents.psychophysicistTest.expirationDate],
       testAttachment: [],
       ine: [this.employee.documents.ine.attachmentPath],
       image: [],
@@ -158,9 +157,6 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
   }
 
   prepareEmployee(): EmployeeModel {
-    console.log(this.employeeForm.get('licenseType').value);
-    console.log(this.employeeForm.get('licensedueDate').value);
-    console.log(this.employeeForm.get('licenseAttchment').value);
     const _employee = new EmployeeModel();
     _employee.id = this.employee.id;
     _employee.firstName = this.employeeForm.get('firstName').value;
@@ -181,7 +177,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
         dueDate: this.employeeForm.get('licensedueDate').value,
         attachmentPath: this.employeeForm.get('licenseAttchment').value,
       },
-      phychophysicistTest: {
+      psychophysicistTest: {
         date: this.employeeForm.get('testDate').value,
         expirationDate: this.employeeForm.get('testExpirationDate').value,
         attachmentPath: this.employeeForm.get('testAttachment').value,

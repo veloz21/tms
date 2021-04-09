@@ -44,6 +44,16 @@ export class TireEffects {
     );
 
   @Effect()
+  getTravel = this.actions$
+    .pipe(
+      ofType<fromTireActions.GetTire>(fromTireActions.TireActionTypes.GetTire),
+      mergeMap(({ payload }) => {
+        return this.tiresService.getTireById(payload.id);
+      }),
+      map((tire) => new fromTireActions.StoreTire({ tire }))
+    );
+
+  @Effect()
   deleteTire$ = this.actions$
     .pipe(
       ofType<fromTireActions.DeleteOneTire>(fromTireActions.TireActionTypes.DeleteOneTire),

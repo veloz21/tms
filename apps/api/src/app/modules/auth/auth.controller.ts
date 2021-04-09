@@ -3,11 +3,13 @@ import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Post, Reque
 import { GetHttpOptions } from '../../core/decorators';
 import { EmailTemplate } from '../../core/enums';
 import { DbTransactionInterceptor } from '../../core/interceptors';
+import { TransformInterceptor } from '../../core/interceptors/transform.interceptor';
 import { CompanyService } from '../admin/company/company.service';
 import { CreateCompanyDto } from '../admin/company/dto/create-company.dto';
 import { CreateUserDto } from '../admin/users/dto/create-user.dto';
+import { UserDto } from '../admin/users/dto/user.dto';
 import { UsersService } from '../admin/users/users.service';
-import { TravelsService } from '../travels/travels.service';
+import { AuthRegisterService } from './auth-register.service';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
@@ -17,9 +19,9 @@ export class AuthController {
 
   constructor(
     private authService: AuthService,
+    private registerService: AuthRegisterService,
     private userService: UsersService,
     private companyService: CompanyService,
-    private travelsService: TravelsService,
     private readonly mailerService: MailerService,
   ) { }
 
@@ -56,7 +58,7 @@ export class AuthController {
       throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
     }
 
-    await this.travelsService.createDefaultTravelStatus({ company: company.id, session });
+    await this.registerService.createDefaultTravelStatus({ company: company.id, session });
     return;
   }
 
@@ -99,6 +101,7 @@ export class AuthController {
 
   @Post('change-password')
   @HttpCode(200)
+  @UseInterceptors(new TransformInterceptor(UserDto))
   async changePassword(@Body('password') password: string, @Body('token') b64Token: string) {
 
     const token = Buffer.from(b64Token, 'base64').toString('ascii');

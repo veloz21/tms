@@ -1,4 +1,4 @@
-import { AVIABILITY_STATUS } from '@tms/core/enums';
+import { Status } from '@bits404/api-interfaces';
 import { BoxModel, EmployeeModel, TruckModel } from '@tms/core/models';
 
 export class MaintenanceTable {
@@ -18,7 +18,7 @@ export class MaintenanceTable {
         circulationCard: '1',
         airbag: '1',
         dock: '1',
-        status: AVIABILITY_STATUS.NOT_AVAILABLE
+        status: Status.NOT_AVAILABLE
       }),
       box: new BoxModel(),
       mechanic: new EmployeeModel({
@@ -40,7 +40,7 @@ export class MaintenanceTable {
             dueDate: new Date(),
             attachmentPath: '/HOLA',
           },
-          phychophysicistTest: {
+          psychophysicistTest: {
             date: new Date(),
             expirationDate: new Date(),
             attachmentPath: '/HOA',
@@ -50,7 +50,7 @@ export class MaintenanceTable {
           },
         },
         imagePath: '',
-        status: AVIABILITY_STATUS.AVAILABLE,
+        status: Status.AVAILABLE,
       }),
       reasons: 'Hola',
       comments: 'Adios',

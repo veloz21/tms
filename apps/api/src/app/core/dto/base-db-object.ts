@@ -1,20 +1,23 @@
 import { classToClass, classToPlain, Exclude, Expose, Transform } from "class-transformer";
 import { IsOptional } from "class-validator";
-import * as mongoose from 'mongoose';
+import { Types } from "mongoose";
 
 export class BaseDBObject {
-  // this will expose the _id field as a string
-  // and will change the attribute name to `id`
+
   @Expose({ name: 'id' })
   @Transform(value => value && value.toString())
   @IsOptional()
-  // tslint:disable-next-line: variable-name
-  _id: any;
+  _id: string;
 
-  @Exclude()
+  @Expose({ name: '_id', toPlainOnly: true })
+  @Transform(value => value && new Types.ObjectId(value), { toClassOnly: true })
   @IsOptional()
-  // @Transform(({ value }) => new mongoose.Types.ObjectId(value), { toClassOnly: true })
-  company: mongoose.Types.ObjectId;
+  id: Types.ObjectId;
+
+  @Exclude({ toPlainOnly: true })
+  @IsOptional()
+  @Transform(({ value }) => new Types.ObjectId(value), { toClassOnly: true })
+  company: Types.ObjectId;
 
   toJSON() {
     return classToPlain(this);

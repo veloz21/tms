@@ -19,7 +19,7 @@ import { routes } from './routes';
     TravelsModule,
     WorkshopModule,
     RouterModule.forRoutes(routes),
-    MongooseModule.forRoot(environment.BD_URI, { useFindAndModify: false }),
+    MongooseModule.forRoot(environment.BD_URI, { useFindAndModify: false, useUnifiedTopology: true }),
     MailerModule.forRoot({
       transport: {
         host: 'mail.bits404.com',
@@ -45,4 +45,4 @@ import { routes } from './routes';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

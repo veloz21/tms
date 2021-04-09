@@ -1,6 +1,17 @@
 import { IEmployee } from '@bits404/api-interfaces';
-import { Exclude, Expose } from "class-transformer";
+import { Exclude, Expose, Type } from "class-transformer";
 import { BaseDBObject } from '../../../core/dto/base-db-object';
+import { EmployeeDocumentsDto } from '../../admin/employees/dto/employeeDocuments.dto';
+
+@Exclude()
+class SalaryDto {
+
+  @Expose()
+  currency: string;
+
+  @Expose()
+  total: number;
+}
 
 @Exclude()
 export class TravelEmployeeDto extends BaseDBObject implements IEmployee {
@@ -12,6 +23,7 @@ export class TravelEmployeeDto extends BaseDBObject implements IEmployee {
   lastName: string;
 
   @Expose()
+  @Type(() => SalaryDto)
   salary: {
     currency: string,
     total: number,
@@ -23,22 +35,7 @@ export class TravelEmployeeDto extends BaseDBObject implements IEmployee {
   type: string;
   admissionDate: Date;
   secondaryCellphone: string;
-  documents: {
-    driversLicense: {
-      type: string,
-      dueDate: Date,
-      attachmentPath: string,
-    },
-    phychophysicistTest: {
-      date: Date,
-      expirationDate: Date,
-      attachmentPath: string,
-    },
-    ine: {
-      attachmentPath: string[],
-    },
-  };
-
+  documents: EmployeeDocumentsDto;
   imagePath: string;
   status: number;
 }

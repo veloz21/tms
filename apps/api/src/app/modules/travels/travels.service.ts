@@ -1,4 +1,4 @@
-import { IQueryParams, IQueryResults, ITravelStatus } from '@bits404/api-interfaces';
+import { IQueryParams, IQueryResults } from '@bits404/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
@@ -43,23 +43,25 @@ export class TravelsService {
     return this.travelModel.findOne({ _id, company: options.company }).session(options.session).exec();
   }
 
+  findOneStatus(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<TravelStatusDocument> {
+    return this.travelStatusModel.findOne({ _id, company: options.company }).session(options.session).exec();
+  }
+
   update(_id: mongoose.Types.ObjectId, updateTravelDto: UpdateTravelDto, options: HttpOptions): Promise<TravelDocument> {
     return this.travelModel.findOneAndUpdate({ _id, company: options.company }, { $set: updateTravelDto }, { new: true, session: options.session }).exec();
   }
 
   async updateStatus(_id: mongoose.Types.ObjectId, updateTravelStatusDto: UpdateTravelStatusDto, options: HttpOptions): Promise<TravelDocument> {
     const travel = await this.findOne(_id, options);
-    console.log('status', travel.status);
-    console.log(updateTravelStatusDto);
 
     const newStatusId = (updateTravelStatusDto as any).id;
-    const statusIndex = travel.status.findIndex((s: any) => s._id == newStatusId);
-    travel.status[statusIndex].date = updateTravelStatusDto.date;
-    travel.status[statusIndex].comments = updateTravelStatusDto.comments;
-    travel.currentStatus = newStatusId;
+    const dbStatus = await this.findOneStatus(newStatusId, options);
 
-    console.log('status x2', travel.status);
-    console.log('currentStatus', travel.currentStatus);
+    // const statusIndex = travel.status.findIndex((s: any) => s._id == newStatusId);
+    // travel.status[statusIndex].date = updateTravelStatusDto.date;
+    // travel.status[statusIndex].comments = updateTravelStatusDto.comments;
+    // travel.currentStatus = newStatusId;
+
     return this.travelModel.findOneAndUpdate({ _id, company: options.company }, { $set: travel }, { new: true, session: options.session }).exec();
   }
 
@@ -72,68 +74,6 @@ export class TravelsService {
   }
 
   getTravelStatus(options: HttpOptions) {
-    return this.travelStatusModel.find({ company: options.company }).sort('order').select('name').session(options.session);
-  }
-
-  createDefaultTravelStatus(options: HttpOptions) {
-    const defaultStatus: ITravelStatus[] = [
-      {
-        order: 0,
-        name: 'Programado',
-        date: new Date(),
-        comments: '',
-      },
-      {
-        order: 1,
-        name: 'Salida de Patio',
-        date: new Date(),
-        comments: '',
-      },
-      {
-        order: 2,
-        name: 'Llegada a Cargar',
-        date: new Date(),
-        comments: '',
-      },
-      {
-        order: 3,
-        name: 'Cargado',
-        date: new Date(),
-        comments: '',
-      },
-      {
-        order: 4,
-        name: 'Llegada a Destino',
-        date: new Date(),
-        comments: '',
-      },
-      {
-        order: 5,
-        name: 'Inicio de descarga',
-        date: new Date(),
-        comments: '',
-      },
-      {
-        order: 6,
-        name: 'Descargado',
-        date: new Date(),
-        comments: '',
-      },
-      {
-        order: 7,
-        name: 'Salida de Destino',
-        date: new Date(),
-        comments: '',
-      },
-      {
-        order: 8,
-        name: 'Llegada a Patio',
-        date: new Date(),
-        comments: '',
-      },
-    ];
-    const status = defaultStatus.map(s => ({ ...s, company: options.company }));
-    console.log('status', status);
-    return this.travelStatusModel.insertMany(status, { session: options.session });
+    return this.travelStatusModel.find({ company: options.company }).select('name').session(options.session);
   }
 }

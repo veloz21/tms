@@ -2,15 +2,18 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseI
 import { GetHttpOptions } from '../../../core/decorators';
 import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
+import { TransformInterceptor } from '../../../core/interceptors/transform.interceptor';
 import type { HttpOptions } from '../../../core/interfaces';
 import { JwtAuthGuard } from '../../auth';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { EmployeeDto } from './dto/employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { EmployeesService } from './employees.service';
 
 @Controller('')
 @UseGuards(JwtAuthGuard)
 @UseInterceptors(DbTransactionInterceptor)
+@UseInterceptors(new TransformInterceptor(EmployeeDto))
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) { }
 

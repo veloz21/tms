@@ -1,9 +1,11 @@
 import { IQueryParams, IQueryResults } from '@bits404/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 import { forkJoin } from 'rxjs';
 import type { HttpOptions } from '../../../core/interfaces';
+import { TravelStatus, TravelStatusDocument } from '../../travels/schemas/travel-status.schema';
 import { CreateTruckDto } from './dto/create-truck.dto';
 import { UpdateTruckDto } from './dto/update-truck.dto';
 import { Truck, TruckDocument } from './schemas/truck.schema';
@@ -13,6 +15,7 @@ export class TrucksService {
 
   constructor(
     @InjectModel(Truck.name) private readonly truckModel: Model<TruckDocument>,
+    @InjectModel(TravelStatus.name) private readonly travelStatusModel: Model<TravelStatusDocument>,
   ) { }
 
   create(createTruckDto: CreateTruckDto, options: HttpOptions): Promise<TruckDocument> {
@@ -36,15 +39,22 @@ export class TrucksService {
     }).toPromise();
   }
 
-  findOne(_id: string, options: HttpOptions): Promise<TruckDocument> {
+  findOne(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<TruckDocument> {
     return this.truckModel.findOne({ _id, company: options.company }).session(options.session).exec();
   }
 
-  update(_id: string, updateTruckDto: UpdateTruckDto, options: HttpOptions): Promise<TruckDocument> {
+  update(_id: mongoose.Types.ObjectId, updateTruckDto: UpdateTruckDto, options: HttpOptions): Promise<TruckDocument> {
     return this.truckModel.findOneAndUpdate({ _id, company: options.company }, { $set: updateTruckDto }, { new: true, session: options.session }).exec();
   }
 
-  remove(_id: string, options: HttpOptions): Promise<TruckDocument> {
+  remove(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<TruckDocument> {
     return this.truckModel.findOneAndRemove({ _id, company: options.company }, { session: options.session, }).exec();
+  }
+
+  async updateStatusByTravelStatus(_id: mongoose.Types.ObjectId, travelStatusId: mongoose.Types.ObjectId, options: HttpOptions): Promise<TruckDocument> {
+    const travelStatus = await this.travelStatusModel.findOne({ _id: travelStatusId, company: options.company }).select('relatedStatus.truck').session(options.session).exec()
+    if (travelStatus && travelStatus.relatedStatus && travelStatus.relatedStatus.truck) {
+      return this.truckModel.findOneAndUpdate({ _id, company: options.company }, { $set: { "status": travelStatus.relatedStatus.truck } }, { session: options.session }).exec();
+    }
   }
 }

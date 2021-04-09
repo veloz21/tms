@@ -2,15 +2,18 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseI
 import { GetHttpOptions } from '../../../core/decorators';
 import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
+import { TransformInterceptor } from '../../../core/interceptors/transform.interceptor';
 import type { HttpOptions } from '../../../core/interfaces';
-import { JwtAuthGuard } from '../../auth';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateTireDto } from './dto/create-tire.dto';
+import { TireDto } from './dto/tire.dto';
 import { UpdateTireDto } from './dto/update-tire.dto';
 import { TiresService } from './tires.service';
 
 @Controller('')
 @UseGuards(JwtAuthGuard)
 @UseInterceptors(DbTransactionInterceptor)
+@UseInterceptors(new TransformInterceptor(TireDto))
 export class TiresController {
   constructor(private readonly tiresService: TiresService) { }
 

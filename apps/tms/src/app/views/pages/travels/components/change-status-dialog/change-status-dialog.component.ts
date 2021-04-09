@@ -32,7 +32,6 @@ export class ChangeStatusDialogComponent implements OnInit {
       date: [this.status.date, [Validators.required]],
       datetime: [time],
       name: [this.status.name],
-      order: [this.status.order],
       comments: [this.status.comments],
     });
   }
@@ -47,7 +46,6 @@ export class ChangeStatusDialogComponent implements OnInit {
       id: this.form.get('id').value,
       date,
       name: this.form.get('name').value,
-      order: this.form.get('order').value,
       comments: this.form.get('comments').value,
     });
   }

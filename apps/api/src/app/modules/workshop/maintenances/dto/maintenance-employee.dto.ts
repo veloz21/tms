@@ -1,19 +1,28 @@
-import { Status } from "./status.enum";
+import { IEmployee } from '@bits404/api-interfaces';
+import { Exclude, Expose } from "class-transformer";
+import { BaseDBObject } from '../../../../core/dto/base-db-object';
 
-export interface IEmployee {
-  id?: any;
+@Exclude()
+export class MaintenanceEmployeeDto extends BaseDBObject implements IEmployee {
+
+  @Expose()
   firstName: string;
+
+  @Expose()
   lastName: string;
+
+  @Expose()
+  salary: {
+    currency: string,
+    total: number,
+  };
+
   cellphone: string;
   address: string;
   birthDate: Date;
   type: string;
   admissionDate: Date;
   secondaryCellphone: string;
-  salary: {
-    currency: string,
-    total: number,
-  };
   documents: {
     driversLicense: {
       type: string,
@@ -29,6 +38,7 @@ export interface IEmployee {
       attachmentPath: string[],
     },
   };
+
   imagePath: string;
-  status: number & Status;
+  status: number;
 }

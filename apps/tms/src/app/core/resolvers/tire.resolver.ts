@@ -7,6 +7,7 @@ import { selectTireById } from '@tms/selectors/tire.selectors';
 import { TiresService } from '@tms/services';
 import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+import { GetTire } from '../actions/tire.actions';
 
 @Injectable()
 export class TireResolver implements Resolve<TireModel> {
@@ -27,9 +28,9 @@ export class TireResolver implements Resolve<TireModel> {
   getTireData(id: string) {
     this.store.select(selectTireById(id)).pipe(
       take(1)
-    ).subscribe(truckStored => {
-      if (!truckStored) {
-        return this.tiresService.getTireById(id);
+    ).subscribe(tireStored => {
+      if (!tireStored) {
+        this.store.dispatch(new GetTire({ id }));
       }
     });
   }
@@ -37,7 +38,9 @@ export class TireResolver implements Resolve<TireModel> {
   waitForTireDataToLoad(id: string): Observable<TireModel> {
     return this.store.select(selectTireById(id)).pipe(
       filter(tire => !!tire),
-      take(1)
+      take(1),
+      // timeout(5000),
+      // catchError(() => of(this.getInitialTravel()))
     );
   }
 }

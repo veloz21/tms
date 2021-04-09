@@ -1,4 +1,4 @@
-import { AVIABILITY_STATUS } from '@tms/core/enums';
+import { Status } from '@bits404/api-interfaces';
 import { BoxModel, EmployeeModel, TruckModel } from '@tms/core/models';
 
 export class TravelTable {
@@ -24,7 +24,7 @@ export class TravelTable {
             dueDate: new Date(),
             attachmentPath: '/HOLA',
           },
-          phychophysicistTest: {
+          psychophysicistTest: {
             date: new Date(),
             expirationDate: new Date(),
             attachmentPath: '/HOA',
@@ -34,7 +34,7 @@ export class TravelTable {
           },
         },
         imagePath: '',
-        status: AVIABILITY_STATUS.AVAILABLE,
+        status: Status.AVAILABLE,
       }),
       box: new BoxModel({
         id: 1,
@@ -43,7 +43,7 @@ export class TravelTable {
         rangeTraveled: 1000,
         serialNumber: '12345',
         brand: 'brand1',
-        status: AVIABILITY_STATUS.AVAILABLE
+        status: Status.AVAILABLE
       }),
       truck: new TruckModel({
         id: 1,
@@ -57,7 +57,7 @@ export class TravelTable {
         circulationCard: '1',
         airbag: '1',
         dock: '1',
-        status: AVIABILITY_STATUS.AVAILABLE
+        status: Status.AVAILABLE
       }),
       locations: {
         origin: {
@@ -98,7 +98,7 @@ export class TravelTable {
             dueDate: new Date(),
             attachmentPath: '/HOLA',
           },
-          phychophysicistTest: {
+          psychophysicistTest: {
             date: new Date(),
             expirationDate: new Date(),
             attachmentPath: '/HOA',
@@ -108,7 +108,7 @@ export class TravelTable {
           },
         },
         imagePath: '',
-        status: AVIABILITY_STATUS.AVAILABLE,
+        status: Status.AVAILABLE,
       }),
       box: new BoxModel({
         id: 1,
@@ -117,7 +117,7 @@ export class TravelTable {
         rangeTraveled: 1000,
         serialNumber: '12345',
         brand: 'brand1',
-        status: AVIABILITY_STATUS.AVAILABLE
+        status: Status.AVAILABLE
       }),
       truck: new TruckModel({
         id: 1,
@@ -131,7 +131,7 @@ export class TravelTable {
         circulationCard: '1',
         airbag: '1',
         dock: '1',
-        status: AVIABILITY_STATUS.AVAILABLE
+        status: Status.AVAILABLE
       }),
       locations: {
         origin: {

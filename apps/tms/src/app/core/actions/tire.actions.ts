@@ -4,6 +4,8 @@ import { QueryParamsModel } from '@tms/crud';
 import { TireModel } from '@tms/models';
 
 export enum TireActionTypes {
+  GetTire = '[Edit Tire Component] Get Tire',
+  StoreTire = '[Edit Tire Component] Store Tire',
   CreateTire = '[Edit Tire Component] Create Tire ',
   CreateTireError = '[Edit Tire Component] Create Tire Error',
   CreateTireSuccess = '[Edit Tire Component] Create Tire Success',
@@ -18,24 +20,29 @@ export enum TireActionTypes {
   TiresActionToggleLoading = '[Tires] Tires Action Toggle Loading'
 }
 
+export class GetTire implements Action {
+  readonly type = TireActionTypes.GetTire;
+  constructor(public payload: { id: string }) { }
+}
+
+export class StoreTire implements Action {
+  readonly type = TireActionTypes.StoreTire;
+  constructor(public payload: { tire: TireModel }) { }
+}
+
 export class CreateTire implements Action {
   readonly type = TireActionTypes.CreateTire;
-  constructor(public payload: {
-    tire: TireModel
-  }) { }
+  constructor(public payload: { tire: TireModel }) { }
 }
+
 export class CreateTireError implements Action {
   readonly type = TireActionTypes.CreateTireError;
-  constructor(public payload: {
-    isError: any
-  }) { }
+  constructor(public payload: { isError: any }) { }
 }
 
 export class CreateTireSuccess implements Action {
   readonly type = TireActionTypes.CreateTireSuccess;
-  constructor(public payload: {
-    tire: TireModel
-  }) { }
+  constructor(public payload: { tire: TireModel }) { }
 }
 
 export class UpdateTire implements Action {
@@ -53,7 +60,6 @@ export class UpdateTireSuccess implements Action {
     tire: TireModel // For Server update (through service)
   }) { }
 }
-
 
 export class DeleteOneTire implements Action {
   readonly type = TireActionTypes.DeleteOneTire;
@@ -98,16 +104,18 @@ export class TiresActionToggleLoading implements Action {
 }
 
 export type TireActions =
-  CreateTire |
-  UpdateTire |
-  DeleteOneTire |
-  DeleteManyTires |
-  RequestTiresPage |
-  LoadTiresPage |
-  CancellTiresPage |
-  TiresPageToggleLoading |
-  TiresActionToggleLoading |
-  CreateTireError |
-  CreateTireSuccess |
-  UpdateTireSuccess
+  | CreateTire
+  | UpdateTire
+  | DeleteOneTire
+  | DeleteManyTires
+  | RequestTiresPage
+  | LoadTiresPage
+  | CancellTiresPage
+  | TiresPageToggleLoading
+  | TiresActionToggleLoading
+  | CreateTireError
+  | CreateTireSuccess
+  | UpdateTireSuccess
+  | GetTire
+  | StoreTire
   ;

@@ -1,5 +1,4 @@
 import { ITire, ITruck } from '@bits404/api-interfaces';
-import { AVIABILITY_STATUS } from '@tms/enums';
 
 export class TruckModel implements ITruck {
   id: string;
@@ -32,7 +31,7 @@ export class TruckModel implements ITruck {
     this.circulationCard = truck && truck.circulationCard || '';
     this.airbag = truck && truck.airbag || '';
     this.dock = truck && truck.dock || '';
-    this.status = truck && truck.status || AVIABILITY_STATUS.AVAILABLE;
+    this.status = truck && truck.status;
     this.imagePath = truck && truck.imagePath || '';
     this.tires = truck && truck.tires || [];
   }

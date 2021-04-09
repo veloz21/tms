@@ -5,14 +5,12 @@ export class TravelStatusModel implements ITravelStatus {
   id: string | null = null;
   date: Date | null = null;
   name: string = '';
-  order: number = undefined;
   comments: string = '';
 
   constructor(travelStatus?: Partial<ITravelStatus>) {
     this.id = (travelStatus && travelStatus.id) || null;
     this.date = (travelStatus && travelStatus.date) || null;
     this.name = (travelStatus && travelStatus.name) || '';
-    this.order = (travelStatus && travelStatus.order) || undefined;
     this.comments = (travelStatus && travelStatus.comments) || '';
   }
 }

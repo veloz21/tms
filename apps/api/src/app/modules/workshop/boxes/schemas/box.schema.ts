@@ -1,4 +1,4 @@
-import { IBox } from '@bits404/api-interfaces';
+import { IBox, Status } from '@bits404/api-interfaces';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
@@ -31,8 +31,8 @@ export class Box implements IBox {
   @Prop()
   price: number;
 
-  @Prop()
-  status: number;
+  @Prop({ type: Number })
+  status: number & Status;
 
   @Prop()
   imagePath: string;
@@ -48,23 +48,3 @@ export const BoxSchema = SchemaFactory.createForClass(Box);
 export const BoxSubdocumentSchema = SchemaFactory.createForClass(Box);
 
 BoxSchema.index({ company: 1, serialNumber: 1 }, { unique: true });
-
-BoxSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});
-
-BoxSubdocumentSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});

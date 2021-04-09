@@ -1,3 +1,4 @@
+import { Status } from './status.enum';
 import { ITire } from './tire';
 
 export interface IBox {
@@ -9,7 +10,7 @@ export interface IBox {
   serialNumber: string;
   brand: string;
   price: number;
-  status: number;
+  status: number & Status;
   imagePath: string;
   tires: Partial<ITire>[];
 }

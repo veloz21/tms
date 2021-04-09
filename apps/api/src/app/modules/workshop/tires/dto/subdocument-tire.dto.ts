@@ -11,4 +11,5 @@ export class SubdocumentTireDto extends BaseDBObject implements ITire {
   rangeTraveled: number;
 
   status: number;
+  parentStatus: number;
 }

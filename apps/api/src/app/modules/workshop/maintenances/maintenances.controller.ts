@@ -2,15 +2,18 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseI
 import { GetHttpOptions } from '../../../core/decorators';
 import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
+import { TransformInterceptor } from '../../../core/interceptors/transform.interceptor';
 import type { HttpOptions } from '../../../core/interfaces';
-import { JwtAuthGuard } from '../../auth';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateMaintenanceDto } from './dto/create-maintenance.dto';
+import { MaintenanceDto } from './dto/maintenance.dto';
 import { UpdateMaintenanceDto } from './dto/update-maintenance.dto';
 import { MaintenancesService } from './maintenances.service';
 
 @Controller('')
 @UseGuards(JwtAuthGuard)
 @UseInterceptors(DbTransactionInterceptor)
+@UseInterceptors(new TransformInterceptor(MaintenanceDto))
 export class MaintenancesController {
   constructor(private readonly maintenancesService: MaintenancesService) { }
 

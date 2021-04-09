@@ -1,4 +1,4 @@
-import { IEmployee } from '@bits404/api-interfaces';
+import { IEmployee, Status } from '@bits404/api-interfaces';
 import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
@@ -35,8 +35,8 @@ export class Employee extends User implements IEmployee {
   @Prop()
   secondaryCellphone: string;
 
-  @Prop()
-  status: number;
+  @Prop({ type: Number })
+  status: number & Status;
 
   @Prop(raw({
     currency: { type: String },
@@ -61,23 +61,3 @@ export const EmployeeSchema = SchemaFactory.createForClass(Employee);
 export const EmployeeSubdocumentSchema = SchemaFactory.createForClass(Employee);
 
 EmployeeSchema.index({ company: 1, firstName: 1, lastName: 1 }, { unique: true });
-
-EmployeeSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});
-
-EmployeeSubdocumentSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});

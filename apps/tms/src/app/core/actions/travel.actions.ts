@@ -4,6 +4,8 @@ import { QueryParamsModel } from '@tms/crud';
 import { TravelModel, TravelStatusModel } from '@tms/models';
 
 export enum TravelActionTypes {
+  GetTravel = '[Edit Travel Component] Get Travel',
+  StoreTravel = '[Edit Travel Component] Store Travel',
   CreateTravel = '[Edit Travel Component] Create Travel',
   UpdateTravel = '[Edit Travel Component] Update Travel',
   DeleteOneTravel = '[Travel List Page] Delete One Travel',
@@ -19,6 +21,16 @@ export enum TravelActionTypes {
   GetTravelStatus = '[Edit Travel Component] Get Travel Status',
   StoreTravelStatus = '[Edit Travel Component] Store Travel Status',
   UpdateTravelStatus = '[ListTravel Component] Update Travel Status',
+}
+
+export class GetTravel implements Action {
+  readonly type = TravelActionTypes.GetTravel;
+  constructor(public payload: { id: string }) { }
+}
+
+export class StoreTravel implements Action {
+  readonly type = TravelActionTypes.StoreTravel;
+  constructor(public payload: { travel: TravelModel }) { }
 }
 
 export class CreateTravel implements Action {
@@ -123,4 +135,7 @@ export type TravelActions =
   | UpdateTravelSuccess
   | GetTravelStatus
   | StoreTravelStatus
-  | UpdateTravelStatus;
+  | UpdateTravelStatus
+  | GetTravel
+  | StoreTravel
+  ;
