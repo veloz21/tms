@@ -1,17 +1,17 @@
-// Angular
 import { Pipe, PipeTransform } from '@angular/core';
-import { TravelModel } from '../../../models';
+import { TravelStatusModel } from '@tms/models';
 
 @Pipe({
   name: 'b404NextStatus'
 })
 export class NextTravelStatusPipe implements PipeTransform {
 
-  transform(travel: TravelModel) {
-    if (!travel.status || !travel.currentStatus) {
+  transform(status: Partial<TravelStatusModel>[], currentStatus?: string) {
+    if (!status || !currentStatus) {
       return;
     }
-    const index = travel.status.findIndex(s => s.id == travel.currentStatus);
-    return travel.status[index + 1] || null;
+
+    const index = status.findIndex(s => s.id === currentStatus);
+    return status[index + 1] || null;
   }
 }

@@ -1,9 +1,10 @@
 import { IQueryParams, IQueryResults } from '@bits404/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { forkJoin } from 'rxjs';
 import type { HttpOptions } from '../../../core/interfaces';
+import { TravelStatusDto } from '../../travels/dto/travel-status.dto';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { Employee, EmployeeDocument } from './schemas/employee.schema';
@@ -46,5 +47,11 @@ export class EmployeesService {
 
   remove(_id: string, options: HttpOptions): Promise<EmployeeDocument> {
     return this.employeeModel.findOneAndRemove({ _id, company: options.company }, { session: options.session, }).exec();
+  }
+
+  updateStatusByTravelStatus(_id: Types.ObjectId, travelStatus: TravelStatusDto, options: HttpOptions): Promise<EmployeeDocument> {
+    if (travelStatus && travelStatus.relatedStatus && travelStatus.relatedStatus.employee !== undefined) {
+      return this.employeeModel.findOneAndUpdate({ _id, company: options.company }, { $set: { "status": travelStatus.relatedStatus.employee } }, { session: options.session }).exec();
+    }
   }
 }

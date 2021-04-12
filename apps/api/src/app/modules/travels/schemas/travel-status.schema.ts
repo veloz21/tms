@@ -1,5 +1,5 @@
-import { ITravelStatus } from '@bits404/api-interfaces';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ITravelStatus, Status } from '@bits404/api-interfaces';
+import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Company } from '../../admin/company';
@@ -15,11 +15,19 @@ export class TravelStatus implements ITravelStatus {
   @Prop({ type: String, default: '' })
   name: string;
 
-  @Prop({ type: Number })
-  order: number;
-
   @Prop({ type: String, default: '' })
   comments: string;
+
+  @Prop(raw({
+    box: { type: Number },
+    truck: { type: Number },
+    employee: { type: Number },
+  }))
+  relatedStatus: {
+    box?: number & Status,
+    truck?: number & Status,
+    employee?: number & Status,
+  };
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })
   company: mongoose.Types.ObjectId;
@@ -27,23 +35,3 @@ export class TravelStatus implements ITravelStatus {
 
 export const TravelStatusSchema = SchemaFactory.createForClass(TravelStatus);
 export const TravelStatusSubdocumentSchema = SchemaFactory.createForClass(TravelStatus);
-
-TravelStatusSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});
-
-TravelStatusSubdocumentSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});

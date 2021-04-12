@@ -41,13 +41,3 @@ export class Maintenance implements IMaintenance {
 }
 
 export const MaintenanceSchema = SchemaFactory.createForClass(Maintenance);
-
-MaintenanceSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});

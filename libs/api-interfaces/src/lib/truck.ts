@@ -1,3 +1,4 @@
+import { Status } from './status.enum';
 import { ITire } from './tire';
 
 export interface ITruck {
@@ -14,7 +15,7 @@ export interface ITruck {
   price: number;
   airbag: string;
   dock: string;
-  status: number;
+  status: number & Status;
   imagePath: string;
   tires: Partial<ITire>[];
 }

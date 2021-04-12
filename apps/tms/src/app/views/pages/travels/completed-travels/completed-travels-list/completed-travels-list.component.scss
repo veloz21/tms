@@ -1,0 +1,18 @@
+mat-cell,
+mat-header-cell {
+  justify-content: center;
+}
+.mat-row,
+.mat-header-row {
+  min-width: 1000px;
+  width: 100%;
+}
+mat-row.available {
+  background-color: #0ff069;
+}
+mat-row.not_available {
+  background-color: #f56969;
+}
+mat-row.in_maintenance {
+  background-color: #f8c358;
+}

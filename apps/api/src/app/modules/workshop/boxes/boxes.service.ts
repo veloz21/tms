@@ -1,9 +1,11 @@
 import { IQueryParams, IQueryResults } from '@bits404/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 import { forkJoin } from 'rxjs';
 import type { HttpOptions } from '../../../core/interfaces';
+import { TravelStatusDto } from '../../travels/dto/travel-status.dto';
 import { CreateBoxDto } from './dto/create-box.dto';
 import { UpdateBoxDto } from './dto/update-box.dto';
 import { Box, BoxDocument } from './schemas/box.schema';
@@ -36,15 +38,21 @@ export class BoxesService {
     }).toPromise();
   }
 
-  findOne(_id: string, options: HttpOptions): Promise<BoxDocument> {
+  findOne(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<BoxDocument> {
     return this.boxModel.findOne({ _id, company: options.company }).session(options.session).exec();
   }
 
-  update(_id: string, updateBoxDto: UpdateBoxDto, options: HttpOptions): Promise<BoxDocument> {
+  update(_id: mongoose.Types.ObjectId, updateBoxDto: UpdateBoxDto, options: HttpOptions): Promise<BoxDocument> {
     return this.boxModel.findOneAndUpdate({ _id, company: options.company }, { $set: updateBoxDto }, { new: true, session: options.session }).exec();
   }
 
-  remove(_id: string, options: HttpOptions): Promise<BoxDocument> {
+  remove(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<BoxDocument> {
     return this.boxModel.findOneAndRemove({ _id, company: options.company }, { session: options.session, }).exec();
+  }
+
+  updateStatusByTravelStatus(_id: mongoose.Types.ObjectId, travelStatus: TravelStatusDto, options: HttpOptions): Promise<BoxDocument> {
+    if (travelStatus && travelStatus.relatedStatus && travelStatus.relatedStatus.box !== undefined) {
+      return this.boxModel.findOneAndUpdate({ _id, company: options.company }, { $set: { "status": travelStatus.relatedStatus.box } }, { session: options.session }).exec();
+    }
   }
 }

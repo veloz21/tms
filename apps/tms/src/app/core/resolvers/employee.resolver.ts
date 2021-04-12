@@ -1,43 +1,24 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Resolve } from '@angular/router';
+import { GetEmployee } from '@tms/actions/employee.actions';
 import { EmployeeModel } from '@tms/models';
-import { AppState } from '@tms/reducers';
 import { selectEmployeeById } from '@tms/selectors/employee.selectors';
-import { EmployeesService } from '@tms/services';
 import { Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { BaseResolver } from './base-resolver';
 
 @Injectable()
-export class EmployeeResolver implements Resolve<EmployeeModel> {
-  constructor(private employeesService: EmployeesService, private store: Store<AppState>) { }
-  resolve(route: ActivatedRouteSnapshot): Observable<EmployeeModel> | Promise<EmployeeModel> | EmployeeModel {
-    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
-    if (!id) {
-      return this.getInitialEmployee(id);
-    }
-    this.getEmployeeData(id);
-    return this.waitForEmployeeDataToLoad(id);
-  }
+export class EmployeeResolver extends BaseResolver<EmployeeModel> implements Resolve<EmployeeModel> {
 
-  getInitialEmployee(id: string) {
+  protected backRoute: string = '/paysheet/employees';
+  protected getEmptyModel(): EmployeeModel {
     return new EmployeeModel();
   }
 
-  getEmployeeData(id: string) {
-    this.store.select(selectEmployeeById(id)).pipe(
-      take(1)
-    ).subscribe(employeeStored => {
-      if (!employeeStored) {
-        return this.employeesService.getEmployeeById(id);
-      }
-    });
+  protected getModelAction(id: string): GetEmployee {
+    return new GetEmployee({ id });
   }
 
-  waitForEmployeeDataToLoad(id: string): Observable<EmployeeModel> {
-    return this.store.select(selectEmployeeById(id)).pipe(
-      filter(employee => !!employee),
-      take(1)
-    );
+  protected selectModelFromStore(id: string): Observable<EmployeeModel> {
+    return this.store.select(selectEmployeeById(id));
   }
 }

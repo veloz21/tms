@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Status } from '@bits404/api-interfaces';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { DeleteManyEmployees, DeleteOneEmployee, RequestEmployeePage } from '@tms/actions/employee.actions';
@@ -38,6 +39,8 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   // Selection
   selection = new SelectionModel<EmployeeModel>(true, []);
   employeesResult: EmployeeModel[] = [];
+
+  protected STATUS = Status;
   private subscriptions: Subscription[] = [];
   private ngUnsuscribe = new Subject();
 

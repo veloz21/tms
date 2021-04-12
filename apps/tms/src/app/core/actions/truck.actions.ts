@@ -4,6 +4,8 @@ import { QueryParamsModel } from '@tms/crud';
 import { TruckModel } from '@tms/models';
 
 export enum TruckActionTypes {
+  GetTruck = '[Edit Truck Component] Get Truck',
+  StoreTruck = '[Edit Truck Component] Store Truck',
   CreateTruck = '[Edit Truck Component] Truck Created',
   UpdateTruck = '[Edit Truck Component] Truck Updated',
   DeleteOneTruck = '[Truck List Page] One Truck Deleted',
@@ -17,6 +19,16 @@ export enum TruckActionTypes {
   CreateTruckSuccess = '[Edit Truck Component] Create Truck Success',
   CreateTruckError = '[Edit Truck Component] Create Truck Error',
   UpdateTruckSuccess = '[Edit Truck Component] Update Truck Success'
+}
+
+export class GetTruck implements Action {
+  readonly type = TruckActionTypes.GetTruck;
+  constructor(public payload: { id: string }) { }
+}
+
+export class StoreTruck implements Action {
+  readonly type = TruckActionTypes.StoreTruck;
+  constructor(public payload: { truck: TruckModel }) { }
 }
 
 export class CreateTruck implements Action {
@@ -106,4 +118,6 @@ export type TruckActions =
   | CreateTruckSuccess
   | CreateTruckError
   | UpdateTruckSuccess
+  | GetTruck
+  | StoreTruck
   ;

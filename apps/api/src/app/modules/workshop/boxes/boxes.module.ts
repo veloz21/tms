@@ -6,9 +6,12 @@ import { Box, BoxSchema } from './schemas/box.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Box.name, schema: BoxSchema }]),
+    MongooseModule.forFeature([
+      { name: Box.name, schema: BoxSchema },
+    ]),
   ],
   controllers: [BoxesController],
-  providers: [BoxesService]
+  providers: [BoxesService],
+  exports: [BoxesService],
 })
 export class BoxesModule { }

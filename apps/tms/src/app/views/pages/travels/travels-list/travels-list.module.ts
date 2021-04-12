@@ -30,13 +30,13 @@ import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { CurrentTravelStatusPipe, FakeApiService, NextTravelStatusPipe } from '@tms/layout';
 import { travelsReducer } from '@tms/reducers';
-import { CompleteTravelService, TravelsService } from '@tms/services';
+import { CompletedTravelService, TravelsService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../partials/content/crud';
 import { PartialsModule } from '../../../partials/partials.module';
 import { SharedModule } from '../../../shared/shared.module';
-import { CompleteTravelModule } from '../completeTravel/completeTravel.module';
+import { CompletedTravelsListModule } from '../completed-travels/completed-travels-list/completed-travels-list.module';
 import { ChangeStatusDialogComponent } from '../components/change-status-dialog/change-status-dialog.component';
 import { ChangeStatusDialogModule } from '../components/change-status-dialog/change-status-dialog.module';
 import { TravelsListComponent } from './travels-list.component';
@@ -52,7 +52,7 @@ import { TravelsListComponent } from './travels-list.component';
     MatButtonModule,
     MatMenuModule,
     MatSelectModule,
-    CompleteTravelModule,
+    CompletedTravelsListModule,
     MatInputModule,
     MatTableModule,
     MatAutocompleteModule,
@@ -102,7 +102,7 @@ import { TravelsListComponent } from './travels-list.component';
     TravelsService,
     TypesUtilsService,
     LayoutUtilsService,
-    CompleteTravelService,
+    CompletedTravelService,
     ChangeStatusDialogModule,
   ],
   entryComponents: [

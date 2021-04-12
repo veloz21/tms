@@ -6,7 +6,7 @@ import { UsersModule } from './users';
 export const adminRoutes: Routes = [
   {
     path: 'admin',
-    childrens: [
+    children: [
       {
         path: 'company',
         module: CompanyModule,

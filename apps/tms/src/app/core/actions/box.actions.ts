@@ -4,6 +4,8 @@ import { QueryParamsModel } from '@tms/crud';
 import { BoxModel } from '@tms/models';
 
 export enum BoxActionTypes {
+  GetBox = '[Edit Box Component] Get Box',
+  StoreBox = '[Edit Box Component] Store Box',
   CreateBox = '[Edit Box Component] Create Box ',
   CreateBoxError = '[Edit Box Component] Create Box Error',
   CreateBoxSuccess = '[Edit Box Component] Create Box Success',
@@ -17,6 +19,16 @@ export enum BoxActionTypes {
   CancellBoxesPage = '[Boxes API] Cancell Boxes Page ',
   BoxesPageToggleLoading = '[Boxes] Boxes Page Toggle Loading',
   BoxesActionToggleLoading = '[Boxes] Boxes Action Toggle Loading',
+}
+
+export class GetBox implements Action {
+  readonly type = BoxActionTypes.GetBox;
+  constructor(public payload: { id: string }) { }
+}
+
+export class StoreBox implements Action {
+  readonly type = BoxActionTypes.StoreBox;
+  constructor(public payload: { box: BoxModel }) { }
 }
 
 export class CreateBox implements Action {
@@ -115,4 +127,6 @@ export type BoxActions =
   | BoxesActionToggleLoading
   | CreateBoxError
   | CreateBoxSuccess
+  | GetBox
+  | StoreBox
   ;

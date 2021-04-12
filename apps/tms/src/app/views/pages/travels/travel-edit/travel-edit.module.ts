@@ -74,6 +74,7 @@ const routes: Routes = [
     component: TravelEditComponent,
     resolve: {
       travel: TravelResolver,
+      travelStatus: TravelStatusResolver,
     },
   },
 ];

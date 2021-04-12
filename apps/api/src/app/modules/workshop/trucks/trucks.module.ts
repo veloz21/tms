@@ -5,8 +5,13 @@ import { TrucksController } from './trucks.controller';
 import { TrucksService } from './trucks.service';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Truck.name, schema: TruckSchema }])],
+  imports: [
+    MongooseModule.forFeature([
+      { name: Truck.name, schema: TruckSchema },
+    ]),
+  ],
   controllers: [TrucksController],
-  providers: [TrucksService]
+  providers: [TrucksService],
+  exports: [TrucksService],
 })
 export class TrucksModule { }

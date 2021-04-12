@@ -20,7 +20,7 @@ export class EmployeeModel implements IEmployee {
       dueDate: Date,
       attachmentPath: string,
     },
-    phychophysicistTest: {
+    psychophysicistTest: {
       date: Date,
       expirationDate: Date,
       attachmentPath: string,
@@ -50,7 +50,7 @@ export class EmployeeModel implements IEmployee {
         dueDate: null,
         attachmentPath: ''
       },
-      phychophysicistTest: {
+      psychophysicistTest: {
         date: null,
         expirationDate: null,
         attachmentPath: ''

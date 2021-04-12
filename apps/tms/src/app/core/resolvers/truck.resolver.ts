@@ -1,43 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Resolve } from '@angular/router';
+import { GetTruck } from '@tms/actions/truck.actions';
 import { TruckModel } from '@tms/models';
-import { AppState } from '@tms/reducers';
 import { selectTruckById } from '@tms/selectors/trucks.selectors';
-import { TrucksService } from '@tms/services';
 import { Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { BaseResolver } from './base-resolver';
 
 @Injectable()
-export class TruckResolver implements Resolve<TruckModel> {
-  constructor(private trucksService: TrucksService, private store: Store<AppState>) { }
-  resolve(route: ActivatedRouteSnapshot): Observable<TruckModel> | Promise<TruckModel> | TruckModel {
-    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
-    if (!id) {
-      return this.getInitialTruck(id);
-    }
-    this.getTruckData(id);
-    return this.waitForTruckDataToLoad(id);
-  }
-
-  getInitialTruck(id: string) {
+export class TruckResolver extends BaseResolver<TruckModel> implements Resolve<TruckModel> {
+  protected backRoute: string = '/workshop/trucks';
+  protected getEmptyModel(): TruckModel {
     return new TruckModel();
   }
 
-  getTruckData(id: string) {
-    this.store.select(selectTruckById(id)).pipe(
-      take(1)
-    ).subscribe(truckStored => {
-      if (!truckStored) {
-        return this.trucksService.getTruckById(id);
-      }
-    });
+  protected getModelAction(id: string): GetTruck {
+    return new GetTruck({ id });
   }
 
-  waitForTruckDataToLoad(id: string): Observable<TruckModel> {
-    return this.store.select(selectTruckById(id)).pipe(
-      filter(truck => !!truck),
-      take(1)
-    );
+  protected selectModelFromStore(id: string): Observable<TruckModel> {
+    return this.store.select(selectTruckById(id));
   }
 }

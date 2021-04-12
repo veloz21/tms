@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 
 @Component({ template: '' })
 export class TravelsDataSource extends BaseDataSource implements OnDestroy {
+
   private ngUnsuscribe = new Subject();
   constructor(private store: Store<AppState>) {
     super();
@@ -24,6 +25,7 @@ export class TravelsDataSource extends BaseDataSource implements OnDestroy {
         this.entitySubject.next(response.items);
       });
   }
+
   ngOnDestroy() {
     this.ngUnsuscribe.next();
     this.ngUnsuscribe.complete();

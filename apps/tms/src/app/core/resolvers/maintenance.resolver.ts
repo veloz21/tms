@@ -1,43 +1,24 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Resolve } from '@angular/router';
+import { GetMaintenance } from '@tms/actions/maintenance.actions';
 import { MaintenanceModel } from '@tms/models';
-import { AppState } from '@tms/reducers';
 import { selectMaintenanceById } from '@tms/selectors/maintenance.selectors';
-import { MaintenancesService } from '@tms/services';
 import { Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { BaseResolver } from './base-resolver';
 
 @Injectable()
-export class MaintenanceResolver implements Resolve<MaintenanceModel> {
-  constructor(private maintenancesService: MaintenancesService, private store: Store<AppState>) { }
-  resolve(route: ActivatedRouteSnapshot): Observable<MaintenanceModel> | Promise<MaintenanceModel> | MaintenanceModel {
-    const id = !!route.paramMap.get('id') ? String(route.paramMap.get('id')) : null;
-    if (!id) {
-      return this.getInitialMaintenance(id);
-    }
-    this.getMaintenanceData(id);
-    return this.waitForMaintenanceDataToLoad(id);
-  }
+export class MaintenanceResolver extends BaseResolver<MaintenanceModel> implements Resolve<MaintenanceModel> {
 
-  getInitialMaintenance(id: string) {
+  protected backRoute: string = '/workshop/maintenances';
+  protected getEmptyModel(): MaintenanceModel {
     return new MaintenanceModel();
   }
 
-  getMaintenanceData(id: string) {
-    this.store.select(selectMaintenanceById(id)).pipe(
-      take(1)
-    ).subscribe(maintenanceStored => {
-      if (!maintenanceStored) {
-        return this.maintenancesService.getMaintenanceById(id);
-      }
-    });
+  protected getModelAction(id: string): GetMaintenance {
+    return new GetMaintenance({ id });
   }
 
-  waitForMaintenanceDataToLoad(id: string): Observable<MaintenanceModel> {
-    return this.store.select(selectMaintenanceById(id)).pipe(
-      filter(maintenance => !!maintenance),
-      take(1)
-    );
+  protected selectModelFromStore(id: string): Observable<MaintenanceModel> {
+    return this.store.select(selectMaintenanceById(id));
   }
 }

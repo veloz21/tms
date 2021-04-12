@@ -44,6 +44,16 @@ export class TruckEffects {
     );
 
   @Effect()
+  getTruck = this.actions$
+    .pipe(
+      ofType<fromTruckActions.GetTruck>(fromTruckActions.TruckActionTypes.GetTruck),
+      mergeMap(({ payload }) => {
+        return this.trucksService.getTruckById(payload.id);
+      }),
+      map((truck) => new fromTruckActions.StoreTruck({ truck }))
+    );
+
+  @Effect()
   deleteTruck$ = this.actions$
     .pipe(
       ofType<fromTruckActions.DeleteOneTruck>(fromTruckActions.TruckActionTypes.DeleteOneTruck),

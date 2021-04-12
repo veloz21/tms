@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CompleteTravelsModule } from './complete-travels/complete-travels.module';
+import { EmployeesModule } from '../admin/employees/employees.module';
+import { BoxesModule } from '../workshop/boxes/boxes.module';
+import { TrucksModule } from '../workshop/trucks/trucks.module';
+import { CompletedTravelsModule } from './completed-travels/completed-travels.module';
 import { TravelStatus, TravelStatusSchema } from './schemas/travel-status.schema';
 import { Travel, TravelSchema } from './schemas/travel.schema';
 import { TravelsController } from './travels.controller';
@@ -8,9 +11,14 @@ import { TravelsService } from './travels.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Travel.name, schema: TravelSchema }]),
-    MongooseModule.forFeature([{ name: TravelStatus.name, schema: TravelStatusSchema }]),
-    CompleteTravelsModule,
+    MongooseModule.forFeature([
+      { name: Travel.name, schema: TravelSchema },
+      { name: TravelStatus.name, schema: TravelStatusSchema },
+    ]),
+    BoxesModule,
+    TrucksModule,
+    EmployeesModule,
+    CompletedTravelsModule,
   ],
   controllers: [TravelsController],
   providers: [TravelsService],

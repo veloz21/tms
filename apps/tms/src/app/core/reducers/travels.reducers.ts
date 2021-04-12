@@ -42,6 +42,7 @@ export function travelsReducer(
         ...state,
         actionsloading: action.payload.isLoading,
       };
+    case TravelActionTypes.StoreTravel:
     case TravelActionTypes.CreateTravelSuccess:
       return adapter.addOne(action.payload.travel, {
         ...state,

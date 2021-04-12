@@ -1,9 +1,7 @@
-import { ITravel } from '@bits404/api-interfaces';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Company } from '../../admin/company';
-import { CompanyConfig, CompanyConfigSchema } from '../../admin/company/schemas/company.config.schemas';
 import { Employee, EmployeeSubdocumentSchema } from '../../admin/employees/schemas/employee.schema';
 import { Box, BoxSubdocumentSchema } from '../../workshop/boxes';
 import { Truck, TruckSubdocumentSchema } from '../../workshop/trucks';
@@ -13,7 +11,7 @@ import { TravelStatus, TravelStatusSubdocumentSchema } from './travel-status.sch
 export type TravelDocument = Travel & Document;
 
 @Schema({ timestamps: true })
-export class Travel implements ITravel {
+export class Travel {
 
   @Prop({ type: EmployeeSubdocumentSchema, default: {} })
   operator: Partial<Employee>;
@@ -27,7 +25,6 @@ export class Travel implements ITravel {
   @Prop()
   salePrice: number;
 
-  // GeoJson type
   @Prop({ type: TravelLocationsSchema, default: {} })
   locations: TravelLocations;
 
@@ -35,10 +32,7 @@ export class Travel implements ITravel {
   status: Partial<TravelStatus>[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: TravelStatus.name })
-  currentStatus: mongoose.Types.ObjectId | string;
-
-  @Prop({ type: CompanyConfigSchema, default: {} })
-  config: Partial<CompanyConfig>;
+  currentStatus: mongoose.Types.ObjectId;
 
   @Prop()
   comments: string;
@@ -48,13 +42,3 @@ export class Travel implements ITravel {
 }
 
 export const TravelSchema = SchemaFactory.createForClass(Travel);
-
-TravelSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  },
-});

@@ -40,6 +40,7 @@ export function employeesReducer(
         ...state,
         actionsloading: action.payload.isLoading,
       };
+    case EmployeeActionTypes.StoreEmployee:
     case EmployeeActionTypes.CreateEmployeeSuccess:
       return adapter.addOne(action.payload.employee, {
         ...state,

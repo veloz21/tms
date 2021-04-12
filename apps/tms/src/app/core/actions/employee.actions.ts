@@ -4,6 +4,8 @@ import { QueryParamsModel } from '@tms/crud';
 import { EmployeeModel } from '@tms/models';
 
 export enum EmployeeActionTypes {
+  GetEmployee = '[Edit Employee Component] Get Employee',
+  StoreEmployee = '[Edit Employee Component] Store Employee',
   CreateEmployee = '[Edit Employee Component] Create employee',
   CreateEmployeeSuccess = '[Edit Employee Component] Create employee success',
   CreateEmployeeError = '[Edit Employee Component] Create employee error',
@@ -17,6 +19,16 @@ export enum EmployeeActionTypes {
   CancelEmpolyeePage = '[Employees API] Employees Page Cancelled',
   EmployeesPageToggleLoading = '[Employees] Employees Page Toggle Loading',
   EmployeesActionToggleLoading = '[Employees] Employees Action Toggle Loading',
+}
+
+export class GetEmployee implements Action {
+  readonly type = EmployeeActionTypes.GetEmployee;
+  constructor(public payload: { id: string }) { }
+}
+
+export class StoreEmployee implements Action {
+  readonly type = EmployeeActionTypes.StoreEmployee;
+  constructor(public payload: { employee: EmployeeModel }) { }
 }
 
 export class CreateEmployee implements Action {
@@ -116,4 +128,6 @@ export type EmployeeActions =
   | CancelEmpolyeePage
   | EmployeesPageToggleLoading
   | EmployeesActionToggleLoading
+  | GetEmployee
+  | StoreEmployee
   ;

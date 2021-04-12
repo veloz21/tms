@@ -1,4 +1,4 @@
-import { ITruck } from '@bits404/api-interfaces';
+import { ITruck, Status } from '@bits404/api-interfaces';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
@@ -45,8 +45,8 @@ export class Truck implements ITruck {
   @Prop()
   dock: string;
 
-  @Prop()
-  status: number;
+  @Prop({ type: Number })
+  status: number & Status;
 
   @Prop()
   imagePath: string;
@@ -60,23 +60,3 @@ export class Truck implements ITruck {
 
 export const TruckSchema = SchemaFactory.createForClass(Truck);
 export const TruckSubdocumentSchema = SchemaFactory.createForClass(Truck);
-
-TruckSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});
-
-TruckSubdocumentSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, el) {
-    el.id = el._id;
-    delete el._id;
-    delete el.company;
-  }
-});

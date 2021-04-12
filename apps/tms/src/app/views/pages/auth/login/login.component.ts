@@ -3,7 +3,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,11 +12,8 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AppState } from '@tms/reducers';
 import { Observable, Subject } from 'rxjs';
-import {
-  AuthenticationService,
-  AuthNoticeService,
-  Login,
-} from '../../../../core/auth';
+import { environment } from '../../../../../environments/environment';
+import { AuthenticationService, AuthNoticeService, Login } from '../../../../core/auth';
 
 @Component({
   selector: 'b404-login',
@@ -48,11 +45,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initLoginForm();
+    this.setDevCredentials();
 
     // redirect back to the returnUrl before login
     this.route.queryParams.subscribe((params) => {
       this.returnUrl = params.returnUrl || '/';
     });
+  }
+
+  setDevCredentials() {
+    if (!environment.production) {
+      this.loginForm.get('email').setValue('fernando.veloz@bits404.com');
+      this.loginForm.get('password').setValue('demo');
+    }
   }
 
   ngOnDestroy(): void {

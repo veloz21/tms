@@ -21,7 +21,7 @@ export class EmployeeDocuments {
     expirationDate: { type: Date },
     attachmentPath: { type: String }
   }))
-  phychophysicistTest: {
+  psychophysicistTest: {
     date: Date,
     expirationDate: Date,
     attachmentPath: string,

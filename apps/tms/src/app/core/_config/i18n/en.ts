@@ -103,9 +103,9 @@ export const locale = {
       }
     },
     TRAVELS: {
-      COMPLETETRAVEL: {
+      COMPLETED_TRAVEL: {
         TEXT: {
-          COMPLETETRAVELS: 'Completed travels',
+          COMPLETED_TRAVELS: 'Completed travels',
         },
       },
       TRAVEL: {

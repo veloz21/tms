@@ -1,9 +1,11 @@
 import { IQueryParams, IQueryResults } from '@bits404/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 import { forkJoin } from 'rxjs';
 import type { HttpOptions } from '../../../core/interfaces';
+import { TravelStatusDto } from '../../travels/dto/travel-status.dto';
 import { CreateTruckDto } from './dto/create-truck.dto';
 import { UpdateTruckDto } from './dto/update-truck.dto';
 import { Truck, TruckDocument } from './schemas/truck.schema';
@@ -36,15 +38,21 @@ export class TrucksService {
     }).toPromise();
   }
 
-  findOne(_id: string, options: HttpOptions): Promise<TruckDocument> {
+  findOne(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<TruckDocument> {
     return this.truckModel.findOne({ _id, company: options.company }).session(options.session).exec();
   }
 
-  update(_id: string, updateTruckDto: UpdateTruckDto, options: HttpOptions): Promise<TruckDocument> {
+  update(_id: mongoose.Types.ObjectId, updateTruckDto: UpdateTruckDto, options: HttpOptions): Promise<TruckDocument> {
     return this.truckModel.findOneAndUpdate({ _id, company: options.company }, { $set: updateTruckDto }, { new: true, session: options.session }).exec();
   }
 
-  remove(_id: string, options: HttpOptions): Promise<TruckDocument> {
+  remove(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<TruckDocument> {
     return this.truckModel.findOneAndRemove({ _id, company: options.company }, { session: options.session, }).exec();
+  }
+
+  updateStatusByTravelStatus(_id: mongoose.Types.ObjectId, travelStatus: TravelStatusDto, options: HttpOptions): Promise<TruckDocument> {
+    if (travelStatus && travelStatus.relatedStatus && travelStatus.relatedStatus.truck !== undefined) {
+      return this.truckModel.findOneAndUpdate({ _id, company: options.company }, { $set: { "status": travelStatus.relatedStatus.truck } }, { session: options.session }).exec();
+    }
   }
 }

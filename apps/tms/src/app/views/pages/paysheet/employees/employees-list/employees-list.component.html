@@ -107,12 +107,14 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{'GENERAL.TEXT.STATUS' | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let employee" [ngSwitch]="employee.status">
-            <span *ngSwitchCase="0"
+            <span *ngSwitchCase="STATUS.AVAILABLE"
               class="b404-badge b404-badge--inline b404-badge--pill b404-badge--success b404-badge--wide">
-              {{ 'GENERAL.TEXT.AVAILABLE' | b404Translate }}</span>
-            <span *ngSwitchCase="1"
+              {{ 'GENERAL.TEXT.AVAILABLE' | b404Translate }}
+            </span>
+            <span *ngSwitchCase="STATUS.NOT_AVAILABLE"
               class="b404-badge b404-badge--inline b404-badge--pill b404-badge--danger b404-badge--wide">
-              {{'GENERAL.TEXT.NOT_AVAILABLE' | translate}}</span>
+              {{ 'GENERAL.TEXT.NOT_AVAILABLE' | b404Translate }}
+            </span>
           </mat-cell>
         </ng-container>
 

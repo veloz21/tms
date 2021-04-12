@@ -1,14 +1,15 @@
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHeaders,
+  HttpHeaders
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ICompany, IUser } from '@bits404/api-interfaces';
 import { environment } from '@tms/environments/environment';
 import { HttpService } from '@tms/services';
 import { AuthService } from 'ngx-auth';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, forkJoin, from, Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, switchMapTo, tap } from 'rxjs/operators';
 import { QueryParamsModel, QueryResultsModel } from '../../_base/crud';
 import { AuthModel, CompanyModel } from '../_models';
@@ -36,7 +37,11 @@ export class AuthenticationService extends HttpService implements AuthService {
   };
 
   isLoggedIn: BehaviorSubject<boolean>;
-  constructor(private http: HttpClient, private tokenStorage: TokenStorage) {
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private tokenStorage: TokenStorage
+  ) {
     super();
     this.isLoggedIn = new BehaviorSubject(false);
     this.isAuthorized().subscribe((isLoggedIn) =>
@@ -84,10 +89,12 @@ export class AuthenticationService extends HttpService implements AuthService {
           API_TOKEN_URL,
           { refreshToken },
           this.httpOptions
+        ).pipe(
+          catchError(() => this.logout())
         );
       }),
       tap(this.saveAccessData.bind(this)),
-      catchError(this.handleError('refreshToken'))
+      catchError((err) => this.handleError('refreshToken'))
     );
   }
 
@@ -146,12 +153,21 @@ export class AuthenticationService extends HttpService implements AuthService {
     );
   }
 
-  public logout(): Observable<void> {
+  public logout(): Observable<null> {
     console.log('Logout service');
+
+    const appLogout = forkJoin([
+      of(this.tokenStorage.clear()),
+      of(this.isLoggedIn.next(false)),
+      from(this.router.navigate(['/auth/iniciar-sesion'])),
+    ]);
+
     return this.http.post(API_LOGOUT_URL, {}, { responseType: 'text' }).pipe(
-      tap(() => this.tokenStorage.clear()),
-      tap(() => this.isLoggedIn.next(false)),
-      catchError(this.handleError('logout'))
+      switchMapTo(appLogout),
+      catchError((error) => {
+        appLogout.subscribe();
+        return this.handleError('logout')(error);
+      }),
     );
   }
 

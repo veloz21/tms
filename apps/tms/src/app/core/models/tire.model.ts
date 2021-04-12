@@ -1,16 +1,25 @@
 import { ITire } from '@bits404/api-interfaces';
-import { AVIABILITY_STATUS } from '@tms/enums';
 
 export class TireModel implements ITire {
   id: string;
+  boxId?: string;
+  truckId?: string;
   serialNumber: string;
   rangeTraveled: number;
   status: number;
+  parentStatus: number;
 
   constructor(tire?: Partial<ITire>) {
-    this.serialNumber = tire && tire.serialNumber || '';
-    this.rangeTraveled = tire && tire.rangeTraveled || null;
-    this.status = tire && tire.status || AVIABILITY_STATUS.AVAILABLE;
+    if (!tire) {
+      return;
+    }
+
+    this.boxId = tire.boxId || undefined;
+    this.truckId = tire.truckId || undefined;
+    this.serialNumber = tire.serialNumber || '';
+    this.rangeTraveled = tire.rangeTraveled || null;
+    this.status = tire.status;
+    this.parentStatus = tire.parentStatus;
   }
 }
 

@@ -36,6 +36,7 @@ export function tiresReducer(state = initialTiresState, action: TireActions): Ti
         ...state,
         actionsloading: action.payload.isLoading
       };
+    case TireActionTypes.StoreTire:
     case TireActionTypes.CreateTireSuccess:
       return adapter.addOne(action.payload.tire, {
         ...state,

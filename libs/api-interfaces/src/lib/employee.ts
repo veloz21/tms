@@ -1,3 +1,5 @@
+import { Status } from "./status.enum";
+
 export interface IEmployee {
   id?: any;
   firstName: string;
@@ -18,7 +20,7 @@ export interface IEmployee {
       dueDate: Date,
       attachmentPath: string,
     },
-    phychophysicistTest: {
+    psychophysicistTest: {
       date: Date,
       expirationDate: Date,
       attachmentPath: string,
@@ -28,5 +30,5 @@ export interface IEmployee {
     },
   };
   imagePath: string;
-  status: number;
+  status: number & Status;
 }
