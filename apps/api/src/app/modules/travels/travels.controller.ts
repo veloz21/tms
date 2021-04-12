@@ -1,10 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
+import { plainToClass } from 'class-transformer';
 import { GetHttpOptions } from '../../core/decorators';
 import { QueryParamsDto } from '../../core/dto';
 import { DbTransactionInterceptor } from '../../core/interceptors';
 import { TransformInterceptor } from '../../core/interceptors/transform.interceptor';
 import type { HttpOptions } from '../../core/interfaces';
 import { stringToMongoId } from '../../core/utils';
+import { EmployeesService } from '../admin/employees/employees.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { BoxesService } from '../workshop/boxes/boxes.service';
 import { TrucksService } from '../workshop/trucks';
@@ -23,6 +25,7 @@ export class TravelsController {
     private readonly travelsService: TravelsService,
     private readonly boxService: BoxesService,
     private readonly truckService: TrucksService,
+    private readonly employeeService: EmployeesService,
   ) { }
 
   @Get('status')
@@ -51,13 +54,16 @@ export class TravelsController {
   }
 
   @Put(':id/status')
-  async updateStatus(@Param('id') id: string, @Body() updateTravelStatusDto: UpdateTravelStatusDto, @GetHttpOptions() options: HttpOptions) {
-    // const travel = await this.travelsService.updateStatus(stringToMongoId(id), updateTravelStatusDto, options);
-    // const travelDto = plainToClass(CreateTravelDto, classToPlain(travel));
-    // travelDto.box._id
-    // await this.boxService.updateStatusByTravelStatus(stringToMongoId(travel.box._id), travel.currentStatus, options);
-    // await this.travelsService.updateStatus(stringToMongoId(id), updateTravelStatusDto, options);
-    // return await this.wsService.updateRelatedTravelStatus(stringToMongoId(id), options);
+  @UseInterceptors(new TransformInterceptor(TravelDto))
+  async updateTravelStatus(@Param('id') id: string, @Body() updateTravelStatusDto: UpdateTravelStatusDto, @GetHttpOptions() options: HttpOptions) {
+    const travel = await this.travelsService.updateTravelStatus(stringToMongoId(id), updateTravelStatusDto, options);
+    const travelDto = plainToClass(TravelDto, travel, { enableImplicitConversion: true });
+    const travelStatus = await this.travelsService.findOneStatus(travelDto.currentStatus, options);
+    const travelStatusDto = plainToClass(TravelStatusDto, travelStatus, { enableImplicitConversion: true });
+    await this.boxService.updateStatusByTravelStatus(stringToMongoId(travelDto.box._id), travelStatusDto, options);
+    await this.truckService.updateStatusByTravelStatus(stringToMongoId(travelDto.truck._id), travelStatusDto, options);
+    await this.employeeService.updateStatusByTravelStatus(stringToMongoId(travelDto.operator._id), travelStatusDto, options);
+    return travel;
   }
 
   @Put(':id')

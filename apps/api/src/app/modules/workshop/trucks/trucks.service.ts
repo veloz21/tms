@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 import { forkJoin } from 'rxjs';
 import type { HttpOptions } from '../../../core/interfaces';
-import { TravelStatus, TravelStatusDocument } from '../../travels/schemas/travel-status.schema';
+import { TravelStatusDto } from '../../travels/dto/travel-status.dto';
 import { CreateTruckDto } from './dto/create-truck.dto';
 import { UpdateTruckDto } from './dto/update-truck.dto';
 import { Truck, TruckDocument } from './schemas/truck.schema';
@@ -15,7 +15,6 @@ export class TrucksService {
 
   constructor(
     @InjectModel(Truck.name) private readonly truckModel: Model<TruckDocument>,
-    @InjectModel(TravelStatus.name) private readonly travelStatusModel: Model<TravelStatusDocument>,
   ) { }
 
   create(createTruckDto: CreateTruckDto, options: HttpOptions): Promise<TruckDocument> {
@@ -51,9 +50,8 @@ export class TrucksService {
     return this.truckModel.findOneAndRemove({ _id, company: options.company }, { session: options.session, }).exec();
   }
 
-  async updateStatusByTravelStatus(_id: mongoose.Types.ObjectId, travelStatusId: mongoose.Types.ObjectId, options: HttpOptions): Promise<TruckDocument> {
-    const travelStatus = await this.travelStatusModel.findOne({ _id: travelStatusId, company: options.company }).select('relatedStatus.truck').session(options.session).exec()
-    if (travelStatus && travelStatus.relatedStatus && travelStatus.relatedStatus.truck) {
+  updateStatusByTravelStatus(_id: mongoose.Types.ObjectId, travelStatus: TravelStatusDto, options: HttpOptions): Promise<TruckDocument> {
+    if (travelStatus && travelStatus.relatedStatus && travelStatus.relatedStatus.truck !== undefined) {
       return this.truckModel.findOneAndUpdate({ _id, company: options.company }, { $set: { "status": travelStatus.relatedStatus.truck } }, { session: options.session }).exec();
     }
   }

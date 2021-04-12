@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TravelStatus, TravelStatusSchema } from '../../travels/schemas/travel-status.schema';
 import { Truck, TruckSchema } from './schemas/truck.schema';
 import { TrucksController } from './trucks.controller';
 import { TrucksService } from './trucks.service';
@@ -9,7 +8,6 @@ import { TrucksService } from './trucks.service';
   imports: [
     MongooseModule.forFeature([
       { name: Truck.name, schema: TruckSchema },
-      { name: TravelStatus.name, schema: TravelStatusSchema },
     ]),
   ],
   controllers: [TrucksController],

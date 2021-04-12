@@ -4,7 +4,7 @@ import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
 import { TransformInterceptor } from '../../../core/interceptors/transform.interceptor';
 import type { HttpOptions } from '../../../core/interfaces';
-import { JwtAuthGuard } from '../../auth';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { EmployeeDto } from './dto/employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
