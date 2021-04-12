@@ -1,16 +1,15 @@
-// Angular
 import { Pipe, PipeTransform } from '@angular/core';
-import { TravelModel } from '../../../models';
+import { TravelStatusModel } from '@tms/models';
 
 @Pipe({
   name: 'b404CurrentStatus'
 })
 export class CurrentTravelStatusPipe implements PipeTransform {
 
-  transform(travel: TravelModel) {
-    if (!travel.status || !travel.currentStatus) {
+  transform(status: Partial<TravelStatusModel>[], currentStatus?: string) {
+    if (!status || !currentStatus) {
       return;
     }
-    return travel.status.find(s => s.id === travel.currentStatus);
+    return status.find(s => s.id === currentStatus);
   }
 }

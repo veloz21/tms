@@ -99,14 +99,14 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">
 
-            <ng-container *ngIf="(travel | b404CurrentStatus)?.date">
-              <span>{{ (travel | b404CurrentStatus)?.date | date}}</span>&nbsp;&nbsp;
+            <ng-container *ngIf="(travel.status| b404CurrentStatus: travel.currentStatus)?.date">
+              <span>{{ (travel.status | b404CurrentStatus: travel.currentStatus)?.date | date}}</span>&nbsp;&nbsp;
             </ng-container>
 
             <button type="button" [matMenuTriggerFor]="menu" matTooltip="Cambiar Status" class="badge-status-button"
               mat-icon-button>
               <span class="badge-status m-badge m-badge--danger m-badge--wide">
-                {{ (travel | b404CurrentStatus)?.name }}
+                {{ (travel.status | b404CurrentStatus: travel.currentStatus)?.name }}
                 <mat-icon>expand_more</mat-icon>
               </span>
             </button>
@@ -114,7 +114,7 @@
             <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="updateStatus(travel);">
                 <span class="m-badge m-badge--success m-badge--dot"></span>&nbsp;
-                <span>{{ (travel | b404NextStatus)?.name}}</span>
+                <span>{{ (travel.status | b404NextStatus: travel.currentStatus)?.name}}</span>
               </button>
               <ng-container *ngFor="let status of travel.status">
               </ng-container>
