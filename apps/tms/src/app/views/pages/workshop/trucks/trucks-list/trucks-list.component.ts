@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
+import { Status } from '@bits404/api-interfaces';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -66,6 +67,8 @@ export class TrucksListComponent implements OnInit, OnDestroy {
   // Selection
   selection = new SelectionModel<TruckModel>(true, []);
   trucksResult: TruckModel[] = [];
+
+  protected STATUS = Status;
   public translateParams: TranslateParams;
   private ngUnsuscribe = new Subject();
 
