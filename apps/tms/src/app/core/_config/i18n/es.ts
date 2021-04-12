@@ -113,7 +113,7 @@ export const locale = {
       DELETE_ONE_WAIT: 'Eliminando {{entity}}...',
       DELETE_ONE_MESSAGE: {
         X: 'El {{entity}} ha sido eliminado',
-        Y: 'La {{entity}} ha sido eliminado',
+        Y: 'La {{entity}} ha sido eliminada',
       },
       DELETE_MANY_TITLE: 'Eliminar {{entities}}',
       DELETE_MANY_DESCRIPTION: {
@@ -123,7 +123,7 @@ export const locale = {
       DELETE_MANY_WAIT: 'Eliminando {{entities}}...',
       DELETE_MANY_MESSAGE: {
         X: 'Los {{entities}} seleccionados han sido eliminados',
-        Y: 'Las {{entities}} seleccionadas han sido eliminados',
+        Y: 'Las {{entities}} seleccionadas han sido eliminadas',
       },
       CREATE_TITLE: 'Añadir {{entity}}',
       ADD_ENTITY_MESSAGE: '{{entity}} guardado exitosamente',
