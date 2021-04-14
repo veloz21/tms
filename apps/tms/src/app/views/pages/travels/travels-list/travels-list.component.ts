@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { CreateCompletedTravel } from '@tms/actions/completed-travel.actions';
 import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage, UpdateTravelStatus } from '@tms/actions/travel.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
@@ -13,9 +12,9 @@ import { SubheaderService } from '@tms/layout';
 import { TravelModel, TravelStatusModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTravelsPageLastQuery } from '@tms/selectors/travel.selectors';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { fromEvent, merge, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
-import { TranslateParams } from '../../../../core/_base/layout/translate';
 
 @Component({
   selector: 'b404-travels-list',
@@ -45,10 +44,10 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   private ngUnsuscribe = new Subject();
   constructor(
     public dialog: MatDialog,
-    private translate: TranslateService,
+    private store: Store<AppState>,
+    private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
-    private store: Store<AppState>
   ) {
     this.translateParams = {
       entity: this.translate.instant('TRAVELS.ENTITY'),
@@ -90,7 +89,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
       .subscribe();
 
     // Set title to page breadCrumbs
-    this.subheaderService.setTitle(this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'));
+    this.subheaderService.setTitle(this.translate.instant('TRAVELS.ENTITIES.VALUE'));
 
     // Init DataSource
     this.dataSource = new TravelsDataSource(this.store);

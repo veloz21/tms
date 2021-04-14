@@ -2,456 +2,453 @@
 // Subheader
 //
 
-
-
 // Config
 $b404-subheader-config: (
-	fixed: (
-		height: 54px
-	),
-	toggle: (
-		width: 20px,
-		height: 22px,
-		transition-duration: 0.4s,
-		thickness: 2px,
-		space: 4px,
-		radius: 2px,
-		color: (
-			default: b404-base-color(label, 2),
-			hover: b404-brand-color(),
-			active: b404-brand-color()
-		)
-	)
+  fixed: (
+    height: 54px,
+  ),
+  toggle: (
+    width: 20px,
+    height: 22px,
+    transition-duration: 0.4s,
+    thickness: 2px,
+    space: 4px,
+    radius: 2px,
+    color: (
+      default: b404-base-color(label, 2),
+      hover: b404-brand-color(),
+      active: b404-brand-color(),
+    ),
+  ),
 );
 
 // Base
 .b404-subheader {
-	background-color: #fff;
-	display: flex;
-	align-items: stretch;
-	margin: 10px 0;
-
-	.b404-container {
-		display: flex;
-		justify-content: space-between;
-		align-items: stretch;
-		flex-wrap: wrap;
-	}
-
-	// Head actions buttons
-	.btn {
-		display: inline-flex;
-		height: 32px !important;
-		padding-top: 0;
-		padding-bottom: 0;
-		margin-top: 0.25rem;
-		margin-bottom: 0.25rem;
-
-		i {
-			font-size: 1rem !important;
-		}
-
-		&.btn-icon {
-			width: 32px !important;
-		}
-
-		&:not(.dropdown-toggle-split) {
-			margin-left: 0.5rem;
-		}
-	}
-
-	// Main
-	.b404-subheader__main {
-		display: flex;
-		justify-content: flex-start;
-		align-items: center;
-		flex-wrap: wrap;
-		padding: 0.25rem 0;
-
-		// Buttons
-		.btn {
-			&:not(.dropdown-toggle-split) {
-				margin-left: 0;
-				margin-right: 0.5rem;
-			}
-		}
-
-		// Mobile Toggler
-		.b404-subheader__mobile-toggle {
-			display: none;
-		}
-
-		// Title
-		.b404-subheader__title {
-			margin: 0;
-			padding: 0 1rem 0 0;
-			font-size: 1.2rem;
-			font-weight: 500;
-			color: #434349;
-			display: flex;
-			align-items: center;
-
-			small {
-				padding-left: 0.25rem;
-				font-size: 0.9rem;
-				color: b404-base-color(label, 2);
-			}
-		}
-
-		// Desc
-		.b404-subheader__desc {
-			padding: 0 0.5rem 0 0;
-			font-size: 1rem;
-			font-weight: 500;
-			color: #959cb6;
-		}
-
-		// Separator
-		.b404-subheader__separator {
-			display: block;
-			width: 12px;
-			height: 4px;
-			border-radius: 2px;
-			background: #e7e8ef;
-			margin: 0 1rem 0 0;
-
-			&.b404-subheader__separator--v {
-				width: 1px;
-				height: 22px;
-			}
-		}
-
-		// Breadcrumbs
-		.b404-subheader__breadcrumbs {
-			display: flex;
-			align-items: center;
-			list-style-type: none;
-			flex-wrap: wrap;
-			margin: 0;
-			padding: 0;
-
-			.b404-subheader__breadcrumbs-home {
-				padding: 0px 0.65rem 0px 0px;
-				@include b404-transition();
-
-				> i {
-					font-size: 1rem;
-					color: #c5cbe7;
-				}
-
-				&:hover {
-					> i {
-						@include b404-transition();
-						color: b404-brand-color();
-					}
-				}
-
-				&.b404-subheader__breadcrumbs-home--active {
-					> i {
-						color: b404-brand-color();
-					}
-				}
-			}
-
-			.b404-subheader__breadcrumbs-link {
-				padding: 0 0.35rem 0 0;
-				font-size: 1rem;
-				font-weight: 500;
-				color: #959cb6;
-
-				&:hover {
-					color: b404-brand-color();
-				}
-
-				&.b404-subheader__breadcrumbs-link--active {
-					color: b404-brand-color();
-				}
-
-				@include b404-hover-transition();
-			}
-
-			.b404-subheader__breadcrumbs-separator {
-				display: flex;
-				justify-content: content;
-				align-items: center;
-				padding: 0 0.35rem 0 0;
-
-				&:after {
-					display: block;
-					width: 4px;
-					height: 4px;
-					border-radius: 50%;
-					content: " ";
-					background: #e7e8ef;
-				}
-			}
-		}
-
-		// Group
-		.b404-subheader__group {
-			display: flex;
-			align-items: center;
-		}
-	}
-
-	// Toolbar
-	.b404-subheader__toolbar {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		padding: 0;
-
-		// Toolbar buttons
-		.btn:not(.dropdown-toggle-split) {
-			margin-left: 0.25rem;
-		}
-	}
-
-	// Primary button
-	.b404-subheader__btn-primary {
-		background: #f2f3f7;
-		color: #959cb6;
-		font-weight: 500;
-
-		i {
-			color: #959cb6;
-		}
-
-		&:hover,
-		&.active,
-		&:active,
-		&:focus {
-			color: b404-brand-color(inverse);
-			background: b404-brand-color();
-
-			i {
-				color: b404-brand-color(inverse);
-			}
-
-			@include b404-svg-icon-color(b404-brand-color(inverse));
-		}
-	}
-
-	// Secondary button
-	.b404-subheader__btn-secondary {
-		color: #959cb6;
-		font-weight: 500;
-
-		i {
-			color: #aab1df;
-		}
-
-		@include b404-svg-icon-color(#aab1df);
-
-		&:hover,
-		&.active,
-		&:active,
-		&:focus {
-			background: #f2f3f7;
-			color: b404-brand-color();
-			@include b404-svg-icon-color(b404-brand-color());
-		}
-	}
-
-	// Daterange
-	.b404-subheader__btn-daterange {
-		background: #f2f3f7;
-
-		.b404-subheader__btn-daterange-title {
-			display: inline-block;
-			color: #959cb6;
-			font-weight: 500;
-		}
-
-		.b404-subheader__btn-daterange-date {
-			display: inline-block;
-			color: b404-brand-color();
-			margin-right: 0.75rem;
-			font-weight: 500;
-		}
-
-		i {
-			color: b404-brand-color();
-		}
-
-
-		&:hover,
-		&.active,
-		&:active,
-		&:focus {
-			background: #f2f3f7;
-
-			i {
-				color: b404-brand-color();
-			}
-		}
-	}
-
-	// Search
-	.b404-subheader__search {
-		width: 175px;
-		display: inline-block;
-
-		.form-control {
-			font-size: 0.9rem;
-			height: 33px;
-			background: #f2f3f7;
-			border-color: #f2f3f7 !important;
-		}
-
-		.b404-input-icon__icon {
-			i {
-				font-size: 1.2rem;
-				color: b404-base-color(label, 2);
-			}
-		}
-	}
-
-	// Solid style
-	.b404-subheader--solid & {
-		margin: 0 0 b404-get($b404-page-padding, desktop) 0;
-		min-height: b404-get($b404-subheader-config, fixed, height);
-	}
-
-	// Transparent style
-	.b404-subheader--transparent & {
-		background-color: transparent;
-
-		// Main
-		.b404-subheader__main {
-			.b404-subheader__separator {
-				background: darken(#e7e8ef, 4%);
-			}
-
-			.b404-subheader__breadcrumbs {
-				.b404-subheader__breadcrumbs-home {
-					> i {
-						color: darken(#c5cbe7, 4%);
-					}
-				}
-
-				.b404-subheader__breadcrumbs-link {
-					color: #959cb6;
-				}
-
-				.b404-subheader__breadcrumbs-separator {
-					&:after {
-						background: darken(#e7e8ef, 4%);
-					}
-				}
-			}
-		}
-
-		// Primary button
-		.b404-subheader__btn-primary {
-			background: darken(#eaecf2, 3%);
-			color: #959cb6;
-
-			i {
-				color: #959cb6;
-			}
-
-			@include b404-svg-icon-color(#959cb6);
-
-			&:hover,
-			&.active,
-			&:active,
-			&:focus {
-				background: b404-brand-color();
-				color: b404-brand-color(inverse);
-
-				i {
-					color: b404-brand-color(inverse);
-				}
-
-				@include b404-svg-icon-color(b404-brand-color(inverse));
-			}
-		}
-
-		// Secondary button
-		.b404-subheader__btn-secondary {
-			color: darken(#959cb6, 3%);
-
-			i {
-				color: darken(#aab1df, 3%);
-			}
-
-			&:hover,
-			&.active,
-			&:active,
-			&:focus {
-				background: #eaecf2;
-			}
-		}
-
-		// Daterange
-		.b404-subheader__btn-daterange {
-			background: darken(#eaecf2, 3%);
-
-			&:hover,
-			&.active,
-			&:active,
-			&:focus {
-				background: darken(#eaecf2, 6%);
-			}
-		}
-
-		// Search
-		.b404-subheader__search {
-			.form-control {
-				background: #eaecf2;
-				border-color: #eaecf2 !important;
-			}
-		}
-	}
+  background-color: #fff;
+  display: flex;
+  align-items: stretch;
+  margin: 10px 0;
+
+  .b404-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  // Head actions buttons
+  .btn {
+    display: inline-flex;
+    height: 32px !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+
+    i {
+      font-size: 1rem !important;
+    }
+
+    &.btn-icon {
+      width: 32px !important;
+    }
+
+    &:not(.dropdown-toggle-split) {
+      margin-left: 0.5rem;
+    }
+  }
+
+  // Main
+  .b404-subheader__main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0.25rem 0;
+
+    // Buttons
+    .btn {
+      &:not(.dropdown-toggle-split) {
+        margin-left: 0;
+        margin-right: 0.5rem;
+      }
+    }
+
+    // Mobile Toggler
+    .b404-subheader__mobile-toggle {
+      display: none;
+    }
+
+    // Title
+    .b404-subheader__title {
+      margin: 0;
+      padding: 0 1rem 0 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #434349;
+      display: flex;
+      align-items: center;
+      text-transform: capitalize;
+
+      small {
+        padding-left: 0.25rem;
+        font-size: 0.9rem;
+        color: b404-base-color(label, 2);
+      }
+    }
+
+    // Desc
+    .b404-subheader__desc {
+      padding: 0 0.5rem 0 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #959cb6;
+    }
+
+    // Separator
+    .b404-subheader__separator {
+      display: block;
+      width: 12px;
+      height: 4px;
+      border-radius: 2px;
+      background: #e7e8ef;
+      margin: 0 1rem 0 0;
+
+      &.b404-subheader__separator--v {
+        width: 1px;
+        height: 22px;
+      }
+    }
+
+    // Breadcrumbs
+    .b404-subheader__breadcrumbs {
+      display: flex;
+      align-items: center;
+      list-style-type: none;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+
+      .b404-subheader__breadcrumbs-home {
+        padding: 0px 0.65rem 0px 0px;
+        @include b404-transition();
+
+        > i {
+          font-size: 1rem;
+          color: #c5cbe7;
+        }
+
+        &:hover {
+          > i {
+            @include b404-transition();
+            color: b404-brand-color();
+          }
+        }
+
+        &.b404-subheader__breadcrumbs-home--active {
+          > i {
+            color: b404-brand-color();
+          }
+        }
+      }
+
+      .b404-subheader__breadcrumbs-link {
+        padding: 0 0.35rem 0 0;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #959cb6;
+
+        &:hover {
+          color: b404-brand-color();
+        }
+
+        &.b404-subheader__breadcrumbs-link--active {
+          color: b404-brand-color();
+        }
+
+        @include b404-hover-transition();
+      }
+
+      .b404-subheader__breadcrumbs-separator {
+        display: flex;
+        justify-content: content;
+        align-items: center;
+        padding: 0 0.35rem 0 0;
+
+        &:after {
+          display: block;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          content: " ";
+          background: #e7e8ef;
+        }
+      }
+    }
+
+    // Group
+    .b404-subheader__group {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  // Toolbar
+  .b404-subheader__toolbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
+
+    // Toolbar buttons
+    .btn:not(.dropdown-toggle-split) {
+      margin-left: 0.25rem;
+    }
+  }
+
+  // Primary button
+  .b404-subheader__btn-primary {
+    background: #f2f3f7;
+    color: #959cb6;
+    font-weight: 500;
+
+    i {
+      color: #959cb6;
+    }
+
+    &:hover,
+    &.active,
+    &:active,
+    &:focus {
+      color: b404-brand-color(inverse);
+      background: b404-brand-color();
+
+      i {
+        color: b404-brand-color(inverse);
+      }
+
+      @include b404-svg-icon-color(b404-brand-color(inverse));
+    }
+  }
+
+  // Secondary button
+  .b404-subheader__btn-secondary {
+    color: #959cb6;
+    font-weight: 500;
+
+    i {
+      color: #aab1df;
+    }
+
+    @include b404-svg-icon-color(#aab1df);
+
+    &:hover,
+    &.active,
+    &:active,
+    &:focus {
+      background: #f2f3f7;
+      color: b404-brand-color();
+      @include b404-svg-icon-color(b404-brand-color());
+    }
+  }
+
+  // Daterange
+  .b404-subheader__btn-daterange {
+    background: #f2f3f7;
+
+    .b404-subheader__btn-daterange-title {
+      display: inline-block;
+      color: #959cb6;
+      font-weight: 500;
+    }
+
+    .b404-subheader__btn-daterange-date {
+      display: inline-block;
+      color: b404-brand-color();
+      margin-right: 0.75rem;
+      font-weight: 500;
+    }
+
+    i {
+      color: b404-brand-color();
+    }
+
+    &:hover,
+    &.active,
+    &:active,
+    &:focus {
+      background: #f2f3f7;
+
+      i {
+        color: b404-brand-color();
+      }
+    }
+  }
+
+  // Search
+  .b404-subheader__search {
+    width: 175px;
+    display: inline-block;
+
+    .form-control {
+      font-size: 0.9rem;
+      height: 33px;
+      background: #f2f3f7;
+      border-color: #f2f3f7 !important;
+    }
+
+    .b404-input-icon__icon {
+      i {
+        font-size: 1.2rem;
+        color: b404-base-color(label, 2);
+      }
+    }
+  }
+
+  // Solid style
+  .b404-subheader--solid & {
+    margin: 0 0 b404-get($b404-page-padding, desktop) 0;
+    min-height: b404-get($b404-subheader-config, fixed, height);
+  }
+
+  // Transparent style
+  .b404-subheader--transparent & {
+    background-color: transparent;
+
+    // Main
+    .b404-subheader__main {
+      .b404-subheader__separator {
+        background: darken(#e7e8ef, 4%);
+      }
+
+      .b404-subheader__breadcrumbs {
+        .b404-subheader__breadcrumbs-home {
+          > i {
+            color: darken(#c5cbe7, 4%);
+          }
+        }
+
+        .b404-subheader__breadcrumbs-link {
+          color: #959cb6;
+        }
+
+        .b404-subheader__breadcrumbs-separator {
+          &:after {
+            background: darken(#e7e8ef, 4%);
+          }
+        }
+      }
+    }
+
+    // Primary button
+    .b404-subheader__btn-primary {
+      background: darken(#eaecf2, 3%);
+      color: #959cb6;
+
+      i {
+        color: #959cb6;
+      }
+
+      @include b404-svg-icon-color(#959cb6);
+
+      &:hover,
+      &.active,
+      &:active,
+      &:focus {
+        background: b404-brand-color();
+        color: b404-brand-color(inverse);
+
+        i {
+          color: b404-brand-color(inverse);
+        }
+
+        @include b404-svg-icon-color(b404-brand-color(inverse));
+      }
+    }
+
+    // Secondary button
+    .b404-subheader__btn-secondary {
+      color: darken(#959cb6, 3%);
+
+      i {
+        color: darken(#aab1df, 3%);
+      }
+
+      &:hover,
+      &.active,
+      &:active,
+      &:focus {
+        background: #eaecf2;
+      }
+    }
+
+    // Daterange
+    .b404-subheader__btn-daterange {
+      background: darken(#eaecf2, 3%);
+
+      &:hover,
+      &.active,
+      &:active,
+      &:focus {
+        background: darken(#eaecf2, 6%);
+      }
+    }
+
+    // Search
+    .b404-subheader__search {
+      .form-control {
+        background: #eaecf2;
+        border-color: #eaecf2 !important;
+      }
+    }
+  }
 }
 
 @include b404-tablet-and-mobile {
-	// Subheader
-	.b404-subheader {
-		margin: 2px 0;
+  // Subheader
+  .b404-subheader {
+    margin: 2px 0;
 
-		// Main
-		.b404-subheader__main {
-			// Mobile Toggler
-			@include b404-burger-icon-build(b404-subheader__mobile-toggle, b404-get($b404-subheader-config, toggle));
-			@include b404-burger-icon-skin(b404-subheader__mobile-toggle, b404-get($b404-subheader-config, toggle, color));
+    // Main
+    .b404-subheader__main {
+      // Mobile Toggler
+      @include b404-burger-icon-build(b404-subheader__mobile-toggle, b404-get($b404-subheader-config, toggle));
+      @include b404-burger-icon-skin(b404-subheader__mobile-toggle, b404-get($b404-subheader-config, toggle, color));
 
-			.b404-subheader__mobile-toggle {
-				display: inline-block;
-				margin-right: 1rem;
-			}
+      .b404-subheader__mobile-toggle {
+        display: inline-block;
+        margin-right: 1rem;
+      }
 
-			// Title
-			.b404-subheader__title {
-				padding: 0.5rem 1.25rem 0.5rem 0;
-			}
+      // Title
+      .b404-subheader__title {
+        padding: 0.5rem 1.25rem 0.5rem 0;
+      }
 
-			// Breadcrumbs
-			.b404-subheader__breadcrumbs {
-				padding: 0.5rem 0;
-			}
-		}
+      // Breadcrumbs
+      .b404-subheader__breadcrumbs {
+        padding: 0.5rem 0;
+      }
+    }
 
-		// Toolbar
-		.b404-subheader__toolbar {
-			padding: 0.5rem 0;
-		}
+    // Toolbar
+    .b404-subheader__toolbar {
+      padding: 0.5rem 0;
+    }
 
-		// Light style
-		.b404-subheader--transparent & {
-			background-color: transparent;
-		}
-	}
+    // Light style
+    .b404-subheader--transparent & {
+      background-color: transparent;
+    }
+  }
 }
 
 @include b404-mobile {
-	// Subheader
-	.b404-subheader {
-
-		// Toolbar
-		.b404-subheader__toolbar {
-			padding-top: 0.5rem;
-		}
-	}
+  // Subheader
+  .b404-subheader {
+    // Toolbar
+    .b404-subheader__toolbar {
+      padding-top: 0.5rem;
+    }
+  }
 }

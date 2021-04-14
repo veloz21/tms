@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { CreateTire, UpdateTire } from '@tms/actions/tire.actions';
 import { AVIABILITY_STATUS } from '@tms/core/enums';
 import { SubheaderService } from '@tms/layout';
@@ -12,6 +11,7 @@ import { TireModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedTireId } from '@tms/selectors/tire.selectors';
 import { TiresService } from '@tms/services';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -22,30 +22,37 @@ import { delay, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TiresEditComponent implements OnInit, OnDestroy {
-  tire: TireModel;
-  tireId$: Observable<number>;
-  oldTire: TireModel;
-  selectedTab = 0;
-  loadingSubject = new BehaviorSubject<boolean>(true);
-  loading$: Observable<boolean>;
-  tireForm: FormGroup;
-  hasFormErrors = false;
-  availableYears: number[] = [];
-  filteredColors: Observable<string[]>;
-  filteredManufactures: Observable<string[]>;
+
+  public tire: TireModel;
+  public tireId$: Observable<number>;
+  public oldTire: TireModel;
+  public selectedTab = 0;
+  public loadingSubject = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean>;
+  public tireForm: FormGroup;
+  public hasFormErrors = false;
+  public availableYears: number[] = [];
+  public filteredColors: Observable<string[]>;
+  public filteredManufactures: Observable<string[]>;
+  public translateParams: TranslateParams;
 
   private ngUnsubscribe = new Subject();
   constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private tireFB: FormBuilder,
     public dialog: MatDialog,
-    private translate: TranslateService,
-    private subheaderService: SubheaderService,
+    private tireFB: FormBuilder,
+    private store: Store<AppState>,
+    private cdr: ChangeDetectorRef,
     private tireService: TiresService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private translate: CustomTranslateService,
+    private activatedRoute: ActivatedRoute,
+    private subheaderService: SubheaderService,
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('WORKSHOP.TIRES.ENTITY'),
+      entities: this.translate.instant('WORKSHOP.TIRES.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     this.tire = this.activatedRoute.snapshot.data.tire as TireModel;
@@ -94,27 +101,28 @@ export class TiresEditComponent implements OnInit, OnDestroy {
         page: `/workshop`
       },
       {
-        title: this.translate.instant('WORKSHOP.TIRES.TEXT.TIRES'),
+        title: this.translate.instant('WORKSHOP.TIRES.ENTITIES.VALUE'),
         page: `/workshop/tires`
       },
       {
-        title: this.translate.instant('WORKSHOP.TIRES.TEXT.CREATE_TITLE'),
+        title: this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams),
         page: `/workshop/tires/add`
       }
       ]);
       return;
     }
-    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.TIRES.TEXT.EDIT_TIRE'));
+
+    this.subheaderService.setTitle(this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams));
     this.subheaderService.setBreadcrumbs([{
       title: this.translate.instant('WORKSHOP.WORKSHOP'),
       page: `/workshop`
     },
     {
-      title: this.translate.instant('WORKSHOP.TIRES.TEXT.TIRES'),
+      title: this.translate.instant('WORKSHOP.TIRES.ENTITIES.VALUE'),
       page: `/workshop/tires`
     },
     {
-      title: this.translate.instant('WORKSHOP.TIRES.TEXT.EDIT_TIRE'),
+      title: this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams),
       page: `/workshop/tires/edit`,
       queryParams: {
         id: this.tire.id
@@ -256,12 +264,12 @@ export class TiresEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result = this.translate.instant('WORKSHOP.TIRES.TEXT.CREATE_TITLE');
+    let result = this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams);
     if (!this.tire || !this.tire.id) {
       return result;
     }
 
-    result = this.translate.instant('WORKSHOP.TIRES.TEXT.EDIT_TIRE') + ` - ${this.tire.serialNumber} ${this.tire.rangeTraveled}`;
+    result = this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams) + ` - ${this.tire.serialNumber} ${this.tire.rangeTraveled}`;
     return result;
   }
 

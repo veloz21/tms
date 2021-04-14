@@ -5,7 +5,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { DeleteManyMaintenances, DeleteOneMaintenance, RequestMaintenancesPage } from '@tms/actions/maintenance.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { MaintenancesDataSource } from '@tms/data-sources';
@@ -13,9 +12,9 @@ import { SubheaderService } from '@tms/layout';
 import { MaintenanceModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectMaintenancesPageLastQuery } from '@tms/selectors/maintenance.selectors';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { fromEvent, merge, of, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
-import { TranslateParams } from '../../../../../core/_base/layout/translate';
 
 @Component({
   selector: 'b404-maintenances-list',
@@ -38,15 +37,15 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
   selection = new SelectionModel<MaintenanceModel>(true, []);
   maintenancesResult: MaintenanceModel[] = [];
   public translateParams: TranslateParams;
-  private ngUnsuscribe = new Subject();
 
+  private ngUnsuscribe = new Subject();
   constructor(
     public dialog: MatDialog,
-    private translate: TranslateService,
+    private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
-    private store: Store<AppState>
   ) {
     this.translateParams = {
       entity: this.translate.instant('WORKSHOP.MAINTENANCE.ENTITY'),
@@ -79,7 +78,7 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
       .subscribe();
 
     // Set title to page breadCrumbs
-    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE'));
+    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.MAINTENANCE.ENTITIES.VALUE'));
 
     // Init DataSource
     this.dataSource = new MaintenancesDataSource(this.store);

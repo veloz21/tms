@@ -1,40 +1,21 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from '@bits404/api-interfaces';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  DeleteManyBoxes,
-  DeleteOneBox,
-  RequestBoxesPage
-} from '@tms/actions/box.actions';
+import { DeleteManyBoxes, DeleteOneBox, RequestBoxesPage } from '@tms/actions/box.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { BoxesDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
 import { BoxModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectBoxesPageLastQuery } from '@tms/selectors/boxes.selectors';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { fromEvent, merge, of, Subject } from 'rxjs';
-import {
-  debounceTime,
-  delay,
-  distinctUntilChanged,
-  skip,
-  takeUntil,
-  tap
-} from 'rxjs/operators';
-import { TranslateParams } from '../../../../../core/_base/layout/translate';
+import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'b404-boxes-list',
@@ -67,17 +48,17 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   boxesResult: BoxModel[] = [];
 
   protected STATUS = Status;
-  private ngUnsubscribe = new Subject();
   public translateParams: TranslateParams;
 
+  private ngUnsubscribe = new Subject();
   constructor(
-    public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
+    public dialog: MatDialog,
+    private store: Store<AppState>,
+    private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
-    private translate: TranslateService,
-    private store: Store<AppState>
   ) {
     this.translateParams = {
       entity: this.translate.instant('WORKSHOP.BOXES.ENTITY'),
@@ -113,7 +94,7 @@ export class BoxesListComponent implements OnInit, OnDestroy {
 
     // Set title to page breadCrumbs
     this.subheaderService.setTitle(
-      this.translate.instant('WORKSHOP.BOXES.TEXT.BOXES')
+      this.translate.instant('WORKSHOP.BOXES.ENTITIES.VALUE')
     );
 
     // Init DataSource

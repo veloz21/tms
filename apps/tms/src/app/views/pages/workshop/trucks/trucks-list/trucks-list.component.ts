@@ -1,40 +1,21 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { Status } from '@bits404/api-interfaces';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  DeleteManyTrucks,
-  DeleteOneTruck,
-  RequestTrucksPage
-} from '@tms/actions/truck.actions';
+import { DeleteManyTrucks, DeleteOneTruck, RequestTrucksPage } from '@tms/actions/truck.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TrucksDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
 import { TruckModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTrucksPageLastQuery } from '@tms/selectors/trucks.selectors';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { fromEvent, merge, of, Subject } from 'rxjs';
-import {
-  debounceTime,
-  delay,
-  distinctUntilChanged,
-  skip,
-  takeUntil,
-  tap
-} from 'rxjs/operators';
-import { TranslateParams } from '../../../../../core/_base/layout/translate';
+import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'b404-trucks-list',
@@ -70,15 +51,15 @@ export class TrucksListComponent implements OnInit, OnDestroy {
 
   protected STATUS = Status;
   public translateParams: TranslateParams;
-  private ngUnsuscribe = new Subject();
 
+  private ngUnsuscribe = new Subject();
   constructor(
     public dialog: MatDialog,
+    private store: Store<AppState>,
     private activatedRoute: ActivatedRoute,
-    private translate: TranslateService,
+    private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
-    private store: Store<AppState>
   ) {
     this.translateParams = {
       entity: this.translate.instant('WORKSHOP.TRUCK.ENTITY'),
@@ -114,7 +95,7 @@ export class TrucksListComponent implements OnInit, OnDestroy {
 
     // Set title to page breadCrumbs
     this.subheaderService.setTitle(
-      this.translate.instant('WORKSHOP.TRUCK.TEXT.TRUCK')
+      this.translate.instant('WORKSHOP.TRUCK.ENTITIES.VALUE')
     );
 
     // Init DataSource

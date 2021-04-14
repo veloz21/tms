@@ -4,14 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { CreateMaintenance, UpdateMaintenance } from '@tms/actions/maintenance.actions';
-import { TypesUtilsService } from '@tms/crud';
 import { SubheaderService } from '@tms/layout';
 import { BoxModel, EmployeeModel, MaintenanceModel, TruckModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedMaintenanceId } from '@tms/selectors/maintenance.selectors';
 import { MaintenancesService } from '@tms/services';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -21,29 +20,35 @@ import { delay, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MaintenanceEditComponent implements OnInit, OnDestroy {
-  // Public properties
-  maintenance: MaintenanceModel;
-  maintenanceId$: Observable<number>;
-  oldMaintenance: MaintenanceModel;
-  selectedTab = 0;
-  loadingSubject = new BehaviorSubject<boolean>(true);
-  loading$: Observable<boolean>;
-  maintenanceForm: FormGroup;
-  hasFormErrors = false;
+
+  public maintenance: MaintenanceModel;
+  public maintenanceId$: Observable<number>;
+  public oldMaintenance: MaintenanceModel;
+  public selectedTab = 0;
+  public loadingSubject = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean>;
+  public maintenanceForm: FormGroup;
+  public hasFormErrors = false;
+
+  public translateParams: TranslateParams;
 
   private ngUnsuscribe = new Subject();
   constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private maintenanceFB: FormBuilder,
     public dialog: MatDialog,
+    private store: Store<AppState>,
+    private cdr: ChangeDetectorRef,
+    private maintenanceFB: FormBuilder,
+    private translate: CustomTranslateService,
+    private activatedRoute: ActivatedRoute,
     private subheaderService: SubheaderService,
     private maintenanceService: MaintenancesService,
-    private translate: TranslateService,
-    private typesUtilsService: TypesUtilsService,
-    private cdr: ChangeDetectorRef
-  ) { }
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('WORKSHOP.MAINTENANCE.ENTITY'),
+      entities: this.translate.instant('WORKSHOP.MAINTENANCE.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     this.maintenance = this.activatedRoute.snapshot.data[' maintenance '];
@@ -93,38 +98,29 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
           page: `/workshop`,
         },
         {
-          title: this.translate.instant(
-            'WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE'
-          ),
+          title: this.translate.instant('WORKSHOP.MAINTENANCE.ENTITIES.VALUE'),
           page: `/workshop/maintenances`,
         },
         {
-          title: this.translate.instant(
-            'WORKSHOP.MAINTENANCE.TEXT.CREATE_TITLE'
-          ),
+          title: this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams),
           page: `/workshop/maintenances/add`,
         },
       ]);
       return;
     }
-    this.subheaderService.setTitle(
-      this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE')
-    ),
+
+    this.subheaderService.setTitle(this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams)),
       this.subheaderService.setBreadcrumbs([
         {
           title: this.translate.instant('WORKSHOP.WORKSHOP'),
           page: `/workshop`,
         },
         {
-          title: this.translate.instant(
-            'WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE'
-          ),
+          title: this.translate.instant('WORKSHOP.MAINTENANCE.ENTITIES.VALUE'),
           page: `/workshop/maintenances`,
         },
         {
-          title: this.translate.instant(
-            'WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE'
-          ),
+          title: this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams),
           page: `/workshop/maintenances/edit`,
           queryParams: { id: this.maintenance.id },
         },
@@ -270,15 +266,13 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant(
-      'WORKSHOP.MAINTENANCE.TEXT.CREATE_TITLE'
-    );
+    let result: string = this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams);
     if (!this.maintenance || !this.maintenance.id) {
       return result;
     }
 
     result =
-      this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.EDIT_MAINTENANCE') +
+      this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams) +
       ` - ${this.maintenance.mechanic.firstName} ${this.maintenance.times.start} ${this.maintenance.times.end}`;
     return result;
   }

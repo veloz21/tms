@@ -1,19 +1,12 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IUser } from '@bits404/api-interfaces';
 import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { AppState } from '@tms/reducers';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-import { AuthenticationService, AuthNoticeService, Login } from '../../../../core/auth';
+import { AuthNoticeService, Login } from '../../../../core/auth';
 
 @Component({
   selector: 'b404-login',
@@ -27,18 +20,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoggedIn$: Observable<boolean>;
   errors: any = [];
 
-  private unsubscribe: Subject<any>;
-
   private returnUrl: any;
+  private unsubscribe: Subject<any>;
   constructor(
-    private router: Router,
-    private auth: AuthenticationService,
-    private authNoticeService: AuthNoticeService,
-    private translate: TranslateService,
-    private store: Store<AppState>,
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<AppState>,
+    private authNoticeService: AuthNoticeService,
   ) {
     this.unsubscribe = new Subject();
   }

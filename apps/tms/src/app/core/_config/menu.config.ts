@@ -45,7 +45,7 @@ export class MenuConfig {
         //     {
         //       title: 'Maintenance',
         //       page: '/workshop/maintenances',
-        //       translate: 'WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE'
+        //       translate: 'WORKSHOP.MAINTENANCE.ENTITIES.VALUE'
         //     },
         //     {
         //       title: 'Tires',
@@ -55,7 +55,7 @@ export class MenuConfig {
         //     {
         //       title: 'Trucks',
         //       page: '/workshop/trucks',
-        //       translate: 'WORKSHOP.TRUCK.TEXT.TRUCK'
+        //       translate: 'WORKSHOP.TRUCK.ENTITIES.VALUE'
         //     }
         //     ]
         //   },
@@ -78,7 +78,7 @@ export class MenuConfig {
           title: 'Travels',
           bullet: 'dot',
           icon: 'flaticon-paper-plane',
-          translate: 'TRAVELS.TRAVEL.TEXT.TRAVEL',
+          translate: 'TRAVELS.ENTITIES.VALUE',
           page: '/travels',
         },
         {
@@ -90,11 +90,10 @@ export class MenuConfig {
             {
               title: 'Employees',
               page: '/paysheet/employees',
-              translate: 'PAYSHEET.EMPLOYEE.TEXT.EMPLOYEE',
+              translate: 'PAYSHEET.EMPLOYEE.ENTITIES.VALUE',
             },
           ],
         },
-
         {
           title: 'Workshop',
           bullet: 'dot',
@@ -104,22 +103,22 @@ export class MenuConfig {
             {
               title: 'Boxes',
               page: '/workshop/boxes',
-              translate: 'WORKSHOP.BOXES.TEXT.BOXES',
+              translate: 'WORKSHOP.BOXES.ENTITIES.VALUE',
             },
             {
               title: 'Maintenance',
               page: '/workshop/maintenances',
-              translate: 'WORKSHOP.MAINTENANCE.TEXT.MAINTENANCE',
+              translate: 'WORKSHOP.MAINTENANCE.ENTITIES.VALUE',
             },
             {
               title: 'Tires',
               page: '/workshop/tires',
-              translate: 'WORKSHOP.TIRES.TEXT.TIRES',
+              translate: 'WORKSHOP.TIRES.ENTITIES.VALUE',
             },
             {
               title: 'Trucks',
               page: '/workshop/trucks',
-              translate: 'WORKSHOP.TRUCK.TEXT.TRUCK',
+              translate: 'WORKSHOP.TRUCK.ENTITIES.VALUE',
             },
           ],
         },

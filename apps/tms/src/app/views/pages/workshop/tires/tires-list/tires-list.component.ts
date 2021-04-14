@@ -5,7 +5,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { DeleteManyTires, DeleteOneTire, RequestTiresPage } from '@tms/actions/tire.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TiresDataSource } from '@tms/data-sources';
@@ -13,9 +12,9 @@ import { SubheaderService } from '@tms/layout';
 import { TireModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectTiresPageLastQuery } from '@tms/selectors/tire.selectors';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { fromEvent, merge, of, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
-import { TranslateParams } from '../../../../../core/_base/layout/translate';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -39,16 +38,16 @@ export class TiresListComponent implements OnInit, OnDestroy {
   selection = new SelectionModel<TireModel>(true, []);
   tiresResult: TireModel[] = [];
   public translateParams: TranslateParams;
-  private ngUnsubscribe = new Subject();
 
+  private ngUnsubscribe = new Subject();
   constructor(
-    public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
+    public dialog: MatDialog,
+    private store: Store<AppState>,
+    private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
-    private translate: TranslateService,
-    private store: Store<AppState>
   ) {
     this.translateParams = {
       entity: this.translate.instant('WORKSHOP.TIRES.ENTITY'),
@@ -84,7 +83,7 @@ export class TiresListComponent implements OnInit, OnDestroy {
 
 
     // Set title to page breadCrumbs
-    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.TIRES.TEXT.TIRES'));
+    this.subheaderService.setTitle(this.translate.instant('WORKSHOP.TIRES.ENTITIES.VALUE'));
 
     // Init DataSource
     this.dataSource = new TiresDataSource(this.store);

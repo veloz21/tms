@@ -26,37 +26,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
-import {
-  HttpUtilsService,
-  LayoutUtilsService,
-  TypesUtilsService
-} from '@tms/crud';
+import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
+import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '@tms/partials/content/crud';
 import { PartialsModule } from '@tms/partials/partials.module';
 import { travelsReducer } from '@tms/reducers';
 import { TravelResolver, TravelStatusResolver } from '@tms/resolvers';
-import {
-  BoxesService,
-  EmployeesService,
-  TravelsService,
-  TrucksService
-} from '@tms/services';
+import { BoxesService, EmployeesService, TravelsService, TrucksService } from '@tms/services';
 import { BoxesAutocompleteModule } from '@tms/shared/autocomplete/boxes-autocomplete/boxes-autocomplete.module';
 import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-autocomplete/employees-autocomplete.module';
 import { PlacesComponent } from '@tms/shared/autocomplete/places-autocomplete/places-autocomplete.component';
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
+import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import {
-  ActionNotificationComponent,
-  DeleteEntityDialogComponent,
-  FetchEntityDialogComponent,
-  UpdateStatusDialogComponent
-} from '../../../partials/content/crud';
-import { SharedModule } from '../../../shared/shared.module';
 import { TravelEditComponent } from './travel-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -89,7 +74,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule.forChild(),
     MatButtonModule,
     BoxesAutocompleteModule,
     EmployeesAutocompleteModule,

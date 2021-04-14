@@ -33,12 +33,12 @@
         <div class="col-xl-12">
           <div class="b404-form__group b404-form__group--inline">
             <div class="b404-form__label b404-form__label-no-wrap">
-              <label class="b404--font-bold b404-font-danger-">{{'GENERAL.TEXT.SELECTED_RECORDS'|b404Translate}}: {{
+              <label class="b404--font-bold b404-font-danger-">{{'GENERAL.TEXT.SELECTED_RECORDS' | b404Translate}}: {{
                 selection.selected.length }}</label>
             </div>
             <div class="b404-form__control b404-form__group--inline">
-              <button mat-raised-button color="accent" (click)="deleteBoxes()" matTooltip="Delete selected boxs"
-                class="mat-button-mt-4">
+              <button mat-raised-button color="accent" (click)="deleteBoxes()"
+                matTooltip="{{'MODULE.DELETE_SELECTED' | b404Translate:translateParams}}" class="mat-button-mt-4">
                 <mat-icon>delete</mat-icon>
                 {{'GENERAL.BUTTONS.DELETE_ALL' | b404Translate}}
               </button>&nbsp;

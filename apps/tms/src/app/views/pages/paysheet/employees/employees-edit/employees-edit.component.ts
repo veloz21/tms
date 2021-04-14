@@ -4,13 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { CreateEmployee, UpdateEmployee } from '@tms/actions/employee.actions';
 import { AVIABILITY_STATUS } from '@tms/enums';
 import { SubheaderService } from '@tms/layout';
 import { EmployeeModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedEmployeeId } from '@tms/selectors/employee.selectors';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -33,6 +33,7 @@ export class EmployeesEditComponent implements OnInit {
 
   public imageUrl: string;
   public imageFile: File;
+  public translateParams: TranslateParams;
 
   private ngUnsuscribe = new Subject();
   constructor(
@@ -41,10 +42,15 @@ export class EmployeesEditComponent implements OnInit {
     private store: Store<AppState>,
     private cdr: ChangeDetectorRef,
     private employeeFB: FormBuilder,
-    private translate: TranslateService,
     private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
-  ) { }
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITY'),
+      entities: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     this.activatedRoute.data.pipe(takeUntil(this.ngUnsuscribe)).subscribe((data) => {
@@ -76,16 +82,17 @@ export class EmployeesEditComponent implements OnInit {
     if (!this.employee.id) {
       this.subheaderService.setBreadcrumbs([
         { title: this.translate.instant('PAYSHEET.PAYSHEET'), page: `/paysheet` },
-        { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EMPLOYEE'), page: `/paysheet/employees` },
-        { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.CREATE_EMPLOYEE'), page: `/paysheet/employees/add` },
+        { title: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITIES.VALUE'), page: `/paysheet/employees` },
+        { title: this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams), page: `/paysheet/employees/add` },
       ]);
       return;
     }
-    this.subheaderService.setTitle(this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EDIT_EMPLOYEE'));
+
+    this.subheaderService.setTitle(this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams));
     this.subheaderService.setBreadcrumbs([
       { title: this.translate.instant('PAYSHEET.PAYSHEET'), page: `/paysheet` },
-      { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EMPLOYEE'), page: `/paysheet/employees` },
-      { title: this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EDIT_EMPLOYEE'), page: `/paysheet/employees/edit`, queryParams: { id: this.employee.id } },
+      { title: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITIES.VALUE'), page: `/paysheet/employees` },
+      { title: this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams), page: `/paysheet/employees/edit`, queryParams: { id: this.employee.id } },
     ]);
   }
 
@@ -244,12 +251,12 @@ export class EmployeesEditComponent implements OnInit {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.CREATE_TITLE');
+    let result: string = this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams);
     if (!this.employee || !this.employee.id) {
       return result;
     }
 
-    result = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EDIT_EMPLOYEE') + ` - ${this.employee.firstName} ${this.employee.lastName}`;
+    result = this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams) + ` - ${this.employee.firstName} ${this.employee.lastName}`;
     return result;
   }
 

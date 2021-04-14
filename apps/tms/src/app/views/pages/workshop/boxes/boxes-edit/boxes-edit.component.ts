@@ -1,16 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { CreateBox, UpdateBox } from '@tms/actions/box.actions';
 import { AVIABILITY_STATUS } from '@tms/core/enums';
 import { SubheaderService } from '@tms/layout';
@@ -18,6 +11,7 @@ import { BoxModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedBoxId } from '@tms/selectors/boxes.selectors';
 import { BoxesService } from '@tms/services';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -27,30 +21,36 @@ import { delay, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoxesEditComponent implements OnInit, OnDestroy {
-  box: BoxModel;
-  boxId$: Observable<number>;
-  oldBox: BoxModel;
-  selectedTab = 0;
-  loadingSubject = new BehaviorSubject<boolean>(true);
-  loading$: Observable<boolean>;
-  boxForm: FormGroup;
-  hasFormErrors = false;
+  public box: BoxModel;
+  public boxId$: Observable<number>;
+  public oldBox: BoxModel;
+  public selectedTab = 0;
+  public loadingSubject = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean>;
+  public boxForm: FormGroup;
+  public hasFormErrors = false;
 
-  imageUrl: string;
-  imageFile: File;
+  public imageUrl: string;
+  public imageFile: File;
+  public translateParams: TranslateParams;
 
   private ngUnsubscribe = new Subject();
   constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private boxFB: FormBuilder,
     public dialog: MatDialog,
-    private translate: TranslateService,
-    private subheaderService: SubheaderService,
+    private boxFB: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private store: Store<AppState>,
     private boxService: BoxesService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
+    private subheaderService: SubheaderService,
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('WORKSHOP.BOXES.ENTITY'),
+      entities: this.translate.instant('WORKSHOP.BOXES.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     this.box = this.activatedRoute.snapshot.data[' box '];
@@ -100,30 +100,29 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
           page: `/workshop`,
         },
         {
-          title: this.translate.instant('WORKSHOP.BOXES.TEXT.BOXES'),
+          title: this.translate.instant('WORKSHOP.BOXES.ENTITIES.VALUE'),
           page: `/workshop/boxes`,
         },
         {
-          title: this.translate.instant('WORKSHOP.BOXES.TEXT.CREATE_TITLE'),
+          title: this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams),
           page: `/workshop/boxes/add`,
         },
       ]);
       return;
     }
-    this.subheaderService.setTitle(
-      this.translate.instant('WORKSHOP.BOXES.TEXT.EDIT_BOX')
-    );
+
+    this.subheaderService.setTitle(this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams));
     this.subheaderService.setBreadcrumbs([
       {
         title: this.translate.instant('WORKSHOP.WORKSHOP'),
         page: `/workshop`,
       },
       {
-        title: this.translate.instant('WORKSHOP.BOXES.TEXT.BOXES'),
+        title: this.translate.instant('WORKSHOP.BOXES.ENTITIES.VALUE'),
         page: `/workshop/boxes`,
       },
       {
-        title: this.translate.instant('WORKSHOP.BOXES.TEXT.EDIT_BOX'),
+        title: this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams),
         page: `/workshop/boxes/edit`,
         queryParams: {
           id: this.box.id,
@@ -276,14 +275,14 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result = this.translate.instant('WORKSHOP.BOXES.TEXT.CREATE_TITLE');
+    let result = this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams);
     if (!this.box || !this.box.id) {
       return result;
     }
 
-    result =
-      this.translate.instant('WORKSHOP.BOXES.TEXT.EDIT_BOX') +
-      `- ${this.box.serialNumber} ${this.box.boxModel}, ${this.box.brand}`;
+    result = this.translate.instant(
+      'MODULE.EDIT_ENTITY', this.translateParams
+    ) + `- ${this.box.serialNumber} ${this.box.boxModel}, ${this.box.brand}`;
     return result;
   }
 

@@ -1,22 +1,16 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { CreateTruck, UpdateTruck } from '@tms/actions/truck.actions';
 import { AVIABILITY_STATUS } from '@tms/core/enums';
 import { SubheaderService } from '@tms/layout';
 import { TruckModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedTruckId } from '@tms/selectors/trucks.selectors';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -26,29 +20,35 @@ import { delay, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TruckEditComponent implements OnInit, OnDestroy {
-  // Public properties
-  truck: TruckModel;
-  truckId$: Observable<number>;
-  oldTruck: TruckModel;
-  selectedTab = 0;
-  loadingSubject = new BehaviorSubject<boolean>(true);
-  loading$: Observable<boolean>;
-  truckForm: FormGroup;
-  hasFormErrors = false;
-  imageUrl: string;
-  imageFile: File;
+
+  public truck: TruckModel;
+  public truckId$: Observable<number>;
+  public oldTruck: TruckModel;
+  public selectedTab = 0;
+  public loadingSubject = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean>;
+  public truckForm: FormGroup;
+  public hasFormErrors = false;
+  public imageUrl: string;
+  public imageFile: File;
+  public translateParams: TranslateParams;
 
   private ngUnsuscribe = new Subject();
   constructor(
-    private store: Store<AppState>,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private truckFB: FormBuilder,
     public dialog: MatDialog,
+    private truckFB: FormBuilder,
+    private store: Store<AppState>,
+    private cdr: ChangeDetectorRef,
+    private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
-    private translate: TranslateService,
-    private cdr: ChangeDetectorRef
-  ) { }
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('WORKSHOP.TRUCK.ENTITY'),
+      entities: this.translate.instant('WORKSHOP.TRUCK.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     this.truck = this.activatedRoute.snapshot.data[' truck '];
@@ -87,27 +87,26 @@ export class TruckEditComponent implements OnInit, OnDestroy {
           page: `/workshop`,
         },
         {
-          title: this.translate.instant('WORKSHOP.TRUCK.TEXT.TRUCK'),
+          title: this.translate.instant('WORKSHOP.TRUCK.ENTITIES.VALUE'),
           page: `/workshop/trucks`,
         },
         {
-          title: this.translate.instant('WORKSHOP.TRUCK.TEXT.CREATE_TITLE'),
+          title: this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams),
           page: `/workshop/trucks/add`,
         },
       ]);
       return;
     }
-    this.subheaderService.setTitle(
-      this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK')
-    );
+
+    this.subheaderService.setTitle(this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams));
     this.subheaderService.setBreadcrumbs([
       { title: this.translate.instant('WORKSHOP.WORKSHOP'), page: `/workshop` },
       {
-        title: this.translate.instant('WORKSHOP.TRUCK.TEXT.TRUCK'),
+        title: this.translate.instant('WORKSHOP.TRUCK.ENTITIES.VALUE'),
         page: `/workshop/trucks`,
       },
       {
-        title: this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK'),
+        title: this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams),
         page: `/workshop/trucks/edit`,
         queryParams: { id: this.truck.id },
       },
@@ -252,15 +251,13 @@ export class TruckEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant(
-      'WORKSHOP.TRUCK.TEXT.CREATE_TITLE'
-    );
+    let result: string = this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams);
     if (!this.truck || !this.truck.id) {
       return result;
     }
 
     result =
-      this.translate.instant('WORKSHOP.TRUCK.TEXT.EDIT_TRUCK') +
+      this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams) +
       ` - ${this.truck.truckModel} ${this.truck.brand} ${this.truck.serialNumber}`;
     return result;
   }

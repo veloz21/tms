@@ -6,7 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from '@bits404/api-interfaces';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { DeleteManyEmployees, DeleteOneEmployee, RequestEmployeePage } from '@tms/actions/employee.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { EmployeesDataSource } from '@tms/data-sources';
@@ -14,8 +13,8 @@ import { SubheaderService } from '@tms/layout';
 import { EmployeeModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectEmployeesPageLastQuery } from '@tms/selectors/employee.selectors';
-import { TranslateParams } from '@tms/translate';
-import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
+import { fromEvent, merge, of, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
@@ -41,19 +40,17 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   employeesResult: EmployeeModel[] = [];
 
   protected STATUS = Status;
-  private subscriptions: Subscription[] = [];
-  private ngUnsuscribe = new Subject();
-
   public translateParams: TranslateParams;
 
+  private ngUnsuscribe = new Subject();
   constructor(
-    public dialog: MatDialog,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private translate: TranslateService,
+    public dialog: MatDialog,
+    private store: Store<AppState>,
+    private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
     private layoutUtilsService: LayoutUtilsService,
-    private store: Store<AppState>
   ) {
     this.translateParams = {
       entity: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITY'),
@@ -63,22 +60,20 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.
-    const sortSubscription = this.sort.sortChange.pipe(takeUntil(this.ngUnsuscribe)).subscribe(() => (this.paginator.pageIndex = 0));
-    this.subscriptions.push(sortSubscription);
+    this.sort.sortChange.pipe(takeUntil(this.ngUnsuscribe)).subscribe(() => (this.paginator.pageIndex = 0));
 
     /* Data load will be triggered in two cases:
     - when a pagination event occurs => this.paginator.page
     - when a sort event occurs => this.sort.sortChange
     **/
-    const paginatorSubscriptions = merge(this.sort.sortChange, this.paginator.page).pipe(
+    merge(this.sort.sortChange, this.paginator.page).pipe(
       tap(() => this.loadEmployeesList()),
       takeUntil(this.ngUnsuscribe)
     )
       .subscribe();
-    this.subscriptions.push(paginatorSubscriptions);
 
     // Filtration, bind to searchInput
-    const searchSubscription = fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
+    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
       debounceTime(150),
       distinctUntilChanged(),
       tap(() => {
@@ -88,27 +83,23 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
       takeUntil(this.ngUnsuscribe)
     )
       .subscribe();
-    this.subscriptions.push(searchSubscription);
 
     // Set title to page breadCrumbs
-    this.subheaderService.setTitle(this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EMPLOYEE'));
+    this.subheaderService.setTitle(this.translate.instant('PAYSHEET.EMPLOYEE.ENTITIES.VALUE'));
 
     // Init DataSource
     this.dataSource = new EmployeesDataSource(this.store);
-    const entitiesSubscription = this.dataSource.entitySubject.pipe(
+    this.dataSource.entitySubject.pipe(
       skip(1),
       distinctUntilChanged(),
       takeUntil(this.ngUnsuscribe)
     ).subscribe(res => {
       this.employeesResult = res;
     });
-    this.subscriptions.push(entitiesSubscription);
-    const lastQuerySubscription = this.store.pipe(select(selectEmployeesPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe(res => this.lastQuery = res);
-    // Load last query from store
-    this.subscriptions.push(lastQuerySubscription);
+    this.store.pipe(select(selectEmployeesPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe(res => this.lastQuery = res);
 
     // Read from URL itemId, for restore previous state
-    const routeSubscription = this.activatedRoute.queryParams.pipe(takeUntil(this.ngUnsuscribe)).subscribe(params => {
+    this.activatedRoute.queryParams.pipe(takeUntil(this.ngUnsuscribe)).subscribe(params => {
       if (params.id) {
         this.restoreState(this.lastQuery, +params.id);
       }
@@ -118,7 +109,6 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
         this.loadEmployeesList();
       }); // Remove this line, just loading imitation
     });
-    this.subscriptions.push(routeSubscription);
   }
 
   ngOnDestroy() {

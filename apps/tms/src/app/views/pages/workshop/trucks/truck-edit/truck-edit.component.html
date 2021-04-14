@@ -3,18 +3,18 @@
     [viewLoading$]="loading$">
     <ng-container ktPortletTools>
       <a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button
-        matTooltip="{{'WORKSHOP.TRUCK.BUTTONS.GO_BACK' | translate}}">
+        matTooltip="{{'MODULE.GO_BACK' | b404Translate:translateParams}}">
         <i class="la la-arrow-left"></i>
-        <span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.BACK" | translate}}</span>
+        <span class="b404-hidden-mobile">{{"GENERAL.BUTTONS.BACK" | b404Translate}}</span>
       </a>
       <a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0"
-        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | translate}}">
+        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | b404Translate}}">
         <i class="la la-cog"></i>
-        <span class="b404-hidden-mobile"> {{"GENERAL.BUTTONS.RESET" | translate}} </span>
+        <span class="b404-hidden-mobile"> {{"GENERAL.BUTTONS.RESET" | b404Translate}} </span>
       </a>
       <a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)"
-        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
-        <span class="b404-hidden-mobile"> {{"GENERAL.BUTTONS.SAVE" | translate}} </span>
+        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | b404Translate}}">
+        <span class="b404-hidden-mobile"> {{"GENERAL.BUTTONS.SAVE" | b404Translate}} </span>
       </a>
     </ng-container>
   </b404-portlet-header>
@@ -26,41 +26,41 @@
             <form [formGroup]="truckForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
               <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
                 (close)="onAlertClose($event)">
-                <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>
+                <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | b404Translate}} </span>
               </b404-alert>
               <div class="b404-form__section b404-form__section--first">
                 <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MODEL' | translate}}</mat-label>
-                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MODEL' | translate }}"
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MODEL' | b404Translate}}</mat-label>
+                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MODEL' | b404Translate }}"
                           formControlName="truckModel" required />
                         <mat-error>
-                          {{'WORKSHOP.TRUCK.MODEL.MODEL' | translate }}
-                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                          {{'WORKSHOP.TRUCK.MODEL.MODEL' | b404Translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.BRAND' | translate}}</mat-label>
-                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.BRAND' | translate }}"
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.BRAND' | b404Translate}}</mat-label>
+                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.BRAND' | b404Translate }}"
                           formControlName="brand" required />
                         <mat-error>
-                          {{'WORKSHOP.TRUCK.MODEL.BRAND' | translate }}
-                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                          {{'WORKSHOP.TRUCK.MODEL.BRAND' | b404Translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.NICKNAME' | translate}}</mat-label>
-                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.NICKNAME' | translate }}"
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.NICKNAME' | b404Translate}}</mat-label>
+                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.NICKNAME' | b404Translate }}"
                           formControlName="nickName" required />
                         <mat-error>
-                          {{'WORKSHOP.TRUCK.MODEL.NICKNAME' | translate }}
-                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                          {{'WORKSHOP.TRUCK.MODEL.NICKNAME' | b404Translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -71,35 +71,35 @@
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | translate}}</mat-label>
-                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | translate }}"
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | b404Translate}}</mat-label>
+                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | b404Translate }}"
                           formControlName="motorNumber" required />
                         <mat-error>
-                          {{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | translate }}
-                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                          {{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | b404Translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <!--New fields-->
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | translate}}</mat-label>
-                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | translate }}"
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | b404Translate}}</mat-label>
+                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | b404Translate }}"
                           formControlName="maintenancePeriod" required />
                         <mat-error>
-                          {{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | translate }}
-                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                          {{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | b404Translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | translate}}</mat-label>
-                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | translate }}"
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | b404Translate}}</mat-label>
+                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | b404Translate }}"
                           formControlName="serialNumber" required />
                         <mat-error>
-                          {{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | translate }}
-                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                          {{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | b404Translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -109,32 +109,32 @@
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | translate}}</mat-label>
-                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | translate }}"
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | b404Translate}}</mat-label>
+                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | b404Translate }}"
                           formControlName="initialRange" required type="number" />
                         <mat-error>
-                          {{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | translate }}
-                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                          {{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | b404Translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | translate}}</mat-label>
-                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | translate }}"
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | b404Translate}}</mat-label>
+                        <input matInput placeholder="{{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | b404Translate }}"
                           type="number" formControlName="rangeTraveled" required />
                         <mat-error>
-                          {{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | translate }}
-                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                          {{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | b404Translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.PRICE' | translate}}</mat-label>
+                        <mat-label>{{'WORKSHOP.TRUCK.MODEL.PRICE' | b404Translate}}</mat-label>
                         <span matPrefix>$ &nbsp;</span>
                         <input matInput matInputCurrency formControlName="price" type="text"
-                          placeholder="{{'WORKSHOP.TRUCK.MODEL.PRICE' | translate}}" />
+                          placeholder="{{'WORKSHOP.TRUCK.MODEL.PRICE' | b404Translate}}" />
                       </mat-form-field>
                     </div>
                   </div>
@@ -142,7 +142,7 @@
                 <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <label for="">{{'WORKSHOP.TRUCK.MODEL.TRUCK_PHOTOGRAPHY'|translate}}</label><br>
+                      <label for="">{{'WORKSHOP.TRUCK.MODEL.TRUCK_PHOTOGRAPHY' | b404Translate}}</label><br>
                       <b404-file-drop [(file)]="imageFile" (fileChange)="setImageAsUrl($event)"></b404-file-drop>
                     </div>
                     <div *ngIf="imageUrl" class="col-md-4 b404-margin-bottom-10-mobile">

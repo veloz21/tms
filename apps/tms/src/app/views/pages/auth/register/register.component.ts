@@ -2,9 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } fr
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ICompany, IUser } from '@bits404/api-interfaces';
-import { Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
-import { AppState } from '@tms/reducers';
+import { CustomTranslateService } from '@tms/translate';
 import { Subject } from 'rxjs';
 import { AuthenticationService, AuthNoticeService } from '../../../../core/auth/';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
@@ -29,13 +27,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subject<any>;
   constructor(
-    private authNoticeService: AuthNoticeService,
-    private translate: TranslateService,
     private router: Router,
-    private auth: AuthenticationService,
-    private store: Store<AppState>,
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private auth: AuthenticationService,
+    private translate: CustomTranslateService,
+    private authNoticeService: AuthNoticeService,
   ) {
     this.unsubscribe = new Subject();
   }

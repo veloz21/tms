@@ -3,18 +3,18 @@
     [viewLoading$]="loading$">
     <ng-container ktPortletTools>
       <a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button
-        matTooltip="{{'WORKSHOP.BOXES.BUTTONS.GO_BACK' | translate}}">
+        matTooltip="{{'MODULE.GO_BACK' | b404Translate:translateParams}}">
         <i class="la la-arrow-left"></i>
-        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.BACK' | translate}}</span>
+        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.BACK' | b404Translate}}</span>
       </a>
       <a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0"
-        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | translate}}">
+        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | b404Translate}}">
         <i class="la la-cog"></i>
-        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.RESET' | translate}}</span>
+        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.RESET' | b404Translate}}</span>
       </a>
       <a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)"
-        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
-        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.SAVE' | translate}}</span>
+        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | b404Translate}}">
+        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.SAVE' | b404Translate}}</span>
       </a>
     </ng-container>
   </b404-portlet-header>
@@ -27,7 +27,7 @@
 
               <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
                 (close)="onAlertClose($event)">
-                {{'GENERAL.TEXT.OH_SNAP_CREATE' | translate}}
+                {{'GENERAL.TEXT.OH_SNAP_CREATE' | b404Translate}}
               </b404-alert>
 
               <div class="b404-form__section b404-form__section--first">
@@ -36,36 +36,36 @@
 
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.MODEL' | translate}}</mat-label>
-                        <input id="model" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.MODEL' | translate}}"
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}</mat-label>
+                        <input id="model" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}"
                           formControlName="boxModel" required>
                         <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.MODEL' | translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
+                          {{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}
+                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
 
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.TYPE' | translate }}</mat-label>
-                        <mat-select placeholder="{{'WORKSHOP.BOXES.MODEL.TYPE' | translate }}" formControlName="type"
-                          required>
-                          <mat-option value="{{'WORKSHOP.BOXES.MODEL.DRY' | translate }}">
-                            {{'WORKSHOP.BOXES.MODEL.DRY' | translate }}</mat-option>
-                          <mat-option value="{{'WORKSHOP.BOXES.MODEL.REFRIGERATED' | translate }}">
-                            {{'WORKSHOP.BOXES.MODEL.REFRIGERATED' | translate }}</mat-option>
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.TYPE' | b404Translate }}</mat-label>
+                        <mat-select placeholder="{{'WORKSHOP.BOXES.MODEL.TYPE' | b404Translate }}"
+                          formControlName="type" required>
+                          <mat-option value="{{'WORKSHOP.BOXES.MODEL.DRY' | b404Translate }}">
+                            {{'WORKSHOP.BOXES.MODEL.DRY' | b404Translate }}</mat-option>
+                          <mat-option value="{{'WORKSHOP.BOXES.MODEL.REFRIGERATED' | b404Translate }}">
+                            {{'WORKSHOP.BOXES.MODEL.REFRIGERATED' | b404Translate }}</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}</mat-label>
-                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}"
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}</mat-label>
+                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}"
                           formControlName="nickName" type="text" required>
                         <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.NICKNAME' | translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
+                          {{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}
+                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -77,35 +77,35 @@
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | translate}}</mat-label>
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}</mat-label>
                         <input id="serialNumber" matInput
-                          placeholder="{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | translate}}"
+                          placeholder="{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}"
                           formControlName="serialNumber" required>
                         <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
+                          {{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}
+                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.BRAND' | translate}}</mat-label>
-                        <input id="brand" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.BRAND' | translate}}"
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}</mat-label>
+                        <input id="brand" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}"
                           formControlName="brand" required>
                         <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.BRAND' | translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
+                          {{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}
+                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | translate}}</mat-label>
-                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | translate}}"
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}</mat-label>
+                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}"
                           formControlName="rangeTraveled" type="number" required>
                         <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
+                          {{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}
+                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -115,10 +115,10 @@
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
                       <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.PRICE' | translate}}</mat-label>
+                        <mat-label>{{'WORKSHOP.BOXES.MODEL.PRICE' | b404Translate}}</mat-label>
                         <span matPrefix>$ &nbsp;</span>
                         <input matInput matInputCurrency formControlName="price" type="text"
-                          placeholder="{{'WORKSHOP.BOXES.MODEL.PRICE' | translate}}" />
+                          placeholder="{{'WORKSHOP.BOXES.MODEL.PRICE' | b404Translate}}" />
                       </mat-form-field>
                     </div>
                   </div>
@@ -126,7 +126,7 @@
                 <div class="b404-form__group">
                   <div class="row">
                     <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <label for="">{{'WORKSHOP.BOXES.MODEL.BOX_PHOTOGRAPHY'|translate}}</label><br>
+                      <label for="">{{'WORKSHOP.BOXES.MODEL.BOX_PHOTOGRAPHY' | b404Translate}}</label><br>
                       <b404-file-drop [(file)]="imageFile" (fileChange)="setImageAsUrl($event)"></b404-file-drop>
                     </div>
                     <div *ngIf="imageUrl" class="col-md-4 b404-margin-bottom-10-mobile">

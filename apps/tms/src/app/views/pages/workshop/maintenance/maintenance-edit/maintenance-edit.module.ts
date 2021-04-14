@@ -25,7 +25,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { MaintenanceEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
@@ -38,9 +37,9 @@ import { BoxesService, EmployeesService, MaintenancesService, TrucksService } fr
 import { BoxesAutocompleteModule } from '@tms/shared/autocomplete/boxes-autocomplete/boxes-autocomplete.module';
 import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-autocomplete/employees-autocomplete.module';
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
+import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { SharedModule } from '../../../../shared/shared.module';
 import { MaintenanceEditComponent } from './maintenance-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -73,7 +72,6 @@ const routes: Routes = [
     TrucksAutocompleteModule,
     EmployeesAutocompleteModule,
     ReactiveFormsModule,
-    TranslateModule.forChild(),
     MatButtonModule,
     MatMenuModule,
     MatSelectModule,

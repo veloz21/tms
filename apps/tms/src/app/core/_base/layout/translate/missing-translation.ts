@@ -11,6 +11,10 @@ export class MissingTranslationHelper implements MissingTranslationHandler {
       key = key.replace(`.${gender}`, '');
     });
 
+    if (params.key == key) {
+      console.log('Missing', key);
+    }
+
     return params.key == key ? params.key : params.translateService.instant(key, params.interpolateParams);
   }
 }

@@ -5,14 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { CreateTravel, UpdateTravel } from '@tms/actions/travel.actions';
-import { TypesUtilsService } from '@tms/crud';
 import { SubheaderService } from '@tms/layout';
 import { TravelModel, TravelStatusModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedTravelId } from '@tms/selectors/travel.selectors';
 import { TravelsService } from '@tms/services';
+import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
@@ -37,9 +36,25 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   companyTravelStatus: Partial<TravelStatusModel>[];
   // sticky portlet header margin
   private headerMargin: number;
-  private ngUnsuscribe = new Subject();
 
-  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private travelFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private travelService: TravelsService, private typesUtilsService: TypesUtilsService, private cdr: ChangeDetectorRef) { }
+  public translateParams: TranslateParams;
+  private ngUnsuscribe = new Subject();
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private travelFB: FormBuilder,
+    private cdr: ChangeDetectorRef,
+    private store: Store<AppState>,
+    private travelService: TravelsService,
+    private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
+    private subheaderService: SubheaderService,
+  ) {
+    this.translateParams = {
+      entity: this.translate.instant('TRAVELS.ENTITY'),
+      entities: this.translate.instant('TRAVELS.ENTITIES'),
+    };
+  }
 
   ngOnInit() {
     this.travel = this.activatedRoute.snapshot.data.travel;
@@ -94,32 +109,29 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     if (!this.travel.id) {
       this.subheaderService.setBreadcrumbs([
         {
-          title: this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'),
+          title: this.translate.instant('TRAVELS.ENTITIES.VALUE'),
           page: `/travels`,
         },
         {
-          title: this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'),
-          page: `/travels`,
-        },
-        {
-          title: this.translate.instant('TRAVELS.TRAVEL.TEXT.CREATE_TITLE'),
+          title: this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams),
           page: `/travels/add`,
         },
       ]);
       return;
     }
-    this.subheaderService.setTitle(this.translate.instant('TRAVELS.TRAVEL.TEXT.EDIT_TRAVEL'));
+
+    this.subheaderService.setTitle(this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams));
     this.subheaderService.setBreadcrumbs([
       {
-        title: this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'),
+        title: this.translate.instant('TRAVELS.ENTITIES.VALUE'),
         page: `/travels`,
       },
       {
-        title: this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'),
+        title: this.translate.instant('TRAVELS.ENTITIES.VALUE'),
         page: `/travels`,
       },
       {
-        title: this.translate.instant('TRAVELS.TRAVEL.TEXT.EDIT_TRAVEL'),
+        title: this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams),
         page: `/travels/edit`,
         queryParams: {
           id: this.travel.id,
@@ -332,12 +344,12 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant('TRAVELS.TRAVEL.TEXT.CREATE_TITLE');
+    let result: string = this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams);
     if (!this.travel || !this.travel.id) {
       return result;
     }
 
-    result = this.translate.instant('TRAVELS.TRAVEL.TEXT.EDIT_TRAVEL') + ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
+    result = this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams) + ` - ${this.travel.operator.firstName} | ${this.travel.box.nickname} | ${this.travel.truck.nickname}`;
     return result;
   }
 

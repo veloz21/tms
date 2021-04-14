@@ -27,9 +27,6 @@ export class ActionToolTipDirective implements OnInit, OnDestroy {
    */
   ngOnInit() {
 
-    console.log('ActionToolTipDirective');
-    console.log('text', this.text);
-
     const positionStrategy = this._overlayPositionBuilder
       .flexibleConnectedTo(this._elementRef)
       .withPositions([{

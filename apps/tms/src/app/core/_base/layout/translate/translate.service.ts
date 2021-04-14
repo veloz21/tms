@@ -5,6 +5,7 @@ import { TranslateService } from "@ngx-translate/core";
   providedIn: 'root'
 })
 export class CustomTranslateService extends TranslateService {
+
   instant(key: string, params?: Object) {
     let gender: string;
     let interpolateParams: Object = {};

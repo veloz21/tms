@@ -2,8 +2,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-// Translate
-import { TranslateService } from '@ngx-translate/core';
+import { CustomTranslateService } from '@tms/translate';
 import { Subject } from 'rxjs';
 // RxJS
 import { finalize, takeUntil, tap } from 'rxjs/operators';
@@ -22,14 +21,13 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   errors: any = [];
 
   private unsubscribe: Subject<any>; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-
   constructor(
-    private authService: AuthenticationService,
-    public authNoticeService: AuthNoticeService,
-    private translate: TranslateService,
     private router: Router,
     private fb: FormBuilder,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private translate: CustomTranslateService,
+    private authService: AuthenticationService,
+    public authNoticeService: AuthNoticeService,
   ) {
     this.unsubscribe = new Subject();
   }

@@ -42,8 +42,8 @@
                 {{ selection.selected.length }}</label>
             </div>
             <div class="b404-form__control b404-form__group--inline">
-              <button mat-raised-button color="accent" (click)="deleteTires()" matTooltip="Delete selected tires"
-                class="mat-button-mt-4">
+              <button mat-raised-button color="accent" (click)="deleteTires()"
+                matTooltip="{{'MODULE.DELETE_SELECTED' | b404Translate:translateParams}}" class="mat-button-mt-4">
                 <mat-icon>delete</mat-icon>
                 {{'GENERAL.BUTTONS.DELETE_ALL' | b404Translate}}
               </button>&nbsp;

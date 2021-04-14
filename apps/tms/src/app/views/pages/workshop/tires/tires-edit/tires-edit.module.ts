@@ -25,7 +25,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { TranslateModule } from '@ngx-translate/core';
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { TireEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
@@ -35,6 +34,7 @@ import { PartialsModule } from '@tms/partials/partials.module';
 import { tiresReducer } from '@tms/reducers';
 import { TireResolver } from '@tms/resolvers';
 import { TiresService } from '@tms/services';
+import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { TiresEditComponent } from './tires-edit.component';
@@ -66,7 +66,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule.forChild(),
     MatButtonModule,
     MatMenuModule,
     MatSelectModule,
@@ -93,6 +92,7 @@ const routes: Routes = [
     }) : [],
     StoreModule.forFeature('tires', tiresReducer),
     EffectsModule.forFeature([TireEffects]),
+    SharedModule,
   ],
   providers: [
     {

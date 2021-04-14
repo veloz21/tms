@@ -5,7 +5,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { TranslateService } from '@ngx-translate/core';
 import { DeleteManyCompletedTravels, DeleteOneCompletedTravel, RequestCompletedTravelsPage } from '@tms/actions/completed-travel.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { CompletedTravelsDataSource } from '@tms/data-sources';
@@ -13,7 +12,8 @@ import { SubheaderService } from '@tms/layout';
 import { TravelModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectCompletedTravelsPageLastQuery } from '@tms/selectors/completed-travel.selectors';
-import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
+import { CustomTranslateService } from '@tms/translate';
+import { fromEvent, merge, of, Subject } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
@@ -35,30 +35,34 @@ export class CompletedTravelsListComponent implements OnInit {
   // Selection
   selection = new SelectionModel<TravelModel>(true, []);
   travelsResult: TravelModel[] = [];
-  private subscriptions: Subscription[] = [];
-  private ngUnsuscribe = new Subject();
 
-  constructor(public dialog: MatDialog, private translate: TranslateService, private activatedRoute: ActivatedRoute, private subheaderService: SubheaderService, private layoutUtilsService: LayoutUtilsService, private store: Store<AppState>) { }
+  private ngUnsuscribe = new Subject();
+  constructor(
+    public dialog: MatDialog,
+    private store: Store<AppState>,
+    private activatedRoute: ActivatedRoute,
+    private translate: CustomTranslateService,
+    private subheaderService: SubheaderService,
+    private layoutUtilsService: LayoutUtilsService,
+  ) { }
 
   ngOnInit() {
     // If the user changes the sort order, reset back to the first page.
-    const sortSubscription = this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-    this.subscriptions.push(sortSubscription);
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     /* Data load will be triggered in two cases:
     - when a pagination event occurs => this.paginator.page
     - when a sort event occurs => this.sort.sortChange
     **/
-    const paginatorSubscriptions = merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         tap(() => this.loadTravelsList()),
         takeUntil(this.ngUnsuscribe)
       )
       .subscribe();
-    this.subscriptions.push(paginatorSubscriptions);
 
     // Filtration, bind to searchInput
-    const searchSubscription = fromEvent(this.searchInput.nativeElement, 'keyup')
+    fromEvent(this.searchInput.nativeElement, 'keyup')
       .pipe(
         debounceTime(150),
         distinctUntilChanged(),
@@ -69,24 +73,20 @@ export class CompletedTravelsListComponent implements OnInit {
         takeUntil(this.ngUnsuscribe)
       )
       .subscribe();
-    this.subscriptions.push(searchSubscription);
 
     // Set title to page breadCrumbs
-    this.subheaderService.setTitle(this.translate.instant('TRAVELS.TRAVEL.TEXT.TRAVEL'));
+    this.subheaderService.setTitle(this.translate.instant('TRAVELS.ENTITIES.VALUE'));
 
     // Init DataSource
     this.dataSource = new CompletedTravelsDataSource(this.store);
-    const entitiesSubscription = this.dataSource.entitySubject.pipe(skip(1), distinctUntilChanged(), takeUntil(this.ngUnsuscribe)).subscribe((res) => {
+    this.dataSource.entitySubject.pipe(skip(1), distinctUntilChanged(), takeUntil(this.ngUnsuscribe)).subscribe((res) => {
       this.travelsResult = res;
       console.log(this.travelsResult);
     });
-    this.subscriptions.push(entitiesSubscription);
-    const lastQuerySubscription = this.store.pipe(select(selectCompletedTravelsPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe((res) => (this.lastQuery = res));
-    // Load last query from store
-    this.subscriptions.push(lastQuerySubscription);
+    this.store.pipe(select(selectCompletedTravelsPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe((res) => (this.lastQuery = res));
 
     // Read from URL itemId, for restore previous state
-    const routeSubscription = this.activatedRoute.queryParams.subscribe((params) => {
+    this.activatedRoute.queryParams.subscribe((params) => {
       if (params.id) {
         this.restoreState(this.lastQuery, +params.id);
       }
@@ -99,12 +99,9 @@ export class CompletedTravelsListComponent implements OnInit {
           this.loadTravelsList();
         }); // Remove this line, just loading imitation
     });
-    this.subscriptions.push(routeSubscription);
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach((el) => el.unsubscribe());
-
     this.ngUnsuscribe.next();
     this.ngUnsuscribe.complete();
   }
