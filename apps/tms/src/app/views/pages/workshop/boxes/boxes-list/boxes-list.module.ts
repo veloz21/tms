@@ -108,4 +108,4 @@ const routes: Routes = [{
     BoxesListComponent,
   ]
 })
-export class BoxListModule { }
+export class BoxesListModule { }

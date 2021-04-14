@@ -29,7 +29,7 @@ export const routes: Routes = [
       },
       {
         path: 'travels',
-        loadChildren: () => import('./views/pages/travels/travel.module').then(m => m.TravelModule),
+        loadChildren: () => import('./views/pages/travels/travels.module').then(m => m.TravelsModule),
       },
       {
         path: 'wizard',

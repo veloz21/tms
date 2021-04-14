@@ -14,13 +14,13 @@ import { SubheaderService } from '@tms/layout';
 import { EmployeeModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectEmployeesPageLastQuery } from '@tms/selectors/employee.selectors';
+import { TranslateParams } from '@tms/translate';
 import { fromEvent, merge, of, Subject, Subscription } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
-import { TranslateParams } from '../../../../../core/_base/layout/translate';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'b404-s-list',
+  selector: 'b404-employees-list',
   templateUrl: './employees-list.component.html',
   styleUrls: ['./employees-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

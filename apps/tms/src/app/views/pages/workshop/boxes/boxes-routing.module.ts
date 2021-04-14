@@ -7,7 +7,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () => import('./boxes-list/boxes-list.module').then(m => m.BoxListModule),
+        loadChildren: () => import('./boxes-list/boxes-list.module').then(m => m.BoxesListModule),
       },
       {
         path: 'add',

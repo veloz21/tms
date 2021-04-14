@@ -96,6 +96,8 @@ export const locale = {
         SAVE_FORM: 'Guardar y continuar',
         SAVE: 'Guardar',
         DELETE_ALL: 'Eliminar todos',
+        EDIT: 'Editar',
+        CLOSE: 'Cerrar',
       },
       INPUTS: {
         SEARCH: 'Buscar',
@@ -129,6 +131,7 @@ export const locale = {
       ADD_ENTITY_MESSAGE: '{{entity}} guardado exitosamente',
       EDIT_ENTITY: 'Editar {{entity}}',
       DELETE_ICON_LABEL: 'Eliminar {{entity}}',
+      VIEW_ICON_LABEL: 'Ver {{entity}}',
       EDIT_ICON_LABEL: 'Editar {{entity}}',
       DELETE_SELECTED: 'Eliminar {{entities}} seleccionados',
       CREATE_ENTITY: 'Crear {{entity}}',
@@ -139,11 +142,6 @@ export const locale = {
       CREATE_NEW: {
         X: 'Añadir nuevo {{entity}}',
         Y: 'Añadir nuevo {{entity}}',
-      },
-      BUTTONS: {
-        NEW_TRAVEL: 'Nuevo viaje',
-        CREATE_NEW: 'Añadir nuevo viaje',
-        GO_BACK: 'Regresar a la lista de viajes',
       },
       GO_BACK: 'Regresar a la lista de {{entities}}',
       SHOW: 'Mostrar {{entities}}',
@@ -173,24 +171,6 @@ export const locale = {
         },
       },
       TRAVEL: {
-        TEXT: {
-          TRAVEL_LIST: 'Lista de viajes',
-          TRAVEL: 'Viajes',
-          DELETE_ONE_TITLE: 'Eliminar viaje',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este viaje permanentemente?',
-          DELETE_ONE_WAIT: 'Eliminando viaje...',
-          DELETE_ONE_MESSAGE: 'El viaje ha sido eliminado',
-          DELETE_MANY_TITLE: 'Eliminar viajes',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los viajes seleccionados permanentemente?',
-          DELETE_MANY_WAIT: 'Eliminando viajes...',
-          DELETE_MANY_MESSAGE: 'Los viajes seleccionados han sido eliminados',
-          CREATE_TITLE: 'Añadir viaje',
-          ADD_TRAVEL_MESSAGE: 'Viaje guardado exitosamente',
-          EDIT_TRAVEL: 'Editar viaje',
-          DELETE_ICON_LABEL: 'Eliminar viaje',
-          EDIT_ICON_LABEL: 'Editar viaje',
-          DELETE_SELECTED: 'Eliminar viajes seleccionados',
-        },
         MODEL: {
           COMPLETED_TRAVELS: 'Mostrar viajes completados',
           OPERATOR_NAME: 'Nombre del operador',
@@ -205,11 +185,6 @@ export const locale = {
           DOWNLOAD_TIME: 'Tiempo de descarga',
           ARRIVE_TIME: 'Tiempo de llegada al destino',
           ARRIVE_CUSTOMER_TIME: 'Tiempo de llegada al cliente',
-        },
-        BUTTONS: {
-          NEW_TRAVEL: 'Nuevo viaje',
-          CREATE_NEW: 'Añadir nuevo viaje',
-          GO_BACK: 'Regresar a la lista de viajes',
         },
       },
       TABLE: {
@@ -230,25 +205,6 @@ export const locale = {
           GENDER: 'X',
           VALUE: 'empleados'
         },
-        TEXT: {
-          EMPLOYEE_LIST: 'Lista de empleados',
-          EMPLOYEE: 'Empleados',
-          DELETE_ONE_TITLE: 'Eliminar empleado',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este empleado permanentemente?',
-          DELETE_ONE_WAIT: 'Eliminando empleado...',
-          DELETE_ONE_MESSAGE: 'El empleado ha sido eliminado',
-          DELETE_MANY_TITLE: 'Eliminar Empleados',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los empleados seleccionados permanentemente?',
-          DELETE_MANY_WAIT: 'Eliminando empleados...',
-          DELETE_MANY_MESSAGE: 'Los empleados seleccionados han sido eliminados',
-          CREATE_TITLE: 'Añadir Empleado',
-          ADD_EMPLOYEE_MESSAGE: 'Empleado guardado exitosamente',
-          EDIT_EMPLOYEE: 'Editar empleado',
-          DELETE_ICON_LABEL: 'Eliminar empleado',
-          EDIT_ICON_LABEL: 'Editar empleado',
-          DELETE_SELECTED: 'Eliminar empleados seleccionados',
-          CREATE_EMPLOYEE: 'Crear empleado',
-        },
         MODEL: {
           FIRST_NAME: 'Nombre(s)',
           LAST_NAME: 'Apellido(s)',
@@ -267,11 +223,6 @@ export const locale = {
           TEST_EXPIRATION_DATE: 'Fecha de expiración de la prueba',
           PHOTOGRAPHY: 'Fotografía',
         },
-        BUTTONS: {
-          NEW_EMPLOYEE: 'Nuevo empleado',
-          CREATE_NEW: 'Añadir nuevo empleado',
-          GO_BACK: 'Regresar a la lista de empleados',
-        },
       },
     },
     WORKSHOP: {
@@ -284,24 +235,6 @@ export const locale = {
         ENTITIES: {
           GENDER: 'X',
           VALUE: 'camiones'
-        },
-        TEXT: {
-          TRUCK_LIST: 'Lista de Camiones',
-          TRUCK: 'Camiones',
-          DELETE_ONE_TITLE: 'Eliminar Camión',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este camión permanentemente?',
-          DELETE_ONE_WAIT: 'Eliminando camión...',
-          DELETE_ONE_MESSAGE: 'El camión ha sido eliminado',
-          DELETE_MANY_TITLE: 'Eliminar Camiones',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los camiones seleccionados permanentemente?',
-          DELETE_MANY_WAIT: 'Eliminando camiones...',
-          DELETE_MANY_MESSAGE: 'Los camiones seleccionados han sido eliminados',
-          CREATE_TITLE: 'Añadir Camión',
-          ADD_TRUCK_MESSAGE: 'Camión guardado exitosamente',
-          EDIT_TRUCK: 'Editar camión',
-          DELETE_ICON_LABEL: 'Eliminar Camión',
-          EDIT_ICON_LABEL: 'Editar Camión',
-          DELETE_SELECTED: 'Eliminar camiones seleccionados',
         },
         MODEL: {
           MODEL: 'Modelo',
@@ -318,12 +251,6 @@ export const locale = {
           AIRBAG: 'Bolsa de aire',
           DOCKS: 'Muelles',
         },
-        BUTTONS: {
-          NEW_TRUCK: 'Nuevo camión',
-          CREATE_NEW: 'Añadir nuevo camión',
-          DELETE_ALL: 'Eliminar todos',
-          GO_BACK: 'Regresar a la lista de camiones',
-        },
       },
       MAINTENANCE: {
         ENTITY: {
@@ -333,24 +260,6 @@ export const locale = {
         ENTITIES: {
           GENDER: 'X',
           VALUE: 'mantenimientos'
-        },
-        TEXT: {
-          MAINTENANCE_LIST: 'Lista de mantenimientos',
-          MAINTENANCE: 'Mantenimientos',
-          DELETE_ONE_TITLE: 'Eliminar mantenimiento',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar este mantenimiento permanentemente?',
-          DELETE_ONE_WAIT: 'Eliminando mantenimiento...',
-          DELETE_ONE_MESSAGE: 'El mantenimiento ha sido eliminado',
-          DELETE_MANY_TITLE: 'Eliminar mantenimientos',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar los mantenimientos seleccionados permanentemente?',
-          DELETE_MANY_WAIT: 'Eliminando mantenimientos...',
-          DELETE_MANY_MESSAGE: 'Los mantenimientos seleccionados han sido eliminados',
-          CREATE_TITLE: 'Añadir Mantenimiento',
-          ADD_MAINTENANCE_MESSAGE: 'Mantenimiento guardado exitosamente',
-          EDIT_MAINTENANCE: 'Editar mantenimiento',
-          DELETE_ICON_LABEL: 'Eliminar mantenimiento',
-          EDIT_ICON_LABEL: 'Editar mantenimiento',
-          DELETE_SELECTED: 'Eliminar mantenimientos seleccionados',
         },
         MODEL: {
           TRUCK_SERIAL_NUMBER: 'Número serial del camión',
@@ -362,12 +271,6 @@ export const locale = {
           COMMENTS: 'Comentarios',
           REASONS: 'Razones',
         },
-        BUTTONS: {
-          NEW_MAINTENANCE: 'Nuevo mantenimiento',
-          CREATE_NEW: 'Añadir nuevo mantenimiento',
-          DELETE_ALL: 'Eliminar todos',
-          GO_BACK: 'Regresar a la lista de mantenimientos',
-        },
       },
       BOXES: {
         ENTITY: {
@@ -377,24 +280,6 @@ export const locale = {
         ENTITIES: {
           GENDER: 'Y',
           VALUE: 'cajas'
-        },
-        TEXT: {
-          BOXES_LIST: 'Lista de cajas',
-          BOXES: 'Cajas',
-          DELETE_ONE_TITLE: 'Eliminar caja',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar esta caja permanentemente?',
-          DELETE_ONE_WAIT: 'Eliminando caja...',
-          DELETE_ONE_MESSAGE: 'La caja ha sido eliminada',
-          DELETE_MANY_TITLE: 'Eliminar cajas',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar las cajas seleccionadas permanentemente?',
-          DELETE_MANY_WAIT: 'Eliminando cajas...',
-          DELETE_MANY_MESSAGE: 'Las cajas seleccionadas han sido eliminados',
-          CREATE_TITLE: 'Añadir caja',
-          ADD_BOX_MESSAGE: 'Caja guardada exitosamente',
-          EDIT_BOX: 'Editar caja',
-          DELETE_ICON_LABEL: 'Eliminar caja',
-          EDIT_ICON_LABEL: 'Editar caja',
-          DELETE_SELECTED: 'Eliminar cajas seleccionadas',
         },
         MODEL: {
           MODEL: 'Modelo',
@@ -408,12 +293,6 @@ export const locale = {
           PRICE: 'Precio de la caja',
           BOX_PHOTOGRAPHY: 'Fotografía de la caja',
         },
-        BUTTONS: {
-          NEW_BOX: 'Nueva caja',
-          CREATE_NEW: 'Añadir nueva caja',
-          DELETE_ALL: 'Eliminar todas',
-          GO_BACK: 'Regresar a la lista de cajas',
-        },
       },
       TIRES: {
         ENTITY: {
@@ -424,33 +303,9 @@ export const locale = {
           GENDER: 'Y',
           VALUE: 'llantas'
         },
-        TEXT: {
-          TIRES_LIST: 'Lista de llantas',
-          TIRES: 'Llantas',
-          DELETE_ONE_TITLE: 'Eliminar llanta',
-          DELETE_ONE_DESCRIPTION: '¿Estás seguro de que quieres eliminar esta llanta permanentemente?',
-          DELETE_ONE_WAIT: 'Eliminando llanta...',
-          DELETE_ONE_MESSAGE: 'La llanta ha sido eliminada',
-          DELETE_MANY_TITLE: 'Eliminar llantas',
-          DELETE_MANY_DESCRIPTION: '¿Estás seguro de que quieres eliminar las llantas seleccionadas permanentemente?',
-          DELETE_MANY_WAIT: 'Eliminando llantas...',
-          DELETE_MANY_MESSAGE: 'Las llantas seleccionadas han sido eliminados',
-          CREATE_TITLE: 'Añadir llanta',
-          ADD_TIRE_MESSAGE: 'Llanta guardada exitosamente',
-          EDIT_TIRE: 'Editar llanta',
-          DELETE_ICON_LABEL: 'Eliminar llanta',
-          EDIT_ICON_LABEL: 'Editar llanta',
-          DELETE_SELECTED: 'Eliminar llantas seleccionadas',
-        },
         MODEL: {
           SERIAL_NUMBER: 'Número serial',
           RANGE_TRAVELED: 'Rango viajado',
-        },
-        BUTTONS: {
-          NEW_TIRE: 'Nueva llanta',
-          CREATE_NEW: 'Añadir nueva llanta',
-          DELETE_ALL: 'Eliminar todas',
-          GO_BACK: 'Regresar a la lista de llantas',
         },
       },
     },

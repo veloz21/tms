@@ -22,8 +22,7 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'b404-box-edit',
+  selector: 'b404-boxes-edit',
   templateUrl: './boxes-edit.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

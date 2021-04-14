@@ -1,0 +1,79 @@
+<h2 mat-dialog-title>{{ employee.firstName }} {{ employee.lastName }}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.firstName }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.lastName }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.BIRTH_DATE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.birthDate | date }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.EMPLOYEE_TYPE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.type }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.cellphone }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.SECONDARY_CELLPHONE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.secondaryCellphone }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.DATE_ADMISSION' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.admissionDate | date }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.SALARY' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">$ {{ employee.salary.total }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.ADDRESS' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.address }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.LICENSE_TYPE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.documents.driversLicense.type }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'PAYSHEET.EMPLOYEE.MODEL.DUE_DATE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ employee.documents.driversLicense.dueDate | date }}</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close (click)="close()">
+    {{"GENERAL.BUTTONS.CLOSE" | b404Translate}}
+  </button>
+  <button color="primary" mat-raised-button [mat-dialog-close]="true" cdkFocusInitial
+    [routerLink]="['/paysheet/employees/edit/',employee.id]">
+    <mat-icon>create</mat-icon>
+    <span>{{"GENERAL.BUTTONS.EDIT" | b404Translate}}</span>
+  </button>
+</mat-dialog-actions>

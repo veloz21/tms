@@ -1,5 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -117,6 +118,15 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
       useFactory: initializeLayoutConfig,
       deps: [LayoutConfigService],
       multi: true,
+    },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {
+        hasBackdrop: true,
+        panelClass: 'b404-mat-dialog-container__wrapper',
+        height: 'auto',
+        width: '900px'
+      }
     },
     // template services
     SubheaderService,

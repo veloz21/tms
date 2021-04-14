@@ -96,37 +96,59 @@ export const locale = {
         SAVE_FORM: 'Save and continue',
         SAVE: 'Save',
         DELETE_ALL: 'Delete All',
+        EDIT: 'Edit',
+        CLOSE: 'Close',
       },
       INPUTS: {
         SEARCH: 'Search',
         SEARCH_IN_ALL_FIELDS: 'Search in all fields',
       }
     },
+    MODULE: {
+      LIST: '{{entities}} list',
+      MODULE_NAME: '{{entities}}',
+      DELETE_ONE_TITLE: 'Delete {{entity}}',
+      DELETE_ONE_DESCRIPTION: 'Are you sure to permanently delete this {{entity}}',
+      DELETE_ONE_WAIT: 'Travel is deleting {{entity}}...',
+      DELETE_ONE_MESSAGE: '{{entity}} has been deleted',
+      DELETE_MANY_TITLE: 'Dele many {{entities}}',
+      DELETE_MANY_DESCRIPTION: 'Are you sure to permanently delete selected {{entities}}',
+      DELETE_MANY_WAIT: '{{entities}} are deleting...',
+      DELETE_MANY_MESSAGE: 'Selected {{entities}} have been deleted',
+      CREATE_TITLE: 'New {{entity}}',
+      ADD_ENTITY_MESSAGE: 'New {{entity}} successfully has been added',
+      EDIT_ENTITY: 'Edit {{entity}}',
+      DELETE_ICON_LABEL: 'Delete {{entity}}',
+      VIEW_ICON_LABEL: 'View {{entity}}',
+      EDIT_ICON_LABEL: 'Edit {{entity}}',
+      DELETE_SELECTED: 'Delete selected {{entities}}',
+      CREATE_ENTITY: 'Create {{entity}}',
+      NEW_ENTITY: 'New {{entity}}',
+      CREATE_NEW: 'Add new {{entity}}',
+      GO_BACK: 'Go back to {{entities}} list',
+      SHOW: 'Show {{entities}}',
+    },
+    COMPLETED_TRAVELS: {
+      ENTITY: {
+        VALUE: 'completed travel'
+      },
+      ENTITIES: {
+        VALUE: 'completed travels'
+      },
+    },
     TRAVELS: {
+      ENTITY: {
+        VALUE: 'travel'
+      },
+      ENTITIES: {
+        VALUE: 'travels'
+      },
       COMPLETED_TRAVEL: {
         TEXT: {
           COMPLETED_TRAVELS: 'Completed travels',
         },
       },
       TRAVEL: {
-        TEXT: {
-          TRAVEL_LIST: 'Travel list',
-          TRAVEL: 'Travels',
-          DELETE_ONE_TITLE: 'Delete travel',
-          DELETE_ONE_DESCRIPTION: 'Are you sure to permanently delete this travel?',
-          DELETE_ONE_WAIT: 'Travel is deleting...',
-          DELETE_ONE_MESSAGE: 'Travel has been deleted',
-          DELETE_MANY_TITLE: 'Travels delete',
-          DELETE_MANY_DESCRIPTION: 'Are you sure to permanently delete selected travels?',
-          DELETE_MANY_WAIT: 'Travels are deleting...',
-          DELETE_MANY_MESSAGE: 'Selected travels have been deleted',
-          CREATE_TITLE: 'New travel',
-          ADD_TRAVEL_MESSAGE: 'New travel successfully has been added.',
-          EDIT_TRAVEL: 'Edit travel',
-          DELETE_ICON_LABEL: 'Delete travel ',
-          EDIT_ICON_LABEL: 'Edit travel',
-          DELETE_SELECTED: 'Delete selected travels',
-        },
         MODEL: {
           COMPLETED_TRAVELS: 'Show completed travels',
           OPERATOR_NAME: 'Operator name',
@@ -142,11 +164,6 @@ export const locale = {
           ARRIVE_TIME: 'Arrive time',
           ARRIVE_CUSTOMER_TIME: 'Arrive to customer time',
         },
-        BUTTONS: {
-          NEW_TRAVEL: 'New travel',
-          CREATE_NEW: 'Add new travel',
-          GO_BACK: 'Back to travel list',
-        },
       },
       TABLE: {
         OPERATOR: 'Operator',
@@ -158,24 +175,11 @@ export const locale = {
     PAYSHEET: {
       PAYSHEET: 'Paysheet',
       EMPLOYEE: {
-        TEXT: {
-          EMPLOYEE_LIST: 'Employee List',
-          EMPLOYEE: 'Employees',
-          DELETE_ONE_TITLE: 'Delete Employee',
-          DELETE_ONE_DESCRIPTION: 'Are you sure to permanently delete this employee?',
-          DELETE_ONE_WAIT: 'Employee is deleting...',
-          DELETE_ONE_MESSAGE: 'Employee has been deleted',
-          DELETE_MANY_TITLE: 'Employees Delete',
-          DELETE_MANY_DESCRIPTION: 'Are you sure to permanently delete selected employees?',
-          DELETE_MANY_WAIT: 'Employees are deleting...',
-          DELETE_MANY_MESSAGE: 'Selected employees have been deleted',
-          CREATE_TITLE: 'New Employee',
-          ADD_EMPLOYEE_MESSAGE: 'New employee successfully has been added.',
-          EDIT_EMPLOYEE: 'Edit Employee',
-          DELETE_ICON_LABEL: 'Delete Employee ',
-          EDIT_ICON_LABEL: 'Edit Employee',
-          DELETE_SELECTED: 'Delete selected employees',
-          CREATE_EMPLOYEE: 'Create employee',
+        ENTITY: {
+          VALUE: 'employee'
+        },
+        ENTITIES: {
+          VALUE: 'employees'
         },
         MODEL: {
           FIRST_NAME: 'First Name',
@@ -195,33 +199,16 @@ export const locale = {
           TEST_EXPIRATION_DATE: 'Test expiration date',
           PHOTOGRAPHY: 'Photography',
         },
-        BUTTONS: {
-          NEW_EMPLOYEE: 'New Employee',
-          CREATE_NEW: 'Add New Employee',
-          GO_BACK: 'Back to Employees List',
-        },
       },
     },
     WORKSHOP: {
       WORKSHOP: 'Workshop',
       TRUCK: {
-        TEXT: {
-          TRUCK_LIST: 'Truck list',
-          TRUCK: 'Trucks',
-          DELETE_ONE_TITLE: 'Delete truck',
-          DELETE_ONE_DESCRIPTION: 'Are you sure to permanently delete this truck?',
-          DELETE_ONE_WAIT: 'Truck is deleting...',
-          DELETE_ONE_MESSAGE: 'Truck has been deleted',
-          DELETE_MANY_TITLE: 'Trucks delete',
-          DELETE_MANY_DESCRIPTION: 'Are you sure to permanently delete selected trucks?',
-          DELETE_MANY_WAIT: 'Trucks are deleting...',
-          DELETE_MANY_MESSAGE: 'Selected trucks have been deleted',
-          CREATE_TITLE: 'New truck',
-          ADD_TRUCK_MESSAGE: 'New truck successfully has been added.',
-          EDIT_TRUCK: 'Edit truck',
-          DELETE_ICON_LABEL: 'Delete truck ',
-          EDIT_ICON_LABEL: 'Edit truck',
-          DELETE_SELECTED: 'Delete selected trucks',
+        ENTITY: {
+          VALUE: 'truck'
+        },
+        ENTITIES: {
+          VALUE: 'trucks'
         },
         MODEL: {
           MODEL: 'Model',
@@ -238,31 +225,13 @@ export const locale = {
           AIRBAG: 'Aribag',
           DOCKS: 'Docks',
         },
-        BUTTONS: {
-          NEW_TRUCK: 'New truck',
-          CREATE_NEW: 'Add new truck',
-          DELETE_ALL: 'Delete all',
-          GO_BACK: 'Back to truck list',
-        },
       },
       MAINTENANCE: {
-        TEXT: {
-          MAINTENANCE_LIST: 'Maintenance List',
-          MAINTENANCE: 'Maintenance',
-          DELETE_ONE_TITLE: 'Delete Maintenance',
-          DELETE_ONE_DESCRIPTION: 'Are you sure to permanently delete this maintenance?',
-          DELETE_ONE_WAIT: 'Maintenance is deleting...',
-          DELETE_ONE_MESSAGE: 'Maintenance has been deleted',
-          DELETE_MANY_TITLE: 'Maintenances Delete',
-          DELETE_MANY_DESCRIPTION: 'Are you sure to permanently delete selected maintenances?',
-          DELETE_MANY_WAIT: 'Maintenances are deleting...',
-          DELETE_MANY_MESSAGE: 'Selected maintenances have been deleted',
-          CREATE_TITLE: 'New Maintenance',
-          ADD_MAINTENANCE_MESSAGE: 'New maintenance successfully has been added.',
-          EDIT_MAINTENANCE: 'Edit Maintenance',
-          DELETE_ICON_LABEL: 'Delete Maintenance ',
-          EDIT_ICON_LABEL: 'Edit Maintenance',
-          DELETE_SELECTED: 'Delete selected maintenances',
+        ENTITY: {
+          VALUE: 'maintenance'
+        },
+        ENTITIES: {
+          VALUE: 'maintenances'
         },
         MODEL: {
           TRUCK_SERIAL_NUMBER: 'Truck serial number',
@@ -274,31 +243,13 @@ export const locale = {
           COMMENTS: 'Comments',
           REASONS: 'Reasons',
         },
-        BUTTONS: {
-          NEW_MAINTENANCE: 'New Maintenance',
-          CREATE_NEW: 'Add New Maintenance',
-          DELETE_ALL: 'Delete All',
-          GO_BACK: 'Back to Maintenance List',
-        },
       },
       BOXES: {
-        TEXT: {
-          BOXES_LIST: 'Box list',
-          BOXES: 'Boxes',
-          DELETE_ONE_TITLE: 'Delete box',
-          DELETE_ONE_DESCRIPTION: 'Are you sure to permanently delete this box?',
-          DELETE_ONE_WAIT: 'Box is deleting...',
-          DELETE_ONE_MESSAGE: 'Box has been deleted',
-          DELETE_MANY_TITLE: 'Boxes Delete',
-          DELETE_MANY_DESCRIPTION: 'Are you sure to permanently delete selected boxes?',
-          DELETE_MANY_WAIT: 'Boxes are deleting...',
-          DELETE_MANY_MESSAGE: 'Selected boxes have been deleted',
-          CREATE_TITLE: 'New box',
-          ADD_BOX_MESSAGE: 'New box successfully has been added.',
-          EDIT_BOX: 'Edit box',
-          DELETE_ICON_LABEL: 'Delete box ',
-          EDIT_ICON_LABEL: 'Edit box',
-          DELETE_SELECTED: 'Delete selected boxes',
+        ENTITY: {
+          VALUE: 'box'
+        },
+        ENTITIES: {
+          VALUE: 'boxex'
         },
         MODEL: {
           MODEL: 'Model',
@@ -312,82 +263,17 @@ export const locale = {
           PRICE: 'Box price',
           BOX_PHOTOGRAPHY: 'Box photography',
         },
-        BUTTONS: {
-          NEW_BOX: 'New box',
-          CREATE_NEW: 'Add new box',
-          DELETE_ALL: 'Delete All',
-          GO_BACK: 'Back to box list',
-        },
       },
       TIRES: {
-        TEXT: {
-          TIRES_LIST: 'Tire list',
-          TIRES: 'Tires',
-          DELETE_ONE_TITLE: 'Delete tire',
-          DELETE_ONE_DESCRIPTION: 'Are you sure to permanently delete this tire?',
-          DELETE_ONE_WAIT: 'Tire is deleting...',
-          DELETE_ONE_MESSAGE: 'Tire has been deleted',
-          DELETE_MANY_TITLE: 'Tires Delete',
-          DELETE_MANY_DESCRIPTION: 'Are you sure to permanently delete selected tires?',
-          DELETE_MANY_WAIT: 'Tires are deleting...',
-          DELETE_MANY_MESSAGE: 'Selected tires have been deleted',
-          CREATE_TITLE: 'New tire',
-          ADD_TIRE_MESSAGE: 'New tire successfully has been added.',
-          EDIT_TIRE: 'Edit tire',
-          DELETE_ICON_LABEL: 'Delete tire ',
-          EDIT_ICON_LABEL: 'Edit tire',
-          DELETE_SELECTED: 'Delete selected tires',
+        ENTITY: {
+          VALUE: 'tire'
+        },
+        ENTITIES: {
+          VALUE: 'tires'
         },
         MODEL: {
           SERIAL_NUMBER: 'Serial number',
           RANGE_TRAVELED: 'Range Traveled',
-        },
-        BUTTONS: {
-          NEW_TIRE: 'New tire',
-          CREATE_NEW: 'Add new tire',
-          DELETE_ALL: 'Delete All',
-          GO_BACK: 'Back to tire list',
-        },
-      },
-    },
-    ECOMMERCE: {
-      COMMON: {
-        SELECTED_RECORDS_COUNT: 'Selected records count: ',
-        ALL: 'All',
-        SUSPENDED: 'Suspended',
-        ACTIVE: 'Active',
-        FILTER: 'Filter',
-        BY_STATUS: 'by Status',
-        BY_TYPE: 'by Type',
-        BUSINESS: 'Business',
-        INDIVIDUAL: 'Individual',
-        SEARCH: 'Search',
-        IN_ALL_FIELDS: 'in all fields',
-      },
-      ECOMMERCE: 'eCommerce',
-      CUSTOMERS: {
-        CUSTOMERS: 'Customers',
-        CUSTOMERS_LIST: 'Customers list',
-        NEW_CUSTOMER: 'New Customer',
-        DELETE_CUSTOMER_SIMPLE: {
-          TITLE: 'Customer Delete',
-          DESCRIPTION: 'Are you sure to permanently delete this customer?',
-          WAIT_DESCRIPTION: 'Customer is deleting...',
-          MESSAGE: 'Customer has been deleted',
-        },
-        DELETE_CUSTOMER_MULTY: {
-          TITLE: 'Customers Delete',
-          DESCRIPTION: 'Are you sure to permanently delete selected customers?',
-          WAIT_DESCRIPTION: 'Customers are deleting...',
-          MESSAGE: 'Selected customers have been deleted',
-        },
-        UPDATE_STATUS: {
-          TITLE: 'Status has been updated for selected customers',
-          MESSAGE: 'Selected customers status have successfully been updated',
-        },
-        EDIT: {
-          UPDATE_MESSAGE: 'Customer has been updated',
-          ADD_MESSAGE: 'Customer has been created',
         },
       },
     },

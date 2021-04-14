@@ -76,7 +76,10 @@
             {{"TRAVELS.TABLE.OPERATOR" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">
-            <span>{{travel.operator.firstName}}&nbsp;{{travel.operator.lastName}}</span>
+            <span [actionToolTip]="travel.operator.firstName" actionToolTipLinkText="Ver"
+              [actionToolTipLink]="['/travels/operator/',travel.operator.id]">
+              {{travel.operator.firstName}}&nbsp;{{travel.operator.lastName}}
+            </span>
           </mat-cell>
         </ng-container>
 
@@ -84,14 +87,24 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{"TRAVELS.TABLE.BOX" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let travel">{{travel.box.nickname}}</mat-cell>
+          <mat-cell *matCellDef="let travel">
+            <span [actionToolTip]="travel.box.nickname" actionToolTipLinkText="Ver"
+              [actionToolTipLink]="['/travels/box/',travel.box.id]">
+              {{travel.box.nickname}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Truck" mdbTableCol>
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{"TRAVELS.TABLE.TRUCK" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let travel">{{travel.truck.nickname}}</mat-cell>
+          <mat-cell *matCellDef="let travel">
+            <span [actionToolTip]="travel.truck.nickname" actionToolTipLinkText="Ver"
+              [actionToolTipLink]="['/travels/truck/',travel.truck.id]">
+              {{travel.truck.nickname}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Status" mdbTableCol>
@@ -166,3 +179,4 @@
 
   </b404-portlet-body>
 </b404-portlet>
+<router-outlet></router-outlet>

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  templateUrl: './travel.component.html',
+  templateUrl: './travels.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TravelComponent implements OnInit {
+export class TravelsComponent implements OnInit {
 
   constructor() { }
 

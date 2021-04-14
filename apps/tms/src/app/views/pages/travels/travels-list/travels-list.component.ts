@@ -18,8 +18,7 @@ import { debounceTime, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/o
 import { TranslateParams } from '../../../../core/_base/layout/translate';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'b404-travel-list',
+  selector: 'b404-travels-list',
   templateUrl: './travels-list.component.html',
   styleUrls: ['./travels-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

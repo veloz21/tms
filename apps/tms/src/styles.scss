@@ -51,7 +51,7 @@
 
 $color-outline: rgb(95, 95, 95);
 form.b404-form {
-  mat-form-field {
+  mat-form-field:not(.mat-form-field-invalid) {
     // to change border color
     .mat-form-field-outline {
       color: rgb(140, 140, 140) !important;

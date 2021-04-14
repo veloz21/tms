@@ -33,16 +33,21 @@ import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDi
 import { PartialsModule } from '@tms/partials/partials.module';
 import { employeesReducer } from '@tms/reducers';
 import { EmployeesService } from '@tms/services';
+import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { SharedModule } from '../../../../shared/shared.module';
 import { EmployeesListComponent } from './employees-list.component';
 
-// tslint:disable-next-line:class-name
 const routes: Routes = [
   {
     path: '',
-    component: EmployeesListComponent
+    component: EmployeesListComponent,
+    children: [
+      {
+        path: 'view',
+        loadChildren: () => import('../employees-view/employees-view.module').then(m => m.EmployeesViewModule),
+      },
+    ]
   }
 ];
 

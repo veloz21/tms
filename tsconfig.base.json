@@ -28,6 +28,7 @@
       "@tms/effects": ["apps/tms/src/app/core/effects/index.ts"],
       "@tms/crud": ["apps/tms/src/app/core/_base/crud"],
       "@tms/layout": ["apps/tms/src/app/core/_base/layout"],
+      "@tms/translate": ["apps/tms/src/app/core/_base/layout/translate"],
       "@tms/server/*": ["apps/tms/src/app/core/server/*"],
       "@tms/environments/*": ["apps/tms/src/environments/*"],
       "@tms/partials/*": ["apps/tms/src/app/views/partials/*"],

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,29 +15,36 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'b404-employee-edit',
-  templateUrl: './employee-edit.component.html',
-  styleUrls: ['./employee-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'b404-employees-edit',
+  templateUrl: './employees-edit.component.html',
+  styleUrls: ['./employees-edit.component.scss']
 })
-export class EmployeeEditComponent implements OnInit, OnDestroy {
-  // Public properties
-  employee: EmployeeModel;
-  employeeId$: Observable<string>;
-  oldEmployee: EmployeeModel;
-  selectedTab = 0;
-  loadingSubject = new BehaviorSubject<boolean>(true);
-  loading$: Observable<boolean>;
-  employeeForm: FormGroup;
-  hasFormErrors = false;
-  availableYears: number[] = [];
+export class EmployeesEditComponent implements OnInit {
 
-  imageUrl: string;
-  imageFile: File;
+  public employee: EmployeeModel;
+  public employeeId$: Observable<string>;
+  public oldEmployee: EmployeeModel;
+  public selectedTab = 0;
+  public loadingSubject = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean>;
+  public employeeForm: FormGroup;
+  public hasFormErrors = false;
+  public availableYears: number[] = [];
+
+  public imageUrl: string;
+  public imageFile: File;
 
   private ngUnsuscribe = new Subject();
-  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private employeeFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router,
+    private store: Store<AppState>,
+    private cdr: ChangeDetectorRef,
+    private employeeFB: FormBuilder,
+    private translate: TranslateService,
+    private activatedRoute: ActivatedRoute,
+    private subheaderService: SubheaderService,
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.data.pipe(takeUntil(this.ngUnsuscribe)).subscribe((data) => {
@@ -242,7 +249,7 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
       return result;
     }
 
-    result = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EDIT_EMPLOYEE') + ` - ${this.employee.firstName} ${this.employee.lastName} ${this.employee.birthDate}`;
+    result = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.EDIT_EMPLOYEE') + ` - ${this.employee.firstName} ${this.employee.lastName}`;
     return result;
   }
 
@@ -259,4 +266,5 @@ export class EmployeeEditComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
     this.employeeForm.get('image').setValue(file);
   }
+
 }

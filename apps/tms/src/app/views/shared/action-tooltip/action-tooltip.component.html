@@ -1,0 +1,9 @@
+<div class="action-tooltip">
+  {{ text }}
+  <ng-container>
+    &nbsp;&nbsp;&nbsp;
+    <a *ngIf="link" [routerLink]="link">
+      <span>{{ linkText }}</span>
+    </a>
+  </ng-container>
+</div>

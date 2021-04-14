@@ -74,6 +74,20 @@ import { TravelsListComponent } from './travels-list.component';
       {
         path: '',
         component: TravelsListComponent,
+        children: [
+          {
+            path: 'operator',
+            loadChildren: () => import('../../paysheet/employees/employees-view/employees-view.module').then(m => m.EmployeesViewModule),
+          },
+          {
+            path: 'truck',
+            loadChildren: () => import('../../paysheet/employees/employees-view/employees-view.module').then(m => m.EmployeesViewModule),
+          },
+          {
+            path: 'box',
+            loadChildren: () => import('../../paysheet/employees/employees-view/employees-view.module').then(m => m.EmployeesViewModule),
+          },
+        ]
       },
     ]),
     environment.isMockEnabled

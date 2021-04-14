@@ -123,6 +123,10 @@
             {{"GENERAL.MODEL.ACTIONS" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let employee">
+            <button mat-icon-button [routerLink]="['/paysheet/employees/view/',employee.id]"
+              matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
+              <mat-icon>visibility</mat-icon>
+            </button>&nbsp;
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -162,3 +166,4 @@
   </b404-portlet-body>
   <!-- end::Body -->
 </b404-portlet>
+<router-outlet></router-outlet>

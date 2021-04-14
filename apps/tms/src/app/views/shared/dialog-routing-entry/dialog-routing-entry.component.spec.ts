@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmployeeViewComponent } from './employee-view.component';
+import { DialogRoutingEntryComponent } from './dialog-routing-entry.component';
 
-describe('EmployeeViewComponent', () => {
-  let component: EmployeeViewComponent;
-  let fixture: ComponentFixture<EmployeeViewComponent>;
+describe('DialogRoutingEntryComponent', () => {
+  let component: DialogRoutingEntryComponent;
+  let fixture: ComponentFixture<DialogRoutingEntryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EmployeeViewComponent ]
+      declarations: [ DialogRoutingEntryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmployeeViewComponent);
+    fixture = TestBed.createComponent(DialogRoutingEntryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

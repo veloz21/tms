@@ -8,7 +8,7 @@ const routes: Routes = [
     children: [
       {
         path: 'employees',
-        loadChildren: () => import('./employees/employee.module').then(m => m.EmployeeModule),
+        loadChildren: () => import('./employees/employees.module').then(m => m.EmployeesModule),
       }
     ]
   }
