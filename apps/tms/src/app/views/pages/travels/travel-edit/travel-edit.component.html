@@ -18,73 +18,79 @@
       </a>
     </ng-container>
   </b404-portlet-header>
+
   <b404-portlet-body>
-    <div *ngIf="travel">
-      <!--begin::Form-->
-      <form [formGroup]="travelForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+    <mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="travel">
+      <mat-tab label="Basic info">
+        <ng-template matTabContent>
+          <div *ngIf="travel">
+            <form [formGroup]="travelForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
 
-        <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
-          (close)="onAlertClose($event)">
-          <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>
-        </b404-alert>
+              <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
+                (close)="onAlertClose($event)">
+                <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | translate}} </span>
+              </b404-alert>
 
-        <div class="b404-form__section b404-form__section--first">
-          <div class="b404-form__group">
-            <div class="row">
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.OPERATOR_NAME' | translate}}</mat-label>
-                  <b404-employees-autocomplete formControlName="operator"
-                    placeholder="{{'TRAVEL.TRAVEL.MODEL.OPERATOR_NAME' | translate }}"></b404-employees-autocomplete>
-                  <mat-error>
-                    {{'TRAVEL.TRAVEL.MODEL.OPERATOR_ID' | translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.BOX_SERIALNUMBER' | translate}}</mat-label>
-                  <b404-boxes-autocomplete formControlName="box"
-                    placeholder="{{'TRAVEL.TRAVEL.MODEL.BOX_SERIALNUMBER' | translate }}"></b404-boxes-autocomplete>
-                </mat-form-field>
-              </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.TRUCK_SERIALNUMBER' | translate}}</mat-label>
-                  <b404-trucks-autocomplete formControlName="truck"
-                    placeholder="{{'TRAVEL.TRAVEL.MODEL.TRUCK_SERIALNUMBER' | translate }}"></b404-trucks-autocomplete>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="b404-form__group">
-            <div class="row">
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <form style="padding: 0;" class="container" formGroupName="origin">
-                  <b404-places placeholder="Buscar Origen" (onChange)="onSuggestionOrigin($event)"
-                    (onClear)="onClear($event)" required>
-                  </b404-places>
-                </form>
-              </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <form style="padding: 0;" class="container" formGroupName="destination">
-                  <b404-places placeholder="Buscar Destino" (onChange)="onSuggestionDestination($event)"
-                    (onClear)="onClear($event)" required>
-                  </b404-places>
-                </form>
-              </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVEL.TRAVEL.MODEL.COST' | translate}}</mat-label>
-                  <span matPrefix>$ &nbsp;</span>
-                  <input matInput matInputCurrency formControlName="cost" type="text"
-                    placeholder="{{'TRAVEL.TRAVEL.MODEL.COST' | translate}}" />
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="b404-form__group">
+              <div class="b404-form__section b404-form__section--first">
+                <div class="b404-form__group">
+                  <div class="row">
+                    <div class="col-md-4 b404-margin-bottom-10-mobile">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'TRAVEL.TRAVEL.MODEL.OPERATOR_NAME' | translate}}</mat-label>
+                        <b404-employees-autocomplete formControlName="operator"
+                          placeholder="{{'TRAVEL.TRAVEL.MODEL.OPERATOR_NAME' | translate }}">
+                        </b404-employees-autocomplete>
+                        <mat-error>
+                          {{'TRAVEL.TRAVEL.MODEL.OPERATOR_ID' | translate }}
+                          <strong><span>{{"GENERAL.TEXT.REQUIRED" | translate}}</span></strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4 b404-margin-bottom-10-mobile">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'TRAVEL.TRAVEL.MODEL.BOX_SERIALNUMBER' | translate}}</mat-label>
+                        <b404-boxes-autocomplete formControlName="box"
+                          placeholder="{{'TRAVEL.TRAVEL.MODEL.BOX_SERIALNUMBER' | translate }}">
+                        </b404-boxes-autocomplete>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4 b404-margin-bottom-10-mobile">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'TRAVEL.TRAVEL.MODEL.TRUCK_SERIALNUMBER' | translate}}</mat-label>
+                        <b404-trucks-autocomplete formControlName="truck"
+                          placeholder="{{'TRAVEL.TRAVEL.MODEL.TRUCK_SERIALNUMBER' | translate }}">
+                        </b404-trucks-autocomplete>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="b404-form__group">
+                  <div class="row">
+                    <div class="col-md-4 b404-margin-bottom-10-mobile">
+                      <form style="padding: 0;" class="container" formGroupName="origin">
+                        <b404-places placeholder="Buscar Origen" (onChange)="onSuggestionOrigin($event)"
+                          (onClear)="onClear($event)" required>
+                        </b404-places>
+                      </form>
+                    </div>
+                    <div class="col-md-4 b404-margin-bottom-10-mobile">
+                      <form style="padding: 0;" class="container" formGroupName="destination">
+                        <b404-places placeholder="Buscar Destino" (onChange)="onSuggestionDestination($event)"
+                          (onClear)="onClear($event)" required>
+                        </b404-places>
+                      </form>
+                    </div>
+                    <div class="col-md-4 b404-margin-bottom-10-mobile">
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <mat-label>{{'TRAVEL.TRAVEL.MODEL.COST' | translate}}</mat-label>
+                        <span matPrefix>$ &nbsp;</span>
+                        <input matInput matInputCurrency formControlName="cost" type="text"
+                          placeholder="{{'TRAVEL.TRAVEL.MODEL.COST' | translate}}" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="b404-form__group">
             <div class="row">
               <div class="col-md-3 b404-margin-bottom-10-mobile">
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
@@ -151,20 +157,28 @@
               </div>
             </div>
           </div> -->
-          <div class="b404-form__group">
-            <div class="row">
-              <div class="col-md-6 b404-margin-bottom-10-mobile">
-                <mat-label>{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate}}</mat-label>
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <textarea matInput rows="5" placeholder="{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate }}"
-                    formControlName="comments"></textarea>
-                </mat-form-field>
+                <div class="b404-form__group">
+                  <div class="row">
+                    <div class="col-md-6 b404-margin-bottom-10-mobile">
+                      <mat-label>{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate}}</mat-label>
+                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                        <textarea matInput rows="5" placeholder="{{'TRAVEL.TRAVEL.MODEL.COMMENTS' | translate }}"
+                          formControlName="comments"></textarea>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
-        </div>
-      </form>
-    </div>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Agregar Gatos">
+        <ng-template matTabContent>
+          <b404-expenses [expenses]="expensesArray" [expensesForm]="travelForm.get('expenses')" ></b404-expenses>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
     <!--end::Form-->
     <!--<div id="map"></div>-->
   </b404-portlet-body>

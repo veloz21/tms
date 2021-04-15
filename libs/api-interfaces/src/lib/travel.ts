@@ -1,5 +1,6 @@
 import { IBox } from './box';
 import { IEmployee } from './employee';
+import { IExpense } from './expense';
 import { ITruck } from './truck';
 
 export interface ITravel {
@@ -9,8 +10,8 @@ export interface ITravel {
   truck: Partial<ITruck>;
   // GeoJson type
   locations: {
-    origin: { type: 'Point', coordinates: number[] },
-    destination: { type: 'Point', coordinates: number[] },
+    origin: { type: 'Point'; coordinates: number[] };
+    destination: { type: 'Point'; coordinates: number[] };
   };
   times: {
     loading: Date;
@@ -19,4 +20,5 @@ export interface ITravel {
     destinationArrive: Date;
   };
   comments: string;
+  expenses: IExpense[];
 }

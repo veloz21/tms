@@ -108,6 +108,12 @@ export const locale = {
           COMPLETETRAVELS: 'Viajes completados',
         },
       },
+      EXPENSE: {
+        MODEL: {
+          NAME: 'Nombre',
+          PRICE: 'Precio',
+        },
+      },
       TRAVEL: {
         TEXT: {
           TRAVEL_LIST: 'Lista de viajes',

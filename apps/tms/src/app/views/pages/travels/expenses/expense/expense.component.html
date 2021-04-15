@@ -1,0 +1,35 @@
+<mat-card class="example-card" >
+    <mat-card-content>
+      <form [formGroup]="expensesForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+      <div class="b404-form__section b404-form__section--first">
+        <div class="b404-form__group">
+          <div class="row">
+            <div class="col-md-4 b404-margin-bottom-10-mobile">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>{{'TRAVEL.EXPENSE.MODEL.NAME' | translate}}</mat-label>
+                <input id="name" matInput placeholder="{{'TRAVEL.EXPENSE.MODEL.NAME' | translate}}" type="text" required formControlName="name">
+                <mat-error>
+                  {{'TRAVEL.EXPENSE.MODEL.NAME' | translate}}
+                  <strong>{{'GENERAL.TEXT.REQUIRED' | translate}}</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 b404-margin-bottom-10-mobile">
+              <mat-form-field class="mat-form-field-fluid">
+                <mat-label>{{'TRAVEL.EXPENSE.MODEL.PRICE' | translate}}</mat-label>
+                <span matPrefix>$ &nbsp;</span>
+                <input matInput matInputCurrency type="number"
+                  placeholder="{{'TRAVEL.EXPENSE.MODEL.PRICE' | translate}}" formControlName="price" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 b404-margin-bottom-10-mobile">
+              <button mat-raised-button color="warn" (click)="deleteExpense()">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </mat-card-content>
+  </mat-card>

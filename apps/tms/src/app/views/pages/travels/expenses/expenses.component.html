@@ -1,0 +1,15 @@
+<!-- <div *ngIf="expenses">
+  <span>
+    <h1>No hay gastos</h1>
+  </span>
+</div> -->
+<div>
+  <a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" mat-raised-button (click)="addExpense()"
+  matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | translate}}">
+  <span class="b404-hidden-mobile">Agregar gasto</span>
+</a>
+</div>
+<div *ngFor="let expense of expensesFormArray.controls; let i = index" >
+  <b404-expense [index]="i" [expensesForm]="expensesFormArray.controls[i]" (expenseEvent)="deleteExpense($event)" ></b404-expense>
+</div>
+ 

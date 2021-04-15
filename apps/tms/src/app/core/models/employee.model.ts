@@ -11,56 +11,55 @@ export class EmployeeModel implements IEmployee {
   birthDate: Date;
   admissionDate: Date;
   salary: {
-    currency: string,
-    total: number,
+    currency: string;
+    total: number;
   };
   documents: {
     driversLicense: {
-      type: string,
-      dueDate: Date,
-      attachmentPath: string,
-    },
+      type: string;
+      dueDate: Date;
+      attachmentPath: string;
+    };
     phychophysicistTest: {
-      date: Date,
-      expirationDate: Date,
-      attachmentPath: string,
-    },
+      date: Date;
+      expirationDate: Date;
+      attachmentPath: string;
+    };
     ine: {
-      attachmentPath: string[],
-    },
+      attachmentPath: string[];
+    };
   };
   imagePath: string;
   status: number;
 
   constructor(employee?: Partial<IEmployee>) {
-    this.firstName = employee && employee.firstName || '';
-    this.lastName = employee && employee.lastName || '';
-    this.cellphone = employee && employee.cellphone || '';
-    this.secondaryCellphone = employee && employee.secondaryCellphone || '';
-    this.address = employee && employee.address || '';
-    this.birthDate = employee && employee.birthDate || null;
-    this.admissionDate = employee && employee.admissionDate || null;
-    this.salary = employee && employee.salary || {
+    this.firstName = (employee && employee.firstName) || '';
+    this.lastName = (employee && employee.lastName) || '';
+    this.cellphone = (employee && employee.cellphone) || '';
+    this.secondaryCellphone = (employee && employee.secondaryCellphone) || '';
+    this.address = (employee && employee.address) || '';
+    this.birthDate = (employee && employee.birthDate) || null;
+    this.admissionDate = (employee && employee.admissionDate) || null;
+    this.salary = (employee && employee.salary) || {
       currency: 'MXN',
-      total: null
+      total: null,
     };
-    this.documents = employee && employee.documents || {
+    this.documents = (employee && employee.documents) || {
       driversLicense: {
         type: '',
         dueDate: null,
-        attachmentPath: ''
+        attachmentPath: '',
       },
       phychophysicistTest: {
         date: null,
         expirationDate: null,
-        attachmentPath: ''
+        attachmentPath: '',
       },
       ine: {
-        attachmentPath: []
-      }
+        attachmentPath: [],
+      },
     };
-    this.imagePath = employee && employee.imagePath || '';
-    this.status = employee && employee.status || null;
+    this.imagePath = (employee && employee.imagePath) || '';
+    this.status = (employee && employee.status) || null;
   }
 }
-

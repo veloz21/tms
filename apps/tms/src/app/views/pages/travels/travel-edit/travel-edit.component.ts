@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,12 +9,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { CreateTravel, UpdateTravel } from '@tms/actions/travel.actions';
 import { TypesUtilsService } from '@tms/crud';
 import { SubheaderService } from '@tms/layout';
-import { TravelModel } from '@tms/models';
+import { ExpenseModel, TravelModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
 import { selectLastCreatedTravelId } from '@tms/selectors/travel.selectors';
 import { TravelsService } from '@tms/services';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
+import { ExpensesComponent } from '../expenses/expenses.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -31,7 +26,7 @@ import { delay, takeUntil } from 'rxjs/operators';
 })
 export class TravelEditComponent implements OnInit, OnDestroy {
   // Public properties
-
+  expensesArray: ExpenseModel[] = [];
   travel: TravelModel;
   travelId$: Observable<number>;
   oldTravel: TravelModel;
@@ -44,7 +39,9 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   private headerMargin: number;
   private ngUnsuscribe = new Subject();
 
-  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private travelFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private travelService: TravelsService, private typesUtilsService: TypesUtilsService, private cdr: ChangeDetectorRef) { }
+  @ViewChild(ExpensesComponent) expensesVC: ExpensesComponent;
+
+  constructor(private store: Store<AppState>, private activatedRoute: ActivatedRoute, private router: Router, private travelFB: FormBuilder, public dialog: MatDialog, private translate: TranslateService, private subheaderService: SubheaderService, private travelService: TravelsService, private typesUtilsService: TypesUtilsService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.travel = this.activatedRoute.snapshot.data[' travel '];
@@ -176,6 +173,9 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       destinationArriveDate: [],
       destinationArriveTime: [],
       comments: [this.travel.comments, []],
+      expenses: this.travelFB.group({
+        expenses: this.travelFB.array([]),
+      }),
     });
   }
 
@@ -253,7 +253,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
     _travel.operator = this.travelForm.get('operator').value;
     _travel.box = this.travelForm.get('box').value;
     _travel.truck = this.travelForm.get('truck').value;
-
+    _travel.expenses = this.expensesVC.prepareExpenses();
     const origin = this.travelForm.get('origin') as FormGroup;
     const destination = this.travelForm.get('destination') as FormGroup;
     _travel.locations = {
@@ -266,10 +266,7 @@ export class TravelEditComponent implements OnInit, OnDestroy {
       destination: {
         type: 'Point',
         // lng, lat
-        coordinates: [
-          destination.get('lng').value,
-          destination.get('lat').value,
-        ],
+        coordinates: [destination.get('lng').value, destination.get('lat').value],
         // coordinates: [this.travelForm.get('destination').value, this.travelForm.get('destination').value],
       },
     };
@@ -329,16 +326,12 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   getComponentTitle() {
-    let result: string = this.translate.instant(
-      'TRAVEL.TRAVEL.TEXT.CREATE_TITLE'
-    );
+    let result: string = this.translate.instant('TRAVEL.TRAVEL.TEXT.CREATE_TITLE');
     if (!this.travel || !this.travel.id) {
       return result;
     }
 
-    result =
-      this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') +
-      ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
+    result = this.translate.instant('TRAVEL.TRAVEL.TEXT.EDIT_TRAVEL') + ` - ${this.travel.operator.firstName} ${this.travel.box.serialNumber} ${this.travel.truck.serialNumber}`;
     return result;
   }
 
