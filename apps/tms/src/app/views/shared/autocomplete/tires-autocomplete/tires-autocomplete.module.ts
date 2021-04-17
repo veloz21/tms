@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TiresService } from '@tms/services';
 import { TiresAutocompleteComponent } from './tires-autocomplete.component';
 
 @NgModule({
@@ -25,6 +26,9 @@ import { TiresAutocompleteComponent } from './tires-autocomplete.component';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
   ],
-  // exports: [TiresAutocompleteComponent]
+  providers: [
+    TiresService,
+  ],
+  exports: [TiresAutocompleteComponent]
 })
 export class TiresAutocompleteModule { }
