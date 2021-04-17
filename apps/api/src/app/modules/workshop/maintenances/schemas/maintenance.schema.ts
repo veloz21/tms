@@ -3,22 +3,22 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Company } from '../../../admin/company';
-import { Employee, EmployeeSchema } from '../../../admin/employees/schemas/employee.schema';
-import { Box, BoxSchema } from '../../boxes/schemas/box.schema';
-import { Truck, TruckSchema } from '../../trucks/schemas/truck.schema';
+import { Employee, EmployeeSubdocumentSchema } from '../../../admin/employees/schemas/employee.schema';
+import { Box, BoxSubdocumentSchema } from '../../boxes/schemas/box.schema';
+import { Truck, TruckSubdocumentSchema } from '../../trucks/schemas/truck.schema';
 
 export type MaintenanceDocument = Maintenance & Document;
 
 @Schema()
 export class Maintenance implements IMaintenance {
 
-  @Prop({ type: TruckSchema, default: [], required: false })
+  @Prop({ type: TruckSubdocumentSchema, default: [], required: false })
   truck: Partial<Truck>;
 
-  @Prop({ type: BoxSchema, default: [], required: false })
+  @Prop({ type: BoxSubdocumentSchema, default: [], required: false })
   box: Partial<Box>;
 
-  @Prop({ type: EmployeeSchema, default: [], required: false })
+  @Prop({ type: EmployeeSubdocumentSchema, default: [], required: false })
   mechanic: Partial<Employee>;
 
   @Prop()

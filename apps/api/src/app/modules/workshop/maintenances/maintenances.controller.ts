@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 import { GetHttpOptions } from '../../../core/decorators';
 import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
@@ -18,6 +18,7 @@ export class MaintenancesController {
   constructor(private readonly maintenancesService: MaintenancesService) { }
 
   @Post()
+  @UsePipes(new ValidationPipe({ transform: true }))
   async create(@Body() createMaintenanceDto: CreateMaintenanceDto, @GetHttpOptions() options: HttpOptions) {
     return await this.maintenancesService.create(createMaintenanceDto, options);
   }

@@ -16,10 +16,9 @@ export class MaintenancesService {
   ) { }
 
   create(createMaintenanceDto: CreateMaintenanceDto, options: HttpOptions): Promise<MaintenanceDocument> {
-    return new this.maintenanceModel({
-      ...createMaintenanceDto,
-      company: options.company,
-    }).save({ session: options.session });
+    const maintenanceModel = new this.maintenanceModel(createMaintenanceDto);
+    maintenanceModel.company = options.company;
+    return maintenanceModel.save({ session: options.session });
   }
 
   findAll(queryParams: IQueryParams, options: HttpOptions): Promise<IQueryResults> {
