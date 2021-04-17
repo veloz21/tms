@@ -33,15 +33,20 @@ import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDi
 import { PartialsModule } from '@tms/partials/partials.module';
 import { boxesReducer } from '@tms/reducers';
 import { BoxesService } from '@tms/services';
+import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { SharedModule } from '../../../../shared/shared.module';
 import { BoxesListComponent } from './boxes-list.component';
 
 const routes: Routes = [{
   path: '',
   component: BoxesListComponent,
-
+  children: [
+    {
+      path: 'view',
+      loadChildren: () => import('../boxes-view/boxes-view.module').then(m => m.BoxesViewModule),
+    },
+  ]
 }];
 
 @NgModule({
