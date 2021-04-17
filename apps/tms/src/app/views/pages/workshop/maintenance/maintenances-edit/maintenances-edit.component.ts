@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,14 +15,14 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'b404-maintenance-edit',
-  templateUrl: './maintenance-edit.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'b404-maintenances-edit',
+  templateUrl: './maintenances-edit.component.html',
+  styleUrls: ['./maintenances-edit.component.scss']
 })
-export class MaintenanceEditComponent implements OnInit, OnDestroy {
+export class MaintenancesEditComponent implements OnInit, OnDestroy {
 
   public maintenance: MaintenanceModel;
-  public maintenanceId$: Observable<number>;
+  public maintenanceId$: Observable<string>;
   public oldMaintenance: MaintenanceModel;
   public selectedTab = 0;
   public loadingSubject = new BehaviorSubject<boolean>(true);
@@ -51,15 +51,14 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.maintenance = this.activatedRoute.snapshot.data[' maintenance '];
     this.activatedRoute.data
       .pipe(takeUntil(this.ngUnsuscribe))
       .subscribe((data) => {
-        this.loadMaintenance(data.maintenance);
+        this.loadMaintenance(data.maintenance as MaintenanceModel);
       });
   }
 
-  loadMaintenance(_maintenance, fromService: boolean = false) {
+  loadMaintenance(_maintenance: MaintenanceModel, fromService: boolean = false) {
     console.log(_maintenance);
     if (!_maintenance) {
       this.goBack('');
@@ -280,4 +279,5 @@ export class MaintenanceEditComponent implements OnInit, OnDestroy {
   onAlertClose($event) {
     this.hasFormErrors = false;
   }
+
 }
