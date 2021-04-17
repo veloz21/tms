@@ -11,15 +11,11 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        loadChildren: () => import('./maintenance-edit/maintenance-edit.module').then(m => m.MaintenanceEditModule),
-      },
-      {
-        path: 'edit',
-        loadChildren: () => import('./maintenance-edit/maintenance-edit.module').then(m => m.MaintenanceEditModule),
+        loadChildren: () => import('./maintenances-edit/maintenances-edit.module').then(m => m.MaintenancesEditModule),
       },
       {
         path: 'edit/:id',
-        loadChildren: () => import('./maintenance-edit/maintenance-edit.module').then(m => m.MaintenanceEditModule),
+        loadChildren: () => import('./maintenances-edit/maintenances-edit.module').then(m => m.MaintenancesEditModule),
       }
     ]
   }

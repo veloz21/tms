@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>{{ maintenance.mechanic.firstName }}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.MECHANIC_NAME' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.mechanic.firstName }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.TRUCK_SERIAL_NUMBER' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.truck.nickname }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.BOX_SERIAL_NUMBER' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.box.nickname }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.START_DATE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.times.start | date }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.END_DATE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.times.end | date }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.BOX_SERIAL_NUMBER' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.box.nickname }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.PRICE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.price }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.REASONS' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.price }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.MAINTENANCE.MODEL.COMMENTS' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ maintenance.reasons }}</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close (click)="close()">
+    {{"GENERAL.BUTTONS.CLOSE" | b404Translate}}
+  </button>
+  <button color="primary" mat-raised-button [mat-dialog-close]="true" cdkFocusInitial
+    [routerLink]="['/workshop/maintenances/edit/',maintenance.id]">
+    <mat-icon>create</mat-icon>
+    <span>{{"GENERAL.BUTTONS.EDIT" | b404Translate}}</span>
+  </button>
+</mat-dialog-actions>
