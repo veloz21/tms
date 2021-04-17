@@ -34,10 +34,7 @@ export class EmployeeDto extends BaseDBObject implements IEmployee {
   status: number & Status;
 
   @Expose()
-  salary: {
-    currency: string,
-    total: number,
-  };
+  salary: number;
 
   @Expose()
   documents: EmployeeDocumentsDto;

@@ -106,7 +106,7 @@ export class EmployeesEditComponent implements OnInit {
       birthDate: [this.employee.birthDate, [Validators.nullValidator]],
       type: [this.employee.type],
       admissionDate: [this.employee.admissionDate, [Validators.nullValidator]],
-      salary_total: [this.employee.salary.total, [Validators.required]],
+      salary: [this.employee.salary, [Validators.required]],
       licenseType: [this.employee.documents.driversLicense.type],
       licensedueDate: [this.employee.documents.driversLicense.dueDate],
       licenseAttchment: [],
@@ -181,10 +181,7 @@ export class EmployeesEditComponent implements OnInit {
     _employee.address = this.employeeForm.get('address').value;
     _employee.birthDate = this.employeeForm.get('birthDate').value;
     _employee.admissionDate = this.employeeForm.get('admissionDate').value;
-    _employee.salary = {
-      currency: 'MXN',
-      total: this.employeeForm.get('salary_total').value,
-    };
+    _employee.salary = this.employeeForm.get('salary').value;
     _employee.documents = {
       driversLicense: {
         type: this.employeeForm.get('licenseType').value,

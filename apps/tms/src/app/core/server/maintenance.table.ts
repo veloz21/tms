@@ -30,10 +30,7 @@ export class MaintenanceTable {
         address: 'Av. Universidad',
         birthDate: new Date(),
         admissionDate: new Date(),
-        salary: {
-          currency: 'MXN',
-          total: 7500,
-        },
+        salary: 7500,
         documents: {
           driversLicense: {
             type: 'E',

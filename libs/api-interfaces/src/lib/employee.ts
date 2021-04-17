@@ -10,10 +10,7 @@ export interface IEmployee {
   type: string;
   admissionDate: Date;
   secondaryCellphone: string;
-  salary: {
-    currency: string,
-    total: number,
-  };
+  salary: number;
   documents: {
     driversLicense: {
       type: string,

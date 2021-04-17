@@ -14,10 +14,7 @@ export class TravelTable {
         address: 'Av. Universidad',
         birthDate: new Date(),
         admissionDate: new Date(),
-        salary: {
-          currency: 'MXN',
-          total: 7500,
-        },
+        salary: 7500,
         documents: {
           driversLicense: {
             type: 'E',
@@ -88,10 +85,7 @@ export class TravelTable {
         address: 'Av. Universidad',
         birthDate: new Date(),
         admissionDate: new Date(),
-        salary: {
-          currency: 'MXN',
-          total: 7500,
-        },
+        salary: 7500,
         documents: {
           driversLicense: {
             type: 'E',

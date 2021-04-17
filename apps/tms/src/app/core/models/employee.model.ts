@@ -10,10 +10,7 @@ export class EmployeeModel implements IEmployee {
   type: string;
   birthDate: Date;
   admissionDate: Date;
-  salary: {
-    currency: string,
-    total: number,
-  };
+  salary: number;
   documents: {
     driversLicense: {
       type: string,
@@ -40,10 +37,7 @@ export class EmployeeModel implements IEmployee {
     this.address = employee && employee.address || '';
     this.birthDate = employee && employee.birthDate || null;
     this.admissionDate = employee && employee.admissionDate || null;
-    this.salary = employee && employee.salary || {
-      currency: 'MXN',
-      total: null
-    };
+    this.salary = employee && employee.salary || null;
     this.documents = employee && employee.documents || {
       driversLicense: {
         type: '',

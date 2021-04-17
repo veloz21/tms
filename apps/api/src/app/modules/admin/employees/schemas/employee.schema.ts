@@ -1,5 +1,5 @@
 import { IEmployee, Status } from '@bits404/api-interfaces';
-import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Company } from '../../company';
@@ -38,14 +38,8 @@ export class Employee extends User implements IEmployee {
   @Prop({ type: Number })
   status: number & Status;
 
-  @Prop(raw({
-    currency: { type: String },
-    total: { type: Number }
-  }))
-  salary: {
-    currency: string,
-    total: number,
-  };
+  @Prop({ type: Number })
+  salary: number;
 
   @Prop({ type: EmployeeDocumentsSchema, default: {} })
   documents: EmployeeDocuments;
