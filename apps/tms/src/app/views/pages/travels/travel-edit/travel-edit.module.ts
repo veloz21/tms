@@ -1,4 +1,3 @@
-// Angular
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +25,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
@@ -34,7 +32,7 @@ import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDi
 import { PartialsModule } from '@tms/partials/partials.module';
 import { travelsReducer } from '@tms/reducers';
 import { TravelResolver, TravelStatusResolver } from '@tms/resolvers';
-import { BoxesService, EmployeesService, TravelsService, TrucksService } from '@tms/services';
+import { TravelsService } from '@tms/services';
 import { BoxesAutocompleteModule } from '@tms/shared/autocomplete/boxes-autocomplete/boxes-autocomplete.module';
 import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-autocomplete/employees-autocomplete.module';
 import { PlacesComponent } from '@tms/shared/autocomplete/places-autocomplete/places-autocomplete.component';
@@ -108,16 +106,9 @@ const routes: Routes = [
     SharedModule,
   ],
   providers: [
-    TypesUtilsService,
-    LayoutUtilsService,
-    HttpUtilsService,
     TravelsService,
-    TypesUtilsService,
     TravelResolver,
     TravelStatusResolver,
-    TrucksService,
-    BoxesService,
-    EmployeesService,
   ],
   entryComponents: [
     ActionNotificationComponent,
