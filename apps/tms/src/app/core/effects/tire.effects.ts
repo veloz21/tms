@@ -7,6 +7,7 @@ import { AppState } from '@tms/reducers';
 import { TiresService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { TiresViewService } from '../../views/pages/workshop/tires/tires-view/tires-view.service';
 import { selectTireById } from '../selectors/tire.selectors';
 
 @Injectable()
@@ -153,15 +154,20 @@ export class TireEffects {
       map(() => this.hideActionLoadingDistpatcher)
     );
 
-  // @Effect()
-  // init$: Observable<Action> = defer(() => {
-  //     const queryParams = new fromTireActions.QueryParamsModel({});
-  //     return of(new fromTireActions.ProductsPageRequested({ page: queryParams }));
-  // });
+  @Effect({ dispatch: false })
+  viewTire$ = this.actions$
+    .pipe(
+      ofType<fromTireActions.ViewTire>(fromTireActions.TireActionTypes.ViewTire),
+      map(({ payload }) => {
+        return this.tiresViewService.openTireView(payload.id);
+      }),
+    );
 
   constructor(
     private actions$: Actions,
-    private tiresService: TiresService,
     private snackBar: MatSnackBar,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    private tiresService: TiresService,
+    private tiresViewService: TiresViewService,
+  ) { }
 }

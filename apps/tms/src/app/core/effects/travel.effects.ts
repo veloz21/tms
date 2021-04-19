@@ -7,6 +7,7 @@ import { AppState } from '@tms/reducers';
 import { TravelsService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { TravelsViewService } from '../../views/pages/travels/travels-view/travels-view.service';
 import { selectTravelById } from '../selectors/travel.selectors';
 
 @Injectable()
@@ -175,10 +176,20 @@ export class TravelEffects {
     })
   );
 
+  @Effect({ dispatch: false })
+  viewTravel$ = this.actions$
+    .pipe(
+      ofType<fromTravelActions.ViewTravel>(fromTravelActions.TravelActionTypes.ViewTravel),
+      map(({ payload }) => {
+        return this.travelsViewService.openTravelView(payload.id);
+      }),
+    );
+
   constructor(
     private actions$: Actions,
-    private travelsService: TravelsService,
+    private snackBar: MatSnackBar,
     private store: Store<AppState>,
-    private snackBar: MatSnackBar
+    private travelsService: TravelsService,
+    private travelsViewService: TravelsViewService,
   ) { }
 }

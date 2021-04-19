@@ -7,6 +7,7 @@ import { AppState } from '@tms/reducers';
 import { TrucksService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { TrucksViewService } from '../../views/pages/workshop/trucks/trucks-view/trucks-view.service';
 import { selectTruckById } from '../selectors/trucks.selectors';
 
 @Injectable()
@@ -154,5 +155,20 @@ export class TruckEffects {
       map(() => this.hideActionLoadingDistpatcher)
     );
 
-  constructor(private snackBar: MatSnackBar, private actions$: Actions, private trucksService: TrucksService, private store: Store<AppState>) { }
+  @Effect({ dispatch: false })
+  viewTruck$ = this.actions$
+    .pipe(
+      ofType<fromTruckActions.ViewTruck>(fromTruckActions.TruckActionTypes.ViewTruck),
+      map(({ payload }) => {
+        return this.trucksViewService.openTruckView(payload.id);
+      }),
+    );
+
+  constructor(
+    private actions$: Actions,
+    private snackBar: MatSnackBar,
+    private store: Store<AppState>,
+    private trucksService: TrucksService,
+    private trucksViewService: TrucksViewService,
+  ) { }
 }

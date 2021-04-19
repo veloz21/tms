@@ -7,6 +7,7 @@ import { AppState } from '@tms/reducers';
 import { MaintenancesService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
+import { MaintenancesViewService } from '../../views/pages/workshop/maintenance/maintenances-view/maintenances-view.service';
 
 @Injectable()
 export class MaintenanceEffects {
@@ -136,5 +137,20 @@ export class MaintenanceEffects {
       map(() => this.hideActionLoadingDistpatcher)
     );
 
-  constructor(private snackBar: MatSnackBar, private actions$: Actions, private maintenancesService: MaintenancesService, private store: Store<AppState>) { }
+  @Effect({ dispatch: false })
+  viewMaintenance$ = this.actions$
+    .pipe(
+      ofType<fromMaintenanceActions.ViewMaintenance>(fromMaintenanceActions.MaintenanceActionTypes.ViewMaintenance),
+      map(({ payload }) => {
+        return this.maintenancesViewService.openMaintenanceView(payload.id);
+      }),
+    );
+
+  constructor(
+    private actions$: Actions,
+    private snackBar: MatSnackBar,
+    private store: Store<AppState>,
+    private maintenancesService: MaintenancesService,
+    private maintenancesViewService: MaintenancesViewService,
+  ) { }
 }
