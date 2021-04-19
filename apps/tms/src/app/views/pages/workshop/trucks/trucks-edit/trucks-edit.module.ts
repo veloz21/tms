@@ -20,6 +20,7 @@ import { TruckResolver } from '@tms/resolvers';
 import { TrucksService } from '@tms/services';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { TrucksViewService } from '../trucks-view/trucks-view.service';
 import { TrucksEditComponent } from './trucks-edit.component';
 
 const routes: Routes = [
@@ -64,6 +65,7 @@ const routes: Routes = [
   providers: [
     TrucksService,
     TruckResolver,
+    TrucksViewService,
   ],
   entryComponents: [
     ActionNotificationComponent,

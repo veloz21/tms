@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { Status } from '@bits404/api-interfaces';
 import { select, Store } from '@ngrx/store';
-import { DeleteManyTrucks, DeleteOneTruck, RequestTrucksPage } from '@tms/actions/truck.actions';
+import { DeleteManyTrucks, DeleteOneTruck, RequestTrucksPage, ViewTruck } from '@tms/actions/truck.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TrucksDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
@@ -235,5 +235,9 @@ export class TrucksListComponent implements OnInit, OnDestroy {
     } else {
       this.trucksResult.forEach((row) => this.selection.select(row));
     }
+  }
+
+  viewTruck(id: string) {
+    this.store.dispatch(new ViewTruck({ id }));
   }
 }

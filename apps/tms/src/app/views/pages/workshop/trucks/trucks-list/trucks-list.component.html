@@ -129,6 +129,10 @@
             {{ "GENERAL.MODEL.ACTIONS" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let truck">
+            <button mat-icon-button (click)="viewTruck(truck.id)"
+              matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
+              <mat-icon>visibility</mat-icon>
+            </button>&nbsp;
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
             </button>

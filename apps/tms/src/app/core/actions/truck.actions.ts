@@ -18,7 +18,8 @@ export enum TruckActionTypes {
   TrucksActionToggleLoading = '[Trucks] Trucks Action Toggle Loading',
   CreateTruckSuccess = '[Edit Truck Component] Create Truck Success',
   CreateTruckError = '[Edit Truck Component] Create Truck Error',
-  UpdateTruckSuccess = '[Edit Truck Component] Update Truck Success'
+  UpdateTruckSuccess = '[Edit Truck Component] Update Truck Success',
+  ViewTruck = '[View Truckes Component] View Truck',
 }
 
 export class GetTruck implements Action {
@@ -104,6 +105,10 @@ export class TrucksActionToggleLoading implements Action {
   constructor(public payload: { isLoading: boolean }) { }
 }
 
+export class ViewTruck implements Action {
+  readonly type = TruckActionTypes.ViewTruck;
+  constructor(public payload: { id: string }) { }
+}
 export type TruckActions =
   | CreateTruck
   | UpdateTruck
@@ -120,4 +125,5 @@ export type TruckActions =
   | UpdateTruckSuccess
   | GetTruck
   | StoreTruck
+  | ViewTruck
   ;

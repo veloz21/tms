@@ -12,7 +12,7 @@ export class TrucksViewService {
     private truckResolver: TruckResolver,
   ) { }
 
-  openBoxView(id: string) {
+  openTruckView(id: string) {
     const resolve = this.truckResolver.manualResolve(id);
     if (resolve instanceof TruckModel) {
       return this.openDialog(resolve);

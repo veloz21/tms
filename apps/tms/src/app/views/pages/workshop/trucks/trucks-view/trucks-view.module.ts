@@ -7,7 +7,7 @@ import { Route, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { LayoutUtilsService } from '@tms/crud';
-import { BoxEffects } from '@tms/effects';
+import { TruckEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
 import { PartialsModule } from '@tms/partials/partials.module';
@@ -31,20 +31,20 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [TrucksViewComponent],
+  declarations: [TrucksViewComponent, TrucksViewEntryComponent],
   imports: [
     CommonModule,
     PartialsModule,
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule.forChild(routes),
+    RouterModule,
     environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
       passThruUnknownUrl: true,
       dataEncapsulation: false
     }) : [],
     StoreModule.forFeature('trucks', trucksReducer),
-    EffectsModule.forFeature([BoxEffects]),
+    EffectsModule.forFeature([TruckEffects]),
     SharedModule,
   ],
   providers: [
