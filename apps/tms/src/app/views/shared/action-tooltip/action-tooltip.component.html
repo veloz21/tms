@@ -1,8 +1,14 @@
 <div class="action-tooltip">
   {{ text }}
-  <ng-container>
+  <ng-container *ngIf="link">
     &nbsp;&nbsp;&nbsp;
-    <a *ngIf="link" [routerLink]="link">
+    <a [routerLink]="link">
+      <span>{{ linkText }}</span>
+    </a>
+  </ng-container>
+  <ng-container *ngIf="!link">
+    &nbsp;&nbsp;&nbsp;
+    <a (click)="openAction()">
       <span>{{ linkText }}</span>
     </a>
   </ng-container>
