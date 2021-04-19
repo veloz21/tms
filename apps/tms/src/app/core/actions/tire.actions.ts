@@ -17,7 +17,8 @@ export enum TireActionTypes {
   LoadTiresPage = '[Tires API] Tires Page Loaded',
   CancellTiresPage = '[Tires API] Tires Page Cancelled',
   TiresPageToggleLoading = '[Tires] Tires Page Toggle Loading',
-  TiresActionToggleLoading = '[Tires] Tires Action Toggle Loading'
+  TiresActionToggleLoading = '[Tires] Tires Action Toggle Loading',
+  ViewTire = '[View Tirees Component] View Tire',
 }
 
 export class GetTire implements Action {
@@ -103,6 +104,10 @@ export class TiresActionToggleLoading implements Action {
   }) { }
 }
 
+export class ViewTire implements Action {
+  readonly type = TireActionTypes.ViewTire;
+  constructor(public payload: { id: string }) { }
+}
 export type TireActions =
   | CreateTire
   | UpdateTire
@@ -118,4 +123,5 @@ export type TireActions =
   | UpdateTireSuccess
   | GetTire
   | StoreTire
+  | ViewTire
   ;

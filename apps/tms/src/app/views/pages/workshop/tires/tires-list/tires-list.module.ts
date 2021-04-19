@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -25,17 +25,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
+import { LayoutUtilsService } from '@tms/crud';
 import { TireEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
-import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '@tms/partials/content/crud';
+import { ActionNotificationComponent, DeleteEntityDialogComponent } from '@tms/partials/content/crud';
 import { PartialsModule } from '@tms/partials/partials.module';
 import { tiresReducer } from '@tms/reducers';
 import { TiresService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { SharedModule } from '../../../../shared/shared.module';
+import { TiresViewModule } from '../tires-view/tires-view.module';
 import { TiresListComponent } from './tires-list.component';
 
 const routes: Routes = [{
@@ -79,27 +80,15 @@ const routes: Routes = [{
     StoreModule.forFeature('tires', tiresReducer),
     EffectsModule.forFeature([TireEffects]),
     SharedModule,
+    TiresViewModule,
   ],
   providers: [
-    {
-      provide: MAT_DIALOG_DEFAULT_OPTIONS,
-      useValue: {
-        hasBackdrop: true,
-        panelClass: 'b404-mat-dialog-container__wrapper',
-        height: 'auto',
-        width: '900px'
-      }
-    },
-    TypesUtilsService,
     LayoutUtilsService,
-    HttpUtilsService,
     TiresService,
   ],
   entryComponents: [
     ActionNotificationComponent,
     DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
   ],
   declarations: [
     TiresListComponent

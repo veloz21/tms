@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { DeleteManyTires, DeleteOneTire, RequestTiresPage } from '@tms/actions/tire.actions';
+import { DeleteManyTires, DeleteOneTire, RequestTiresPage, ViewTire } from '@tms/actions/tire.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TiresDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
@@ -228,5 +228,9 @@ export class TiresListComponent implements OnInit, OnDestroy {
     } else {
       this.tiresResult.forEach(row => this.selection.select(row));
     }
+  }
+
+  viewTire(id: string) {
+    this.store.dispatch(new ViewTire({ id }));
   }
 }
