@@ -6,7 +6,8 @@ import * as fromEmployeeActions from '@tms/actions/employee.actions';
 import { AppState } from '@tms/reducers';
 import { EmployeesService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { selectEmployeeById } from '../selectors/employee.selectors';
 
 @Injectable()
 export class EmployeeEffects {
@@ -43,12 +44,19 @@ export class EmployeeEffects {
   );
 
   @Effect()
-  getTravel = this.actions$
+  getEmployee = this.actions$
     .pipe(
       ofType<fromEmployeeActions.GetEmployee>(fromEmployeeActions.EmployeeActionTypes.GetEmployee),
-      mergeMap(({ payload }) => {
-        return this.employeesService.getEmployeeById(payload.id);
-      }),
+      switchMap(({ payload }) =>
+        of(({ payload })).pipe(
+          withLatestFrom(
+            this.store.select(selectEmployeeById(payload.id))
+          )
+        )
+      ),
+      filter(([{ payload }, employee]) => !employee),
+      map(([{ payload }]) => payload.id),
+      mergeMap(id => this.employeesService.getEmployeeById(id)),
       map((employee) => new fromEmployeeActions.StoreEmployee({ employee }))
     );
 

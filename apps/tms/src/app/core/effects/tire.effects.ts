@@ -6,7 +6,8 @@ import * as fromTireActions from '@tms/actions/tire.actions';
 import { AppState } from '@tms/reducers';
 import { TiresService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { selectTireById } from '../selectors/tire.selectors';
 
 @Injectable()
 export class TireEffects {
@@ -44,12 +45,19 @@ export class TireEffects {
     );
 
   @Effect()
-  getTravel = this.actions$
+  getTire = this.actions$
     .pipe(
       ofType<fromTireActions.GetTire>(fromTireActions.TireActionTypes.GetTire),
-      mergeMap(({ payload }) => {
-        return this.tiresService.getTireById(payload.id);
-      }),
+      switchMap(({ payload }) =>
+        of(({ payload })).pipe(
+          withLatestFrom(
+            this.store.select(selectTireById(payload.id))
+          )
+        )
+      ),
+      filter(([{ payload }, tire]) => !tire),
+      map(([{ payload }]) => payload.id),
+      mergeMap(id => this.tiresService.getTireById(id)),
       map((tire) => new fromTireActions.StoreTire({ tire }))
     );
 

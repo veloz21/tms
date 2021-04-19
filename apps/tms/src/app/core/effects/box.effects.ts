@@ -6,7 +6,9 @@ import * as fromBoxActions from '@tms/actions/box.actions';
 import { AppState } from '@tms/reducers';
 import { BoxesService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { BoxesViewService } from '../../views/pages/workshop/boxes/boxes-view/boxes-view.service';
+import { selectBoxById } from '../selectors/boxes.selectors';
 
 @Injectable()
 export class BoxEffects {
@@ -53,9 +55,16 @@ export class BoxEffects {
   getBox = this.actions$
     .pipe(
       ofType<fromBoxActions.GetBox>(fromBoxActions.BoxActionTypes.GetBox),
-      mergeMap(({ payload }) => {
-        return this.boxesService.getBoxById(payload.id);
-      }),
+      switchMap(({ payload }) =>
+        of(({ payload })).pipe(
+          withLatestFrom(
+            this.store.select(selectBoxById(payload.id))
+          )
+        )
+      ),
+      filter(([{ payload }, box]) => !box),
+      map(([{ payload }]) => payload.id),
+      mergeMap(id => this.boxesService.getBoxById(id)),
       map((box) => new fromBoxActions.StoreBox({ box }))
     );
 
@@ -140,6 +149,7 @@ export class BoxEffects {
       }),
       map(() => this.hideActionLoadingDistpatcher),
     );
+
   @Effect()
   updateBoxSuccess$ = this.actions$
     .pipe(
@@ -153,9 +163,20 @@ export class BoxEffects {
       map(() => this.hideActionLoadingDistpatcher)
     );
 
+  @Effect({ dispatch: false })
+  viewBox$ = this.actions$
+    .pipe(
+      ofType<fromBoxActions.ViewBox>(fromBoxActions.BoxActionTypes.ViewBox),
+      map(({ payload }) => {
+        return this.boxesViewService.openBoxView(payload.id);
+      }),
+    );
+
   constructor(
     private snackBar: MatSnackBar,
     private actions$: Actions,
     private boxesService: BoxesService,
-    private store: Store<AppState>) { }
+    private boxesViewService: BoxesViewService,
+    private store: Store<AppState>
+  ) { }
 }

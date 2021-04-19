@@ -6,7 +6,8 @@ import * as fromTravelActions from '@tms/actions/travel.actions';
 import { AppState } from '@tms/reducers';
 import { TravelsService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { selectTravelById } from '../selectors/travel.selectors';
 
 @Injectable()
 export class TravelEffects {
@@ -46,9 +47,16 @@ export class TravelEffects {
   getTravel = this.actions$
     .pipe(
       ofType<fromTravelActions.GetTravel>(fromTravelActions.TravelActionTypes.GetTravel),
-      mergeMap(({ payload }) => {
-        return this.travelsService.getTravelById(payload.id);
-      }),
+      switchMap(({ payload }) =>
+        of(({ payload })).pipe(
+          withLatestFrom(
+            this.store.select(selectTravelById(payload.id))
+          )
+        )
+      ),
+      filter(([{ payload }, travel]) => !travel),
+      map(([{ payload }]) => payload.id),
+      mergeMap(id => this.travelsService.getTravelById(id)),
       map((travel) => new fromTravelActions.StoreTravel({ travel }))
     );
 

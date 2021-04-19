@@ -6,7 +6,8 @@ import * as fromTruckActions from '@tms/actions/truck.actions';
 import { AppState } from '@tms/reducers';
 import { TrucksService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { selectTruckById } from '../selectors/trucks.selectors';
 
 @Injectable()
 export class TruckEffects {
@@ -47,9 +48,16 @@ export class TruckEffects {
   getTruck = this.actions$
     .pipe(
       ofType<fromTruckActions.GetTruck>(fromTruckActions.TruckActionTypes.GetTruck),
-      mergeMap(({ payload }) => {
-        return this.trucksService.getTruckById(payload.id);
-      }),
+      switchMap(({ payload }) =>
+        of(({ payload })).pipe(
+          withLatestFrom(
+            this.store.select(selectTruckById(payload.id))
+          )
+        )
+      ),
+      filter(([{ payload }, truck]) => !truck),
+      map(([{ payload }]) => payload.id),
+      mergeMap(id => this.trucksService.getTruckById(id)),
       map((truck) => new fromTruckActions.StoreTruck({ truck }))
     );
 
