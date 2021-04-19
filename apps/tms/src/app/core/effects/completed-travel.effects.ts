@@ -126,5 +126,10 @@ export class CompletedTravelEffects {
     map(() => this.hideActionLoadingDistpatcher)
   );
 
-  constructor(private actions$: Actions, private travelsService: CompletedTravelService, private store: Store<AppState>, private snackBar: MatSnackBar) { }
+  constructor(
+    private actions$: Actions,
+    private store: Store<AppState>,
+    private snackBar: MatSnackBar,
+    private travelsService: CompletedTravelService,
+  ) { }
 }
