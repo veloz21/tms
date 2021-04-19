@@ -28,7 +28,7 @@ import { StoreModule } from '@ngrx/store';
 import { LayoutUtilsService } from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
-import { CurrentTravelStatusPipe, FakeApiService, NextTravelStatusPipe } from '@tms/layout';
+import { FakeApiService } from '@tms/layout';
 import { PartialsModule } from '@tms/partials/partials.module';
 import { travelsReducer } from '@tms/reducers';
 import { CompletedTravelService, TravelsService } from '@tms/services';
@@ -105,6 +105,6 @@ import { TravelsListComponent } from './travels-list.component';
     DeleteEntityDialogComponent,
     ChangeStatusDialogComponent
   ],
-  declarations: [TravelsListComponent, CurrentTravelStatusPipe, NextTravelStatusPipe],
+  declarations: [TravelsListComponent],
 })
 export class TravelListModule { }

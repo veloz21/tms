@@ -2,10 +2,51 @@
 <mat-dialog-content class="mat-typography">
   <div class="row">
     <div class="col-lg-4 col-6">
-      <span>{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}</span>
+      <span>{{'TRAVELS.TABLE.OPERATOR' | b404Translate}}</span>
     </div>
-    <div class="col-lg-8 col-6">{{ travel | json }}</div>
+    <div class="col-lg-8 col-6">{{ travel.operator.firstName }} {{ travel.operator.lastName }}</div>
   </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'TRAVELS.TABLE.BOX' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ travel.box.nickname }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'TRAVELS.TABLE.TRUCK' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ travel.truck.nickname }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'Origen'}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ travel.locations?.origin?.coordinates || '-' }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'Destino'}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ travel.locations?.destination?.coordinates || '-' }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'TRAVELS.TRAVEL.MODEL.COST' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">${{ travel.salePrice }}</div>
+  </div>
+
+  <hr>
+  <h3>Estatus - {{ (travel.status | b404CurrentStatus: travel.currentStatus)?.name}}</h3>
+  <div *ngFor="let status of travel.status" class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{ status.name }}:</span>
+    </div>
+    <div class="col-lg-2 col-2">{{ status.date | date }}</div>
+    <div class="col-lg-6 col-4">{{ status.comments }}</div>
+  </div>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close (click)="close()">
