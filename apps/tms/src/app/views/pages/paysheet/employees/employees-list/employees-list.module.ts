@@ -36,6 +36,7 @@ import { EmployeesService } from '@tms/services';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { EmployeesViewModule } from '../employees-view/employees-view.module';
 import { EmployeesListComponent } from './employees-list.component';
 
 const routes: Routes = [
@@ -87,6 +88,7 @@ const routes: Routes = [
     StoreModule.forFeature('employees', employeesReducer),
     EffectsModule.forFeature([EmployeeEffects]),
     SharedModule,
+    EmployeesViewModule,
   ],
   providers: [
     {

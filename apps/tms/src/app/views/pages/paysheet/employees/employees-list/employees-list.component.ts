@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from '@bits404/api-interfaces';
 import { select, Store } from '@ngrx/store';
-import { DeleteManyEmployees, DeleteOneEmployee, RequestEmployeePage } from '@tms/actions/employee.actions';
+import { DeleteManyEmployees, DeleteOneEmployee, RequestEmployeePage, ViewEmployee } from '@tms/actions/employee.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { EmployeesDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
@@ -219,5 +219,9 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
     } else {
       this.employeesResult.forEach(row => this.selection.select(row));
     }
+  }
+
+  viewEmployee(id: string) {
+    this.store.dispatch(new ViewEmployee({ id }));
   }
 }

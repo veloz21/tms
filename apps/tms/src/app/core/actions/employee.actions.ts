@@ -19,6 +19,7 @@ export enum EmployeeActionTypes {
   CancelEmpolyeePage = '[Employees API] Employees Page Cancelled',
   EmployeesPageToggleLoading = '[Employees] Employees Page Toggle Loading',
   EmployeesActionToggleLoading = '[Employees] Employees Action Toggle Loading',
+  ViewEmployee = '[View Employeees Component] View Employee',
 }
 
 export class GetEmployee implements Action {
@@ -114,6 +115,10 @@ export class EmployeesActionToggleLoading implements Action {
   constructor(public payload: { isLoading: boolean }) { }
 }
 
+export class ViewEmployee implements Action {
+  readonly type = EmployeeActionTypes.ViewEmployee;
+  constructor(public payload: { id: string }) { }
+}
 export type EmployeeActions =
   | CreateEmployee
   | CreateEmployeeSuccess
@@ -130,4 +135,5 @@ export type EmployeeActions =
   | EmployeesActionToggleLoading
   | GetEmployee
   | StoreEmployee
+  | ViewEmployee
   ;

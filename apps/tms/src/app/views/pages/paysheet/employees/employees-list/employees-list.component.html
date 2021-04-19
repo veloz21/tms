@@ -123,7 +123,7 @@
             {{"GENERAL.MODEL.ACTIONS" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let employee">
-            <button mat-icon-button [routerLink]="['/paysheet/employees/view/',employee.id]"
+            <button mat-icon-button (click)="viewEmployee(employee.id)"
               matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
               <mat-icon>visibility</mat-icon>
             </button>&nbsp;
