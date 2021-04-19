@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,26 +16,21 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
 @Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'b404-travel-edit',
-  templateUrl: './travel-edit.component.html',
-  styleUrls: ['./travel-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'b404-travels-edit',
+  templateUrl: './travels-edit.component.html',
+  styleUrls: ['./travels-edit.component.scss']
 })
-export class TravelEditComponent implements OnInit, OnDestroy {
-  // Public properties
+export class TravelsEditComponent implements OnInit, OnDestroy {
 
-  travel: TravelModel;
-  travelId$: Observable<number>;
-  oldTravel: TravelModel;
-  selectedTab = 0;
-  loadingSubject = new BehaviorSubject<boolean>(true);
-  loading$: Observable<boolean>;
-  travelForm: FormGroup;
-  hasFormErrors = false;
-  companyTravelStatus: Partial<TravelStatusModel>[];
-  // sticky portlet header margin
-  private headerMargin: number;
+  public travel: TravelModel;
+  public travelId$: Observable<string>;
+  public oldTravel: TravelModel;
+  public selectedTab = 0;
+  public loadingSubject = new BehaviorSubject<boolean>(true);
+  public loading$: Observable<boolean>;
+  public travelForm: FormGroup;
+  public hasFormErrors = false;
+  public companyTravelStatus: Partial<TravelStatusModel>[];
 
   public translateParams: TranslateParams;
   private ngUnsuscribe = new Subject();
@@ -57,25 +52,18 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.travel = this.activatedRoute.snapshot.data.travel;
-    this.companyTravelStatus = this.activatedRoute.snapshot.data.travelStatus.map(ts => new TravelStatusModel({
-      ...ts,
-      date: null,
-      comments: '',
-    }));
-
     this.activatedRoute.data.pipe(takeUntil(this.ngUnsuscribe)).subscribe((data) => {
-      this.loadTravel(data.travel);
-    });
+      this.companyTravelStatus = (data.travelStatus as TravelStatusModel[]).map(ts => new TravelStatusModel({
+        ...ts,
+        date: null,
+        comments: '',
+      }));
 
-    // sticky portlet header
-    window.onload = () => {
-      const style = getComputedStyle(document.getElementById('kt_header'));
-      this.headerMargin = parseInt(style.height, 0);
-    };
+      this.loadTravel(data.travel as TravelModel);
+    });
   }
 
-  loadTravel(_travel, fromService: boolean = false) {
+  loadTravel(_travel: TravelModel, fromService: boolean = false) {
     if (!_travel) {
       this.goBack('');
     }
@@ -360,4 +348,5 @@ export class TravelEditComponent implements OnInit, OnDestroy {
   onClear($event) {
     console.log($event);
   }
+
 }

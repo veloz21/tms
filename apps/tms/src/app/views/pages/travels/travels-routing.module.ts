@@ -16,15 +16,15 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        loadChildren: () => import('./travel-edit/travel-edit.module').then(m => m.TravelEditModule),
+        loadChildren: () => import('./travels-edit/travels-edit.module').then(m => m.TravelsEditModule),
       },
       {
         path: 'edit',
-        loadChildren: () => import('./travel-edit/travel-edit.module').then(m => m.TravelEditModule),
+        loadChildren: () => import('./travels-edit/travels-edit.module').then(m => m.TravelsEditModule),
       },
       {
         path: 'edit/:id',
-        loadChildren: () => import('./travel-edit/travel-edit.module').then(m => m.TravelEditModule),
+        loadChildren: () => import('./travels-edit/travels-edit.module').then(m => m.TravelsEditModule),
       }
     ]
   },

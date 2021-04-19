@@ -63,19 +63,15 @@
           </div>
           <div class="b404-form__group">
             <div class="row">
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <form style="padding: 0;" class="container" formGroupName="origin">
-                  <b404-places placeholder="Buscar Origen" (onChange)="onSuggestionOrigin($event)"
-                    (onClear)="onClear($event)" required>
-                  </b404-places>
-                </form>
+              <div class="col-md-4 b404-margin-bottom-10-mobile" formGroupName="origin">
+                <b404-places placeholder="Buscar Origen" (onChange)="onSuggestionOrigin($event)"
+                  (onClear)="onClear($event)" required>
+                </b404-places>
               </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <form style="padding: 0;" class="container" formGroupName="destination">
-                  <b404-places placeholder="Buscar Destino" (onChange)="onSuggestionDestination($event)"
-                    (onClear)="onClear($event)" required>
-                  </b404-places>
-                </form>
+              <div class="col-md-4 b404-margin-bottom-10-mobile" formGroupName="destination">
+                <b404-places placeholder="Buscar Destino" (onChange)="onSuggestionDestination($event)"
+                  (onClear)="onClear($event)" required>
+                </b404-places>
               </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">

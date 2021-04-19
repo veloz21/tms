@@ -28,7 +28,7 @@ import { StoreModule } from '@ngrx/store';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
-import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '@tms/partials/content/crud';
+import { ActionNotificationComponent, DeleteEntityDialogComponent } from '@tms/partials/content/crud';
 import { PartialsModule } from '@tms/partials/partials.module';
 import { travelsReducer } from '@tms/reducers';
 import { TravelResolver, TravelStatusResolver } from '@tms/resolvers';
@@ -39,14 +39,13 @@ import { PlacesComponent } from '@tms/shared/autocomplete/places-autocomplete/pl
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { NgxPermissionsModule } from 'ngx-permissions';
-import { TravelEditComponent } from './travel-edit.component';
+import { TravelsViewService } from '../travels-view/travels-view.service';
+import { TravelsEditComponent } from './travels-edit.component';
 
-// tslint:disable-next-line:class-name
 const routes: Routes = [
   {
     path: '',
-    component: TravelEditComponent,
+    component: TravelsEditComponent,
     resolve: {
       travel: TravelResolver,
       travelStatus: TravelStatusResolver,
@@ -54,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: TravelEditComponent,
+    component: TravelsEditComponent,
     resolve: {
       travel: TravelResolver,
       travelStatus: TravelStatusResolver,
@@ -63,18 +62,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  declarations: [TravelsEditComponent, PlacesComponent],
   imports: [
     MatDialogModule,
     CommonModule,
-    NgbModule,
     PartialsModule,
-    NgxPermissionsModule.forChild(),
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    BoxesAutocompleteModule,
-    EmployeesAutocompleteModule,
     MatMenuModule,
     MatSelectModule,
     MatInputModule,
@@ -82,7 +78,6 @@ const routes: Routes = [
     MatAutocompleteModule,
     MatRadioModule,
     MatIconModule,
-    TrucksAutocompleteModule,
     MatNativeDateModule,
     MatProgressBarModule,
     MatDatepickerModule,
@@ -104,18 +99,20 @@ const routes: Routes = [
     StoreModule.forFeature('travels', travelsReducer),
     EffectsModule.forFeature([TravelEffects]),
     SharedModule,
+    BoxesAutocompleteModule,
+    TrucksAutocompleteModule,
+    EmployeesAutocompleteModule,
+    NgbModule,
   ],
   providers: [
     TravelsService,
     TravelResolver,
+    TravelsViewService,
     TravelStatusResolver,
   ],
   entryComponents: [
     ActionNotificationComponent,
     DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
   ],
-  declarations: [TravelEditComponent, PlacesComponent],
 })
-export class TravelEditModule { }
+export class TravelsEditModule { }
