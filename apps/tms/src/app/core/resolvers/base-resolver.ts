@@ -26,6 +26,15 @@ export class BaseResolver<T> implements Resolve<T> {
     return this.waitForModelDataToLoad(id);
   }
 
+  public manualResolve(id?: string) {
+    if (!id) {
+      return this.getEmptyModel();
+    }
+
+    this.store.dispatch(this.getModelAction(id));
+    return this.waitForModelDataToLoad(id);
+  }
+
   protected getEmptyModel(): T {
     return null;
   }
