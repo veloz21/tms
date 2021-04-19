@@ -31,12 +31,12 @@ export class TravelModel implements ITravel {
       origin: {
         type: 'Point',
         // lng, lat
-        coordinates: [],
+        coordinates: [0, 0],
       },
       destination: {
         type: 'Point',
         // lng, lat
-        coordinates: [],
+        coordinates: [0, 0],
       },
     };
     this.status = (travel && travel.status) || [];

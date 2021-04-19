@@ -8,10 +8,10 @@ export type ExpenseDocument = Expense & Document;
 
 @Schema()
 export class Expense implements IExpense {
-  @Prop()
+  @Prop({ type: String, default: '' })
   name: string;
 
-  @Prop()
+  @Prop({ type: Number, default: null })
   price: number;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Company.name })

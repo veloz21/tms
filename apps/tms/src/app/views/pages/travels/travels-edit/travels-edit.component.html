@@ -66,17 +66,15 @@
                 </div>
               </div>
             </div>
+
             <div class="b404-form__group">
               <div class="row">
-                <div class="col-md-4 b404-margin-bottom-10-mobile" formGroupName="origin">
-                  <b404-places placeholder="Buscar Origen" (onChange)="onSuggestionOrigin($event)"
-                    (onClear)="onClear($event)" required>
-                  </b404-places>
-                </div>
-                <div class="col-md-4 b404-margin-bottom-10-mobile" formGroupName="destination">
-                  <b404-places placeholder="Buscar Destino" (onChange)="onSuggestionDestination($event)"
-                    (onClear)="onClear($event)" required>
-                  </b404-places>
+                <div class="col-md-8 b404-margin-bottom-10-mobile">
+                  <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                    <mat-label>{{'TRAVELS.TRAVEL.MODEL.COMMENTS' | b404Translate}}</mat-label>
+                    <textarea matInput rows="5" placeholder="{{'TRAVELS.TRAVEL.MODEL.COMMENTS' | b404Translate }}"
+                      formControlName="comments"></textarea>
+                  </mat-form-field>
                 </div>
                 <div class="col-md-4 b404-margin-bottom-10-mobile">
                   <mat-form-field appearance="outline" class="mat-form-field-fluid">
@@ -85,6 +83,21 @@
                     <input matInput matInputCurrency formControlName="salePrice" type="text"
                       placeholder="{{'TRAVELS.TRAVEL.MODEL.COST' | b404Translate}}" />
                   </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="b404-form__group">
+              <div class="row">
+                <div class="col-md-6 b404-margin-bottom-10-mobile" formGroupName="origin">
+                  <b404-places placeholder="Buscar Origen" [coordinates]="travel.locations?.origin?.coordinates"
+                    (onChange)="onSuggestionOrigin($event)" (onClear)="onClear($event)" required>
+                  </b404-places>
+                </div>
+                <div class="col-md-6 b404-margin-bottom-10-mobile" formGroupName="destination">
+                  <b404-places placeholder="Buscar Destino" [coordinates]="travel.locations?.destination?.coordinates"
+                    (onChange)="onSuggestionDestination($event)" (onClear)="onClear($event)" required>
+                  </b404-places>
                 </div>
               </div>
             </div>
@@ -156,18 +169,6 @@
         </div>
       </div> -->
 
-            <div class="b404-form__group">
-              <div class="row">
-                <div class="col-md-6 b404-margin-bottom-10-mobile">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.COMMENTS' | b404Translate}}</mat-label>
-                  <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                    <textarea matInput rows="5" placeholder="{{'TRAVELS.TRAVEL.MODEL.COMMENTS' | b404Translate }}"
-                      formControlName="comments"></textarea>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div>
-
           </div>
         </mat-tab>
         <mat-tab>
@@ -176,7 +177,7 @@
               Gastos
             </span>
           </ng-template>
-          <b404-expenses [expenses]="expensesArray" [expensesForm]="travelForm.get('expenses')"></b404-expenses>
+          <b404-expenses [expenses]="travel.expenses" [expensesForm]="travelForm.get('expenses')"></b404-expenses>
         </mat-tab>
       </mat-tab-group>
     </form>

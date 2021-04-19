@@ -33,7 +33,7 @@ export class Travel implements ITravel {
   @Prop({ type: [ExpenseSubdocumentSchema], default: [] })
   expenses: Partial<Expense>[];
 
-  @Prop({ type: [TravelStatusSubdocumentSchema], default: {} })
+  @Prop({ type: [TravelStatusSubdocumentSchema], default: [] })
   status: Partial<TravelStatus>[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: TravelStatus.name })

@@ -164,13 +164,13 @@ export class TravelsEditComponent implements OnInit, OnDestroy {
       salePrice: [this.travel.salePrice],
       origin: this.travelFB.group({
         autocomplete: [''],
-        lat: [''],
-        lng: [''],
+        lat: [this.travel.locations?.origin?.coordinates[1] || null],
+        lng: [this.travel.locations?.origin?.coordinates[0] || null],
       }),
       destination: this.travelFB.group({
         autocomplete: [''],
-        lat: [],
-        lng: [],
+        lat: [this.travel.locations?.destination?.coordinates[1] || null],
+        lng: [this.travel.locations?.destination?.coordinates[0] || null],
       }),
       status: this.travelFB.array([
         ...status.map(s => this.travelStatus(s))

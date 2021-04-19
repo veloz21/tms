@@ -11,6 +11,7 @@ import { CreateTravelDto } from './dto/create-travel.dto';
 import { TravelDto } from './dto/travel.dto';
 import { UpdateTravelStatusDto } from './dto/update-travel-status.dto';
 import { UpdateTravelDto } from './dto/update-travel.dto';
+import { Expense, ExpenseDocument } from './expenses/schemas/expenses.schema';
 import { TravelStatus, TravelStatusDocument } from './schemas/travel-status.schema';
 import { Travel, TravelDocument } from './schemas/travel.schema';
 
@@ -19,11 +20,16 @@ export class TravelsService {
 
   constructor(
     @InjectModel(Travel.name) private readonly travelModel: Model<TravelDocument>,
+    @InjectModel(Expense.name) private readonly expenseModel: Model<ExpenseDocument>,
     @InjectModel(TravelStatus.name) private readonly travelStatusModel: Model<TravelStatusDocument>,
   ) { }
 
   create(createTravelDto: CreateTravelDto, options: HttpOptions): Promise<TravelDocument> {
     const travelModel = new this.travelModel(createTravelDto);
+    travelModel.expenses = createTravelDto.expenses?.map(e => new this.expenseModel({
+      price: e.price,
+      name: e.name,
+    })) || [];
     travelModel.company = options.company;
     return travelModel.save({ session: options.session });
   }
