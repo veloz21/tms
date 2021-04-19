@@ -22,7 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule, Routes } from '@angular/router';
-import { NgbModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TravelEffects } from '@tms/effects';
@@ -39,6 +39,7 @@ import { PlacesComponent } from '@tms/shared/autocomplete/places-autocomplete/pl
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ExpensesModule } from '../expenses/expenses.module';
 import { TravelsViewService } from '../travels-view/travels-view.service';
 import { TravelsEditComponent } from './travels-edit.component';
 
@@ -69,6 +70,8 @@ const routes: Routes = [
     PartialsModule,
     RouterModule.forChild(routes),
     FormsModule,
+    MatTabsModule,
+    ExpensesModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatMenuModule,
@@ -102,7 +105,6 @@ const routes: Routes = [
     BoxesAutocompleteModule,
     TrucksAutocompleteModule,
     EmployeesAutocompleteModule,
-    NgbModule,
   ],
   providers: [
     TravelsService,

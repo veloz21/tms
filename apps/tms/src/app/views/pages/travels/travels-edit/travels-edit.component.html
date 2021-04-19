@@ -18,153 +18,168 @@
       </a>
     </ng-container>
   </b404-portlet-header>
+
   <b404-portlet-body>
-    <div *ngIf="travel">
-      <!--begin::Form-->
-      <form [formGroup]="travelForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+    <form [formGroup]="travelForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+      <mat-tab-group *ngIf="travel" [(selectedIndex)]="selectedTab" [color]="hasFormErrors ? 'warn' : 'primary'">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span [ngClass]="{ 'invalid': hasFormErrors && travelForm.invalid }">
+              Información
+            </span>
+          </ng-template>
+          <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
+            (close)="onAlertClose($event)">
+            <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | b404Translate}} </span>
+          </b404-alert>
 
-        <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
-          (close)="onAlertClose($event)">
-          <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | b404Translate}} </span>
-        </b404-alert>
-
-        <div class="b404-form__section b404-form__section--first">
-          <div class="b404-form__group">
-            <div class="row">
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.OPERATOR_NAME' | b404Translate}}</mat-label>
-                  <b404-employees-autocomplete formControlName="operator"
-                    placeholder="{{'TRAVELS.TRAVEL.MODEL.OPERATOR_NAME' | b404Translate }}">
-                  </b404-employees-autocomplete>
-                  <mat-error>
-                    {{'TRAVELS.TRAVEL.MODEL.OPERATOR_NAME' | b404Translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.BOX_SERIALNUMBER' | b404Translate}}</mat-label>
-                  <b404-boxes-autocomplete formControlName="box"
-                    placeholder="{{'TRAVELS.TRAVEL.MODEL.BOX_SERIALNUMBER' | b404Translate }}">
-                  </b404-boxes-autocomplete>
-                </mat-form-field>
-              </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.TRUCK_SERIALNUMBER' | b404Translate}}</mat-label>
-                  <b404-trucks-autocomplete formControlName="truck"
-                    placeholder="{{'TRAVELS.TRAVEL.MODEL.TRUCK_SERIALNUMBER' | b404Translate }}">
-                  </b404-trucks-autocomplete>
-                </mat-form-field>
+          <div class="b404-form__section b404-form__section--first">
+            <div class="b404-form__group">
+              <div class="row">
+                <div class="col-md-4 b404-margin-bottom-10-mobile">
+                  <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                    <mat-label>{{'TRAVELS.TRAVEL.MODEL.OPERATOR_NAME' | b404Translate}}</mat-label>
+                    <b404-employees-autocomplete formControlName="operator"
+                      placeholder="{{'TRAVELS.TRAVEL.MODEL.OPERATOR_NAME' | b404Translate }}">
+                    </b404-employees-autocomplete>
+                    <mat-error>
+                      {{'TRAVELS.TRAVEL.MODEL.OPERATOR_NAME' | b404Translate }}
+                      <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4 b404-margin-bottom-10-mobile">
+                  <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                    <mat-label>{{'TRAVELS.TRAVEL.MODEL.BOX_SERIALNUMBER' | b404Translate}}</mat-label>
+                    <b404-boxes-autocomplete formControlName="box"
+                      placeholder="{{'TRAVELS.TRAVEL.MODEL.BOX_SERIALNUMBER' | b404Translate }}">
+                    </b404-boxes-autocomplete>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4 b404-margin-bottom-10-mobile">
+                  <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                    <mat-label>{{'TRAVELS.TRAVEL.MODEL.TRUCK_SERIALNUMBER' | b404Translate}}</mat-label>
+                    <b404-trucks-autocomplete formControlName="truck"
+                      placeholder="{{'TRAVELS.TRAVEL.MODEL.TRUCK_SERIALNUMBER' | b404Translate }}">
+                    </b404-trucks-autocomplete>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
+            <div class="b404-form__group">
+              <div class="row">
+                <div class="col-md-4 b404-margin-bottom-10-mobile" formGroupName="origin">
+                  <b404-places placeholder="Buscar Origen" (onChange)="onSuggestionOrigin($event)"
+                    (onClear)="onClear($event)" required>
+                  </b404-places>
+                </div>
+                <div class="col-md-4 b404-margin-bottom-10-mobile" formGroupName="destination">
+                  <b404-places placeholder="Buscar Destino" (onChange)="onSuggestionDestination($event)"
+                    (onClear)="onClear($event)" required>
+                  </b404-places>
+                </div>
+                <div class="col-md-4 b404-margin-bottom-10-mobile">
+                  <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                    <mat-label>{{'TRAVELS.TRAVEL.MODEL.COST' | b404Translate}}</mat-label>
+                    <span matPrefix>$ &nbsp;</span>
+                    <input matInput matInputCurrency formControlName="salePrice" type="text"
+                      placeholder="{{'TRAVELS.TRAVEL.MODEL.COST' | b404Translate}}" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="b404-form__group">
+        <div class="row">
+          <div class="col-md-3 b404-margin-bottom-10-mobile">
+            <mat-form-field appearance="outline" class="mat-form-field-fluid">
+              <mat-label>{{'TRAVELS.TRAVEL.MODEL.LOAD_TIME' | b404Translate}}</mat-label>
+              <input matInput [matDatepicker]="loadTime"
+                placeholder="{{'TRAVELS.TRAVEL.MODEL.LOAD_TIME' | b404Translate }}" formControlName="loadingDate" />
+              <mat-datepicker-toggle matSuffix [for]="loadTime"></mat-datepicker-toggle>
+              <mat-datepicker #loadTime></mat-datepicker>
+              <mat-error>
+                {{'TRAVELS.TRAVEL.MODEL.LOAD_TIME' | b404Translate }}
+                <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
+              </mat-error>
+            </mat-form-field>
+            <ngb-timepicker formControlName="loadingTime" [meridian]="true" [spinners]="false" [readonlyInputs]="">
+            </ngb-timepicker>
           </div>
-          <div class="b404-form__group">
-            <div class="row">
-              <div class="col-md-4 b404-margin-bottom-10-mobile" formGroupName="origin">
-                <b404-places placeholder="Buscar Origen" (onChange)="onSuggestionOrigin($event)"
-                  (onClear)="onClear($event)" required>
-                </b404-places>
-              </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile" formGroupName="destination">
-                <b404-places placeholder="Buscar Destino" (onChange)="onSuggestionDestination($event)"
-                  (onClear)="onClear($event)" required>
-                </b404-places>
-              </div>
-              <div class="col-md-4 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.COST' | b404Translate}}</mat-label>
-                  <span matPrefix>$ &nbsp;</span>
-                  <input matInput matInputCurrency formControlName="salePrice" type="text"
-                    placeholder="{{'TRAVELS.TRAVEL.MODEL.COST' | b404Translate}}" />
-                </mat-form-field>
-              </div>
-            </div>
+          <div class="col-md-3 b404-margin-bottom-10-mobile">
+            <mat-form-field appearance="outline" class="mat-form-field-fluid">
+              <mat-label>{{'TRAVELS.TRAVEL.MODEL.DOWNLOAD_TIME' | b404Translate}}</mat-label>
+              <input matInput [matDatepicker]="downloadTime"
+                placeholder="{{'TRAVELS.TRAVEL.MODEL.DOWNLOAD_TIME' | b404Translate }}"
+                formControlName="unloadingDate" />
+              <mat-datepicker-toggle matSuffix [for]="downloadTime"></mat-datepicker-toggle>
+              <mat-datepicker #downloadTime></mat-datepicker>
+              <mat-error>
+                {{'TRAVELS.TRAVEL.MODEL.DOWNLOAD_TIME' | b404Translate }}
+                <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
+              </mat-error>
+            </mat-form-field>
+            <ngb-timepicker formControlName="unloadingTime" [meridian]="true" [spinners]="false"
+              [readonlyInputs]=""></ngb-timepicker>
           </div>
-          <!-- <div class="b404-form__group">
-            <div class="row">
-              <div class="col-md-3 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.LOAD_TIME' | b404Translate}}</mat-label>
-                  <input matInput [matDatepicker]="loadTime"
-                    placeholder="{{'TRAVELS.TRAVEL.MODEL.LOAD_TIME' | b404Translate }}" formControlName="loadingDate" />
-                  <mat-datepicker-toggle matSuffix [for]="loadTime"></mat-datepicker-toggle>
-                  <mat-datepicker #loadTime></mat-datepicker>
-                  <mat-error>
-                    {{'TRAVELS.TRAVEL.MODEL.LOAD_TIME' | b404Translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
-                  </mat-error>
-                </mat-form-field>
-                <ngb-timepicker formControlName="loadingTime" [meridian]="true" [spinners]="false" [readonlyInputs]="">
-                </ngb-timepicker>
-              </div>
-              <div class="col-md-3 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.DOWNLOAD_TIME' | b404Translate}}</mat-label>
-                  <input matInput [matDatepicker]="downloadTime"
-                    placeholder="{{'TRAVELS.TRAVEL.MODEL.DOWNLOAD_TIME' | b404Translate }}"
-                    formControlName="unloadingDate" />
-                  <mat-datepicker-toggle matSuffix [for]="downloadTime"></mat-datepicker-toggle>
-                  <mat-datepicker #downloadTime></mat-datepicker>
-                  <mat-error>
-                    {{'TRAVELS.TRAVEL.MODEL.DOWNLOAD_TIME' | b404Translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
-                  </mat-error>
-                </mat-form-field>
-                <ngb-timepicker formControlName="unloadingTime" [meridian]="true" [spinners]="false"
-                  [readonlyInputs]=""></ngb-timepicker>
-              </div>
-              <div class="col-md-3 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.ARRIVE_TIME' | b404Translate}}</mat-label>
-                  <input matInput [matDatepicker]="arriveTime"
-                    placeholder="{{'TRAVELS.TRAVEL.MODEL.ARRIVE_TIME' | b404Translate }}"
-                    formControlName="originArriveDate" />
-                  <mat-datepicker-toggle matSuffix [for]="arriveTime"></mat-datepicker-toggle>
-                  <mat-datepicker #arriveTime></mat-datepicker>
-                  <mat-error>
-                    {{'TRAVELS.TRAVEL.MODEL.ARRIVE_TIME' | b404Translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
-                  </mat-error>
-                </mat-form-field>
-                <ngb-timepicker formControlName="originArriveTime" [meridian]="true" [spinners]="false"
-                  [readonlyInputs]=""></ngb-timepicker>
-              </div>
-              <div class="col-md-3 b404-margin-bottom-10-mobile">
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME' | b404Translate}}</mat-label>
-                  <input matInput [matDatepicker]="aCT"
-                    placeholder="{{'TRAVELS.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME' | b404Translate }}"
-                    formControlName="destinationArriveDate" />
-                  <mat-datepicker-toggle matSuffix [for]="aCT"></mat-datepicker-toggle>
-                  <mat-datepicker #aCT></mat-datepicker>
-                  <mat-error>
-                    {{'TRAVELS.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME' | b404Translate }}
-                    <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
-                  </mat-error>
-                </mat-form-field>
-                <ngb-timepicker formControlName="destinationArriveTime" [meridian]="true" [spinners]="false"
-                  [readonlyInputs]=""></ngb-timepicker>
-              </div>
-            </div>
-          </div> -->
-
-          <div class="b404-form__group">
-            <div class="row">
-              <div class="col-md-6 b404-margin-bottom-10-mobile">
-                <mat-label>{{'TRAVELS.TRAVEL.MODEL.COMMENTS' | b404Translate}}</mat-label>
-                <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <textarea matInput rows="5" placeholder="{{'TRAVELS.TRAVEL.MODEL.COMMENTS' | b404Translate }}"
-                    formControlName="comments"></textarea>
-                </mat-form-field>
-              </div>
-            </div>
+          <div class="col-md-3 b404-margin-bottom-10-mobile">
+            <mat-form-field appearance="outline" class="mat-form-field-fluid">
+              <mat-label>{{'TRAVELS.TRAVEL.MODEL.ARRIVE_TIME' | b404Translate}}</mat-label>
+              <input matInput [matDatepicker]="arriveTime"
+                placeholder="{{'TRAVELS.TRAVEL.MODEL.ARRIVE_TIME' | b404Translate }}"
+                formControlName="originArriveDate" />
+              <mat-datepicker-toggle matSuffix [for]="arriveTime"></mat-datepicker-toggle>
+              <mat-datepicker #arriveTime></mat-datepicker>
+              <mat-error>
+                {{'TRAVELS.TRAVEL.MODEL.ARRIVE_TIME' | b404Translate }}
+                <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
+              </mat-error>
+            </mat-form-field>
+            <ngb-timepicker formControlName="originArriveTime" [meridian]="true" [spinners]="false"
+              [readonlyInputs]=""></ngb-timepicker>
+          </div>
+          <div class="col-md-3 b404-margin-bottom-10-mobile">
+            <mat-form-field appearance="outline" class="mat-form-field-fluid">
+              <mat-label>{{'TRAVELS.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME' | b404Translate}}</mat-label>
+              <input matInput [matDatepicker]="aCT"
+                placeholder="{{'TRAVELS.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME' | b404Translate }}"
+                formControlName="destinationArriveDate" />
+              <mat-datepicker-toggle matSuffix [for]="aCT"></mat-datepicker-toggle>
+              <mat-datepicker #aCT></mat-datepicker>
+              <mat-error>
+                {{'TRAVELS.TRAVEL.MODEL.ARRIVE_CUSTOMER_TIME' | b404Translate }}
+                <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
+              </mat-error>
+            </mat-form-field>
+            <ngb-timepicker formControlName="destinationArriveTime" [meridian]="true" [spinners]="false"
+              [readonlyInputs]=""></ngb-timepicker>
           </div>
         </div>
-      </form>
-    </div>
+      </div> -->
+
+            <div class="b404-form__group">
+              <div class="row">
+                <div class="col-md-6 b404-margin-bottom-10-mobile">
+                  <mat-label>{{'TRAVELS.TRAVEL.MODEL.COMMENTS' | b404Translate}}</mat-label>
+                  <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                    <textarea matInput rows="5" placeholder="{{'TRAVELS.TRAVEL.MODEL.COMMENTS' | b404Translate }}"
+                      formControlName="comments"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span [ngClass]="{ 'invalid': hasFormErrors && travelForm.get('expenses').invalid }">
+              Gastos
+            </span>
+          </ng-template>
+          <b404-expenses [expenses]="expensesArray" [expensesForm]="travelForm.get('expenses')"></b404-expenses>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
     <!--end::Form-->
     <!--<div id="map"></div>-->
   </b404-portlet-body>

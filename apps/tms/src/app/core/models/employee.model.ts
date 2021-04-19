@@ -42,19 +42,18 @@ export class EmployeeModel implements IEmployee {
       driversLicense: {
         type: '',
         dueDate: null,
-        attachmentPath: ''
+        attachmentPath: '',
       },
       psychophysicistTest: {
         date: null,
         expirationDate: null,
-        attachmentPath: ''
+        attachmentPath: '',
       },
       ine: {
-        attachmentPath: []
-      }
+        attachmentPath: [],
+      },
     };
-    this.imagePath = employee && employee.imagePath || '';
-    this.status = employee && employee.status || null;
+    this.imagePath = (employee && employee.imagePath) || '';
+    this.status = (employee && employee.status) || null;
   }
 }
-

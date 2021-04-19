@@ -43,7 +43,7 @@ export class TrucksAutocompleteComponent extends BaseAutocompleteComponent
     this.stateChanges.next();
   }
 
-  @HostBinding() public id = `Trucks-autocomplete-${TrucksAutocompleteComponent.nextId++}`;
+  @HostBinding() public id = `trucks-autocomplete-${TrucksAutocompleteComponent.nextId++}`;
   constructor(
     @Optional() @Self() public ngControl: NgControl,
     protected fm: FocusMonitor,
@@ -65,16 +65,16 @@ export class TrucksAutocompleteComponent extends BaseAutocompleteComponent
       .pipe(
         debounceTime(300),
         filter(value => !!value),
-        distinctUntilChanged((a: TruckModel, b: TruckModel) => a.serialNumber === b.serialNumber),
+        distinctUntilChanged((a: TruckModel, b: TruckModel) => a.nickname === b.nickname),
         tap(value => {
-          this.modelText = value.serialNumber;
-          this.modelTextChange.next(value.serialNumber);
+          this.modelText = value.nickname;
+          this.modelTextChange.next(value.nickname);
         }),
         filter(value => this.lastSearchHadResults(value)),
         filter(() => this.changedModel ? this.changedModel = false : true),
         switchMap(value => {
           this.loading.next(true);
-          const search = value.serialNumber || '';
+          const search = value.nickname || '';
           return this.trucksService.findQueryTrucks(search).pipe(
             map(response => response.items),
             tap(response => {
@@ -93,11 +93,10 @@ export class TrucksAutocompleteComponent extends BaseAutocompleteComponent
   }
 
   protected shouldReloadPanel() {
-    console.log(this.haveModels, this.loading.value, this.value && (this.value.serialNumber !== '' || !!this.value.id));
     if (
       this.haveModels ||
       this.loading.value ||
-      this.value && (this.value.serialNumber !== '' || !!this.value.id)
+      this.value && (this.value.nickname !== '' || !!this.value.id)
     ) {
       return false;
     }
@@ -105,7 +104,7 @@ export class TrucksAutocompleteComponent extends BaseAutocompleteComponent
   }
 
   public displayFn(model: TruckModel): string {
-    return model && model.serialNumber !== undefined ? model.serialNumber : '';
+    return model && model.nickname !== undefined ? model.nickname : '';
   }
 
   ngOnDestroy(): void {

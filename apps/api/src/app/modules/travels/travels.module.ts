@@ -4,6 +4,7 @@ import { EmployeesModule } from '../admin/employees/employees.module';
 import { BoxesModule } from '../workshop/boxes/boxes.module';
 import { TrucksModule } from '../workshop/trucks/trucks.module';
 import { CompletedTravelsModule } from './completed-travels/completed-travels.module';
+import { ExpensesModule } from './expenses/expenses.module';
 import { TravelStatus, TravelStatusSchema } from './schemas/travel-status.schema';
 import { Travel, TravelSchema } from './schemas/travel.schema';
 import { TravelsController } from './travels.controller';
@@ -17,6 +18,7 @@ import { TravelsService } from './travels.service';
     ]),
     BoxesModule,
     TrucksModule,
+    ExpensesModule,
     EmployeesModule,
     CompletedTravelsModule,
   ],

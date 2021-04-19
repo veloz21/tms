@@ -1,4 +1,4 @@
-import { IBox, IEmployee, ITravel, ITruck } from '@bits404/api-interfaces';
+import { IBox, IEmployee, IExpense, ITravel, ITruck } from '@bits404/api-interfaces';
 import { TravelStatusModel } from './travel-status.model';
 
 export class TravelModel implements ITravel {
@@ -10,16 +10,17 @@ export class TravelModel implements ITravel {
   locations: {
     origin: {
       type: 'Point',
-      coordinates: number[]
+      coordinates: number[],
     },
     destination: {
       type: 'Point',
-      coordinates: number[]
+      coordinates: number[],
     },
   };
   status: Partial<TravelStatusModel>[];
   currentStatus: string;
   comments: string;
+  expenses: Partial<IExpense>[];
 
   constructor(travel?: Partial<ITravel>) {
     this.operator = (travel && travel.operator) || null;
@@ -40,5 +41,6 @@ export class TravelModel implements ITravel {
     };
     this.status = (travel && travel.status) || [];
     this.comments = (travel && travel.comments) || '';
+    this.expenses = (travel && travel.expenses) || [];
   }
 }

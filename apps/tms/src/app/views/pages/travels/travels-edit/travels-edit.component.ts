@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { TravelsService } from '@tms/services';
 import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
+import { ExpensesComponent } from '../expenses/expenses.component';
 
 @Component({
   selector: 'b404-travels-edit',
@@ -33,6 +34,8 @@ export class TravelsEditComponent implements OnInit, OnDestroy {
   public companyTravelStatus: Partial<TravelStatusModel>[];
 
   public translateParams: TranslateParams;
+  @ViewChild(ExpensesComponent) private expenses: ExpensesComponent;
+
   private ngUnsuscribe = new Subject();
   constructor(
     private router: Router,
@@ -173,6 +176,9 @@ export class TravelsEditComponent implements OnInit, OnDestroy {
         ...status.map(s => this.travelStatus(s))
       ]),
       comments: [this.travel.comments, []],
+      expenses: this.travelFB.group({
+        expenses: this.travelFB.array([]),
+      }),
     });
   }
 
@@ -220,13 +226,9 @@ export class TravelsEditComponent implements OnInit, OnDestroy {
 
   onSumbit(withBack: boolean = false) {
     this.hasFormErrors = false;
-    const controls = this.travelForm.controls;
-    /** check form */
     if (this.travelForm.invalid) {
-      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
-
+      this.travelForm.markAllAsTouched();
       this.hasFormErrors = true;
-      this.selectedTab = 0;
       console.log(this.travelForm);
       return;
     }
@@ -284,6 +286,7 @@ export class TravelsEditComponent implements OnInit, OnDestroy {
 
     _travel.currentStatus = _travel.status.length > 0 ? _travel.status[0].id : null;
     _travel.comments = this.travelForm.get('comments').value;
+    _travel.expenses = this.expenses.prepareExpenses() || [];
     return _travel;
   }
 

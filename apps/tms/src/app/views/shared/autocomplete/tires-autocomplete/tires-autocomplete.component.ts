@@ -44,7 +44,7 @@ export class TiresAutocompleteComponent extends BaseAutocompleteComponent
     this.stateChanges.next();
   }
 
-  @HostBinding() public id = `clients-autocomplete-${TiresAutocompleteComponent.nextId++}`;
+  @HostBinding() public id = `tires-autocomplete-${TiresAutocompleteComponent.nextId++}`;
   constructor(
     @Optional() @Self() public ngControl: NgControl,
     protected fm: FocusMonitor,

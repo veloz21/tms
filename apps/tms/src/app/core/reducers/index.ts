@@ -6,6 +6,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 export { boxesReducer, BoxesState } from './boxes.reducers';
 export { completedTravelReducer, CompletedTravelsState } from './completed-travels.reducers';
 export { employeesReducer, EmployeesState } from './employees.reducers';
+export { expensesReducer, ExpensesState } from './expenses.reducers';
 export { maintenancesReducer, MaintenancesState } from './maintenances.reducers';
 export { tiresReducer, TiresState } from './tires.reducers';
 export { travelsReducer, TravelsState } from './travels.reducers';

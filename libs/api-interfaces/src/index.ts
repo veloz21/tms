@@ -3,6 +3,7 @@ export * from './lib/box';
 export * from './lib/company';
 export * from './lib/completed-travel';
 export * from './lib/employee';
+export * from './lib/expense';
 export * from './lib/maintenance';
 export * from './lib/query-params';
 export * from './lib/query-results';

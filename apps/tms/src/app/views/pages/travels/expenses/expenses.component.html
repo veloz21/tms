@@ -1,0 +1,10 @@
+<div class="d-flex px-3 py-2 justify-content-start">
+  <a href="javascript:;" class="btn btn-primary b404-margin-r-10" mat-raised-button (click)="addExpense()"
+    matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | b404Translate}}">
+    <span class="b404-hidden-mobile">Agregar gasto</span>
+  </a>
+</div>
+<div *ngFor="let expense of expensesFormArray.controls; let i = index">
+  <b404-expense [index]="i" [expensesForm]="expensesFormArray.controls[i]" (deleteExpenseGroup)="deleteExpense($event)">
+  </b404-expense>
+</div>

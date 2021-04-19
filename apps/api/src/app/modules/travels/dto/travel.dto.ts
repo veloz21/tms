@@ -1,6 +1,8 @@
+import { ITravel } from "@bits404/api-interfaces";
 import { Exclude, Expose, Transform, Type } from "class-transformer";
 import { Types } from 'mongoose';
 import { BaseDBObject } from '../../../core/dto/base-db-object';
+import { ExpenseDto } from "../expenses/dto/expense.dto";
 import { TravelBoxDto } from "./travel-box.dto";
 import { TravelEmployeeDto } from "./travel-employee.dto";
 import { TravelLocationsDto } from './travel-locations.dto';
@@ -8,7 +10,7 @@ import { TravelStatusDto } from "./travel-status.dto";
 import { TravelTruckDto } from "./travel-truck.dto";
 
 @Exclude()
-export class TravelDto extends BaseDBObject {
+export class TravelDto extends BaseDBObject implements ITravel {
 
   @Expose()
   @Type(() => TravelEmployeeDto)
@@ -25,6 +27,10 @@ export class TravelDto extends BaseDBObject {
   @Expose()
   @Type(() => TravelLocationsDto)
   locations: TravelLocationsDto;
+
+  @Expose()
+  @Type(() => ExpenseDto)
+  expenses: ExpenseDto[];
 
   @Expose()
   @Type(() => TravelStatusDto)

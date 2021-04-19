@@ -43,7 +43,7 @@ export class EmployeesAutocompleteComponent extends BaseAutocompleteComponent
     this.stateChanges.next();
   }
 
-  @HostBinding() public id = `clients-autocomplete-${EmployeesAutocompleteComponent.nextId++}`;
+  @HostBinding() public id = `employees-autocomplete-${EmployeesAutocompleteComponent.nextId++}`;
   constructor(
     @Optional() @Self() public ngControl: NgControl,
     protected fm: FocusMonitor,
