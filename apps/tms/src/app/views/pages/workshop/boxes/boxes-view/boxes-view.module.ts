@@ -38,7 +38,7 @@ const routes: Route[] = [
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    RouterModule.forChild(routes),
+    RouterModule,
     environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
       passThruUnknownUrl: true,
       dataEncapsulation: false
