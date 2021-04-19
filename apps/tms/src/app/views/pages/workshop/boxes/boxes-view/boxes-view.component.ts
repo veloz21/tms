@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BoxModel } from '../../../../../core/models';
+import { BoxModel } from '@tms/models';
 
 @Component({
   selector: 'b404-boxes-view',
