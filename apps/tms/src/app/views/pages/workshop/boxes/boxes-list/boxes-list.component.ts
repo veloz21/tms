@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from '@bits404/api-interfaces';
 import { select, Store } from '@ngrx/store';
-import { DeleteManyBoxes, DeleteOneBox, RequestBoxesPage } from '@tms/actions/box.actions';
+import { DeleteManyBoxes, DeleteOneBox, RequestBoxesPage, ViewBox } from '@tms/actions/box.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { BoxesDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
@@ -232,5 +232,9 @@ export class BoxesListComponent implements OnInit, OnDestroy {
     } else {
       this.boxesResult.forEach((row) => this.selection.select(row));
     }
+  }
+
+  viewBox(id: string) {
+    this.store.dispatch(new ViewBox({ id }));
   }
 }

@@ -36,6 +36,7 @@ import { BoxesService } from '@tms/services';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { BoxesViewModule } from '../boxes-view/boxes-view.module';
 import { BoxesListComponent } from './boxes-list.component';
 
 const routes: Routes = [{
@@ -85,6 +86,7 @@ const routes: Routes = [{
     StoreModule.forFeature('boxes', boxesReducer),
     EffectsModule.forFeature([BoxEffects]),
     SharedModule,
+    BoxesViewModule,
   ],
   providers: [
     {
@@ -101,7 +103,6 @@ const routes: Routes = [{
     HttpUtilsService,
     BoxesService,
     TypesUtilsService,
-    LayoutUtilsService
   ],
   entryComponents: [
     ActionNotificationComponent,

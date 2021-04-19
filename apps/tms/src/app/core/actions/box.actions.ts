@@ -19,6 +19,7 @@ export enum BoxActionTypes {
   CancellBoxesPage = '[Boxes API] Cancell Boxes Page ',
   BoxesPageToggleLoading = '[Boxes] Boxes Page Toggle Loading',
   BoxesActionToggleLoading = '[Boxes] Boxes Action Toggle Loading',
+  ViewBox = '[View Boxes Component] View Box',
 }
 
 export class GetBox implements Action {
@@ -113,6 +114,11 @@ export class BoxesActionToggleLoading implements Action {
   }) { }
 }
 
+export class ViewBox implements Action {
+  readonly type = BoxActionTypes.ViewBox;
+  constructor(public payload: { id: string }) { }
+}
+
 export type BoxActions =
   | CreateBox
   | UpdateBox
@@ -129,4 +135,5 @@ export type BoxActions =
   | CreateBoxSuccess
   | GetBox
   | StoreBox
+  | ViewBox
   ;

@@ -18,6 +18,7 @@ import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { BoxesViewComponent } from './boxes-view.component';
 import { BoxesViewEntryComponent } from './boxes-view.entry.component';
+import { BoxesViewService } from './boxes-view.service';
 
 const routes: Route[] = [
   {
@@ -49,7 +50,8 @@ const routes: Route[] = [
   providers: [
     LayoutUtilsService,
     BoxesService,
-    BoxResolver
+    BoxResolver,
+    BoxesViewService,
   ],
 })
 export class BoxesViewModule { }

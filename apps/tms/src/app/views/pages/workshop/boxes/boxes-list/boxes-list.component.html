@@ -116,7 +116,7 @@
               {{"GENERAL.MODEL.ACTIONS" | b404Translate }}
             </mat-header-cell>
             <mat-cell *matCellDef="let box">
-              <button mat-icon-button [routerLink]="['/workshop/boxes/view/',box.id]"
+              <button mat-icon-button (click)="viewBox(box.id)"
                 matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
                 <mat-icon>visibility</mat-icon>
               </button>&nbsp;
