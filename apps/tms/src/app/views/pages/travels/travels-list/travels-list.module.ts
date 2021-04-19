@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -25,20 +25,24 @@ import { RouterModule } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
+import { LayoutUtilsService } from '@tms/crud';
 import { TravelEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { CurrentTravelStatusPipe, FakeApiService, NextTravelStatusPipe } from '@tms/layout';
+import { PartialsModule } from '@tms/partials/partials.module';
 import { travelsReducer } from '@tms/reducers';
 import { CompletedTravelService, TravelsService } from '@tms/services';
+import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { ActionNotificationComponent, DeleteEntityDialogComponent, FetchEntityDialogComponent, UpdateStatusDialogComponent } from '../../../partials/content/crud';
-import { PartialsModule } from '../../../partials/partials.module';
-import { SharedModule } from '../../../shared/shared.module';
+import { ActionNotificationComponent, DeleteEntityDialogComponent } from '../../../partials/content/crud';
+import { EmployeesViewModule } from '../../paysheet/employees/employees-view/employees-view.module';
+import { BoxesViewModule } from '../../workshop/boxes/boxes-view/boxes-view.module';
+import { TrucksViewModule } from '../../workshop/trucks/trucks-view/trucks-view.module';
 import { CompletedTravelsListModule } from '../completed-travels/completed-travels-list/completed-travels-list.module';
 import { ChangeStatusDialogComponent } from '../components/change-status-dialog/change-status-dialog.component';
 import { ChangeStatusDialogModule } from '../components/change-status-dialog/change-status-dialog.module';
+import { TravelsViewModule } from '../travels-view/travels-view.module';
 import { TravelsListComponent } from './travels-list.component';
 
 @NgModule({
@@ -74,20 +78,6 @@ import { TravelsListComponent } from './travels-list.component';
       {
         path: '',
         component: TravelsListComponent,
-        children: [
-          {
-            path: 'operator',
-            loadChildren: () => import('../../paysheet/employees/employees-view/employees-view.module').then(m => m.EmployeesViewModule),
-          },
-          {
-            path: 'truck',
-            loadChildren: () => import('../../paysheet/employees/employees-view/employees-view.module').then(m => m.EmployeesViewModule),
-          },
-          {
-            path: 'box',
-            loadChildren: () => import('../../paysheet/employees/employees-view/employees-view.module').then(m => m.EmployeesViewModule),
-          },
-        ]
       },
     ]),
     environment.isMockEnabled
@@ -99,31 +89,20 @@ import { TravelsListComponent } from './travels-list.component';
     StoreModule.forFeature('travels', travelsReducer),
     EffectsModule.forFeature([TravelEffects]),
     SharedModule,
+    BoxesViewModule,
+    TrucksViewModule,
+    EmployeesViewModule,
+    TravelsViewModule,
   ],
   providers: [
-    {
-      provide: MAT_DIALOG_DEFAULT_OPTIONS,
-      useValue: {
-        hasBackdrop: true,
-        panelClass: 'b404-mat-dialog-container__wrapper',
-        height: 'auto',
-        width: '900px',
-      },
-    },
-    TypesUtilsService,
     LayoutUtilsService,
-    HttpUtilsService,
     TravelsService,
-    TypesUtilsService,
-    LayoutUtilsService,
     CompletedTravelService,
     ChangeStatusDialogModule,
   ],
   entryComponents: [
     ActionNotificationComponent,
     DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
     ChangeStatusDialogComponent
   ],
   declarations: [TravelsListComponent, CurrentTravelStatusPipe, NextTravelStatusPipe],
