@@ -11,15 +11,15 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        loadChildren: () => import('./truck-edit/truck-edit.module').then(m => m.TruckEditModule),
+        loadChildren: () => import('./trucks-edit/trucks-edit.module').then(m => m.TrucksEditModule),
       },
       {
         path: 'edit',
-        loadChildren: () => import('./truck-edit/truck-edit.module').then(m => m.TruckEditModule),
+        loadChildren: () => import('./trucks-edit/trucks-edit.module').then(m => m.TrucksEditModule),
       },
       {
         path: 'edit/:id',
-        loadChildren: () => import('./truck-edit/truck-edit.module').then(m => m.TruckEditModule),
+        loadChildren: () => import('./trucks-edit/trucks-edit.module').then(m => m.TrucksEditModule),
       }
     ]
   }

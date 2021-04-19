@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { CreateTruck, UpdateTruck } from '@tms/actions/truck.actions';
-import { AVIABILITY_STATUS } from '@tms/core/enums';
+import { AVIABILITY_STATUS } from '@tms/enums';
 import { SubheaderService } from '@tms/layout';
 import { TruckModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
@@ -15,11 +15,11 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'b404-truck-edit',
-  templateUrl: './truck-edit.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'b404-trucks-edit',
+  templateUrl: './trucks-edit.component.html',
+  styleUrls: ['./trucks-edit.component.scss']
 })
-export class TruckEditComponent implements OnInit, OnDestroy {
+export class TrucksEditComponent implements OnInit, OnDestroy {
 
   public truck: TruckModel;
   public truckId$: Observable<number>;
@@ -275,4 +275,5 @@ export class TruckEditComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
     this.truckForm.get('image').setValue(file);
   }
+
 }
