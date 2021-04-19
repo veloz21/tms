@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -25,7 +25,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from '@tms/crud';
+import { LayoutUtilsService } from '@tms/crud';
 import { BoxEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
@@ -37,6 +37,7 @@ import { BoxesService } from '@tms/services';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { SharedModule } from '../../../../shared/shared.module';
+import { BoxesViewService } from '../boxes-view/boxes-view.service';
 import { BoxesEditComponent } from './boxes-edit.component';
 
 // tslint:disable-next-line:class-name
@@ -95,22 +96,10 @@ const routes: Routes = [
     SharedModule,
   ],
   providers: [
-    {
-      provide: MAT_DIALOG_DEFAULT_OPTIONS,
-      useValue: {
-        hasBackdrop: true,
-        panelClass: 'b404-mat-dialog-container__wrapper',
-        height: 'auto',
-        width: '900px'
-      }
-    },
-    TypesUtilsService,
-    LayoutUtilsService,
-    HttpUtilsService,
     BoxesService,
-    TypesUtilsService,
     LayoutUtilsService,
-    BoxResolver
+    BoxResolver,
+    BoxesViewService,
   ],
   entryComponents: [
     ActionNotificationComponent,
