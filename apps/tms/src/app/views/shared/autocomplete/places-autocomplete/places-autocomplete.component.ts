@@ -1,14 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output,
-  SimpleChanges,
-  ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
 import * as places from 'places.js';
 
 @Component({
@@ -21,8 +11,10 @@ export class PlacesComponent implements AfterViewInit, OnDestroy, OnChanges {
   private instance = null;
 
   @ViewChild('input') input;
-  @Output() onChange?= new EventEmitter();
-  @Output() onClear?= new EventEmitter();
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output() onChange = new EventEmitter();
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output() onClear = new EventEmitter();
 
   @Input() type: string;
   @Input() placeholder: string;
@@ -34,6 +26,7 @@ export class PlacesComponent implements AfterViewInit, OnDestroy, OnChanges {
       container: this.input.nativeElement,
       type: this.type,
     });
+
     this.instance.on('change', (e) => {
       this.onChange.emit(e);
     });
@@ -42,6 +35,7 @@ export class PlacesComponent implements AfterViewInit, OnDestroy, OnChanges {
       this.onClear.emit(e);
     });
   }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.type && this.instance) {
       this.instance.configure({
@@ -49,6 +43,7 @@ export class PlacesComponent implements AfterViewInit, OnDestroy, OnChanges {
       });
     }
   }
+
   ngOnDestroy() {
     this.instance.removeAllListeners('change');
     this.instance.removeAllListeners('clear');
