@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>{{ truck.nickname }}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.MODEL' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ truck.truckModel }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.BRAND' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ truck.brand }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.NICKNAME' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ truck.nickname }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.MOTOR_NUMBER' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ truck.motorNumber }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.MAINTENANCE_PERIOD' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ truck.maintenancePeriod }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.SERIAL_NUMBER' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ truck.serialNumber }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.INITIAL_RANGE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ truck.initialRange }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ truck.rangeTraveled }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.TRUCK.MODEL.PRICE' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">$ {{ truck.price }}</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close (click)="close()">
+    {{"GENERAL.BUTTONS.CLOSE" | b404Translate}}
+  </button>
+  <button color="primary" mat-raised-button [mat-dialog-close]="true" cdkFocusInitial
+    [routerLink]="['/workshop/trucks/edit/',truck.id]">
+    <mat-icon>create</mat-icon>
+    <span>{{"GENERAL.BUTTONS.EDIT" | b404Translate}}</span>
+  </button>
+</mat-dialog-actions>
