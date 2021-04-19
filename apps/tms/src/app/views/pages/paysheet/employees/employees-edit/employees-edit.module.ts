@@ -24,6 +24,7 @@ import { EmployeeResolver } from '@tms/resolvers';
 import { EmployeesService } from '@tms/services';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { EmployeesViewService } from '../employees-view/employees-view.service';
 import { EmployeesEditComponent } from './employees-edit.component';
 
 const routes: Route[] = [
@@ -69,9 +70,10 @@ const routes: Route[] = [
     SharedModule,
   ],
   providers: [
-    LayoutUtilsService,
     EmployeesService,
-    EmployeeResolver
+    EmployeeResolver,
+    LayoutUtilsService,
+    EmployeesViewService,
   ],
   entryComponents: [
     ActionNotificationComponent,

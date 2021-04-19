@@ -7,6 +7,7 @@ import { AppState } from '@tms/reducers';
 import { EmployeesService } from '@tms/services';
 import { forkJoin, of } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { EmployeesViewService } from '../../views/pages/paysheet/employees/employees-view/employees-view.service';
 import { selectEmployeeById } from '../selectors/employee.selectors';
 
 @Injectable()
@@ -148,10 +149,20 @@ export class EmployeeEffects {
       map(() => this.hideActionLoadingDistpatcher)
     );
 
+  @Effect({ dispatch: false })
+  viewEmployee$ = this.actions$
+    .pipe(
+      ofType<fromEmployeeActions.ViewEmployee>(fromEmployeeActions.EmployeeActionTypes.ViewEmployee),
+      map(({ payload }) => {
+        return this.employeesViewService.openEmployeeView(payload.id);
+      }),
+    );
+
   constructor(
     private actions$: Actions,
-    private employeesService: EmployeesService,
     private snackBar: MatSnackBar,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private employeesService: EmployeesService,
+    private employeesViewService: EmployeesViewService,
   ) { }
 }
