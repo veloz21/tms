@@ -77,7 +77,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">
             <span [actionToolTip]="travel.operator.firstName" actionToolTipLinkText="Ver"
-              [actionToolTipLink]="['/travels/operator/',travel.operator.id]">
+              (actionToolTipAction)="viewOperator(travel.operator.id)">
               {{travel.operator.firstName}}&nbsp;{{travel.operator.lastName}}
             </span>
           </mat-cell>
@@ -89,7 +89,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">
             <span [actionToolTip]="travel.box.nickname" actionToolTipLinkText="Ver"
-              [actionToolTipLink]="['/travels/box/',travel.box.id]">
+              (actionToolTipAction)="viewBox(travel.box.id)">
               {{travel.box.nickname}}
             </span>
           </mat-cell>
@@ -101,7 +101,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">
             <span [actionToolTip]="travel.truck.nickname" actionToolTipLinkText="Ver"
-              [actionToolTipLink]="['/travels/truck/',travel.truck.id]">
+              (actionToolTipAction)="viewTruck(travel.truck.id)">
               {{travel.truck.nickname}}
             </span>
           </mat-cell>
@@ -140,6 +140,10 @@
             {{"GENERAL.MODEL.ACTIONS" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let travel">
+            <button mat-icon-button (click)="viewTravel(travel.id)"
+              matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
+              <mat-icon>visibility</mat-icon>
+            </button>&nbsp;
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
             </button>

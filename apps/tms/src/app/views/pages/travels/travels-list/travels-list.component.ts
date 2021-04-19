@@ -4,8 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { select, Store } from '@ngrx/store';
+import { ViewBox } from '@tms/actions/box.actions';
 import { CreateCompletedTravel } from '@tms/actions/completed-travel.actions';
-import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage, UpdateTravelStatus } from '@tms/actions/travel.actions';
+import { ViewEmployee } from '@tms/actions/employee.actions';
+import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage, UpdateTravelStatus, ViewTravel } from '@tms/actions/travel.actions';
+import { ViewTruck } from '@tms/actions/truck.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { TravelsDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
@@ -242,5 +245,21 @@ export class TravelsListComponent implements OnInit, OnDestroy {
       this.store.dispatch(new UpdateTravelStatus({ travelId: travel.id, status: validatedStatus }));
     });
 
+  }
+
+  viewBox(id: string) {
+    this.store.dispatch(new ViewBox({ id }));
+  }
+
+  viewTruck(id: string) {
+    this.store.dispatch(new ViewTruck({ id }));
+  }
+
+  viewOperator(id: string) {
+    this.store.dispatch(new ViewEmployee({ id }));
+  }
+
+  viewTravel(id: string) {
+    this.store.dispatch(new ViewTravel({ id }));
   }
 }
