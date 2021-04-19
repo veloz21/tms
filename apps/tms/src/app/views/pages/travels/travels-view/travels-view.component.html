@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>{{ travel.box.nickname }}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="row">
+    <div class="col-lg-4 col-6">
+      <span>{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}</span>
+    </div>
+    <div class="col-lg-8 col-6">{{ travel | json }}</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close (click)="close()">
+    {{"GENERAL.BUTTONS.CLOSE" | b404Translate}}
+  </button>
+  <button color="primary" mat-raised-button [mat-dialog-close]="true" cdkFocusInitial
+    [routerLink]="['/travels/edit/',travel.id]">
+    <mat-icon>create</mat-icon>
+    <span>{{"GENERAL.BUTTONS.EDIT" | b404Translate}}</span>
+  </button>
+</mat-dialog-actions>
