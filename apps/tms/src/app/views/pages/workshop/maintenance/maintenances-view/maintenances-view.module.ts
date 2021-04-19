@@ -18,6 +18,7 @@ import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MaintenancesViewComponent } from './maintenances-view.component';
 import { MaintenancesViewEntryComponent } from './maintenances-view.entry.component';
+import { MaintenancesViewService } from './maintenances-view.service';
 
 const routes: Route[] = [
   {
@@ -30,7 +31,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [MaintenancesViewComponent],
+  declarations: [MaintenancesViewComponent, MaintenancesViewEntryComponent],
   imports: [
     CommonModule,
     PartialsModule,
@@ -50,6 +51,7 @@ const routes: Route[] = [
     LayoutUtilsService,
     MaintenancesService,
     MaintenanceResolver,
+    MaintenancesViewService,
   ],
 })
 export class MaintenancesViewModule { }

@@ -5,7 +5,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { DeleteManyMaintenances, DeleteOneMaintenance, RequestMaintenancesPage } from '@tms/actions/maintenance.actions';
+import { ViewBox } from '@tms/actions/box.actions';
+import { ViewEmployee } from '@tms/actions/employee.actions';
+import { DeleteManyMaintenances, DeleteOneMaintenance, RequestMaintenancesPage, ViewMaintenance } from '@tms/actions/maintenance.actions';
+import { ViewTruck } from '@tms/actions/truck.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
 import { MaintenancesDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
@@ -207,4 +210,21 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
       this.maintenancesResult.forEach(row => this.selection.select(row));
     }
   }
+
+  viewMaintenance(id: string) {
+    this.store.dispatch(new ViewMaintenance({ id }));
+  }
+
+  viewTruck(id: string) {
+    this.store.dispatch(new ViewTruck({ id }));
+  }
+
+  viewBox(id: string) {
+    this.store.dispatch(new ViewBox({ id }));
+  }
+
+  viewMechanic(id: string) {
+    this.store.dispatch(new ViewEmployee({ id }));
+  }
+
 }

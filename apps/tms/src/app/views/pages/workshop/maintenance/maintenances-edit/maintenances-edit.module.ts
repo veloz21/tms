@@ -25,6 +25,7 @@ import { EmployeesAutocompleteModule } from '@tms/shared/autocomplete/employees-
 import { TrucksAutocompleteModule } from '@tms/shared/autocomplete/trucks-autocomplete/trucks-autocomplete.module';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { MaintenancesViewService } from '../maintenances-view/maintenances-view.service';
 import { MaintenancesEditComponent } from './maintenances-edit.component';
 
 const routes: Routes = [
@@ -74,6 +75,7 @@ const routes: Routes = [
   providers: [
     MaintenancesService,
     MaintenanceResolver,
+    MaintenancesViewService,
   ],
   entryComponents: [
     ActionNotificationComponent,

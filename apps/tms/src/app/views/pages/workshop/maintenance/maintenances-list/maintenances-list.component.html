@@ -66,21 +66,36 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{'WORKSHOP.MAINTENANCE.MODEL.TRUCK_SERIAL_NUMBER' | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let maintenance">{{maintenance.truck.serialNumber}}</mat-cell>
+          <mat-cell *matCellDef="let maintenance">
+            <span *ngIf="maintenance.truck" [actionToolTip]="maintenance.truck.nickname" actionToolTipLinkText="Ver"
+              (actionToolTipAction)="viewTruck(maintenance.truck.id)">
+              {{maintenance.truck.nickname}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Box" mdbTableCol>
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{'WORKSHOP.MAINTENANCE.MODEL.BOX_SERIAL_NUMBER' | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let maintenance">{{maintenance.box.serialNumber || null}}</mat-cell>
+          <mat-cell *matCellDef="let maintenance">
+            <span *ngIf="maintenance.box" [actionToolTip]="maintenance.box.nickname" actionToolTipLinkText="Ver"
+              (actionToolTipAction)="viewBox(maintenance.box.id)">
+              {{maintenance.box.nickname}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Mechanic" mdbTableCol>
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{"WORKSHOP.MAINTENANCE.MODEL.MECHANIC_NAME" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let maintenance">{{maintenance.mechanic.firstName}}</mat-cell>
+          <mat-cell *matCellDef="let maintenance">
+            <span [actionToolTip]="maintenance.mechanic.firstName" actionToolTipLinkText="Ver"
+              (actionToolTipAction)="viewMechanic(maintenance.mechanic.id)">
+              {{maintenance.mechanic.firstName}}&nbsp;{{maintenance.mechanic.lastName}}
+            </span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="StartDate" mdbTableCol>
@@ -109,6 +124,10 @@
             {{"GENERAL.MODEL.ACTIONS" | b404Translate }}
           </mat-header-cell>
           <mat-cell *matCellDef="let maintenance">
+            <button mat-icon-button (click)="viewMaintenance(maintenance.id)"
+              matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
+              <mat-icon>visibility</mat-icon>
+            </button>&nbsp;
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
             </button>

@@ -17,7 +17,8 @@ export enum MaintenanceActionTypes {
   MaintenancesActionToggleLoading = '[Maintenances] Maintenances Action Toggle Loading',
   CreateMaintenanceSuccess = '[Edit Maintenance Component] Create Maintenance Success',
   CreateMaintenanceError = '[Edit Maintenance Component] Create Maintenance Error',
-  UpdateMaintenanceSuccess = '[Edit Travel Component] Update Travel Success'
+  UpdateMaintenanceSuccess = '[Edit Travel Component] Update Travel Success',
+  ViewMaintenance = '[View Maintenancees Component] View Maintenance',
 }
 
 export class GetMaintenance implements Action {
@@ -95,6 +96,10 @@ export class MaintenancesActionToggleLoading implements Action {
   constructor(public payload: { isLoading: boolean }) { }
 }
 
+export class ViewMaintenance implements Action {
+  readonly type = MaintenanceActionTypes.ViewMaintenance;
+  constructor(public payload: { id: string }) { }
+}
 export type MaintenanceActions =
   | CreateMaintenance
   | UpdateMaintenance
@@ -110,5 +115,6 @@ export type MaintenanceActions =
   | UpdateMaintenanceSuccess
   | GetMaintenance
   | StoreMaintenance
+  | ViewMaintenance
   ;
 
