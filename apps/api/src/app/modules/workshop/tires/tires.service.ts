@@ -1,7 +1,7 @@
 import { IQueryParams, IQueryResults } from '@bits404/api-interfaces';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { forkJoin } from 'rxjs';
 import type { HttpOptions } from '../../../core/interfaces';
 import { CreateTireDto } from './dto/create-tire.dto';
@@ -36,15 +36,15 @@ export class TiresService {
     }).toPromise();
   }
 
-  findOne(_id: string, options: HttpOptions): Promise<TireDocument> {
+  findOne(_id: Types.ObjectId, options: HttpOptions): Promise<TireDocument> {
     return this.tireModel.findOne({ _id, company: options.company }).session(options.session).exec();
   }
 
-  update(_id: string, updateTireDto: UpdateTireDto, options: HttpOptions): Promise<TireDocument> {
+  update(_id: Types.ObjectId, updateTireDto: UpdateTireDto, options: HttpOptions): Promise<TireDocument> {
     return this.tireModel.findOneAndUpdate({ _id, company: options.company }, { $set: updateTireDto }, { new: true, session: options.session }).exec();
   }
 
-  remove(_id: string, options: HttpOptions): Promise<TireDocument> {
+  remove(_id: Types.ObjectId, options: HttpOptions): Promise<TireDocument> {
     return this.tireModel.findOneAndRemove({ _id, company: options.company }, { session: options.session, }).exec();
   }
 }

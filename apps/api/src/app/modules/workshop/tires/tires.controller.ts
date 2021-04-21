@@ -4,6 +4,7 @@ import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
 import { TransformInterceptor } from '../../../core/interceptors/transform.interceptor';
 import type { HttpOptions } from '../../../core/interfaces';
+import { stringToMongoId } from '../../../core/utils';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateTireDto } from './dto/create-tire.dto';
 import { TireDto } from './dto/tire.dto';
@@ -29,16 +30,16 @@ export class TiresController {
 
   @Get(':id')
   async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    return await this.tiresService.findOne(id, options);
+    return await this.tiresService.findOne(stringToMongoId(id), options);
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateTireDto: UpdateTireDto, @GetHttpOptions() options: HttpOptions) {
-    return await this.tiresService.update(id, updateTireDto, options);
+    return await this.tiresService.update(stringToMongoId(id), updateTireDto, options);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    return await this.tiresService.remove(id, options);
+    return await this.tiresService.remove(stringToMongoId(id), options);
   }
 }

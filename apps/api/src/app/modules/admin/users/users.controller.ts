@@ -4,6 +4,7 @@ import { QueryParamsDto } from '../../../core/dto';
 import { DbTransactionInterceptor } from '../../../core/interceptors';
 import { TransformInterceptor } from '../../../core/interceptors/transform.interceptor';
 import type { HttpOptions } from '../../../core/interfaces';
+import { stringToMongoId } from '../../../core/utils';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -29,16 +30,16 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    return await this.usersService.findOne(id, options);
+    return await this.usersService.findOne(stringToMongoId(id), options);
   }
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @GetHttpOptions() options: HttpOptions) {
-    return await this.usersService.update(id, updateUserDto, options);
+    return await this.usersService.update(stringToMongoId(id), updateUserDto, options);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string, @GetHttpOptions() options: HttpOptions) {
-    return await this.usersService.remove(id, options);
+    return await this.usersService.remove(stringToMongoId(id), options);
   }
 }

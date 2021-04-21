@@ -4,6 +4,7 @@ import { GetHttpOptions } from '../../core/decorators';
 import { EmailTemplate } from '../../core/enums';
 import { DbTransactionInterceptor } from '../../core/interceptors';
 import { TransformInterceptor } from '../../core/interceptors/transform.interceptor';
+import { stringToMongoId } from '../../core/utils';
 import { CompanyService } from '../admin/company/company.service';
 import { CreateCompanyDto } from '../admin/company/dto/create-company.dto';
 import { CreateUserDto } from '../admin/users/dto/create-user.dto';
@@ -72,7 +73,7 @@ export class AuthController {
   @Post('logout')
   @HttpCode(200)
   logout(@Request() req) {
-    return this.authService.logout(req.userId || null, req.company || null);
+    return this.authService.logout(req.userId ? stringToMongoId(req.userId) : null, req.company || null);
   }
 
   @Post('recover-password')
