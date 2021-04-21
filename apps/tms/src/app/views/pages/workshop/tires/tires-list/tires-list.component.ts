@@ -167,9 +167,9 @@ export class TiresListComponent implements OnInit, OnDestroy {
   }
 
   deleteTire(_item: TireModel) {
-    const title = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_TITLE');
-    const description = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_DESCRIPTION');
-    const deleteMessage = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_ONE_MESSAGE');
+    const title = this.translate.instant('MODULE.DELETE_ONE_TITLE', this.translateParams);
+    const description = this.translate.instant('MODULE.DELETE_ONE_DESCRIPTION', this.translateParams);
+    const deleteMessage = this.translate.instant('MODULE.DELETE_ONE_MESSAGE', this.translateParams);
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(
@@ -185,9 +185,9 @@ export class TiresListComponent implements OnInit, OnDestroy {
   }
 
   deleteTires() {
-    const title = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_TITLE');
-    const description = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_DESCRIPTION');
-    const deleteMessage = this.translate.instant('WORKSHOP.TIRES.TEXT.DELETE_MANY_MESSAGE');
+    const title = this.translate.instant('MODULE.DELETE_MANY_TITLE', this.translateParams);
+    const description = this.translate.instant('MODULE.DELETE_MANY_DESCRIPTION', this.translateParams);
+    const deleteMessage = this.translate.instant('MODULE.DELETE_MANY_MESSAGE', this.translateParams);
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(

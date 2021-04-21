@@ -161,9 +161,9 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   }
 
   deleteBox(_item: BoxModel) {
-    const title = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_ONE_TITLE');
-    const description = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_ONE_DESCRIPTION');
-    const deleteMessage = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_ONE_MESSAGE');
+    const title = this.translate.instant('MODULE.DELETE_ONE_TITLE', this.translateParams);
+    const description = this.translate.instant('MODULE.DELETE_ONE_DESCRIPTION', this.translateParams);
+    const deleteMessage = this.translate.instant('MODULE.DELETE_ONE_MESSAGE', this.translateParams);
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef
@@ -183,9 +183,9 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   }
 
   deleteBoxes() {
-    const title = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_MANY_TITLE');
-    const description = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_MANY_DESCRIPTION');
-    const deleteMessage = this.translate.instant('WORKSHOP.BOXES.TEXT.DELETE_MANY_MESSAGE');
+    const title = this.translate.instant('MODULE.DELETE_MANY_TITLE', this.translateParams);
+    const description = this.translate.instant('MODULE.DELETE_MANY_DESCRIPTION', this.translateParams);
+    const deleteMessage = this.translate.instant('MODULE.DELETE_MANY_MESSAGE', this.translateParams);
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef

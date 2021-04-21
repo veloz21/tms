@@ -156,9 +156,9 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
   }
 
   deleteMaintenance(_item: MaintenanceModel) {
-    const title: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_TITLE');
-    const description: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_DESCRIPTION');
-    const deleteMessage: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_ONE_MESSAGE');
+    const title: string = this.translate.instant('MODULE.DELETE_ONE_TITLE', this.translateParams);
+    const description: string = this.translate.instant('MODULE.DELETE_ONE_DESCRIPTION', this.translateParams);
+    const deleteMessage: string = this.translate.instant('MODULE.DELETE_ONE_MESSAGE', this.translateParams);
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(
@@ -174,9 +174,9 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
   }
 
   deleteMaintenances() {
-    const title: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_TITLE');
-    const description: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_DESCRIPTION');
-    const deleteMessage: string = this.translate.instant('WORKSHOP.MAINTENANCE.TEXT.DELETE_MANY_MESSAGE');
+    const title: string = this.translate.instant('MODULE.DELETE_MANY_TITLE', this.translateParams);
+    const description: string = this.translate.instant('MODULE.DELETE_MANY_DESCRIPTION', this.translateParams);
+    const deleteMessage: string = this.translate.instant('MODULE.DELETE_MANY_MESSAGE', this.translateParams);
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(

@@ -162,9 +162,9 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   }
 
   deleteEmployee(_item: EmployeeModel) {
-    const title: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_TITLE');
-    const description: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_DESCRIPTION');
-    const deleteMessage: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_ONE_MESSAGE');
+    const title: string = this.translate.instant('MODULE.DELETE_ONE_TITLE', this.translateParams);
+    const description: string = this.translate.instant('MODULE.DELETE_ONE_DESCRIPTION', this.translateParams);
+    const deleteMessage: string = this.translate.instant('MODULE.DELETE_ONE_MESSAGE', this.translateParams);
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(takeUntil(this.ngUnsuscribe)).subscribe(res => {
@@ -178,9 +178,9 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   }
 
   deleteEmployees() {
-    const title: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_TITLE');
-    const description: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_DESCRIPTION');
-    const deleteMessage: string = this.translate.instant('PAYSHEET.EMPLOYEE.TEXT.DELETE_MANY_MESSAGE');
+    const title: string = this.translate.instant('MODULE.DELETE_MANY_TITLE', this.translateParams);
+    const description: string = this.translate.instant('MODULE.DELETE_MANY_DESCRIPTION', this.translateParams);
+    const deleteMessage: string = this.translate.instant('MODULE.DELETE_MANY_MESSAGE', this.translateParams);
 
     const dialogRef = this.layoutUtilsService.deleteElement({ title, description });
     dialogRef.afterClosed().pipe(takeUntil(this.ngUnsuscribe)).subscribe(res => {
