@@ -128,6 +128,22 @@ export const locale = {
       GO_BACK: 'Go back to {{entities}} list',
       SHOW: 'Show {{entities}}',
     },
+    ADMIN: {
+      ADMIN: 'Administration',
+      USERS: {
+        USERS: 'Users',
+        ENTITY: {
+          VALUE: 'user'
+        },
+        ENTITIES: {
+          VALUE: 'users'
+        },
+        MODEL: {
+          EMAIL: 'correo',
+          LAST_LOGIN: 'Último login'
+        }
+      }
+    },
     COMPLETED_TRAVELS: {
       ENTITY: {
         VALUE: 'completed travel'

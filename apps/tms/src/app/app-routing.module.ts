@@ -24,6 +24,10 @@ export const routes: Routes = [
         loadChildren: () => import('./views/pages/workshop/workshop.module').then(m => m.WorkshopModule),
       },
       {
+        path: 'admin',
+        loadChildren: () => import('./views/pages/admin/admin.module').then(m => m.AdminModule),
+      },
+      {
         path: 'paysheet',
         loadChildren: () => import('./views/pages/paysheet/paysheet.module').then(m => m.PaysheetModule),
       },

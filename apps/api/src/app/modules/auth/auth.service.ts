@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Types } from 'mongoose';
 import { environment } from '../../../environments/environment';
 import { UsersService } from '../admin/users';
 import { UserDocument } from '../admin/users/schemas/user.schema';
@@ -48,7 +49,7 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async logout(userId: string, company) {
+  async logout(userId: Types.ObjectId, company) {
 
     const user = await this.usersService.findOne(userId, { company });
     if (user) {

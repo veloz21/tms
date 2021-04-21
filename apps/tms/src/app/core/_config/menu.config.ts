@@ -82,11 +82,16 @@ export class MenuConfig {
           page: '/travels',
         },
         {
-          title: 'Paysheet',
+          title: 'ADMIN',
           bullet: 'dot',
           icon: 'flaticon-avatar',
-          translate: 'PAYSHEET.PAYSHEET',
+          translate: 'ADMIN.ADMIN',
           submenu: [
+            {
+              title: 'Users',
+              page: '/admin/users',
+              translate: 'ADMIN.USERS.ENTITIES.VALUE',
+            },
             {
               title: 'Employees',
               page: '/paysheet/employees',

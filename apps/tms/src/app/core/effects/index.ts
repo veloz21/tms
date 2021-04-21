@@ -6,4 +6,4 @@ export { MaintenanceEffects } from './maintenance.effects';
 export { TireEffects } from './tire.effects';
 export { TravelEffects } from './travel.effects';
 export { TruckEffects } from './truck.effects';
-
+export { UserEffects } from './user.effects';

@@ -5,4 +5,4 @@ export { MaintenancesDataSource } from './maintenances.datasource';
 export { TiresDataSource } from './tires.datasource';
 export { TravelsDataSource } from './travels.datasource';
 export { TrucksDataSource } from './trucks.datasource';
-
+export { UsersDataSource } from './users.datasource';

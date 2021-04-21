@@ -146,6 +146,24 @@ export const locale = {
       GO_BACK: 'Regresar a la lista de {{entities}}',
       SHOW: 'Mostrar {{entities}}',
     },
+    ADMIN: {
+      ADMIN: 'Administración',
+      USERS: {
+        USERS: 'Usuarios',
+        ENTITY: {
+          GENDER: 'X',
+          VALUE: 'usuario'
+        },
+        ENTITIES: {
+          GENDER: 'X',
+          VALUE: 'usuarios'
+        },
+        MODEL: {
+          EMAIL: 'correo',
+          LAST_LOGIN: 'Último login'
+        }
+      }
+    },
     COMPLETED_TRAVELS: {
       ENTITY: {
         GENDER: 'X',

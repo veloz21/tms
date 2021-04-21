@@ -1,0 +1,53 @@
+<b404-portlet>
+  <b404-portlet-header [sticky]="true" [title]="getComponentTitle()" [class]="'b404-portlet__head--lg'"
+    [viewLoading$]="loading$">
+    <ng-container ktPortletTools>
+      <a (click)="goBackWithoutId()" class="btn btn-secondary b404-margin-r-10" mat-raised-button
+        matTooltip="{{'MODULE.GO_BACK' | b404Translate:translateParams}}">
+        <i class="la la-arrow-left"></i>
+        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.BACK' | b404Translate}}</span>
+      </a>
+      <a href="javascript:;" class="btn btn-secondary b404-margin-r-10" (click)="reset()" [disabled]="selectedTab !== 0"
+        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.RESET_FORM' | b404Translate}}">
+        <i class="la la-cog"></i>
+        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.RESET' | b404Translate}}</span>
+      </a>
+      <a href="javascript:;" class="btn btn-primary b404-margin-r-10" color="primary" (click)="onSumbit(false)"
+        mat-raised-button matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | b404Translate}}">
+        <span class="b404-hidden-mobile">{{'GENERAL.BUTTONS.SAVE' | b404Translate}}</span>
+      </a>
+    </ng-container>
+  </b404-portlet-header>
+
+  <b404-portlet-body>
+
+    <div *ngIf="user">
+      <!--begin::Form-->
+      <form [formGroup]="userForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+
+        <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
+          (close)="onAlertClose($event)">
+          {{'GENERAL.TEXT.OH_SNAP_CREATE' | b404Translate}}
+        </b404-alert>
+
+        <div class="b404-form__section b404-form__section--first">
+          <div class="b404-form__group">
+            <div class="row">
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'ADMIN.USERS.MODEL.EMAIL' | b404Translate}}</mat-label>
+                  <input matInput placeholder="{{'ADMIN.USERS.MODEL.EMAIL' | b404Translate}}"
+                    formControlName="serialNumber" required>
+                  <mat-error>
+                    {{'ADMIN.USERS.MODEL.EMAIL' | b404Translate}}
+                    <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </b404-portlet-body>
+</b404-portlet>

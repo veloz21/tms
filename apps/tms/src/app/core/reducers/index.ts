@@ -11,6 +11,7 @@ export { maintenancesReducer, MaintenancesState } from './maintenances.reducers'
 export { tiresReducer, TiresState } from './tires.reducers';
 export { travelsReducer, TravelsState } from './travels.reducers';
 export { trucksReducer, TrucksState } from './trucks.reducers';
+export { usersReducer, UsersState } from './users.reducers';
 
 // tslint:disable-next-line:no-empty-interface
 export interface AppState { }
