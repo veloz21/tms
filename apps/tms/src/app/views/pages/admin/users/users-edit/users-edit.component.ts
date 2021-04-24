@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { CreateUser, UpdateUser } from '@tms/actions/user.actions';
+import { ConfirmPasswordValidator } from '@tms/crud';
 import { SubheaderService } from '@tms/layout';
 import { UserModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
@@ -130,9 +131,50 @@ export class UsersEditComponent implements OnInit {
   }
 
   createForm() {
-    this.userForm = this.userFB.group({
-      email: [this.user.email, [Validators.required]],
-    });
+    if (this.user.id) {
+      return this.userForm = this.userFB.group({
+        id: [this.user.id],
+        email: [this.user.email, Validators.compose([
+          Validators.required,
+          Validators.email,
+          Validators.minLength(3),
+          // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+          Validators.maxLength(320)
+        ])],
+      });
+    } else {
+      return this.userForm = this.userFB.group({
+        email: [this.user.email, Validators.compose([
+          Validators.required,
+          Validators.email,
+          Validators.minLength(3),
+          // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+          Validators.maxLength(320)
+        ])],
+        password: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100)
+        ])],
+        confirmPassword: ['', Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100)
+        ])],
+      }, {
+        validator: ConfirmPasswordValidator.MatchPassword
+      });
+    }
+  }
+
+  controlHasError(formGroup: FormGroup, controlName: string, validationType: string): boolean {
+    const control = formGroup.get(controlName);
+    if (!control) {
+      return false;
+    }
+
+    const result = control.hasError(validationType) && (control.dirty || control.touched);
+    return result;
   }
 
   goBack(id) {
@@ -204,8 +246,9 @@ export class UsersEditComponent implements OnInit {
 
   prepareUser(): UserModel {
     const _user = new UserModel();
-    _user.id = this.userForm.get('id').value;
+    _user.id = this.userForm.get('id')?.value || null;
     _user.email = this.userForm.get('email').value;
+    _user.password = this.userForm.get('password')?.value || undefined;
     return _user;
   }
 

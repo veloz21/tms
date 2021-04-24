@@ -81,7 +81,7 @@
         <ng-container matColumnDef="LastLogin">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{'ADMIN.USERS.MODEL.LAST_LOGIN' | b404Translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let user">{{user.lasLogin | date}} km</mat-cell>
+          <mat-cell *matCellDef="let user">{{user.lastLogin | date}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Actions" mdbTableCol>

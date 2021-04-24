@@ -35,12 +35,58 @@
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                  <mat-label>{{'ADMIN.USERS.MODEL.EMAIL' | b404Translate}}</mat-label>
-                  <input matInput placeholder="{{'ADMIN.USERS.MODEL.EMAIL' | b404Translate}}"
-                    formControlName="serialNumber" required>
-                  <mat-error>
-                    {{'ADMIN.USERS.MODEL.EMAIL' | b404Translate}}
-                    <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                  <mat-label>{{ 'AUTH.INPUT.EMAIL' | b404Translate }}</mat-label>
+                  <input matInput type="email" placeholder="{{ 'AUTH.INPUT.EMAIL' | b404Translate }}"
+                    formControlName="email" autocomplete="off" />
+                  <mat-error *ngIf="controlHasError(userForm, 'email','required')">
+                    <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | b404Translate }}</strong>
+                  </mat-error>
+                  <mat-error *ngIf="controlHasError(userForm, 'email','email')">
+                    <strong>{{ 'AUTH.VALIDATION.INVALID_FIELD' | b404Translate }}</strong>
+                  </mat-error>
+                  <mat-error *ngIf="controlHasError(userForm, 'email','minlength')">
+                    <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | b404Translate }} 3</strong>
+                  </mat-error>
+                  <mat-error *ngIf="controlHasError(userForm, 'email','maxlength')">
+                    <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | b404Translate }} 320</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="!user.id" class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{ 'AUTH.INPUT.PASSWORD' | b404Translate }}</mat-label>
+                  <input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | b404Translate }}"
+                    formControlName="password" autocomplete="off" />
+                  <mat-error *ngIf="controlHasError(userForm, 'password','required')">
+                    <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | b404Translate }}</strong>
+                  </mat-error>
+                  <mat-error *ngIf="controlHasError(userForm, 'password','minlength')">
+                    <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | b404Translate }} 3</strong>
+                  </mat-error>
+                  <mat-error *ngIf="controlHasError(userForm, 'password','maxlength')">
+                    <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | b404Translate }} 100</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="!user.id" class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | b404Translate }}</mat-label>
+                  <input matInput type="password" placeholder="{{ 'AUTH.INPUT.CONFIRM_PASSWORD' | b404Translate }}"
+                    formControlName="confirmPassword" autocomplete="off" />
+                  <mat-error *ngIf="controlHasError(userForm, 'confirmPassword','required')">
+                    <strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | b404Translate }}</strong>
+                  </mat-error>
+                  <mat-error *ngIf="controlHasError(userForm, 'confirmPassword','minlength')">
+                    <strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | b404Translate }} 3</strong>
+                  </mat-error>
+                  <mat-error *ngIf="controlHasError(userForm, 'confirmPassword','maxlength')">
+                    <strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | b404Translate }} 100</strong>
+                  </mat-error>
+                  <mat-error
+                    *ngIf="userForm.get('confirmPassword').errors && userForm.get('confirmPassword').errors.ConfirmPassword">
+                    <strong>Passsword and ConfirmPassword didn't match.</strong>
                   </mat-error>
                 </mat-form-field>
               </div>

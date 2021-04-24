@@ -2,10 +2,10 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } fr
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ICompany, IUser } from '@bits404/api-interfaces';
+import { ConfirmPasswordValidator } from '@tms/crud';
 import { CustomTranslateService } from '@tms/translate';
 import { Subject } from 'rxjs';
 import { AuthenticationService, AuthNoticeService } from '../../../../core/auth/';
-import { ConfirmPasswordValidator } from './confirm-password.validator';
 
 @Component({
   selector: 'b404-register',
