@@ -12,6 +12,7 @@ export { ToggleDirective, ToggleOptions } from './directives/toggle.directive';
 export { DataTableItemModel } from './models/datatable-item.model';
 export { ExternalCodeExample } from './models/external-code-example';
 export { LayoutConfigModel } from './models/layout-config.model';
+export { Bits404DatePipe } from './pipes/b404-date.pipe';
 // Pipes
 export { CurrentTravelStatusPipe } from './pipes/current-travel-status.pipe';
 export { FirstLetterPipe } from './pipes/first-letter.pipe';
