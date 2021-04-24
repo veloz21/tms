@@ -28,22 +28,12 @@
       </div>
       <div class="row">
         <div class="col-lg-4 col-6">
-          <span>{{'Origen'}}</span>
-        </div>
-        <div class="col-lg-8 col-6">{{ travel.locations?.origin?.coordinates || '-' }}</div>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-6">
-          <span>{{'Destino'}}</span>
-        </div>
-        <div class="col-lg-8 col-6">{{ travel.locations?.destination?.coordinates || '-' }}</div>
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-6">
           <span>{{'TRAVELS.TRAVEL.MODEL.COST' | b404Translate}}</span>
         </div>
         <div class="col-lg-8 col-6">{{ travel.salePrice | currency }}</div>
       </div>
+
+      <div #map style="height: 300px; margin-top: 2rem;"></div>
 
     </mat-tab>
     <mat-tab>
@@ -57,7 +47,7 @@
         <div class="col-lg-4 col-6">
           <span>{{ status.name }}</span>
         </div>
-        <div class="col-lg-2 col-2">{{ (status.date | date) || '-' }}</div>
+        <div class="col-lg-2 col-2">{{ (status.date | b404Date) || '-' }}</div>
         <div class="col-lg-6 col-4">{{ status.comments }}</div>
       </div>
     </mat-tab>
@@ -72,6 +62,9 @@
           <span>{{ expense.name }}</span>
         </div>
         <div class="col-lg-8 col-6">{{ expense.price | currency }}</div>
+      </div>
+      <div *ngIf="!travel.expenses || travel.expenses.length === 0" class="col-12">
+        <span>No hay gastos en este viaje</span>
       </div>
     </mat-tab>
   </mat-tab-group>

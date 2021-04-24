@@ -56,8 +56,14 @@ export class PlacesComponent implements AfterViewInit, OnDestroy, OnChanges {
 
     this.markers = [];
 
-    this.map?.setView(new L.LatLng(this.coordinates[1], this.coordinates[0]), this.coordinates[0] === 0 ? 1 : 12);
+    this.map?.setView(new L.LatLng(0, 0), 1);
     this.map?.addLayer(osmLayer);
+
+    if (this.coordinates[1] != 0 && this.coordinates[0] != 0) {
+      this.map?.setView(new L.LatLng(this.coordinates[1], this.coordinates[0]), 12);
+      this.markers.push(L.marker([this.coordinates[1], this.coordinates[0]]).addTo(this.map),);
+      this.findBestZoom(self);
+    }
 
     this.instance.on('change', (e) => {
       const self = this;
