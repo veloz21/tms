@@ -72,3 +72,34 @@ form.b404-form {
     border-color: $color-outline !important;
   }
 }
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+// https://colorhunt.co/palette/189889
+$pallete: (
+  _1: #d92027,
+  _2: #ff9234,
+  _3: #ffcd3c,
+  _4: #35d0ba,
+);
+
+$available: #35d0ba;
+$not_available: #ffcd3c;
+
+.mat-row.available {
+  border: 3px solid $available !important;
+}
+
+.mat-row.not-available {
+  border: 3px solid $not_available !important;
+}
+
+.b404-badge.b404-badge--available {
+  background-color: $available;
+}
+
+.b404-badge.b404-badge--not-available {
+  background-color: $not_available;
+}

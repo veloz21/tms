@@ -55,9 +55,9 @@
       <!-- end::GROUP ACTIONS -->
     </div>
 
-    <div class="mat-table__wrapper">
-      <mat-table class="lmat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort" matSortActive="id"
-        matSortDirection="asc" matSortDisableClear>
+    <div class="mat-table__wrapper" [ngClass]="{'mat-elevation-z8': !isDesktop}">
+      <mat-table #table [dataSource]="dataSource" matSort #sort1="matSort" matSortActive="id" matSortDirection="asc"
+        matSortDisableClear>
         <!-- Checkbox Column -->
         <ng-container matColumnDef="Select">
           <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
@@ -73,30 +73,35 @@
         </ng-container>
 
         <ng-container matColumnDef="SerialNumber">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'WORKSHOP.TIRES.MODEL.SERIAL_NUMBER' | b404Translate}}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{'WORKSHOP.TIRES.MODEL.SERIAL_NUMBER' | b404Translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let tire">{{tire.serialNumber}}</mat-cell>
+          <mat-cell *matCellDef="let tire" [attr.data-label]="'WORKSHOP.TIRES.MODEL.SERIAL_NUMBER' | b404Translate">
+            {{tire.serialNumber}}
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="RangeTraveled">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate}}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let tire">{{tire.rangeTraveled}} km</mat-cell>
+          <mat-cell *matCellDef="let tire" [attr.data-label]="'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate">
+            {{tire.rangeTraveled}} km
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Status" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'GENERAL.TEXT.STATUS' | b404Translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{'GENERAL.TEXT.STATUS' | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let tire" [ngSwitch]="tire.status">
+          <mat-cell *matCellDef="let tire" [ngSwitch]="tire.status"
+            [attr.data-label]="'GENERAL.TEXT.STATUS' | b404Translate">
             <span *ngSwitchCase="0"
-              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--success b404-badge--wide">
+              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--available b404-badge--wide">
               {{ 'GENERAL.TEXT.AVAILABLE' | b404Translate }}</span>
             <span *ngSwitchCase="1"
-              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--danger b404-badge--wide">
+              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--not-available b404-badge--wide">
               {{ 'GENERAL.TEXT.NOT_AVAILABLE' | b404Translate }}</span>
-            <span *ngSwitchCase="2"
-              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--warning b404-badge--wide">
-              {{ 'GENERAL.TEXT.IN_MAINTENANCE' | b404Translate }}</span>
           </mat-cell>
         </ng-container>
 
@@ -104,30 +109,32 @@
           <mat-header-cell *matHeaderCellDef>
             {{"GENERAL.MODEL.ACTIONS" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let tire">
-            <button mat-icon-button (click)="viewTIre(tire.id)"
-              matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
-              <mat-icon>visibility</mat-icon>
-            </button>&nbsp;
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item [routerLink]="['/workshop/tires/edit/',tire.id]">
-                <mat-icon>create</mat-icon>
-                <span>{{'MODULE.EDIT_ICON_LABEL' | b404Translate:translateParams}}</span>
+          <mat-cell *matCellDef="let tire" [attr.data-label]="'GENERAL.MODEL.ACTIONS' | b404Translate">
+            <div>
+              <button mat-icon-button (click)="viewTIre(tire.id)"
+                matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
+                <mat-icon>visibility</mat-icon>
+              </button>&nbsp;
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button mat-menu-item (click)="deleteTire(tire)">
-                <mat-icon>delete</mat-icon>
-                <span>{{'MODULE.DELETE_ICON_LABEL' | b404Translate:translateParams}}</span>
-              </button>
-            </mat-menu>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/workshop/tires/edit/',tire.id]">
+                  <mat-icon>create</mat-icon>
+                  <span>{{'MODULE.EDIT_ICON_LABEL' | b404Translate:translateParams}}</span>
+                </button>
+                <button mat-menu-item (click)="deleteTire(tire)">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{'MODULE.DELETE_ICON_LABEL' | b404Translate:translateParams}}</span>
+                </button>
+              </mat-menu>
+            </div>
           </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row
-          [ngClass]="{'available':  row.status==0,'not_available': row.status==1, 'in_maintenance': row.status==2}"
+          [ngClass]="{'available':  row.status==0,'not-available': row.status==1, 'in-maintenance': row.status==2}"
           *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
       <div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>

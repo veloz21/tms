@@ -48,10 +48,9 @@
       <!-- end::GROUP ACTIONS -->
     </div>
 
-    <div class="mat-table__wrapper">
-      <mat-table class="example-container mat-elevation-z8" #table [dataSource]="dataSource" matSort #sort1="matSort"
-        matSortActive="id" matSortDirection="asc" matSortDisableClear mdbTable mdbTableScroll scrollX="true"
-        maxWidth="400">
+    <div class="mat-table__wrapper" [ngClass]="{'mat-elevation-z8': !isDesktop}">
+      <mat-table #table [dataSource]="dataSource" matSort #sort1="matSort" matSortActive="id" matSortDirection="asc"
+        matSortDisableClear mdbTable mdbTableScroll scrollX="true" maxWidth="400">
         <!-- Checkbox Column -->
         <ng-container matColumnDef="Select" mdbTableCol>
           <mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
@@ -67,52 +66,72 @@
         </ng-container>
 
         <ng-container matColumnDef="FirstName" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME" | b404Translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee">{{employee.firstName}}</mat-cell>
+          <mat-cell *matCellDef="let employee" [attr.data-label]="'PAYSHEET.EMPLOYEE.MODEL.FIRST_NAME' | b404Translate">
+            <span>{{employee.firstName}}</span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="LastName" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"PAYSHEET.EMPLOYEE.MODEL.LAST_NAME" | b404Translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"PAYSHEET.EMPLOYEE.MODEL.LAST_NAME" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee">{{employee.lastName}}</mat-cell>
+          <mat-cell *matCellDef="let employee" [attr.data-label]="'PAYSHEET.EMPLOYEE.MODEL.LAST_NAME' | b404Translate">
+            <span>{{employee.lastName}}</span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="BirthDate" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"PAYSHEET.EMPLOYEE.MODEL.BIRTH_DATE" | b404Translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"PAYSHEET.EMPLOYEE.MODEL.BIRTH_DATE" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee">{{employee.birthDate | date:'dd/MM/yy'}}</mat-cell>
+          <mat-cell *matCellDef="let employee" [attr.data-label]="'PAYSHEET.EMPLOYEE.MODEL.BIRTH_DATE' | b404Translate">
+            <span>{{employee.birthDate | date:'dd/MM/yy'}}</span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Salary" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"PAYSHEET.EMPLOYEE.MODEL.SALARY" | b404Translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"PAYSHEET.EMPLOYEE.MODEL.SALARY" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee">${{employee.salary.total}}</mat-cell>
+          <mat-cell *matCellDef="let employee" [attr.data-label]="'PAYSHEET.EMPLOYEE.MODEL.SALARY' | b404Translate">
+            <span>{{employee.salary | currency}}</span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Cellphone" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"PAYSHEET.EMPLOYEE.MODEL.CELLPHONE" | b404Translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"PAYSHEET.EMPLOYEE.MODEL.CELLPHONE" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee">{{employee.cellphone}}</mat-cell>
+          <mat-cell *matCellDef="let employee" [attr.data-label]="'PAYSHEET.EMPLOYEE.MODEL.CELLPHONE' | b404Translate">
+            <span>{{employee.cellphone}}</span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="DriversLicense" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{"PAYSHEET.EMPLOYEE.MODEL.DRIVERS_LICENSE" | b404Translate
-            }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{"PAYSHEET.EMPLOYEE.MODEL.DRIVERS_LICENSE" | b404Translate}}
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee">{{employee.driversLicense}}</mat-cell>
+          <mat-cell *matCellDef="let employee"
+            [attr.data-label]="'PAYSHEET.EMPLOYEE.MODEL.DRIVERS_LICENSE' | b404Translate">
+            <span>{{employee.driversLicense}}</span>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Status" mdbTableCol>
-          <mat-header-cell *matHeaderCellDef mat-sort-header>{{'GENERAL.TEXT.STATUS' | b404Translate }}
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{'GENERAL.TEXT.STATUS' | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee" [ngSwitch]="employee.status">
+          <mat-cell *matCellDef="let employee" [ngSwitch]="employee.status"
+            [attr.data-label]="'GENERAL.TEXT.STATUS' | b404Translate">
             <span *ngSwitchCase="STATUS.AVAILABLE"
-              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--success b404-badge--wide">
+              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--available b404-badge--wide">
               {{ 'GENERAL.TEXT.AVAILABLE' | b404Translate }}
             </span>
             <span *ngSwitchCase="STATUS.NOT_AVAILABLE"
-              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--danger b404-badge--wide">
+              class="b404-badge b404-badge--inline b404-badge--pill b404-badge--not-available b404-badge--wide">
               {{ 'GENERAL.TEXT.NOT_AVAILABLE' | b404Translate }}
             </span>
           </mat-cell>
@@ -122,30 +141,32 @@
           <mat-header-cell *matHeaderCellDef>
             {{"GENERAL.MODEL.ACTIONS" | b404Translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let employee">
-            <button mat-icon-button (click)="viewEmployee(employee.id)"
-              matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
-              <mat-icon>visibility</mat-icon>
-            </button>&nbsp;
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item [routerLink]="['/paysheet/employees/edit/',employee.id]">
-                <mat-icon>create</mat-icon>
-                <span>{{'MODULE.EDIT_ICON_LABEL' | b404Translate:translateParams}}</span>
+          <mat-cell *matCellDef="let employee" [attr.data-label]="'GENERAL.MODEL.ACTIONS' | b404Translate">
+            <span>
+              <button mat-icon-button (click)="viewEmployee(employee.id)"
+                matTooltip="{{'MODULE.VIEW_ICON_LABEL' | b404Translate:translateParams}}">
+                <mat-icon>visibility</mat-icon>
+              </button>&nbsp;
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button mat-menu-item (click)="deleteEmployee(employee)">
-                <mat-icon>delete</mat-icon>
-                <span>{{'MODULE.DELETE_ICON_LABEL' | b404Translate:translateParams}}</span>
-              </button>
-            </mat-menu>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/paysheet/employees/edit/',employee.id]">
+                  <mat-icon>create</mat-icon>
+                  <span>{{'MODULE.EDIT_ICON_LABEL' | b404Translate:translateParams}}</span>
+                </button>
+                <button mat-menu-item (click)="deleteEmployee(employee)">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{'MODULE.DELETE_ICON_LABEL' | b404Translate:translateParams}}</span>
+                </button>
+              </mat-menu>
+            </span>
           </mat-cell>
         </ng-container>
 
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row [ngClass]="{'available':  row.status==0,'not_available': row.status==1}"
+        <mat-row [ngClass]="{'available':  row.status==0,'not-available': row.status==1}"
           *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
       <div class="mat-table__message" *ngIf="!dataSource.hasItems"><span>

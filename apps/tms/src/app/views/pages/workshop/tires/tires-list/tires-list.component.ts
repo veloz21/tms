@@ -26,7 +26,6 @@ import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 
 export class TiresListComponent implements OnInit, OnDestroy {
   // Table fields
   dataSource: TiresDataSource;
-  displayedColumns = ['Select', 'SerialNumber', 'RangeTraveled', 'Status', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -37,6 +36,21 @@ export class TiresListComponent implements OnInit, OnDestroy {
   // Selection
   selection = new SelectionModel<TireModel>(true, []);
   tiresResult: TireModel[] = [];
+
+  public get displayedColumns() {
+    const cols = ['SerialNumber', 'RangeTraveled', 'Status', 'Actions'];
+    if (this.isDesktop) {
+      cols.unshift('Select');
+    }
+    return cols;
+  };
+
+  public get isDesktop() {
+    return this.windowWidth > 1024;
+  }
+
+  public windowWidth = 0;
+
   public translateParams: TranslateParams;
 
   private ngUnsubscribe = new Subject();
@@ -56,6 +70,7 @@ export class TiresListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.windowWidth = window.innerWidth;
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.pipe(
       takeUntil(this.ngUnsubscribe),

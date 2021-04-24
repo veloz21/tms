@@ -28,7 +28,6 @@ import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 
 export class MaintenancesListComponent implements OnInit, OnDestroy {
   // Table fields
   dataSource: MaintenancesDataSource;
-  displayedColumns = ['Select', 'Truck', 'Box', 'Mechanic', 'StartDate', 'EndDate', 'Comments', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -39,6 +38,21 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
   // Selection
   selection = new SelectionModel<MaintenanceModel>(true, []);
   maintenancesResult: MaintenanceModel[] = [];
+
+  public get displayedColumns() {
+    const cols = ['Truck', 'Box', 'Mechanic', 'StartDate', 'EndDate', 'Actions'];
+    if (this.isDesktop) {
+      cols.unshift('Select');
+    }
+    return cols;
+  };
+
+  public get isDesktop() {
+    return this.windowWidth > 1024;
+  }
+
+  public windowWidth = 0;
+
   public translateParams: TranslateParams;
 
   private ngUnsuscribe = new Subject();
@@ -57,6 +71,7 @@ export class MaintenancesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.windowWidth = window.innerWidth;
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.pipe(
       takeUntil(this.ngUnsuscribe)

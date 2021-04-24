@@ -26,16 +26,6 @@ import { debounceTime, delay, distinctUntilChanged, skip, takeUntil, tap } from 
 export class BoxesListComponent implements OnInit, OnDestroy {
   // Table fields
   dataSource: BoxesDataSource;
-  displayedColumns = [
-    'Select',
-    'Model',
-    'Type',
-    'Km',
-    'SerialNumber',
-    'Brand',
-    'Status',
-    'Actions',
-  ];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -46,6 +36,20 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   // Selection
   selection = new SelectionModel<BoxModel>(true, []);
   boxesResult: BoxModel[] = [];
+
+  public get displayedColumns() {
+    const cols = ['Model', 'Type', 'Km', 'SerialNumber', 'Brand', 'Status', 'Actions',];
+    if (this.isDesktop) {
+      cols.unshift('Select');
+    }
+    return cols;
+  };
+
+  public get isDesktop() {
+    return this.windowWidth > 1024;
+  }
+
+  public windowWidth = 0;
 
   protected STATUS = Status;
   public translateParams: TranslateParams;
@@ -67,6 +71,7 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.windowWidth = window.innerWidth;
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange
       .pipe(takeUntil(this.ngUnsubscribe))

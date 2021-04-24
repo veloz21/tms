@@ -29,7 +29,6 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   // Table fields
   showed: boolean;
   dataSource: TravelsDataSource;
-  displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'Status', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
@@ -41,6 +40,19 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   selection = new SelectionModel<TravelModel>(true, []);
   travelsResult: TravelModel[] = [];
 
+  public get displayedColumns() {
+    const cols = ['Operator', 'Box', 'Truck', 'StatusTime', 'Status', 'Actions'];
+    if (this.isDesktop) {
+      cols.unshift('Select');
+    }
+    return cols;
+  };
+
+  public get isDesktop() {
+    return this.windowWidth > 1024;
+  }
+
+  public windowWidth = 0;
   public translateParams: TranslateParams;
   public completedTravelTranslateParams: TranslateParams;
 
@@ -64,6 +76,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.showed = false;
+    this.windowWidth = window.innerWidth;
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
