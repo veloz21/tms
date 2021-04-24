@@ -17,6 +17,8 @@ export class CustomTranslateService extends TranslateService {
         if (typeof content === 'object' && content.GENDER) {
           gender = content.GENDER;
           paramValue = content.VALUE;
+        } else if (typeof content === 'object' && content.VALUE) {
+          paramValue = content.VALUE;
         } else {
           paramValue = content as string;
         }
