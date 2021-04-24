@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MissingTranslationHandler, TranslateModule } from '@ngx-translate/core';
+import { Bits404DatePipe, CurrentTravelStatusPipe, NextTravelStatusPipe } from '@tms/layout';
 import { Bits404TranslatePipe, CustomTranslateService, MissingTranslationHelper } from '@tms/translate';
-import { CurrentTravelStatusPipe, NextTravelStatusPipe } from '../../core/_base/layout';
 import { MatInputCurrencyDirective } from '../../core/_base/layout/directives/mat-input-currency.directive';
 import { ActionToolTipDirective } from './action-tooltip/action-tooltip.directive';
 import { ActionTooltipModule } from './action-tooltip/action-tooltip.module';
@@ -17,6 +17,7 @@ import { FileDropModule } from './components/file-drop/file-drop.module';
     })
   ],
   declarations: [
+    Bits404DatePipe,
     NextTravelStatusPipe,
     Bits404TranslatePipe,
     CurrentTravelStatusPipe,
@@ -24,6 +25,7 @@ import { FileDropModule } from './components/file-drop/file-drop.module';
   ],
   exports: [
     FileDropModule,
+    Bits404DatePipe,
     Bits404TranslatePipe,
     NextTravelStatusPipe,
     ActionToolTipDirective,
