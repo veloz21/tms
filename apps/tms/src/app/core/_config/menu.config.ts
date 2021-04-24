@@ -82,7 +82,7 @@ export class MenuConfig {
           page: '/travels',
         },
         {
-          title: 'ADMIN',
+          title: 'Admin',
           bullet: 'dot',
           icon: 'flaticon-avatar',
           translate: 'ADMIN.ADMIN',
