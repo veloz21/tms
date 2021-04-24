@@ -53,8 +53,7 @@ export class AuthController {
       throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
     }
 
-    createUserDto.company = company.id;
-    const user = await this.userService.create(createUserDto, { session });
+    const user = await this.userService.create(createUserDto, { session, company: company.id });
     if (!user.id) {
       throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
     }
