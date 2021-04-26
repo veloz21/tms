@@ -1,47 +1,68 @@
 <h2 mat-dialog-title>{{ box.nickname }}</h2>
 <mat-dialog-content class="mat-typography">
-  <div class="row">
-    <div class="col-lg-4 col-6">
-      <span>{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}</span>
-    </div>
-    <div class="col-lg-8 col-6">{{ box.boxModel }}</div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-6">
-      <span>{{'WORKSHOP.BOXES.MODEL.TYPE' | b404Translate}}</span>
-    </div>
-    <div class="col-lg-8 col-6">{{ box.type }}</div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-6">
-      <span>{{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}</span>
-    </div>
-    <div class="col-lg-8 col-6">{{ box.nickname }}</div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-6">
-      <span>{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}</span>
-    </div>
-    <div class="col-lg-8 col-6">{{ box.serialNumber }}</div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-6">
-      <span>{{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}</span>
-    </div>
-    <div class="col-lg-8 col-6">{{ box.brand }}</div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-6">
-      <span>{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}</span>
-    </div>
-    <div class="col-lg-8 col-6">{{ box.rangeTraveled }}</div>
-  </div>
-  <div class="row">
-    <div class="col-lg-4 col-6">
-      <span>{{'WORKSHOP.BOXES.MODEL.PRICE' | b404Translate}}</span>
-    </div>
-    <div class="col-lg-8 col-6">$ {{ box.price }}</div>
-  </div>
+  <mat-tab-group>
+    <mat-tab label="Info">
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <span>{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-8 col-6">{{ box.boxModel }}</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <span>{{'WORKSHOP.BOXES.MODEL.TYPE' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-8 col-6">{{ box.type }}</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <span>{{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-8 col-6">{{ box.nickname }}</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <span>{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-8 col-6">{{ box.serialNumber }}</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <span>{{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-8 col-6">{{ box.brand }}</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <span>{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-8 col-6">{{ box.rangeTraveled }}</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-6">
+          <span>{{'WORKSHOP.BOXES.MODEL.PRICE' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-8 col-6">$ {{ box.price }}</div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Tires">
+      <div class="row" *ngFor="let tire of box.tires">
+        <div class="col-lg-2 col-3">
+          <span>{{'WORKSHOP.TIRES.MODEL.SERIAL_NUMBER' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-4 col-3">{{ tire.serialNumber }}</div>
+        <div class="col-lg-2 col-3">
+          <span>{{'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate}}</span>
+        </div>
+        <div class="col-lg-4 col-3">{{ tire.rangeTraveled }}</div>
+      </div>
+      <div class="row" *ngIf="!box.tires || box.tires.length == 0">
+        <div class="col-12">
+          <span>La caja no tiene llantas</span>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close (click)="close()">

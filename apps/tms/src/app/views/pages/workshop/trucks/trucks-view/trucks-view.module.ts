@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { Route, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -39,6 +40,7 @@ const routes: Route[] = [
     MatButtonModule,
     MatIconModule,
     RouterModule,
+    MatTabsModule,
     environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
       passThruUnknownUrl: true,
       dataEncapsulation: false
