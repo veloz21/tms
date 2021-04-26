@@ -33,9 +33,9 @@ import { ActionNotificationComponent, DeleteEntityDialogComponent } from '@tms/p
 import { PartialsModule } from '@tms/partials/partials.module';
 import { tiresReducer } from '@tms/reducers';
 import { TiresService } from '@tms/services';
+import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { SharedModule } from '../../../../shared/shared.module';
 import { TiresViewModule } from '../tires-view/tires-view.module';
 import { TiresListComponent } from './tires-list.component';
 
@@ -94,4 +94,4 @@ const routes: Routes = [{
     TiresListComponent
   ],
 })
-export class TireListModule { }
+export class TiresListModule { }
