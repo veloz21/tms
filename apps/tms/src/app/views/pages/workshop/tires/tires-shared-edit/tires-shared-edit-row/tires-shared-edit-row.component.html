@@ -1,0 +1,36 @@
+<mat-card class="mb-1">
+  <mat-card-content [formGroup]="tireForm">
+    <div class="row">
+      <div class="col-md-2 b404-margin-bottom-10-mobile d-flex justify-content-center align-items-center">
+        <mat-label># {{ index + 1 }}</mat-label>
+      </div>
+      <div class="col-md-4 b404-margin-bottom-10-mobile">
+        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+          <mat-label>{{'WORKSHOP.TIRES.MODEL.SERIAL_NUMBER' | b404Translate}}</mat-label>
+          <input matInput placeholder="{{'WORKSHOP.TIRES.MODEL.SERIAL_NUMBER' | b404Translate}}"
+            formControlName="serialNumber" required>
+          <mat-error>
+            {{'WORKSHOP.TIRES.MODEL.SERIAL_NUMBER' | b404Translate}}
+            <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 b404-margin-bottom-10-mobile">
+        <mat-form-field appearance="outline" class="mat-form-field-fluid">
+          <mat-label>{{'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate}}</mat-label>
+          <input matInput placeholder="{{'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate}}"
+            formControlName="rangeTraveled" type="number" required>
+          <mat-error>
+            {{'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate}}
+            <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2 b404-margin-bottom-10-mobile d-flex justify-content-center align-items-center">
+        <button mat-raised-button color="warn" (click)="deleteTire()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

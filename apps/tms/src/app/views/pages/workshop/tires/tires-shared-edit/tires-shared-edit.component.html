@@ -1,0 +1,12 @@
+<div class="d-flex px-3 py-2 justify-content-start">
+  <a href="javascript:;" class="btn btn-primary b404-margin-r-10" mat-raised-button (click)="addTire()"
+    matTooltip="{{'GENERAL.BUTTONS.SAVE_FORM' | b404Translate}}">
+    <span class="b404-hidden-mobile">Agregar llanta</span>
+  </a>
+</div>
+<div cdkDropList (cdkDropListDropped)="drop($event)" class="p-3">
+  <b404-tires-shared-edit-row *ngFor="let tire of tiresFormArray.controls; let i = index" cdkDrag
+    [cdkDragData]="tiresFormArray.controls[i]" [index]="i" [tireForm]="tiresFormArray.controls[i]"
+    (deleteTireGroup)="deleteTire($event)">
+  </b404-tires-shared-edit-row>
+</div>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { selectLastCreatedTruckId } from '@tms/selectors/trucks.selectors';
 import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
+import { TiresSharedEditComponent } from '../../tires/tires-shared-edit/tires-shared-edit.component';
 
 @Component({
   selector: 'b404-trucks-edit',
@@ -33,6 +34,7 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
   public imageFile: File;
   public translateParams: TranslateParams;
 
+  @ViewChild(TiresSharedEditComponent) private tires: TiresSharedEditComponent;
   private ngUnsuscribe = new Subject();
   constructor(
     private router: Router,
@@ -124,7 +126,8 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
       price: [this.truck.price],
       initialRange: [this.truck.initialRange, [Validators.required]],
       rangeTraveled: [this.truck.rangeTraveled, [Validators.required]],
-      image: []
+      image: [],
+      tires: this.truckFB.array([]),
     });
   }
 
@@ -203,6 +206,7 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
     _truck.airbag = '1';
     _truck.dock = '1';
     _truck.status = AVIABILITY_STATUS.AVAILABLE;
+    _truck.tires = this.tires?.prepareTires() || [];
     return _truck;
   }
 

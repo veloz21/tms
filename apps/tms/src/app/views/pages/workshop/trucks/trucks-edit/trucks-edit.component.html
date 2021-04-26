@@ -19,11 +19,11 @@
     </ng-container>
   </b404-portlet-header>
   <b404-portlet-body>
-    <mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="truck">
-      <mat-tab label="Basic info">
-        <ng-template matTabContent>
-          <div *ngIf="truck">
-            <form [formGroup]="truckForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+    <form [formGroup]="truckForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+      <mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="truck">
+        <mat-tab label="Basic info">
+          <ng-template matTabContent>
+            <div *ngIf="truck">
               <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
                 (close)="onAlertClose($event)">
                 <span> {{"GENERAL.TEXT.OH_SNAP_CREATE" | b404Translate}} </span>
@@ -151,16 +151,16 @@
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </ng-template>
-      </mat-tab>
-      <mat-tab label="Add tire">
-        <ng-template matTabContent>
-          <div>
-          </div>
-        </ng-template>
-      </mat-tab>
-    </mat-tab-group>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Add tire">
+          <ng-template matTabContent>
+            <b404-tires-shared-edit [tiresFormArray]="truckForm.get('tires')" [tires]="truck.tires">
+            </b404-tires-shared-edit>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
   </b404-portlet-body>
 </b404-portlet>

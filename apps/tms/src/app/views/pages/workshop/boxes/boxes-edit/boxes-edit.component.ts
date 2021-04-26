@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { BoxesService } from '@tms/services';
 import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
+import { TiresSharedEditComponent } from '../../tires/tires-shared-edit/tires-shared-edit.component';
 
 @Component({
   selector: 'b404-boxes-edit',
@@ -22,7 +23,7 @@ import { delay, takeUntil } from 'rxjs/operators';
 })
 export class BoxesEditComponent implements OnInit, OnDestroy {
   public box: BoxModel;
-  public boxId$: Observable<number>;
+  public boxId$: Observable<string>;
   public oldBox: BoxModel;
   public selectedTab = 0;
   public loadingSubject = new BehaviorSubject<boolean>(true);
@@ -34,6 +35,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
   public imageFile: File;
   public translateParams: TranslateParams;
 
+  @ViewChild(TiresSharedEditComponent) private tires: TiresSharedEditComponent;
   private ngUnsubscribe = new Subject();
   constructor(
     private router: Router,
@@ -62,7 +64,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
       });
   }
 
-  loadBox(_box, fromService: boolean = false) {
+  loadBox(_box: BoxModel, fromService: boolean = false) {
     if (!_box) {
       this.goBack('');
     }
@@ -141,6 +143,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
       price: [this.box.price],
       brand: [this.box.brand],
       image: [],
+      tires: this.boxFB.array([])
     });
   }
 
@@ -217,6 +220,7 @@ export class BoxesEditComponent implements OnInit, OnDestroy {
     _box.brand = this.boxForm.get('brand').value;
     _box.price = this.boxForm.get('price').value;
     _box.status = AVIABILITY_STATUS.AVAILABLE;
+    _box.tires = this.tires?.prepareTires() || [];
     return _box;
   }
 

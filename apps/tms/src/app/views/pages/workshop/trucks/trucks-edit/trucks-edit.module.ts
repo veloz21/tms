@@ -20,6 +20,7 @@ import { TruckResolver } from '@tms/resolvers';
 import { TrucksService } from '@tms/services';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { TiresSharedEditModule } from '../../tires/tires-shared-edit/tires-shared-edit.module';
 import { TrucksViewService } from '../trucks-view/trucks-view.service';
 import { TrucksEditComponent } from './trucks-edit.component';
 
@@ -61,6 +62,7 @@ const routes: Routes = [
     StoreModule.forFeature('trucks', trucksReducer),
     EffectsModule.forFeature([TruckEffects]),
     SharedModule,
+    TiresSharedEditModule,
   ],
   providers: [
     TrucksService,

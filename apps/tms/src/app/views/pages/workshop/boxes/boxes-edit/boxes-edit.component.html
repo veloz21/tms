@@ -19,132 +19,130 @@
     </ng-container>
   </b404-portlet-header>
   <b404-portlet-body>
-    <mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="box">
-      <mat-tab label="Basic info">
-        <ng-template matTabContent>
-          <div *ngIf="box">
-            <form [formGroup]="boxForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+    <form [formGroup]="boxForm" class="b404-form b404-form--group-seperator-dashed" autocomplete="off">
+      <mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="box">
+        <mat-tab label="Basic info">
+          <ng-template matTabContent>
 
-              <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
-                (close)="onAlertClose($event)">
-                {{'GENERAL.TEXT.OH_SNAP_CREATE' | b404Translate}}
-              </b404-alert>
+            <b404-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000"
+              (close)="onAlertClose($event)">
+              {{'GENERAL.TEXT.OH_SNAP_CREATE' | b404Translate}}
+            </b404-alert>
 
-              <div class="b404-form__section b404-form__section--first">
-                <div class="b404-form__group">
-                  <div class="row">
+            <div class="b404-form__section b404-form__section--first">
+              <div class="b404-form__group">
+                <div class="row">
 
-                    <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}</mat-label>
-                        <input id="model" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}"
-                          formControlName="boxModel" required>
-                        <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-
-                    <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.TYPE' | b404Translate }}</mat-label>
-                        <mat-select placeholder="{{'WORKSHOP.BOXES.MODEL.TYPE' | b404Translate }}"
-                          formControlName="type" required>
-                          <mat-option value="{{'WORKSHOP.BOXES.MODEL.DRY' | b404Translate }}">
-                            {{'WORKSHOP.BOXES.MODEL.DRY' | b404Translate }}</mat-option>
-                          <mat-option value="{{'WORKSHOP.BOXES.MODEL.REFRIGERATED' | b404Translate }}">
-                            {{'WORKSHOP.BOXES.MODEL.REFRIGERATED' | b404Translate }}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}</mat-label>
-                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}"
-                          formControlName="nickName" type="text" required>
-                        <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-
+                  <div class="col-md-4 b404-margin-bottom-10-mobile">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                      <mat-label>{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}</mat-label>
+                      <input id="model" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}"
+                        formControlName="boxModel" required>
+                      <mat-error>
+                        {{'WORKSHOP.BOXES.MODEL.MODEL' | b404Translate}}
+                        <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
                   </div>
-                </div>
 
-                <div class="b404-form__group">
-                  <div class="row">
-                    <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}</mat-label>
-                        <input id="serialNumber" matInput
-                          placeholder="{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}"
-                          formControlName="serialNumber" required>
-                        <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}</mat-label>
-                        <input id="brand" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}"
-                          formControlName="brand" required>
-                        <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}</mat-label>
-                        <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}"
-                          formControlName="rangeTraveled" type="number" required>
-                        <mat-error>
-                          {{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}
-                          <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
+                  <div class="col-md-4 b404-margin-bottom-10-mobile">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                      <mat-label>{{'WORKSHOP.BOXES.MODEL.TYPE' | b404Translate }}</mat-label>
+                      <mat-select placeholder="{{'WORKSHOP.BOXES.MODEL.TYPE' | b404Translate }}" formControlName="type"
+                        required>
+                        <mat-option value="{{'WORKSHOP.BOXES.MODEL.DRY' | b404Translate }}">
+                          {{'WORKSHOP.BOXES.MODEL.DRY' | b404Translate }}</mat-option>
+                        <mat-option value="{{'WORKSHOP.BOXES.MODEL.REFRIGERATED' | b404Translate }}">
+                          {{'WORKSHOP.BOXES.MODEL.REFRIGERATED' | b404Translate }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
                   </div>
-                </div>
-                <div class="b404-form__group">
-                  <div class="row">
-                    <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <mat-form-field appearance="outline" class="mat-form-field-fluid">
-                        <mat-label>{{'WORKSHOP.BOXES.MODEL.PRICE' | b404Translate}}</mat-label>
-                        <span matPrefix>$ &nbsp;</span>
-                        <input matInput matInputCurrency formControlName="price" type="text"
-                          placeholder="{{'WORKSHOP.BOXES.MODEL.PRICE' | b404Translate}}" />
-                      </mat-form-field>
-                    </div>
+                  <div class="col-md-4 b404-margin-bottom-10-mobile">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                      <mat-label>{{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}</mat-label>
+                      <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}"
+                        formControlName="nickName" type="text" required>
+                      <mat-error>
+                        {{'WORKSHOP.BOXES.MODEL.NICKNAME' | b404Translate}}
+                        <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
                   </div>
+
                 </div>
-                <div class="b404-form__group">
-                  <div class="row">
-                    <div class="col-md-4 b404-margin-bottom-10-mobile">
-                      <label for="">{{'WORKSHOP.BOXES.MODEL.BOX_PHOTOGRAPHY' | b404Translate}}</label><br>
-                      <b404-file-drop [(file)]="imageFile" (fileChange)="setImageAsUrl($event)"></b404-file-drop>
-                    </div>
-                    <div *ngIf="imageUrl" class="col-md-4 b404-margin-bottom-10-mobile">
-                      <img class="box" [src]="imageUrl">
-                    </div>
+              </div>
+
+              <div class="b404-form__group">
+                <div class="row">
+                  <div class="col-md-4 b404-margin-bottom-10-mobile">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                      <mat-label>{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}</mat-label>
+                      <input id="serialNumber" matInput
+                        placeholder="{{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}"
+                        formControlName="serialNumber" required>
+                      <mat-error>
+                        {{'WORKSHOP.BOXES.MODEL.SERIAL_NUMBER' | b404Translate}}
+                        <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4 b404-margin-bottom-10-mobile">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                      <mat-label>{{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}</mat-label>
+                      <input id="brand" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}"
+                        formControlName="brand" required>
+                      <mat-error>
+                        {{'WORKSHOP.BOXES.MODEL.BRAND' | b404Translate}}
+                        <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-4 b404-margin-bottom-10-mobile">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                      <mat-label>{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}</mat-label>
+                      <input id="km" matInput placeholder="{{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}"
+                        formControlName="rangeTraveled" type="number" required>
+                      <mat-error>
+                        {{'WORKSHOP.BOXES.MODEL.RANGE_TRAVELED' | b404Translate}}
+                        <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                      </mat-error>
+                    </mat-form-field>
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </ng-template>
-      </mat-tab>
-      <mat-tab label="Add tire">
-        <ng-template matTabContent>
-          <div>
-          </div>
-        </ng-template>
-      </mat-tab>
-    </mat-tab-group>
+              <div class="b404-form__group">
+                <div class="row">
+                  <div class="col-md-4 b404-margin-bottom-10-mobile">
+                    <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                      <mat-label>{{'WORKSHOP.BOXES.MODEL.PRICE' | b404Translate}}</mat-label>
+                      <span matPrefix>$ &nbsp;</span>
+                      <input matInput matInputCurrency formControlName="price" type="text"
+                        placeholder="{{'WORKSHOP.BOXES.MODEL.PRICE' | b404Translate}}" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="b404-form__group">
+                <div class="row">
+                  <div class="col-md-4 b404-margin-bottom-10-mobile">
+                    <label for="">{{'WORKSHOP.BOXES.MODEL.BOX_PHOTOGRAPHY' | b404Translate}}</label><br>
+                    <b404-file-drop [(file)]="imageFile" (fileChange)="setImageAsUrl($event)"></b404-file-drop>
+                  </div>
+                  <div *ngIf="imageUrl" class="col-md-4 b404-margin-bottom-10-mobile">
+                    <img class="box" [src]="imageUrl">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab label="Add tire">
+          <ng-template matTabContent>
+            <b404-tires-shared-edit [tiresFormArray]="boxForm.get('tires')" [tires]="box.tires">
+            </b404-tires-shared-edit>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </form>
   </b404-portlet-body>
 </b404-portlet>
