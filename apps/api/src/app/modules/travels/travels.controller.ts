@@ -25,8 +25,8 @@ export class TravelsController {
     private readonly travelsService: TravelsService,
     private readonly boxService: BoxesService,
     private readonly truckService: TrucksService,
-    private readonly employeeService: EmployeesService,
-  ) { }
+    private readonly employeeService: EmployeesService
+  ) {}
 
   @Get('status')
   @UseInterceptors(new TransformInterceptor(TravelStatusDto))
@@ -42,6 +42,7 @@ export class TravelsController {
   }
 
   @Get()
+  @UsePipes(new ValidationPipe({ transform: true }))
   @UseInterceptors(new TransformInterceptor(TravelDto))
   async findAll(@Query() queryParams: QueryParamsDto<this>, @GetHttpOptions() options: HttpOptions) {
     return await this.travelsService.findAll(queryParams, options);

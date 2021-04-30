@@ -9,11 +9,11 @@ export { employeesReducer, EmployeesState } from './employees.reducers';
 export { expensesReducer, ExpensesState } from './expenses.reducers';
 export { maintenancesReducer, MaintenancesState } from './maintenances.reducers';
 export { tiresReducer, TiresState } from './tires.reducers';
+export { travelsStatusReducer, TravelsStatusState } from './travel-status.reducers';
 export { travelsReducer, TravelsState } from './travels.reducers';
 export { trucksReducer, TrucksState } from './trucks.reducers';
-
 // tslint:disable-next-line:no-empty-interface
-export interface AppState { }
+export interface AppState {}
 
 export const reducers: ActionReducerMap<AppState> = { router: routerReducer };
 

@@ -29,6 +29,15 @@
               {{'MODULE.SHOW' | b404Translate:completedTravelTranslateParams }}
             </mat-checkbox>
           </div>
+          <div class="col-md-4">
+              <mat-form-field appearance="fill" *ngIf="statusList$ | async as _status">
+                <mat-label>Filto de status</mat-label>
+                <mat-select #mySel [formControl]="statusControl" (selectionChange)="selectedStatus()" multiple (openedChange)="$event ? null : loadTravelsList()" >
+                  <mat-checkbox (ngModel)="!allSelected" (click)="toggleAllSelection()">All</mat-checkbox>
+                  <mat-option *ngFor="let status of _status"  [value]="status.id">{{status.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
         </div>
       </div>
 

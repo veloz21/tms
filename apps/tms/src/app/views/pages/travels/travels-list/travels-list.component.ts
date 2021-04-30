@@ -1,12 +1,16 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSelect } from '@angular/material/select';
 import { MatSort } from '@angular/material/sort';
 import { select, Store } from '@ngrx/store';
 import { ViewBox } from '@tms/actions/box.actions';
 import { CreateCompletedTravel } from '@tms/actions/completed-travel.actions';
 import { ViewEmployee } from '@tms/actions/employee.actions';
+import { GetTravelStatus } from '@tms/actions/travel-status.actions';
 import { DeleteManyTravels, DeleteOneTravel, RequestTravelsPage, UpdateTravelStatus, ViewTravel } from '@tms/actions/travel.actions';
 import { ViewTruck } from '@tms/actions/truck.actions';
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '@tms/crud';
@@ -14,10 +18,11 @@ import { TravelsDataSource } from '@tms/data-sources';
 import { SubheaderService } from '@tms/layout';
 import { TravelModel, TravelStatusModel } from '@tms/models';
 import { AppState } from '@tms/reducers';
+import { selectTravelStatus } from '@tms/selectors/travel-status.selectors';
 import { selectTravelsPageLastQuery } from '@tms/selectors/travel.selectors';
 import { CustomTranslateService, TranslateParams } from '@tms/translate';
-import { fromEvent, merge, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/operators';
+import { fromEvent, merge, Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, first, skip, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'b404-travels-list',
@@ -25,22 +30,26 @@ import { debounceTime, distinctUntilChanged, skip, takeUntil, tap } from 'rxjs/o
   styleUrls: ['./travels-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TravelsListComponent implements OnInit, OnDestroy {
+export class TravelsListComponent implements OnInit, OnDestroy, AfterViewInit {
+  statusList$: Observable<TravelStatusModel[]>;
+  @ViewChild('mySel') skillSel: MatSelect;
   // Table fields
   showed: boolean;
+  allSelected = false;
+
   dataSource: TravelsDataSource;
   displayedColumns = ['Select', 'Operator', 'Box', 'Truck', 'Status', 'Actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
-  filterStatus = '';
-  filterCondition = '';
+
   lastQuery: QueryParamsModel;
   // Selection
   selection = new SelectionModel<TravelModel>(true, []);
   travelsResult: TravelModel[] = [];
 
+  public statusControl = new FormControl();
   public translateParams: TranslateParams;
   public completedTravelTranslateParams: TranslateParams;
 
@@ -50,7 +59,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private translate: CustomTranslateService,
     private subheaderService: SubheaderService,
-    private layoutUtilsService: LayoutUtilsService,
+    private layoutUtilsService: LayoutUtilsService
   ) {
     this.translateParams = {
       entity: this.translate.instant('TRAVELS.ENTITY'),
@@ -96,17 +105,27 @@ export class TravelsListComponent implements OnInit, OnDestroy {
 
     // Init DataSource
     this.dataSource = new TravelsDataSource(this.store);
-    this.dataSource.entitySubject.pipe(
-      skip(1),
-      distinctUntilChanged(),
-      takeUntil(this.ngUnsuscribe)
-    ).subscribe((res) => {
+    this.dataSource.entitySubject.pipe(skip(1), distinctUntilChanged(), takeUntil(this.ngUnsuscribe)).subscribe((res) => {
       this.travelsResult = res;
     });
     this.store.pipe(select(selectTravelsPageLastQuery), takeUntil(this.ngUnsuscribe)).subscribe((res) => {
       this.lastQuery = res;
     });
-    this.loadTravelsList();
+
+    this.store.dispatch(new GetTravelStatus());
+    this.statusList$ = this.store.pipe(select(selectTravelStatus));
+  }
+
+  ngAfterViewInit() {
+    this.statusList$
+      .pipe(
+        filter((value) => value && value.length > 0),
+        first()
+      )
+      .subscribe((status) => {
+        this.statusControl.setValue(status.map((s) => s.id));
+        this.loadTravelsList();
+      });
   }
 
   ngOnDestroy() {
@@ -125,25 +144,14 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   filterConfiguration(): any {
     const filter: any = {};
     const searchText: string = this.searchInput.nativeElement.value;
-
-    if (this.filterStatus && this.filterStatus.length > 0) {
-      filter.status = +this.filterStatus;
-    }
-
-    if (this.filterCondition && this.filterCondition.length > 0) {
-      filter.condition = +this.filterCondition;
-    }
-
     filter.operator = searchText;
     filter.box = searchText;
     filter.trucks = searchText;
     filter.origin = searchText;
     filter.destination = searchText;
     filter.comments = searchText;
-    filter.loadTime = searchText;
-    filter.downloadTime = searchText;
-    filter.arriveTime = searchText;
-    filter.arriveCustomerTime = searchText;
+    filter.status = this.selectedStatus();
+
     return filter;
   }
 
@@ -228,7 +236,7 @@ export class TravelsListComponent implements OnInit, OnDestroy {
   }
 
   updateStatus(travel: TravelModel) {
-    const currentStatusIndex = travel.status.findIndex(s => s.id === travel.currentStatus);
+    const currentStatusIndex = travel.status.findIndex((s) => s.id === travel.currentStatus);
     const nextStatus = travel.status[currentStatusIndex + 1];
     const status = new TravelStatusModel({
       ...nextStatus,
@@ -244,7 +252,6 @@ export class TravelsListComponent implements OnInit, OnDestroy {
 
       this.store.dispatch(new UpdateTravelStatus({ travelId: travel.id, status: validatedStatus }));
     });
-
   }
 
   viewBox(id: string) {
@@ -261,5 +268,24 @@ export class TravelsListComponent implements OnInit, OnDestroy {
 
   viewTravel(id: string) {
     this.store.dispatch(new ViewTravel({ id }));
+  }
+
+  selectedStatus() {
+    let _status: any;
+    _status = this.statusControl.value;
+    return _status;
+  }
+
+  toggleAllSelection() {
+    this.allSelected = !this.allSelected; // to control select-unselect
+
+    if (this.allSelected) {
+      this.skillSel.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.skillSel.options.forEach((item: MatOption) => {
+        item.deselect();
+      });
+    }
+    this.skillSel.close();
   }
 }

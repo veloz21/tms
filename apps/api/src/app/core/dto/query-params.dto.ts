@@ -8,22 +8,22 @@ enum SortOrder {
 }
 
 export class QueryParamsDto<T> implements IQueryParams {
-
-  // @IsObject()
-  filter: { [key: string]: string; };
+  // @IsArray()
+  @Transform((val) => (typeof val === 'string' ? JSON.parse(val) : val), { toClassOnly: true })
+  filter: {};
 
   @IsEnum(SortOrder, {
-    message: 'The sortOrder must be either "asc" or "desc"'
+    message: 'The sortOrder must be either "asc" or "desc"',
   })
   sortOrder: string;
 
   sortField: string;
 
   @IsInt()
-  @Transform(val => Number.parseInt(val, 10))
+  @Transform((val) => Number.parseInt(val, 10))
   pageNumber: number;
 
   @IsInt()
-  @Transform(val => Number.parseInt(val, 10))
+  @Transform((val) => Number.parseInt(val, 10))
   pageSize: number;
 }

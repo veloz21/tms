@@ -7,6 +7,7 @@ import { Model } from 'mongoose';
 import { forkJoin } from 'rxjs';
 import { TransformInterceptor } from '../../core/interceptors/transform.interceptor';
 import type { HttpOptions } from '../../core/interfaces';
+import { stringToMongoId } from '../../core/utils';
 import { CreateTravelDto } from './dto/create-travel.dto';
 import { TravelDto } from './dto/travel.dto';
 import { UpdateTravelStatusDto } from './dto/update-travel-status.dto';
@@ -17,19 +18,22 @@ import { Travel, TravelDocument } from './schemas/travel.schema';
 
 @Injectable()
 export class TravelsService {
-
   constructor(
     @InjectModel(Travel.name) private readonly travelModel: Model<TravelDocument>,
     @InjectModel(Expense.name) private readonly expenseModel: Model<ExpenseDocument>,
-    @InjectModel(TravelStatus.name) private readonly travelStatusModel: Model<TravelStatusDocument>,
-  ) { }
+    @InjectModel(TravelStatus.name) private readonly travelStatusModel: Model<TravelStatusDocument>
+  ) {}
 
   create(createTravelDto: CreateTravelDto, options: HttpOptions): Promise<TravelDocument> {
     const travelModel = new this.travelModel(createTravelDto);
-    travelModel.expenses = createTravelDto.expenses?.map(e => new this.expenseModel({
-      price: e.price,
-      name: e.name,
-    })) || [];
+    travelModel.expenses =
+      createTravelDto.expenses?.map(
+        (e) =>
+          new this.expenseModel({
+            price: e.price,
+            name: e.name,
+          })
+      ) || [];
     travelModel.company = options.company;
     return travelModel.save({ session: options.session });
   }
@@ -38,8 +42,15 @@ export class TravelsService {
     const limit = Number(queryParams.pageSize);
     const skip = Number(queryParams.pageNumber * queryParams.pageSize);
 
-    const baseQuery = this.travelModel.find({ company: options.company }).session(options.session);
-    const query = this.travelModel.find().merge(baseQuery).sort({ [queryParams.sortField]: queryParams.sortOrder }).limit(limit).skip(skip);
+    let status: string[] = queryParams.filter.status as string[];
+    const statusArray = status.map((s) => stringToMongoId(s));
+    const baseQuery = this.travelModel.find({ $and: [{ company: options.company }, { currentStatus: { $in: statusArray } }] }).session(options.session);
+    const query = this.travelModel
+      .find()
+      .merge(baseQuery)
+      .sort({ [queryParams.sortField]: queryParams.sortOrder })
+      .limit(limit)
+      .skip(skip);
     const countQuery = this.travelModel.find().merge(baseQuery).count();
 
     return forkJoin({
@@ -66,7 +77,7 @@ export class TravelsService {
     const travelDto = plainToClass(TravelDto, travel, { enableImplicitConversion: true });
 
     const newStatusId = updateTravelStatusDto.id;
-    const statusIndex = travelDto.status.findIndex(s => s._id == newStatusId.toString());
+    const statusIndex = travelDto.status.findIndex((s) => s._id == newStatusId.toString());
     travel.status[statusIndex].date = updateTravelStatusDto.date;
     travel.status[statusIndex].comments = updateTravelStatusDto.comments;
     travel.currentStatus = newStatusId;
@@ -75,11 +86,11 @@ export class TravelsService {
   }
 
   remove(_id: mongoose.Types.ObjectId, options: HttpOptions): Promise<TravelDocument> {
-    return this.travelModel.findOneAndRemove({ _id, company: options.company }, { session: options.session, }).exec();
+    return this.travelModel.findOneAndRemove({ _id, company: options.company }, { session: options.session }).exec();
   }
 
   updateCurrentStatus(_id: mongoose.Types.ObjectId, statusId: mongoose.Types.ObjectId, options: HttpOptions): Promise<TravelDocument> {
-    return this.travelModel.findOneAndUpdate({ _id, company: options.company }, { $set: { "currentStatus": statusId } }, { new: true, session: options.session }).exec();
+    return this.travelModel.findOneAndUpdate({ _id, company: options.company }, { $set: { currentStatus: statusId } }, { new: true, session: options.session }).exec();
   }
 
   getTravelStatus(options: HttpOptions) {

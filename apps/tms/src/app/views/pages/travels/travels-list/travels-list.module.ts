@@ -26,11 +26,11 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { LayoutUtilsService } from '@tms/crud';
-import { TravelEffects } from '@tms/effects';
+import { TravelEffects, TravelStatusEffects } from '@tms/effects';
 import { environment } from '@tms/environments/environment';
 import { FakeApiService } from '@tms/layout';
 import { PartialsModule } from '@tms/partials/partials.module';
-import { travelsReducer } from '@tms/reducers';
+import { travelsReducer, travelsStatusReducer } from '@tms/reducers';
 import { CompletedTravelService, TravelsService } from '@tms/services';
 import { SharedModule } from '@tms/shared/shared.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -82,29 +82,21 @@ import { TravelsListComponent } from './travels-list.component';
     ]),
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forFeature(FakeApiService, {
-        passThruUnknownUrl: true,
-        dataEncapsulation: false,
-      })
+          passThruUnknownUrl: true,
+          dataEncapsulation: false,
+        })
       : [],
     StoreModule.forFeature('travels', travelsReducer),
-    EffectsModule.forFeature([TravelEffects]),
+    StoreModule.forFeature('status', travelsStatusReducer),
+    EffectsModule.forFeature([TravelEffects, TravelStatusEffects]),
     SharedModule,
     BoxesViewModule,
     TrucksViewModule,
     EmployeesViewModule,
     TravelsViewModule,
   ],
-  providers: [
-    LayoutUtilsService,
-    TravelsService,
-    CompletedTravelService,
-    ChangeStatusDialogModule,
-  ],
-  entryComponents: [
-    ActionNotificationComponent,
-    DeleteEntityDialogComponent,
-    ChangeStatusDialogComponent
-  ],
+  providers: [LayoutUtilsService, TravelsService, CompletedTravelService, ChangeStatusDialogModule],
+  entryComponents: [ActionNotificationComponent, DeleteEntityDialogComponent, ChangeStatusDialogComponent],
   declarations: [TravelsListComponent],
 })
-export class TravelListModule { }
+export class TravelListModule {}
