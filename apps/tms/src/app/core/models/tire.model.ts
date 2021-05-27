@@ -5,6 +5,8 @@ export class TireModel implements ITire {
   boxId?: string;
   truckId?: string;
   serialNumber: string;
+  brand: string;
+  initialRange: number;
   rangeTraveled: number;
   status: number;
   parentStatus: number;
@@ -17,15 +19,10 @@ export class TireModel implements ITire {
     this.boxId = tire.boxId || undefined;
     this.truckId = tire.truckId || undefined;
     this.serialNumber = tire.serialNumber || '';
+    this.brand = tire.brand || '';
+    this.initialRange = tire.initialRange || null;
     this.rangeTraveled = tire.rangeTraveled || null;
     this.status = tire.status;
     this.parentStatus = tire.parentStatus;
   }
 }
-
-
-
-
-
-
-

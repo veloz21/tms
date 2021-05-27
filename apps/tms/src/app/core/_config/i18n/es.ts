@@ -152,36 +152,36 @@ export const locale = {
         USERS: 'Usuarios',
         ENTITY: {
           GENDER: 'X',
-          VALUE: 'usuario'
+          VALUE: 'usuario',
         },
         ENTITIES: {
           GENDER: 'X',
-          VALUE: 'usuarios'
+          VALUE: 'usuarios',
         },
         MODEL: {
           EMAIL: 'correo',
-          LAST_LOGIN: 'Último login'
-        }
-      }
+          LAST_LOGIN: 'Último login',
+        },
+      },
     },
     COMPLETED_TRAVELS: {
       ENTITY: {
         GENDER: 'X',
-        VALUE: 'viaje completado'
+        VALUE: 'viaje completado',
       },
       ENTITIES: {
         GENDER: 'X',
-        VALUE: 'viajes completados'
+        VALUE: 'viajes completados',
       },
     },
     TRAVELS: {
       ENTITY: {
         GENDER: 'X',
-        VALUE: 'viaje'
+        VALUE: 'viaje',
       },
       ENTITIES: {
         GENDER: 'X',
-        VALUE: 'viajes'
+        VALUE: 'viajes',
       },
       COMPLETED_TRAVEL: {
         TEXT: {
@@ -223,11 +223,11 @@ export const locale = {
       EMPLOYEE: {
         ENTITY: {
           GENDER: 'X',
-          VALUE: 'empleado'
+          VALUE: 'empleado',
         },
         ENTITIES: {
           GENDER: 'X',
-          VALUE: 'empleados'
+          VALUE: 'empleados',
         },
         MODEL: {
           FIRST_NAME: 'Nombre(s)',
@@ -254,11 +254,11 @@ export const locale = {
       TRUCK: {
         ENTITY: {
           GENDER: 'X',
-          VALUE: 'camión'
+          VALUE: 'camión',
         },
         ENTITIES: {
           GENDER: 'X',
-          VALUE: 'camiones'
+          VALUE: 'camiones',
         },
         MODEL: {
           MODEL: 'Modelo',
@@ -279,11 +279,11 @@ export const locale = {
       MAINTENANCE: {
         ENTITY: {
           GENDER: 'X',
-          VALUE: 'mantenimiento'
+          VALUE: 'mantenimiento',
         },
         ENTITIES: {
           GENDER: 'X',
-          VALUE: 'mantenimientos'
+          VALUE: 'mantenimientos',
         },
         MODEL: {
           TRUCK_SERIAL_NUMBER: 'Número serial del camión',
@@ -299,11 +299,11 @@ export const locale = {
       BOXES: {
         ENTITY: {
           GENDER: 'Y',
-          VALUE: 'caja'
+          VALUE: 'caja',
         },
         ENTITIES: {
           GENDER: 'Y',
-          VALUE: 'cajas'
+          VALUE: 'cajas',
         },
         MODEL: {
           MODEL: 'Modelo',
@@ -321,14 +321,16 @@ export const locale = {
       TIRES: {
         ENTITY: {
           GENDER: 'Y',
-          VALUE: 'llanta'
+          VALUE: 'llanta',
         },
         ENTITIES: {
           GENDER: 'Y',
-          VALUE: 'llantas'
+          VALUE: 'llantas',
         },
         MODEL: {
           SERIAL_NUMBER: 'Número serial',
+          BRAND: 'Marca',
+          INITIAL_RANGE: 'Rango Inicial',
           RANGE_TRAVELED: 'Rango viajado',
         },
       },

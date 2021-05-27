@@ -22,7 +22,6 @@ import { delay, takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TiresEditComponent implements OnInit, OnDestroy {
-
   public tire: TireModel;
   public tireId$: Observable<number>;
   public oldTire: TireModel;
@@ -37,17 +36,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
   public translateParams: TranslateParams;
 
   private ngUnsubscribe = new Subject();
-  constructor(
-    private router: Router,
-    public dialog: MatDialog,
-    private tireFB: FormBuilder,
-    private store: Store<AppState>,
-    private cdr: ChangeDetectorRef,
-    private tireService: TiresService,
-    private translate: CustomTranslateService,
-    private activatedRoute: ActivatedRoute,
-    private subheaderService: SubheaderService,
-  ) {
+  constructor(private router: Router, public dialog: MatDialog, private tireFB: FormBuilder, private store: Store<AppState>, private cdr: ChangeDetectorRef, private tireService: TiresService, private translate: CustomTranslateService, private activatedRoute: ActivatedRoute, private subheaderService: SubheaderService) {
     this.translateParams = {
       entity: this.translate.instant('WORKSHOP.TIRES.ENTITY'),
       entities: this.translate.instant('WORKSHOP.TIRES.ENTITIES'),
@@ -56,9 +45,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.tire = this.activatedRoute.snapshot.data.tire as TireModel;
-    this.activatedRoute.data.pipe(
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe(data => {
+    this.activatedRoute.data.pipe(takeUntil(this.ngUnsubscribe)).subscribe((data) => {
       this.loadTire(data.tire);
     });
   }
@@ -80,11 +67,12 @@ export class TiresEditComponent implements OnInit, OnDestroy {
 
   // If product didn't find in store
   loadTireFromService(tireId) {
-    this.tireService.getTireById(tireId).pipe(
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe(res => {
-      this.loadTire(res, true);
-    });
+    this.tireService
+      .getTireById(tireId)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((res) => {
+        this.loadTire(res, true);
+      });
   }
 
   ngOnDestroy() {
@@ -96,44 +84,48 @@ export class TiresEditComponent implements OnInit, OnDestroy {
     this.createForm();
     this.loadingSubject.next(false);
     if (!this.tire.id) {
-      this.subheaderService.setBreadcrumbs([{
-        title: this.translate.instant('WORKSHOP.WORKSHOP'),
-        page: `/workshop`
-      },
-      {
-        title: this.translate.instant('WORKSHOP.TIRES.ENTITIES.VALUE'),
-        page: `/workshop/tires`
-      },
-      {
-        title: this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams),
-        page: `/workshop/tires/add`
-      }
+      this.subheaderService.setBreadcrumbs([
+        {
+          title: this.translate.instant('WORKSHOP.WORKSHOP'),
+          page: `/workshop`,
+        },
+        {
+          title: this.translate.instant('WORKSHOP.TIRES.ENTITIES.VALUE'),
+          page: `/workshop/tires`,
+        },
+        {
+          title: this.translate.instant('MODULE.CREATE_ENTITY', this.translateParams),
+          page: `/workshop/tires/add`,
+        },
       ]);
       return;
     }
 
     this.subheaderService.setTitle(this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams));
-    this.subheaderService.setBreadcrumbs([{
-      title: this.translate.instant('WORKSHOP.WORKSHOP'),
-      page: `/workshop`
-    },
-    {
-      title: this.translate.instant('WORKSHOP.TIRES.ENTITIES.VALUE'),
-      page: `/workshop/tires`
-    },
-    {
-      title: this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams),
-      page: `/workshop/tires/edit`,
-      queryParams: {
-        id: this.tire.id
-      }
-    }
+    this.subheaderService.setBreadcrumbs([
+      {
+        title: this.translate.instant('WORKSHOP.WORKSHOP'),
+        page: `/workshop`,
+      },
+      {
+        title: this.translate.instant('WORKSHOP.TIRES.ENTITIES.VALUE'),
+        page: `/workshop/tires`,
+      },
+      {
+        title: this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams),
+        page: `/workshop/tires/edit`,
+        queryParams: {
+          id: this.tire.id,
+        },
+      },
     ]);
   }
 
   createForm() {
     this.tireForm = this.tireFB.group({
       serialNumber: [this.tire.serialNumber, [Validators.required]],
+      brand: [this.tire.brand, [Validators.required]],
+      initialRange: [this.tire.initialRange, [Validators.required]],
       rangeTraveled: [this.tire.rangeTraveled, [Validators.required]],
     });
   }
@@ -142,29 +134,29 @@ export class TiresEditComponent implements OnInit, OnDestroy {
     this.loadingSubject.next(false);
     const url = `/workshop/tires?id=${id}`;
     this.router.navigateByUrl(url, {
-      relativeTo: this.activatedRoute
+      relativeTo: this.activatedRoute,
     });
   }
 
   goBackWithoutId() {
     this.router.navigateByUrl('/workshop/tires', {
-      relativeTo: this.activatedRoute
+      relativeTo: this.activatedRoute,
     });
   }
 
-  refreshTire(isNew: boolean = false, id = "") {
+  refreshTire(isNew: boolean = false, id = '') {
     this.loadingSubject.next(false);
     let url = this.router.url;
     if (!isNew) {
       this.router.navigate([url], {
-        relativeTo: this.activatedRoute
+        relativeTo: this.activatedRoute,
       });
       return;
     }
 
     url = `/workshop/tires`;
     this.router.navigateByUrl(url, {
-      relativeTo: this.activatedRoute
+      relativeTo: this.activatedRoute,
     });
   }
 
@@ -182,9 +174,7 @@ export class TiresEditComponent implements OnInit, OnDestroy {
     const controls = this.tireForm.controls;
     /** check form */
     if (this.tireForm.invalid) {
-      Object.keys(controls).forEach(controlName =>
-        controls[controlName].markAsTouched()
-      );
+      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
 
       this.hasFormErrors = true;
       this.selectedTab = 0;
@@ -210,21 +200,22 @@ export class TiresEditComponent implements OnInit, OnDestroy {
     _tire.id = this.tire.id;
     _tire.id = this.tire.id;
     _tire.serialNumber = this.tireForm.get('serialNumber').value;
+    _tire.brand = this.tireForm.get('brand').value;
+    _tire.initialRange = this.tireForm.get('initialRange').value;
     _tire.rangeTraveled = this.tireForm.get('rangeTraveled').value;
+
     _tire.status = AVIABILITY_STATUS.AVAILABLE;
     return _tire;
   }
 
   addTire(_tire: TireModel, withBack: boolean = false) {
     this.loadingSubject.next(true);
-    this.store.dispatch(new CreateTire({
-      tire: _tire
-    }));
-    this.store.pipe(
-      delay(1000),
-      select(selectLastCreatedTireId),
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe(newId => {
+    this.store.dispatch(
+      new CreateTire({
+        tire: _tire,
+      })
+    );
+    this.store.pipe(delay(1000), select(selectLastCreatedTireId), takeUntil(this.ngUnsubscribe)).subscribe((newId) => {
       if (!newId) {
         return;
       }
@@ -243,24 +234,26 @@ export class TiresEditComponent implements OnInit, OnDestroy {
 
     const updateTire: Update<TireModel> = {
       id: _tire.id,
-      changes: _tire
+      changes: _tire,
     };
 
-    this.store.dispatch(new UpdateTire({
-      partialTire: updateTire,
-      tire: _tire
-    }));
+    this.store.dispatch(
+      new UpdateTire({
+        partialTire: updateTire,
+        tire: _tire,
+      })
+    );
 
-    of(undefined).pipe(
-      delay(3000),
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe(() => { // Remove this line
-      if (withBack) {
-        this.goBack(_tire.id);
-      } else {
-        this.refreshTire(false);
-      }
-    }); // Remove this line
+    of(undefined)
+      .pipe(delay(3000), takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        // Remove this line
+        if (withBack) {
+          this.goBack(_tire.id);
+        } else {
+          this.refreshTire(false);
+        }
+      }); // Remove this line
   }
 
   getComponentTitle() {
