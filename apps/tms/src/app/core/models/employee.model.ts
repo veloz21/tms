@@ -10,35 +10,37 @@ export class EmployeeModel implements IEmployee {
   type: string;
   birthDate: Date;
   admissionDate: Date;
+  paymentFrequency: string;
   salary: number;
   documents: {
     driversLicense: {
-      type: string,
-      dueDate: Date,
-      attachmentPath: string,
-    },
+      type: string;
+      dueDate: Date;
+      attachmentPath: string;
+    };
     psychophysicistTest: {
-      date: Date,
-      expirationDate: Date,
-      attachmentPath: string,
-    },
+      date: Date;
+      expirationDate: Date;
+      attachmentPath: string;
+    };
     ine: {
-      attachmentPath: string[],
-    },
+      attachmentPath: string[];
+    };
   };
   imagePath: string;
   status: number;
 
   constructor(employee?: Partial<IEmployee>) {
-    this.firstName = employee && employee.firstName || '';
-    this.lastName = employee && employee.lastName || '';
-    this.cellphone = employee && employee.cellphone || '';
-    this.secondaryCellphone = employee && employee.secondaryCellphone || '';
-    this.address = employee && employee.address || '';
-    this.birthDate = employee && employee.birthDate || null;
-    this.admissionDate = employee && employee.admissionDate || null;
-    this.salary = employee && employee.salary || null;
-    this.documents = employee && employee.documents || {
+    this.firstName = (employee && employee.firstName) || '';
+    this.lastName = (employee && employee.lastName) || '';
+    this.cellphone = (employee && employee.cellphone) || '';
+    this.secondaryCellphone = (employee && employee.secondaryCellphone) || '';
+    this.address = (employee && employee.address) || '';
+    this.birthDate = (employee && employee.birthDate) || null;
+    this.admissionDate = (employee && employee.admissionDate) || null;
+    this.paymentFrequency = (employee && employee.paymentFrequency) || '';
+    this.salary = (employee && employee.salary) || null;
+    this.documents = (employee && employee.documents) || {
       driversLicense: {
         type: '',
         dueDate: null,

@@ -242,6 +242,7 @@ export const locale = {
           DRIVERS_LICENSE: 'Licencia de conducir',
           LICENSE_TYPE: 'Tipo de licencia',
           DUE_DATE: 'Fecha de vencimiento',
+          PAYMENT_FREQUENCY: 'Frecuencia de pago',
           PSYCHOPHYSICAL_TEST: 'Test psicofísico',
           TEST_DATE: 'Fecha de la prueba',
           TEST_EXPIRATION_DATE: 'Fecha de expiración de la prueba',

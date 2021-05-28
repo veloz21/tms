@@ -1,4 +1,4 @@
-import { Status } from "./status.enum";
+import { Status } from './status.enum';
 
 export interface IEmployee {
   id?: any;
@@ -9,22 +9,23 @@ export interface IEmployee {
   birthDate: Date;
   type: string;
   admissionDate: Date;
+  paymentFrequency: string;
   secondaryCellphone: string;
   salary: number;
   documents: {
     driversLicense: {
-      type: string,
-      dueDate: Date,
-      attachmentPath: string,
-    },
+      type: string;
+      dueDate: Date;
+      attachmentPath: string;
+    };
     psychophysicistTest: {
-      date: Date,
-      expirationDate: Date,
-      attachmentPath: string,
-    },
+      date: Date;
+      expirationDate: Date;
+      attachmentPath: string;
+    };
     ine: {
-      attachmentPath: string[],
-    },
+      attachmentPath: string[];
+    };
   };
   imagePath: string;
   status: number & Status;

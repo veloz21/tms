@@ -214,6 +214,7 @@ export const locale = {
           SALARY: 'Salary',
           EMPLOYEE_TYPE: 'Employee type',
           DRIVERS_LICENSE: 'Drivers License',
+          PAYMENT_FREQUENCY: 'Payment frequency',
           LICENSE_TYPE: 'License type',
           DUE_DATE: 'Due Date',
           PSYCHOPHYSICAL_TEST: 'Psychophysical test',

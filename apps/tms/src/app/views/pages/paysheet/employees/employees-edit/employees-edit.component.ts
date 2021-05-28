@@ -17,10 +17,9 @@ import { delay, takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'b404-employees-edit',
   templateUrl: './employees-edit.component.html',
-  styleUrls: ['./employees-edit.component.scss']
+  styleUrls: ['./employees-edit.component.scss'],
 })
 export class EmployeesEditComponent implements OnInit {
-
   public employee: EmployeeModel;
   public employeeId$: Observable<string>;
   public oldEmployee: EmployeeModel;
@@ -36,16 +35,7 @@ export class EmployeesEditComponent implements OnInit {
   public translateParams: TranslateParams;
 
   private ngUnsuscribe = new Subject();
-  constructor(
-    public dialog: MatDialog,
-    private router: Router,
-    private store: Store<AppState>,
-    private cdr: ChangeDetectorRef,
-    private employeeFB: FormBuilder,
-    private activatedRoute: ActivatedRoute,
-    private translate: CustomTranslateService,
-    private subheaderService: SubheaderService,
-  ) {
+  constructor(public dialog: MatDialog, private router: Router, private store: Store<AppState>, private cdr: ChangeDetectorRef, private employeeFB: FormBuilder, private activatedRoute: ActivatedRoute, private translate: CustomTranslateService, private subheaderService: SubheaderService) {
     this.translateParams = {
       entity: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITY'),
       entities: this.translate.instant('PAYSHEET.EMPLOYEE.ENTITIES'),
@@ -102,6 +92,7 @@ export class EmployeesEditComponent implements OnInit {
       lastName: [this.employee.lastName, [Validators.required]],
       cellphone: [this.employee.cellphone, [Validators.required]],
       secondaryCellphone: [this.employee.secondaryCellphone],
+      paymentFrequency: [this.employee.paymentFrequency],
       address: [this.employee.address, [Validators.required]],
       birthDate: [this.employee.birthDate, [Validators.nullValidator]],
       type: [this.employee.type],
@@ -181,6 +172,7 @@ export class EmployeesEditComponent implements OnInit {
     _employee.address = this.employeeForm.get('address').value;
     _employee.birthDate = this.employeeForm.get('birthDate').value;
     _employee.admissionDate = this.employeeForm.get('admissionDate').value;
+    _employee.paymentFrequency = this.employeeForm.get('paymentFrequency').value;
     _employee.salary = this.employeeForm.get('salary').value;
     _employee.documents = {
       driversLicense: {
@@ -270,5 +262,4 @@ export class EmployeesEditComponent implements OnInit {
     reader.readAsDataURL(file);
     this.employeeForm.get('image').setValue(file);
   }
-
 }
