@@ -204,10 +204,12 @@ export const locale = {
           VALUE: 'employees',
         },
         MODEL: {
+          NAME:'Name',
           FIRST_NAME: 'First Name',
           LAST_NAME: 'Last Name',
           BIRTH_DATE: 'Birth Date',
           ADDRESS: 'Address',
+          TYPE: 'Employee type',
           CELLPHONE: 'Cellphone',
           SECONDARY_CELLPHONE: 'Secondary cellphone',
           DATE_ADMISSION: 'Date of Admission',

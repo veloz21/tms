@@ -230,9 +230,11 @@ export const locale = {
           VALUE: 'empleados',
         },
         MODEL: {
+          NAME:'Nombre',
           FIRST_NAME: 'Nombre(s)',
           LAST_NAME: 'Apellido(s)',
           ADDRESS: 'Dirección',
+          TYPE: 'Tipo de empleado',
           CELLPHONE: 'Número de celular',
           SECONDARY_CELLPHONE: 'Número secundario de celular',
           BIRTH_DATE: 'Fecha de nacimiento',

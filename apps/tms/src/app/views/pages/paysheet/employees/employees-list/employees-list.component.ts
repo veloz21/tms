@@ -31,15 +31,13 @@ export class EmployeesListComponent implements OnInit, OnDestroy {
   @ViewChild('sort1', { static: true }) sort: MatSort;
   // Filter fields
   @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
-  filterStatus = '';
-  filterCondition = '';
   lastQuery: QueryParamsModel;
   // Selection
   selection = new SelectionModel<EmployeeModel>(true, []);
   employeesResult: EmployeeModel[] = [];
 
   public get displayedColumns() {
-    const cols = ['FirstName', 'LastName', 'BirthDate', 'Salary', 'Cellphone', 'Status', 'Actions'];
+    const cols = ['Name', 'Type', 'Cellphone', 'DriversLicense','Status', 'Actions'];
     if (this.isDesktop) {
       cols.unshift('Select');
     }
