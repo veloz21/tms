@@ -11,3 +11,4 @@ export { InterceptService } from './utils/intercept.service';
 export { LayoutUtilsService, MessageType } from './utils/layout-utils.service';
 export { CheckDistanceValidator } from './utils/truckDistance.validator';
 export { TypesUtilsService } from './utils/types-utils.service';
+export { ConfirmDateValidator } from './utils/validateDate.validator';

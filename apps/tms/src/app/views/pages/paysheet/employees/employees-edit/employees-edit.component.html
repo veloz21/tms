@@ -131,7 +131,7 @@
                 </mat-form-field>
               </div>
 
-             
+
             </div>
           </div>
           <div class="b404-form__group">
@@ -166,9 +166,13 @@
                     formControlName="licensedueDate" />
                   <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
                   <mat-datepicker #dueDate></mat-datepicker>
+                  <mat-error
+                    *ngIf="employeeForm.get('licensedueDate').errors && employeeForm.get('licensedueDate').errors.InvalidDate">
+                    <strong>La licencia ya esta vencida</strong>
+                  </mat-error>
                 </mat-form-field>
               </div>
-              
+
             </div>
           </div>
           <div class="b404-form__group">
@@ -197,17 +201,17 @@
                   <mat-datepicker #testExpirationDate></mat-datepicker>
                 </mat-form-field>
               </div>
-              
+
             </div>
           </div>
-          
+
           <div class="b404-form__group">
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.PSYCHOPHYSICAL_TEST' | b404Translate}}</label><br>
                 <!-- <input type="file" formControlName="testAttachment"> -->
                 <b404-file-drop></b404-file-drop>
-              </div>        
+              </div>
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <label for="">{{'PAYSHEET.EMPLOYEE.MODEL.PHOTOGRAPHY' | b404Translate}}</label><br>
                 <b404-file-drop [(file)]="imageFile" (fileChange)="setImageAsUrl($event)"></b404-file-drop>

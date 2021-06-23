@@ -13,6 +13,7 @@ import { selectLastCreatedEmployeeId } from '@tms/selectors/employee.selectors';
 import { CustomTranslateService, TranslateParams } from '@tms/translate';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { delay, takeUntil } from 'rxjs/operators';
+import { ConfirmDateValidator } from '../../../../../core/_base/crud/utils/validateDate.validator';
 
 @Component({
   selector: 'b404-employees-edit',
@@ -87,26 +88,31 @@ export class EmployeesEditComponent implements OnInit {
   }
 
   createForm() {
-    this.employeeForm = this.employeeFB.group({
-      firstName: [this.employee.firstName, [Validators.required]],
-      lastName: [this.employee.lastName, [Validators.required]],
-      cellphone: [this.employee.cellphone, [Validators.required]],
-      secondaryCellphone: [this.employee.secondaryCellphone],
-      paymentFrequency: [this.employee.paymentFrequency],
-      address: [this.employee.address, [Validators.required]],
-      birthDate: [this.employee.birthDate, [Validators.nullValidator]],
-      type: [this.employee.type],
-      admissionDate: [this.employee.admissionDate, [Validators.nullValidator]],
-      salary: [this.employee.salary, [Validators.required]],
-      licenseType: [this.employee.documents.driversLicense.type],
-      licensedueDate: [this.employee.documents.driversLicense.dueDate],
-      licenseAttchment: [],
-      testDate: [this.employee.documents.psychophysicistTest.date],
-      testExpirationDate: [this.employee.documents.psychophysicistTest.expirationDate],
-      testAttachment: [],
-      ine: [this.employee.documents.ine.attachmentPath],
-      image: [],
-    });
+    this.employeeForm = this.employeeFB.group(
+      {
+        firstName: [this.employee.firstName, [Validators.required]],
+        lastName: [this.employee.lastName, [Validators.required]],
+        cellphone: [this.employee.cellphone, [Validators.required]],
+        secondaryCellphone: [this.employee.secondaryCellphone],
+        paymentFrequency: [this.employee.paymentFrequency],
+        address: [this.employee.address, [Validators.required]],
+        birthDate: [this.employee.birthDate, [Validators.nullValidator]],
+        type: [this.employee.type],
+        admissionDate: [this.employee.admissionDate, [Validators.nullValidator]],
+        salary: [this.employee.salary, [Validators.required]],
+        licenseType: [this.employee.documents.driversLicense.type],
+        licensedueDate: [this.employee.documents.driversLicense.dueDate],
+        licenseAttchment: [],
+        testDate: [this.employee.documents.psychophysicistTest.date],
+        testExpirationDate: [this.employee.documents.psychophysicistTest.expirationDate],
+        testAttachment: [],
+        ine: [this.employee.documents.ine.attachmentPath],
+        image: [],
+      },
+      {
+        validators: ConfirmDateValidator.MatchDate,
+      }
+    );
   }
 
   goBack(id) {
