@@ -102,7 +102,7 @@ export const locale = {
       INPUTS: {
         SEARCH: 'Search',
         SEARCH_IN_ALL_FIELDS: 'Search in all fields',
-      }
+      },
     },
     MODULE: {
       LIST: '{{entities}} list',
@@ -133,31 +133,31 @@ export const locale = {
       USERS: {
         USERS: 'Users',
         ENTITY: {
-          VALUE: 'user'
+          VALUE: 'user',
         },
         ENTITIES: {
-          VALUE: 'users'
+          VALUE: 'users',
         },
         MODEL: {
           EMAIL: 'correo',
-          LAST_LOGIN: 'Último login'
-        }
-      }
+          LAST_LOGIN: 'Último login',
+        },
+      },
     },
     COMPLETED_TRAVELS: {
       ENTITY: {
-        VALUE: 'completed travel'
+        VALUE: 'completed travel',
       },
       ENTITIES: {
-        VALUE: 'completed travels'
+        VALUE: 'completed travels',
       },
     },
     TRAVELS: {
       ENTITY: {
-        VALUE: 'travel'
+        VALUE: 'travel',
       },
       ENTITIES: {
-        VALUE: 'travels'
+        VALUE: 'travels',
       },
       COMPLETED_TRAVEL: {
         TEXT: {
@@ -198,22 +198,25 @@ export const locale = {
       PAYSHEET: 'Paysheet',
       EMPLOYEE: {
         ENTITY: {
-          VALUE: 'employee'
+          VALUE: 'employee',
         },
         ENTITIES: {
-          VALUE: 'employees'
+          VALUE: 'employees',
         },
         MODEL: {
+          NAME:'Name',
           FIRST_NAME: 'First Name',
           LAST_NAME: 'Last Name',
           BIRTH_DATE: 'Birth Date',
           ADDRESS: 'Address',
+          TYPE: 'Employee type',
           CELLPHONE: 'Cellphone',
           SECONDARY_CELLPHONE: 'Secondary cellphone',
           DATE_ADMISSION: 'Date of Admission',
           SALARY: 'Salary',
           EMPLOYEE_TYPE: 'Employee type',
           DRIVERS_LICENSE: 'Drivers License',
+          PAYMENT_FREQUENCY: 'Payment frequency',
           LICENSE_TYPE: 'License type',
           DUE_DATE: 'Due Date',
           PSYCHOPHYSICAL_TEST: 'Psychophysical test',
@@ -227,10 +230,10 @@ export const locale = {
       WORKSHOP: 'Workshop',
       TRUCK: {
         ENTITY: {
-          VALUE: 'truck'
+          VALUE: 'truck',
         },
         ENTITIES: {
-          VALUE: 'trucks'
+          VALUE: 'trucks',
         },
         MODEL: {
           MODEL: 'Model',
@@ -250,10 +253,10 @@ export const locale = {
       },
       MAINTENANCE: {
         ENTITY: {
-          VALUE: 'maintenance'
+          VALUE: 'maintenance',
         },
         ENTITIES: {
-          VALUE: 'maintenances'
+          VALUE: 'maintenances',
         },
         MODEL: {
           TRUCK_SERIAL_NUMBER: 'Truck serial number',
@@ -268,10 +271,10 @@ export const locale = {
       },
       BOXES: {
         ENTITY: {
-          VALUE: 'box'
+          VALUE: 'box',
         },
         ENTITIES: {
-          VALUE: 'boxex'
+          VALUE: 'boxex',
         },
         MODEL: {
           MODEL: 'Model',
@@ -288,14 +291,16 @@ export const locale = {
       },
       TIRES: {
         ENTITY: {
-          VALUE: 'tire'
+          VALUE: 'tire',
         },
         ENTITIES: {
-          VALUE: 'tires'
+          VALUE: 'tires',
         },
         MODEL: {
           SERIAL_NUMBER: 'Serial number',
-          RANGE_TRAVELED: 'Range Traveled',
+          BRAND: 'Brand',
+          RANGE_TRAVELED: 'Range traveled',
+          INITIAL_RANGE: 'Initial range',
         },
       },
     },

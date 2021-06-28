@@ -8,7 +8,6 @@ export type TireDocument = Tire & Document;
 
 @Schema()
 export class Tire implements ITire {
-
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Truck' })
   truckId: mongoose.Types.ObjectId;
 
@@ -17,6 +16,12 @@ export class Tire implements ITire {
 
   @Prop()
   serialNumber: string;
+
+  @Prop()
+  brand: string;
+
+  @Prop()
+  initialRange: number;
 
   @Prop()
   rangeTraveled: number;

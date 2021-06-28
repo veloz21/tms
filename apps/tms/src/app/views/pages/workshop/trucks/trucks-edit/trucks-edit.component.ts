@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Update } from '@ngrx/entity';
 import { select, Store } from '@ngrx/store';
 import { CreateTruck, UpdateTruck } from '@tms/actions/truck.actions';
+import { CheckDistanceValidator } from '@tms/crud';
 import { AVIABILITY_STATUS } from '@tms/enums';
 import { SubheaderService } from '@tms/layout';
 import { TruckModel } from '@tms/models';
@@ -18,10 +19,9 @@ import { TiresSharedEditComponent } from '../../tires/tires-shared-edit/tires-sh
 @Component({
   selector: 'b404-trucks-edit',
   templateUrl: './trucks-edit.component.html',
-  styleUrls: ['./trucks-edit.component.scss']
+  styleUrls: ['./trucks-edit.component.scss'],
 })
 export class TrucksEditComponent implements OnInit, OnDestroy {
-
   public truck: TruckModel;
   public truckId$: Observable<number>;
   public oldTruck: TruckModel;
@@ -36,16 +36,7 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
 
   @ViewChild(TiresSharedEditComponent) private tires: TiresSharedEditComponent;
   private ngUnsuscribe = new Subject();
-  constructor(
-    private router: Router,
-    public dialog: MatDialog,
-    private truckFB: FormBuilder,
-    private store: Store<AppState>,
-    private cdr: ChangeDetectorRef,
-    private activatedRoute: ActivatedRoute,
-    private translate: CustomTranslateService,
-    private subheaderService: SubheaderService,
-  ) {
+  constructor(private router: Router, public dialog: MatDialog, private truckFB: FormBuilder, private store: Store<AppState>, private cdr: ChangeDetectorRef, private activatedRoute: ActivatedRoute, private translate: CustomTranslateService, private subheaderService: SubheaderService) {
     this.translateParams = {
       entity: this.translate.instant('WORKSHOP.TRUCK.ENTITY'),
       entities: this.translate.instant('WORKSHOP.TRUCK.ENTITIES'),
@@ -54,11 +45,9 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.truck = this.activatedRoute.snapshot.data[' truck '];
-    this.activatedRoute.data
-      .pipe(takeUntil(this.ngUnsuscribe))
-      .subscribe((data) => {
-        this.loadTruck(data.truck);
-      });
+    this.activatedRoute.data.pipe(takeUntil(this.ngUnsuscribe)).subscribe((data) => {
+      this.loadTruck(data.truck);
+    });
   }
 
   loadTruck(_truck, fromService: boolean = false) {
@@ -116,19 +105,24 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
-    this.truckForm = this.truckFB.group({
-      truckModel: [this.truck.truckModel, [Validators.required]],
-      nickName: [this.truck.nickname],
-      brand: [this.truck.brand, [Validators.required]],
-      serialNumber: [this.truck.serialNumber, [Validators.required]],
-      motorNumber: [this.truck.motorNumber, [Validators.required]],
-      maintenancePeriod: [this.truck.maintenancePeriod, [Validators.required]],
-      price: [this.truck.price],
-      initialRange: [this.truck.initialRange, [Validators.required]],
-      rangeTraveled: [this.truck.rangeTraveled, [Validators.required]],
-      image: [],
-      tires: this.truckFB.array([]),
-    });
+    this.truckForm = this.truckFB.group(
+      {
+        truckModel: [this.truck.truckModel, [Validators.required]],
+        nickName: [this.truck.nickname],
+        brand: [this.truck.brand, [Validators.required]],
+        serialNumber: [this.truck.serialNumber, [Validators.required]],
+        motorNumber: [this.truck.motorNumber, [Validators.required]],
+        maintenancePeriod: [this.truck.maintenancePeriod, [Validators.required]],
+        price: [this.truck.price],
+        initialRange: [this.truck.initialRange, [Validators.required]],
+        rangeTraveled: [this.truck.rangeTraveled, [Validators.required]],
+        image: [],
+        tires: this.truckFB.array([]),
+      },
+      {
+        validator: CheckDistanceValidator.CheckDistance,
+      }
+    );
   }
 
   goBack(id) {
@@ -169,9 +163,7 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
     const controls = this.truckForm.controls;
     /** check form */
     if (this.truckForm.invalid) {
-      Object.keys(controls).forEach((controlName) =>
-        controls[controlName].markAsTouched()
-      );
+      Object.keys(controls).forEach((controlName) => controls[controlName].markAsTouched());
 
       this.hasFormErrors = true;
       this.selectedTab = 0;
@@ -212,23 +204,17 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
 
   addTruck(_truck: TruckModel, withBack: boolean = false) {
     this.store.dispatch(new CreateTruck({ truck: _truck }));
-    this.store
-      .pipe(
-        delay(1000),
-        select(selectLastCreatedTruckId),
-        takeUntil(this.ngUnsuscribe)
-      )
-      .subscribe((newId) => {
-        if (!newId) {
-          return;
-        }
-        this.loadingSubject.next(false);
-        if (withBack) {
-          this.goBack(newId);
-        } else {
-          this.refreshTruck(true, newId);
-        }
-      });
+    this.store.pipe(delay(1000), select(selectLastCreatedTruckId), takeUntil(this.ngUnsuscribe)).subscribe((newId) => {
+      if (!newId) {
+        return;
+      }
+      this.loadingSubject.next(false);
+      if (withBack) {
+        this.goBack(newId);
+      } else {
+        this.refreshTruck(true, newId);
+      }
+    });
   }
 
   updateTruck(_truck: TruckModel, withBack: boolean = false) {
@@ -260,9 +246,7 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
       return result;
     }
 
-    result =
-      this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams) +
-      ` - ${this.truck.truckModel} ${this.truck.brand} ${this.truck.serialNumber}`;
+    result = this.translate.instant('MODULE.EDIT_ENTITY', this.translateParams) + ` - ${this.truck.truckModel} ${this.truck.brand} ${this.truck.serialNumber}`;
     return result;
   }
 
@@ -279,5 +263,4 @@ export class TrucksEditComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
     this.truckForm.get('image').setValue(file);
   }
-
 }

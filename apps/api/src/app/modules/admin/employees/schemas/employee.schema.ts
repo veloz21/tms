@@ -10,7 +10,6 @@ export type EmployeeDocument = Employee & Document;
 
 @Schema()
 export class Employee extends User implements IEmployee {
-
   @Prop()
   firstName: string;
 
@@ -34,6 +33,9 @@ export class Employee extends User implements IEmployee {
 
   @Prop()
   secondaryCellphone: string;
+
+  @Prop()
+  paymentFrequency: string;
 
   @Prop({ type: Number })
   status: number & Status;

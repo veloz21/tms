@@ -127,6 +127,10 @@
                           {{'WORKSHOP.TRUCK.MODEL.RANGE_TRAVELED' | b404Translate }}
                           <strong><span>{{"GENERAL.TEXT.REQUIRED" | b404Translate}}</span></strong>
                         </mat-error>
+                        <mat-error
+                          *ngIf="truckForm.get('rangeTraveled').errors && truckForm.get('rangeTraveled').errors.TruckDistance">
+                          <strong>La distancia viajada no puede ser menor que la inicial</strong>
+                        </mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4 b404-margin-bottom-10-mobile">

@@ -32,6 +32,7 @@
 
         <div class="b404-form__section b404-form__section--first">
           <div class="b404-form__group">
+
             <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
@@ -44,6 +45,33 @@
                   </mat-error>
                 </mat-form-field>
               </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.TIRES.MODEL.BRAND' | b404Translate}}</mat-label>
+                  <input matInput placeholder="{{'WORKSHOP.TIRES.MODEL.BRAND' | b404Translate}}"
+                    formControlName="brand" type="text" required>
+                  <mat-error>
+                    {{'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate}}
+                    <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 b404-margin-bottom-10-mobile">
+                <mat-form-field appearance="outline" class="mat-form-field-fluid">
+                  <mat-label>{{'WORKSHOP.TIRES.MODEL.INITIAL_RANGE' | b404Translate}}</mat-label>
+                  <input matInput placeholder="{{'WORKSHOP.TIRES.MODEL.INITIAL_RANGE' | b404Translate}}"
+                    formControlName="initialRange" type="number" required>
+                  <mat-error>
+                    {{'WORKSHOP.TIRES.MODEL.INITIAL_RANGE' | b404Translate}}
+                    <strong>{{'GENERAL.TEXT.REQUIRED' | b404Translate}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="b404-form__group">
+
+            <div class="row">
               <div class="col-md-4 b404-margin-bottom-10-mobile">
                 <mat-form-field appearance="outline" class="mat-form-field-fluid">
                   <mat-label>{{'WORKSHOP.TIRES.MODEL.RANGE_TRAVELED' | b404Translate}}</mat-label>
